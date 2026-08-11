@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<additional>
+    <poi id="rsu-1" x="100" y="25.0" color="0,0,255" layer="10"/>
+    <poi id="rsu-2" x="380" y="25.0" color="0,0,255" layer="10"/>
+    <poi id="rsu-3" x="680" y="25.0" color="0,0,255" layer="10"/>
+    <poi id="rsu-4" x="980" y="25.0" color="0,0,255" layer="10"/>
+    <poi id="rsu-5" x="1280" y="25.0" color="0,0,255" layer="10"/>
+    <poi id="rsu-6" x="1550" y="25.0" color="0,0,255" layer="10"/>
+</additional>

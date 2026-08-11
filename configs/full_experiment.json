@@ -1,0 +1,176 @@
+{
+  "weights": {
+    "C": 0.2,
+    "rho": 0.15,
+    "F": 0.15,
+    "Q": 0.2,
+    "eta": 0.3
+  },
+  "network": {
+    "base_latency_ms": 8.0,
+    "jitter_ms": 3.0,
+    "packet_delivery_ratio": 0.98,
+    "max_retries": 2,
+    "retry_backoff_ms": 5.0,
+    "queue_rate_bytes_per_second": 2000000.0
+  },
+  "pbft": {
+    "validators": [
+      "rsu-1",
+      "rsu-2",
+      "rsu-3",
+      "rsu-4"
+    ],
+    "max_byzantine": 1,
+    "timeout_ms": 120.0,
+    "max_views": 4,
+    "validator_behaviors": {},
+    "state_recovery_enabled": true
+  },
+  "central": {
+    "workers": 4,
+    "service_time_ms": 12.0,
+    "queue_capacity": 1000,
+    "availability": 0.995,
+    "compromised": false,
+    "compromise_mode": "false_revocation",
+    "audit_replica_enabled": true
+  },
+  "detector": {
+    "rsu_range_m": 450.0,
+    "witness_range_m": 180.0,
+    "position_error_threshold_m": 20.0,
+    "speed_error_threshold_mps": 5.0,
+    "replay_max_age_seconds": 2.5,
+    "flood_messages_per_second": 3,
+    "false_denm_deceleration_threshold_mps2": -3.0,
+    "benign_clean_confidence": 0.78,
+    "freshness_tau_seconds": 12.0
+  },
+  "sumo": {
+    "step_length_seconds": 1.0,
+    "end_time_seconds": 95.0,
+    "use_gui": false,
+    "sumo_binary": null,
+    "netconvert_binary": null,
+    "scenario_directory": "sumo/smoke",
+    "rsu_file": "rsus.json",
+    "attack_file": "attacks.json",
+    "deterministic_seed": 1001,
+    "keep_sumo_output": true
+  },
+  "security": {
+    "deterministic_master_seed": "vpuft-thesis-reproducible-keys-v1",
+    "compromised_rsus": [],
+    "compromised_witness_ratio": 0.1
+  },
+  "simulation": {
+    "seeds": [
+      1001,
+      1002,
+      1003,
+      1004,
+      1005,
+      1006,
+      1007,
+      1008,
+      1009,
+      1010
+    ],
+    "cases_per_seed": 60,
+    "malicious_ratio": 0.3,
+    "witness_count_mean": 4.0,
+    "rsu_count": 6,
+    "source": "sumo"
+  },
+  "policies": {
+    "position_offset": {
+      "required_roots": 2,
+      "required_sources": 2,
+      "required_zones": 2,
+      "required_modalities": 1,
+      "margin_threshold": 0.45,
+      "opposition_lambda": 1.0,
+      "cryptographic_decisive": false,
+      "freshness_window_seconds": 15.0,
+      "min_representative_weight": 0.05
+    },
+    "speed_offset": {
+      "required_roots": 2,
+      "required_sources": 2,
+      "required_zones": 1,
+      "required_modalities": 1,
+      "margin_threshold": 0.45,
+      "opposition_lambda": 1.0,
+      "cryptographic_decisive": false,
+      "freshness_window_seconds": 15.0,
+      "min_representative_weight": 0.05
+    },
+    "replay": {
+      "required_roots": 1,
+      "required_sources": 1,
+      "required_zones": 1,
+      "required_modalities": 1,
+      "margin_threshold": 0.35,
+      "opposition_lambda": 1.0,
+      "cryptographic_decisive": true,
+      "freshness_window_seconds": 15.0,
+      "min_representative_weight": 0.05
+    },
+    "certificate_tamper": {
+      "required_roots": 1,
+      "required_sources": 1,
+      "required_zones": 1,
+      "required_modalities": 1,
+      "margin_threshold": 0.25,
+      "opposition_lambda": 1.0,
+      "cryptographic_decisive": true,
+      "freshness_window_seconds": 15.0,
+      "min_representative_weight": 0.05
+    },
+    "flood": {
+      "required_roots": 2,
+      "required_sources": 2,
+      "required_zones": 1,
+      "required_modalities": 1,
+      "margin_threshold": 0.5,
+      "opposition_lambda": 1.0,
+      "cryptographic_decisive": false,
+      "freshness_window_seconds": 15.0,
+      "min_representative_weight": 0.05
+    },
+    "false_denm": {
+      "required_roots": 2,
+      "required_sources": 2,
+      "required_zones": 2,
+      "required_modalities": 1,
+      "margin_threshold": 0.5,
+      "opposition_lambda": 1.0,
+      "cryptographic_decisive": false,
+      "freshness_window_seconds": 15.0,
+      "min_representative_weight": 0.05
+    },
+    "mixed": {
+      "required_roots": 2,
+      "required_sources": 2,
+      "required_zones": 2,
+      "required_modalities": 1,
+      "margin_threshold": 0.55,
+      "opposition_lambda": 1.0,
+      "cryptographic_decisive": false,
+      "freshness_window_seconds": 15.0,
+      "min_representative_weight": 0.05
+    },
+    "benign": {
+      "required_roots": 2,
+      "required_sources": 2,
+      "required_zones": 1,
+      "required_modalities": 1,
+      "margin_threshold": 0.5,
+      "opposition_lambda": 1.0,
+      "cryptographic_decisive": false,
+      "freshness_window_seconds": 15.0,
+      "min_representative_weight": 0.05
+    }
+  }
+}

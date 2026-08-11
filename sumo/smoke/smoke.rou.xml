@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes>
+    <vType id="passenger" accel="2.6" decel="4.5" sigma="0.3" length="5" minGap="2.5" maxSpeed="16.67" guiShape="passenger"/>
+    <route id="clockwise" edges="e01 e12 e23 e34 e45 e50"/>
+    <route id="counterclockwise" edges="e05 e54 e43 e32 e21 e10"/>
+    <vehicle id="veh_000" type="passenger" route="clockwise" depart="0" departSpeed="12"/>
+    <vehicle id="veh_001" type="passenger" route="counterclockwise" depart="1" departSpeed="12"/>
+    <vehicle id="veh_002" type="passenger" route="clockwise" depart="2" departSpeed="13"/>
+    <vehicle id="veh_003" type="passenger" route="counterclockwise" depart="3" departSpeed="13"/>
+    <vehicle id="veh_004" type="passenger" route="clockwise" depart="4" departSpeed="12"/>
+    <vehicle id="veh_005" type="passenger" route="counterclockwise" depart="5" departSpeed="12"/>
+    <vehicle id="veh_006" type="passenger" route="clockwise" depart="6" departSpeed="13"/>
+    <vehicle id="veh_007" type="passenger" route="counterclockwise" depart="7" departSpeed="13"/>
+    <vehicle id="veh_008" type="passenger" route="clockwise" depart="8" departSpeed="12"/>
+    <vehicle id="veh_009" type="passenger" route="counterclockwise" depart="9" departSpeed="12"/>
+    <vehicle id="veh_010" type="passenger" route="clockwise" depart="10" departSpeed="13"/>
+    <vehicle id="veh_011" type="passenger" route="counterclockwise" depart="11" departSpeed="13"/>
+    <vehicle id="veh_012" type="passenger" route="clockwise" depart="12" departSpeed="12"/>
+    <vehicle id="veh_013" type="passenger" route="counterclockwise" depart="13" departSpeed="12"/>
+    <vehicle id="veh_014" type="passenger" route="clockwise" depart="14" departSpeed="13"/>
+    <vehicle id="veh_015" type="passenger" route="counterclockwise" depart="15" departSpeed="13"/>
+    <vehicle id="veh_016" type="passenger" route="clockwise" depart="16" departSpeed="12"/>
+    <vehicle id="veh_017" type="passenger" route="counterclockwise" depart="17" departSpeed="12"/>
+    <vehicle id="veh_018" type="passenger" route="clockwise" depart="18" departSpeed="13"/>
+    <vehicle id="veh_019" type="passenger" route="counterclockwise" depart="19" departSpeed="13"/>
+    <vehicle id="veh_020" type="passenger" route="clockwise" depart="20" departSpeed="12"/>
+    <vehicle id="veh_021" type="passenger" route="counterclockwise" depart="21" departSpeed="12"/>
+    <vehicle id="veh_022" type="passenger" route="clockwise" depart="22" departSpeed="13"/>
+    <vehicle id="veh_023" type="passenger" route="counterclockwise" depart="23" departSpeed="13"/>
+</routes>

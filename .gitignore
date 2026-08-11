@@ -1,0 +1,14 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+sumo-gui.log
+.DS_Store
+Thumbs.db
+
+/result
+/FINAL_FREEZE_v7_20260809
+/.venv

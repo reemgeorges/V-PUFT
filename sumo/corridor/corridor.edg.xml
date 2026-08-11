@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<edges>
+  <edge id="c01" from="c0" to="c1" priority="2" numLanes="2" speed="22.22"/>
+  <edge id="c10" from="c1" to="c0" priority="2" numLanes="2" speed="22.22"/>
+  <edge id="c12" from="c1" to="c2" priority="2" numLanes="2" speed="22.22"/>
+  <edge id="c21" from="c2" to="c1" priority="2" numLanes="2" speed="22.22"/>
+  <edge id="c23" from="c2" to="c3" priority="2" numLanes="2" speed="22.22"/>
+  <edge id="c32" from="c3" to="c2" priority="2" numLanes="2" speed="22.22"/>
+  <edge id="c34" from="c3" to="c4" priority="2" numLanes="2" speed="22.22"/>
+  <edge id="c43" from="c4" to="c3" priority="2" numLanes="2" speed="22.22"/>
+</edges>

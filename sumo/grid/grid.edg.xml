@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<edges>
+  <edge id="g00_g10" from="g00" to="g10" priority="2" numLanes="1" speed="13.89"/>
+  <edge id="g10_g00" from="g10" to="g00" priority="2" numLanes="1" speed="13.89"/>
+  <edge id="g10_g20" from="g10" to="g20" priority="2" numLanes="1" speed="13.89"/>
+  <edge id="g20_g10" from="g20" to="g10" priority="2" numLanes="1" speed="13.89"/>
+  <edge id="g01_g11" from="g01" to="g11" priority="2" numLanes="1" speed="13.89"/>
+  <edge id="g11_g01" from="g11" to="g01" priority="2" numLanes="1" speed="13.89"/>
+  <edge id="g11_g21" from="g11" to="g21" priority="2" numLanes="1" speed="13.89"/>
+  <edge id="g21_g11" from="g21" to="g11" priority="2" numLanes="1" speed="13.89"/>
+  <edge id="g02_g12" from="g02" to="g12" priority="2" numLanes="1" speed="13.89"/>
+  <edge id="g12_g02" from="g12" to="g02" priority="2" numLanes="1" speed="13.89"/>
+  <edge id="g12_g22" from="g12" to="g22" priority="2" numLanes="1" speed="13.89"/>
+  <edge id="g22_g12" from="g22" to="g12" priority="2" numLanes="1" speed="13.89"/>
+  <edge id="g00_g01" from="g00" to="g01" priority="2" numLanes="1" speed="13.89"/>
+  <edge id="g01_g00" from="g01" to="g00" priority="2" numLanes="1" speed="13.89"/>
+  <edge id="g01_g02" from="g01" to="g02" priority="2" numLanes="1" speed="13.89"/>
+  <edge id="g02_g01" from="g02" to="g01" priority="2" numLanes="1" speed="13.89"/>
+  <edge id="g10_g11" from="g10" to="g11" priority="2" numLanes="1" speed="13.89"/>
+  <edge id="g11_g10" from="g11" to="g10" priority="2" numLanes="1" speed="13.89"/>
+  <edge id="g11_g12" from="g11" to="g12" priority="2" numLanes="1" speed="13.89"/>
+  <edge id="g12_g11" from="g12" to="g11" priority="2" numLanes="1" speed="13.89"/>
+  <edge id="g20_g21" from="g20" to="g21" priority="2" numLanes="1" speed="13.89"/>
+  <edge id="g21_g20" from="g21" to="g20" priority="2" numLanes="1" speed="13.89"/>
+  <edge id="g21_g22" from="g21" to="g22" priority="2" numLanes="1" speed="13.89"/>
+  <edge id="g22_g21" from="g22" to="g21" priority="2" numLanes="1" speed="13.89"/>
+</edges>

@@ -1,0 +1,10 @@
+{
+  "weights": {"C": 0.20, "rho": 0.15, "F": 0.15, "Q": 0.20, "eta": 0.30},
+  "network": {"base_latency_ms": 8.0, "jitter_ms": 3.0, "packet_delivery_ratio": 0.98, "max_retries": 2, "retry_backoff_ms": 5.0, "queue_rate_bytes_per_second": 2000000.0},
+  "pbft": {"validators": ["rsu-1", "rsu-2", "rsu-3", "rsu-4"], "max_byzantine": 1, "timeout_ms": 120.0, "max_views": 4, "validator_behaviors": {}, "state_recovery_enabled": true},
+  "central": {"workers": 4, "service_time_ms": 12.0, "queue_capacity": 500, "availability": 1.0, "compromised": false, "compromise_mode": "false_revocation", "audit_replica_enabled": true},
+  "detector": {"rsu_range_m": 450.0, "witness_range_m": 180.0, "position_error_threshold_m": 20.0, "speed_error_threshold_mps": 5.0, "replay_max_age_seconds": 2.5, "flood_messages_per_second": 3, "false_denm_deceleration_threshold_mps2": -3.0, "benign_clean_confidence": 0.78, "freshness_tau_seconds": 12.0},
+  "sumo": {"step_length_seconds": 1.0, "end_time_seconds": 95.0, "use_gui": false, "sumo_binary": null, "netconvert_binary": null, "scenario_directory": "sumo/smoke", "rsu_file": "rsus.json", "attack_file": "attacks.json", "deterministic_seed": 1001, "keep_sumo_output": true},
+  "security": {"deterministic_master_seed": "vpuft-thesis-reproducible-keys-v1", "compromised_rsus": [], "compromised_witness_ratio": 0.10},
+  "simulation": {"seeds": [1001], "cases_per_seed": 20, "malicious_ratio": 0.30, "witness_count_mean": 4.0, "rsu_count": 6, "source": "sumo"}
+}

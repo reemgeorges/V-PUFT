@@ -1,0 +1,44 @@
+[
+  {
+    "id": "rsu-1",
+    "x": 100,
+    "y": 25.0,
+    "domain": "domain-1",
+    "reliability": 0.96
+  },
+  {
+    "id": "rsu-2",
+    "x": 380,
+    "y": 25.0,
+    "domain": "domain-1",
+    "reliability": 0.948
+  },
+  {
+    "id": "rsu-3",
+    "x": 680,
+    "y": 25.0,
+    "domain": "domain-2",
+    "reliability": 0.9359999999999999
+  },
+  {
+    "id": "rsu-4",
+    "x": 980,
+    "y": 25.0,
+    "domain": "domain-2",
+    "reliability": 0.9239999999999999
+  },
+  {
+    "id": "rsu-5",
+    "x": 1280,
+    "y": 25.0,
+    "domain": "domain-3",
+    "reliability": 0.9119999999999999
+  },
+  {
+    "id": "rsu-6",
+    "x": 1550,
+    "y": 25.0,
+    "domain": "domain-3",
+    "reliability": 0.8999999999999999
+  }
+]

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nodes>
+  <node id="g00" x="0" y="0" type="priority"/>
+  <node id="g10" x="400" y="0" type="priority"/>
+  <node id="g20" x="800" y="0" type="priority"/>
+  <node id="g01" x="0" y="400" type="priority"/>
+  <node id="g11" x="400" y="400" type="priority"/>
+  <node id="g21" x="800" y="400" type="priority"/>
+  <node id="g02" x="0" y="800" type="priority"/>
+  <node id="g12" x="400" y="800" type="priority"/>
+  <node id="g22" x="800" y="800" type="priority"/>
+</nodes>

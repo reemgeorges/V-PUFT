@@ -1,0 +1,229 @@
+from __future__ import annotations
+
+import time
+from hashlib import sha256
+from collections import defaultdict
+from dataclasses import asdict, replace
+
+from .base import Architecture
+from ..consensus import PBFTConsensus
+from ..domain import ArchitectureRunResult, EvidenceCase, EvidenceDirection, TrustDecision
+from ..ledger import Ledger
+from ..network import SimulatedTransport
+
+
+class AhmedInspiredWitnessVPUFT(Architecture):
+    """
+    Vehicle-witness threshold architecture inspired by Ahmed et al. (2022).
+
+    The article's native witness threshold is retained only as ablation metadata.
+    The actual trust decision in this main model is always made by the shared V-PUFT engine.
+    """
+
+    name = "ahmed_inspired_witness_vpuft"
+
+    def __init__(self, config, keys, native_reference_threshold: int = 2) -> None:
+        super().__init__(config, keys)
+        self.native_reference_threshold = native_reference_threshold
+
+    def _witness_package(self, case: EvidenceCase) -> tuple[EvidenceCase, bool]:
+        grouped = defaultdict(list)
+        for att in case.attestations:
+            grouped[att.observation_root_id].append(att)
+        packaged = EvidenceCase(
+            case_id=case.case_id,
+            vehicle_id=case.vehicle_id,
+            pseudonym=case.pseudonym,
+            attack_type=case.attack_type,
+            opened_at=case.opened_at,
+            ground_truth_malicious=case.ground_truth_malicious,
+        )
+        for _root, items in grouped.items():
+            witness_items = [item for item in items if item.source_kind == "vehicle_witness"]
+            if not witness_items:
+                continue
+            validators = sorted({item.validator_rsu_id for item in witness_items})
+            package_validator = validators[0]
+            for item in witness_items:
+                packaged.add(replace(item, validator_rsu_id=package_validator))
+        return packaged, self._native_reference_qualified(packaged)
+
+    def _native_reference_qualified(self, packaged: EvidenceCase) -> bool:
+        supporting_witness_roots = {
+            att.observation_root_id
+            for att in packaged.attestations
+            if att.source_kind == "vehicle_witness" and att.direction == EvidenceDirection.SUPPORTS
+        }
+        return len(supporting_witness_roots) >= self.native_reference_threshold
+
+    def _threshold_certificate(self, packaged: EvidenceCase) -> dict:
+        witnesses = sorted({att.source_id for att in packaged.attestations})
+        roots = sorted({att.observation_root_id for att in packaged.attestations})
+        commitments = [sha256(witness.encode("utf-8")).hexdigest()[:24] for witness in witnesses]
+        digest_material = "|".join([packaged.case_id, *roots, *commitments])
+        return {
+            "type": "pseudonymized_threshold_witness_bundle",
+            "threshold": self.native_reference_threshold,
+            "unique_witnesses": len(witnesses),
+            "independent_witness_roots": len(roots),
+            "member_commitments": commitments,
+            "bundle_digest": sha256(digest_material.encode("utf-8")).hexdigest(),
+            "literal_threshold_ring_signature": False,
+        }
+
+    def run(self, cases, seed: int) -> ArchitectureRunResult:
+        started = time.perf_counter()
+        transport = SimulatedTransport(self.config.network, seed + 59)
+        pbft = PBFTConsensus(self.config.pbft, transport, self.keys)
+        ledgers = {validator: Ledger() for validator in self.config.pbft.validators}
+        decisions, outcomes, evidence_rows = [], [], []
+        recoveries = 0
+
+        evidence_coordinator = self.config.pbft.validators[0]
+        for case in sorted(cases, key=lambda c: (c.opened_at, c.case_id)):
+            clean = self.sanitize_case(case)
+            packaged, _native_reference_before_transport = self._witness_package(clean)
+            detected_at = min((a.observed_at for a in packaged.attestations), default=case.opened_at)
+            coordinator_arrivals: list[float] = []
+            delivered_attestations = []
+            for att in packaged.attestations:
+                first_hop = transport.send(
+                    message_type="WITNESS_REPORT_TO_RSU",
+                    sender=att.source_id,
+                    receiver=att.validator_rsu_id,
+                    case_id=case.case_id,
+                    sent_at=att.observed_at,
+                    size_bytes=800,
+                )
+                if first_hop.delivered_at is None:
+                    continue
+                if att.validator_rsu_id == evidence_coordinator:
+                    coordinator_arrivals.append(first_hop.delivered_at)
+                    delivered_attestations.append(att)
+                    continue
+                forward = transport.send(
+                    message_type="RSU_WITNESS_EVIDENCE_FORWARD",
+                    sender=att.validator_rsu_id,
+                    receiver=evidence_coordinator,
+                    case_id=case.case_id,
+                    sent_at=first_hop.delivered_at,
+                    size_bytes=704,
+                )
+                if forward.delivered_at is not None:
+                    coordinator_arrivals.append(forward.delivered_at)
+                    delivered_attestations.append(att)
+
+            delivered_packaged = self.subset_case(packaged, delivered_attestations)
+            native_reference = self._native_reference_qualified(delivered_packaged)
+            threshold_certificate = self._threshold_certificate(delivered_packaged)
+            evidence_rows.extend(self.evidence_row(case, att, seed) for att in delivered_packaged.attestations)
+            now = max(coordinator_arrivals, default=case.opened_at)
+            result = self.engine.qualify(delivered_packaged, now)
+            previous, _ = self.state_machine.pre_finalize(case.vehicle_id, result)
+            if not result.qualified:
+                _, final_state = self.state_machine.finalize(case.vehicle_id, False)
+                decisions.append(TrustDecision(
+                    case_id=case.case_id,
+                    vehicle_id=case.vehicle_id,
+                    architecture=self.name,
+                    previous_state=previous,
+                    new_state=final_state,
+                    detected_at=detected_at,
+                    qualified_at=None,
+                    finalized_at=None,
+                    ledger_available_at=None,
+                    decision_margin=result.decision_margin,
+                    committed=False,
+                    reason=result.reason,
+                    metadata={
+                        "article_native_reference_qualified": native_reference,
+                        "witness_attestations": len(delivered_packaged.attestations),
+                        "attempted_witness_attestations": len(packaged.attestations),
+                        "dropped_witness_attestations": len(packaged.attestations) - len(delivered_packaged.attestations),
+                        "evidence_coordinator": evidence_coordinator,
+                        "correlated_suppressed": result.correlated_suppressed,
+                        "threshold_certificate": threshold_certificate,
+                    },
+                ))
+                continue
+
+            payload = {
+                "vehicle_id": case.vehicle_id,
+                "case_id": case.case_id,
+                "attack_type": case.attack_type.value,
+                "architecture": self.name,
+                "qualification": asdict(result),
+                "article_native_reference_qualified": native_reference,
+                "threshold_certificate": threshold_certificate,
+            }
+            outcome = pbft.finalize(case_id=case.case_id, payload=payload, started_at=now)
+            outcomes.append(outcome)
+            _, final_state = self.state_machine.finalize(case.vehicle_id, outcome.committed)
+            ledger_time = None
+            if outcome.committed and outcome.committed_at is not None:
+                leader = outcome.leader or self.config.pbft.validators[0]
+                ledgers[leader].append(case.case_id, payload, outcome.committed_at)
+                replication_times = []
+                for validator in self.config.pbft.validators:
+                    if validator == leader:
+                        continue
+                    msg = transport.send(
+                        message_type="LEDGER_REPLICATION",
+                        sender=leader,
+                        receiver=validator,
+                        case_id=case.case_id,
+                        sent_at=outcome.committed_at,
+                        size_bytes=1180,
+                    )
+                    if msg.delivered_at is not None:
+                        ledgers[validator].copy_from(ledgers[leader])
+                        replication_times.append(msg.delivered_at)
+                ledger_time = max(replication_times, default=outcome.committed_at)
+                if self.config.pbft.state_recovery_enabled:
+                    longest = max(ledgers.values(), key=lambda ledger: len(ledger.blocks))
+                    for validator, ledger in ledgers.items():
+                        if len(ledger.blocks) < len(longest.blocks) and ledger.recover_from(list(ledgers.values())):
+                            recoveries += 1
+
+            decisions.append(TrustDecision(
+                case_id=case.case_id,
+                vehicle_id=case.vehicle_id,
+                architecture=self.name,
+                previous_state=previous,
+                new_state=final_state,
+                detected_at=detected_at,
+                qualified_at=now,
+                finalized_at=outcome.committed_at,
+                ledger_available_at=ledger_time,
+                decision_margin=result.decision_margin,
+                committed=outcome.committed,
+                reason=outcome.reason,
+                metadata={
+                    "article_native_reference_qualified": native_reference,
+                    "view": outcome.view,
+                    "view_changes": outcome.view_changes,
+                    "prepare_votes": outcome.prepare_votes,
+                    "commit_votes": outcome.commit_votes,
+                    "witness_attestations": len(delivered_packaged.attestations),
+                    "attempted_witness_attestations": len(packaged.attestations),
+                    "dropped_witness_attestations": len(packaged.attestations) - len(delivered_packaged.attestations),
+                    "evidence_coordinator": evidence_coordinator,
+                    "correlated_suppressed": result.correlated_suppressed,
+                    "threshold_certificate": threshold_certificate,
+                },
+            ))
+
+        consistent = all(ledger.validate() for ledger in ledgers.values())
+        hashes = {tuple(block.block_hash for block in ledger.blocks) for ledger in ledgers.values()}
+        consistent = consistent and len(hashes) <= 1
+        return ArchitectureRunResult(
+            architecture=self.name,
+            decisions=decisions,
+            messages=transport.messages,
+            consensus=outcomes,
+            ledger_blocks=max((len(ledger.blocks) for ledger in ledgers.values()), default=0),
+            evidence_rows=evidence_rows,
+            runtime_seconds=time.perf_counter() - started,
+            ledger_consistent=consistent,
+            state_recoveries=recoveries,
+        )
