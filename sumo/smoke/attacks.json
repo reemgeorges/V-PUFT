@@ -1,0 +1,9 @@
+[
+  {"vehicle_id":"veh_002","attack_type":"position_offset","start":18.0,"end":70.0,"position_offset_m":65.0},
+  {"vehicle_id":"veh_004","attack_type":"speed_offset","start":20.0,"end":72.0,"speed_offset_mps":11.0},
+  {"vehicle_id":"veh_006","attack_type":"replay","start":22.0,"end":74.0,"replay_delay_steps":4},
+  {"vehicle_id":"veh_008","attack_type":"certificate_tamper","start":24.0,"end":76.0},
+  {"vehicle_id":"veh_010","attack_type":"flood","start":26.0,"end":78.0,"messages_per_step":5},
+  {"vehicle_id":"veh_012","attack_type":"false_denm","start":28.0,"end":80.0,"denm_period_seconds":5.0},
+  {"vehicle_id":"veh_014","attack_type":"mixed","start":30.0,"end":82.0,"position_offset_m":45.0,"speed_offset_mps":8.0,"messages_per_step":4}
+]

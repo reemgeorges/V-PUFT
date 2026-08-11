@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>الفصل الخامس - النتائج والمناقشة</title>
+  <style>
+    body {
+      font-family: "Tahoma", "Arial", sans-serif;
+      line-height: 2;
+      margin: 0;
+      background: #ffffff;
+      color: #1f2937;
+    }
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 48px 56px;
+    }
+    h1, h2, h3, h4 {
+      color: #111827;
+      line-height: 1.6;
+    }
+    h1 {
+      text-align: center;
+      font-size: 30px;
+      margin-bottom: 12px;
+    }
+    h2 {
+      font-size: 24px;
+      margin-top: 44px;
+      border-bottom: 2px solid #d1d5db;
+      padding-bottom: 8px;
+    }
+    h3 {
+      font-size: 20px;
+      margin-top: 30px;
+    }
+    h4 {
+      font-size: 18px;
+      margin-top: 24px;
+    }
+    p {
+      text-align: justify;
+      margin: 12px 0;
+    }
+    .subtitle {
+      text-align: center;
+      color: #4b5563;
+      margin-bottom: 32px;
+    }
+    .equation {
+      direction: ltr;
+      text-align: center;
+      font-family: "Times New Roman", serif;
+      font-size: 20px;
+      margin: 20px auto;
+      padding: 12px 18px;
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      max-width: 760px;
+    }
+    .note, .important, .interpretation {
+      padding: 14px 18px;
+      border-radius: 8px;
+      margin: 18px 0;
+    }
+    .note {
+      background: #f9fafb;
+      border-right: 4px solid #6b7280;
+    }
+    .important {
+      background: #fff7ed;
+      border-right: 4px solid #ea580c;
+    }
+    .interpretation {
+      background: #eff6ff;
+      border-right: 4px solid #2563eb;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 14px;
+    }
+    th, td {
+      border: 1px solid #d1d5db;
+      padding: 9px 10px;
+      text-align: center;
+      vertical-align: middle;
+    }
+    th {
+      background: #f3f4f6;
+      font-weight: 700;
+    }
+    .ltr-table {
+      direction: ltr;
+    }
+    .figure {
+      margin: 30px auto;
+      text-align: center;
+      page-break-inside: avoid;
+    }
+    .figure img {
+      max-width: 100%;
+      height: auto;
+      border: 1px solid #e5e7eb;
+      border-radius: 6px;
+    }
+    .caption {
+      font-weight: 700;
+      margin-top: 8px;
+      color: #374151;
+    }
+    ul, ol {
+      margin: 10px 26px 18px 0;
+    }
+    li {
+      margin: 6px 0;
+    }
+    .summary-box {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      padding: 20px 24px;
+      border-radius: 10px;
+      margin: 24px 0;
+    }
+    .small {
+      font-size: 13px;
+      color: #4b5563;
+    }
+    .page-break {
+      page-break-before: always;
+    }
+    @media print {
+      body {
+        background: white;
+      }
+      .page {
+        max-width: none;
+        padding: 18mm 16mm;
+      }
+      .figure img {
+        max-height: 180mm;
+      }
+      h2, h3 {
+        page-break-after: avoid;
+      }
+      table, .figure, .note, .important, .interpretation {
+        page-break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <h1>الفصل الخامس: النتائج والمناقشة</h1>
+  <div class="subtitle">
+    تقييم أداء المعماريات الثلاث لتطبيق إطار V-PUFT في شبكات المركبات اللاسلكية المعتمدة على سلاسل الكتل
+  </div>
+
+  <h2>5.1 مقدمة</h2>
+  <p>
+    يعرض هذا الفصل النتائج النهائية للتجارب التي أُجريت بهدف تقييم أداء شبكات المركبات اللاسلكية
+    المعتمدة على سلاسل الكتل، وذلك من خلال مقارنة ثلاث معماريات تستخدم إطار الثقة V-PUFT نفسه،
+    مع اختلاف موقع تنفيذ التأهيل، ومصدر الأدلة، وطريقة تثبيت القرار النهائي.
+  </p>
+
+  <p>
+    لا تهدف المقارنة إلى مقارنة ثلاث خوارزميات كشف مستقلة، وإنما إلى قياس أثر البنية المعمارية
+    على أداء إطار ثقة موحد. ولهذا استُخدمت البيانات التجريبية نفسها، والبذور نفسها، وأشكال الشبكة
+    نفسها، وسياسات الثقة نفسها، ومتجه أوزان مشترك، بحيث يكون الاختلاف في النتائج مرتبطاً قدر الإمكان
+    بطريقة بناء المعمارية ونقل الأدلة وتثبيت القرار.
+  </p>
+
+  <p>تمت مقارنة المعماريات الآتية:</p>
+  <ol>
+    <li><strong>Centralized V-PUFT:</strong> تجميع الأدلة المؤهلة لدى خادم مركزي واتخاذ القرار مركزياً.</li>
+    <li><strong>Distributed RSU V-PUFT:</strong> تبادل أدلة وحدات الطريق RSUs مع تثبيت القرارات من خلال PBFT.</li>
+    <li><strong>Ahmed-Inspired Witness V-PUFT:</strong> استخدام أدلة شهود من المركبات مع مسار تحقق موزع، مع الاستفادة من بنية مستوحاة معمارياً من عمل Ahmed وآخرين دون اعتبارها تطبيقاً حرفياً لخوارزميتهم الأصلية.</li>
+  </ol>
+
+  <div class="important">
+    <strong>ملاحظة منهجية:</strong>
+    النتائج المعروضة في هذا الفصل هي النتائج النهائية بعد استكمال تدقيق عزل الحقيقة الأرضية،
+    وعزل الحساسات، وتصحيح الاستدلال الخاص بهجمات Replay، ومنع التشكيل المزدوج للحالات runtime،
+    وتوحيد عدالة النقل بين المعماريات، وتصحيح شرط قابلية تنفيذ سياسة Mixed، ثم إعادة المعايرة
+    وإعادة تشغيل المعماريات على الأدلة نفسها دون إعادة تشغيل SUMO.
+  </div>
+
+  <h2>5.2 تصميم التجربة</h2>
+
+  <h3>5.2.1 أشكال الشبكة</h3>
+  <p>
+    تم تنفيذ الحملة التجريبية عبر أربعة أشكال مختلفة للشبكة والحركة المرورية هي:
+    <strong>Smoke</strong>، و<strong>Corridor</strong>، و<strong>Intersection</strong>، و<strong>Grid</strong>.
+    يهدف هذا التنوع إلى تقليل اعتماد النتيجة على شكل مروري واحد فقط، وإلى اختبار استقرار الاتجاه العام
+    لأداء المعماريات عبر أكثر من بيئة حركة واتصال.
+  </p>
+
+  <h3>5.2.2 أنواع الهجمات</h3>
+  <p>شملت الدراسة الأنواع الآتية من الهجمات:</p>
+  <ul>
+    <li>Certificate Tamper</li>
+    <li>False DENM</li>
+    <li>Flood</li>
+    <li>Mixed</li>
+    <li>Position Offset</li>
+    <li>Replay</li>
+    <li>Speed Offset</li>
+  </ul>
+
+  <p>
+    يمثل هذا التنوع مزيجاً بين الهجمات المشفرة المباشرة، والهجمات الحركية، والهجمات السياقية،
+    والهجمات المركبة، وهو ما يسمح بدراسة قدرة إطار V-PUFT على التعامل مع أنماط أدلة مختلفة
+    بدلاً من الاقتصار على هجوم واحد.
+  </p>
+
+  <h3>5.2.3 مبدأ عدالة المقارنة</h3>
+  <p>
+    تم تصميم المقارنة بحيث تمر الأدلة عبر مسارات النقل الخاصة بكل معمارية قبل استخدامها في التأهيل.
+    لذلك لا يُسمح للمعمارية باستخدام دليل لم يصل إليها فعلياً عبر نموذج النقل.
+  </p>
+  <ul>
+    <li>في المعمارية المركزية: لا تُستخدم إلا الأدلة التي وصلت إلى الخادم.</li>
+    <li>في المعمارية الموزعة: تكون أدلة المنسق المحلية متاحة محلياً، بينما يجب أن تصل أدلة RSUs الأخرى عبر تبادل RSU-to-RSU.</li>
+    <li>في معمارية الشهود: يجب أن تصل شهادة المركبة إلى Validator RSU أولاً، ثم تنتقل الأدلة البعيدة إلى المنسق عند الحاجة.</li>
+  </ul>
+
+  <p>
+    يمنع هذا الأسلوب المقارنة غير العادلة التي قد تنتج عن إعطاء إحدى المعماريات أدلة مثالية أو
+    غير متأثرة بالفقد والتأخير، في حين تخضع معمارية أخرى لظروف النقل.
+  </p>
+
+  <h2>5.3 مقاييس التقييم</h2>
+
+  <h3>5.3.1 الاستدعاء Recall</h3>
+  <p>
+    يقيس الاستدعاء نسبة الحالات الخبيثة التي تم اكتشافها وإلغاؤها بصورة صحيحة.
+  </p>
+  <div class="equation">Recall = TP / (TP + FN)</div>
+  <p>
+    كلما ارتفعت القيمة دل ذلك على قدرة أكبر للنظام على منع الحالات الخبيثة من المرور دون اكتشاف.
+  </p>
+
+  <h3>5.3.2 الدقة Precision</h3>
+  <div class="equation">Precision = TP / (TP + FP)</div>
+  <p>
+    تشير الدقة إلى نسبة قرارات الإلغاء التي كانت صحيحة فعلاً، ولذلك فهي مهمة لتقييم مدى محافظة
+    النظام على المركبات السليمة.
+  </p>
+
+  <h3>5.3.3 معدل الإلغاء الخاطئ FRR</h3>
+  <div class="equation">FRR = FP / (FP + TN)</div>
+  <p>
+    يمثل هذا المؤشر نسبة الحالات السليمة التي تم إلغاؤها بالخطأ، وبالتالي يكون انخفاضه أفضل.
+  </p>
+
+  <h3>5.3.4 مقياس F1</h3>
+  <div class="equation">F1 = 2 × (Precision × Recall) / (Precision + Recall)</div>
+  <p>
+    يوفر F1 مقياساً مركباً يوازن بين Precision وRecall، لذلك يفيد في الحالات التي لا يكون فيها
+    أي من المقياسين منفرداً كافياً لتوصيف الأداء.
+  </p>
+
+  <h3>5.3.5 معامل MCC</h3>
+  <div class="equation">
+    MCC = (TP × TN − FP × FN) /
+    √((TP + FP)(TP + FN)(TN + FP)(TN + FN))
+  </div>
+  <p>
+    تم اعتماد MCC لأنه يأخذ في الحسبان عناصر مصفوفة الالتباس الأربعة، ويعطي مؤشراً أكثر توازناً
+    عندما تكون أعداد الحالات السليمة والخبيثة غير متساوية.
+  </p>
+
+  <h3>5.3.6 مؤشرات الأداء الشبكي والحاسوبي</h3>
+  <p>إضافة إلى مقاييس الثقة، تم تحليل:</p>
+  <ul>
+    <li>P95 End-to-End Latency.</li>
+    <li>عدد الرسائل لكل قرار.</li>
+    <li>عدد البايتات لكل قرار.</li>
+    <li>Packet Delivery Ratio.</li>
+    <li>زمن التنفيذ.</li>
+    <li>استهلاك الذاكرة.</li>
+    <li>نجاح الإجماع في المعماريات التي تستخدم PBFT.</li>
+    <li>اتساق السجل.</li>
+  </ul>
+
+  <h2>5.4 معايرة أوزان V-PUFT</h2>
+
+  <p>
+    يستخدم V-PUFT وزناً لكل دليل يعتمد على مجموعة من الخصائص، ويُعبّر عنه في الدراسة بالعلاقة:
+  </p>
+
+  <div class="equation">
+    w<sub>i</sub> =
+    V<sub>i</sub>
+    C<sub>i</sub><sup>α<sub>C</sub></sup>
+    ρ<sub>i</sub><sup>α<sub>ρ</sub></sup>
+    F<sub>i</sub><sup>α<sub>F</sub></sup>
+    Q<sub>i</sub><sup>α<sub>Q</sub></sup>
+    η<sub>i</sub><sup>α<sub>η</sub></sup>
+  </div>
+
+  <p>مع الشرط:</p>
+
+  <div class="equation">
+    α<sub>C</sub> + α<sub>ρ</sub> + α<sub>F</sub> + α<sub>Q</sub> + α<sub>η</sub> = 1
+  </div>
+
+  <p>وبعد المعايرة النهائية تم اختيار المتجه الآتي:</p>
+
+  <table class="ltr-table">
+    <thead>
+      <tr>
+        <th>العامل</th>
+        <th>القيمة النهائية</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>C</td><td>0.3652673862</td></tr>
+      <tr><td>ρ</td><td>0.1619526015</td></tr>
+      <tr><td>F</td><td>0.0637051764</td></tr>
+      <tr><td>Q</td><td>0.4060895778</td></tr>
+      <tr><td>η</td><td>0.0029852581</td></tr>
+    </tbody>
+  </table>
+
+  <p>
+    تشير القيم إلى أن المرشح الذي اختارته عملية المعايرة منح أعلى وزن نسبي لعامل Q، يليه عامل C.
+    إلا أن هذه النتيجة لا تعني أن هذه الأوزان ثوابت عامة لجميع شبكات VANET، بل تمثل المتجه الأنسب
+    ضمن بيانات وإعدادات هذه الدراسة.
+  </p>
+
+  <p>حقق المتجه المختار على مجموعة الـHoldout النتائج الآتية:</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>المقياس</th>
+        <th>القيمة</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Recall</td><td>0.8333</td></tr>
+      <tr><td>Precision</td><td>0.8770 تقريباً</td></tr>
+      <tr><td>FRR</td><td>0.0237</td></tr>
+      <tr><td>MCC</td><td>0.8263</td></tr>
+      <tr><td>Balanced Accuracy</td><td>0.9048</td></tr>
+    </tbody>
+  </table>
+
+  <p>
+    كما بلغ Recall في عرض RSU نحو 78.61%، بينما بلغ في عرض Witness نحو 88.06%.
+  </p>
+
+  <div class="important">
+    لم يحقق أي مرشح جميع القيود المعلنة مسبقاً في كل fold وكل evidence-source view، ولذلك بقيت
+    القيمة <strong>selection_feasible = false</strong>. لم يتم تخفيف قيد Recall أو FRR بعد رؤية
+    النتائج، بل تم الاحتفاظ بأفضل مرشح وفق قاعدة الترتيب المعرفة مسبقاً. هذه النقطة مهمة لتجنب
+    Post-hoc Tuning.
+  </div>
+
+  <h2>5.5 النتائج الإجمالية للمعماريات</h2>
+
+  <table class="ltr-table">
+    <thead>
+      <tr>
+        <th>Architecture</th>
+        <th>Precision</th>
+        <th>Recall</th>
+        <th>FRR</th>
+        <th>F1</th>
+        <th>MCC</th>
+        <th>P95 Latency (ms)</th>
+        <th>Messages/Decision</th>
+        <th>Bytes/Decision</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Centralized V-PUFT</td>
+        <td>0.9082</td>
+        <td>0.8091</td>
+        <td>0.0165</td>
+        <td>0.8551</td>
+        <td>0.8303</td>
+        <td>14183.85</td>
+        <td>48.05</td>
+        <td>33829.79</td>
+      </tr>
+      <tr>
+        <td>Distributed RSU V-PUFT</td>
+        <td>0.9082</td>
+        <td>0.8091</td>
+        <td>0.0165</td>
+        <td>0.8551</td>
+        <td>0.8303</td>
+        <td>14356.60</td>
+        <td>45.39</td>
+        <td>30779.18</td>
+      </tr>
+      <tr>
+        <td>Ahmed-Inspired Witness V-PUFT</td>
+        <td>0.8546</td>
+        <td><strong>0.8940</strong></td>
+        <td>0.0309</td>
+        <td><strong>0.8730</strong></td>
+        <td><strong>0.8474</strong></td>
+        <td>14682.75</td>
+        <td>168.06</td>
+        <td>125295.28</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>5.5.1 تحليل Recall</h3>
+  <p>
+    حققت معمارية Ahmed-Inspired Witness V-PUFT أعلى Recall بلغ نحو 89.40%، مقارنة بنحو
+    80.91% لكل من Centralized وDistributed RSU. يعادل ذلك زيادة مطلقة تقارب 8.49 نقاط مئوية.
+  </p>
+
+  <p>
+    تظهر هذه النتيجة أن مسار الشهود استطاع توفير أدلة كافية لإلغاء نسبة أكبر من الحالات الخبيثة.
+    ومع ذلك لا يجوز اعتبار هذه المعمارية الأفضل مطلقاً، لأن رفع Recall ترافق مع تكلفة أعلى في FRR
+    والاتصالات والموارد.
+  </p>
+
+  <div class="figure">
+    <img src="Fig_01_Global_Recall.png" alt="Global Recall" />
+    <div class="caption">الشكل 5-1. معدل اكتشاف الحالات الخبيثة في المعماريات الثلاث.</div>
+  </div>
+
+  <h3>5.5.2 تحليل FRR</h3>
+  <p>
+    سجلت المعماريتان Centralized وDistributed RSU معدل FRR بلغ نحو 1.65%، بينما ارتفع
+    إلى نحو 3.09% في Ahmed-Inspired Witness V-PUFT.
+  </p>
+
+  <p>
+    تمثل هذه النتيجة مقايضة واضحة بين زيادة حساسية الاكتشاف والمحافظة على الحالات السليمة.
+    فالمعمارية التي اعتمدت على تنوع أكبر في الأدلة تمكنت من اكتشاف حالات خبيثة أكثر، لكنها في الوقت
+    نفسه ألغت نسبة أكبر من الحالات السليمة.
+  </p>
+
+  <div class="figure">
+    <img src="Fig_02_Global_FRR.png" alt="Global FRR" />
+    <div class="caption">الشكل 5-2. معدل الإلغاء الخاطئ في المعماريات الثلاث.</div>
+  </div>
+
+  <h3>5.5.3 تحليل MCC وF1</h3>
+  <p>
+    بلغ MCC في Ahmed-Inspired نحو 0.8474، مقابل 0.8303 في كل من Centralized وDistributed.
+    كما بلغ F1 نحو 0.8730 في Ahmed-Inspired مقابل 0.8551 في المعماريتين الأخريين.
+  </p>
+
+  <p>
+    ارتفاع MCC وF1 إلى جانب Recall يعني أن تحسن اكتشاف الحالات الخبيثة لم يكن نتيجة زيادة عشوائية
+    في الإلغاءات فقط، مع بقاء ضرورة الانتباه إلى ارتفاع FRR.
+  </p>
+
+  <div class="figure">
+    <img src="Fig_03_Global_MCC.png" alt="Global MCC" />
+    <div class="caption">الشكل 5-3. معامل MCC في المعماريات الثلاث.</div>
+  </div>
+
+  <h2>5.6 النتائج حسب نوع الهجوم</h2>
+
+  <table class="ltr-table">
+    <thead>
+      <tr>
+        <th>Attack</th>
+        <th>Centralized</th>
+        <th>Distributed RSU</th>
+        <th>Ahmed-Inspired</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Certificate Tamper</td><td>100.00%</td><td>100.00%</td><td>100.00%</td></tr>
+      <tr><td>False DENM</td><td>71.09%</td><td>71.09%</td><td><strong>87.50%</strong></td></tr>
+      <tr><td>Flood</td><td>96.00%</td><td>96.00%</td><td>96.00%</td></tr>
+      <tr><td>Mixed</td><td>33.55%</td><td>33.55%</td><td><strong>89.68%</strong></td></tr>
+      <tr><td>Position Offset</td><td><strong>96.88%</strong></td><td><strong>96.88%</strong></td><td>81.88%</td></tr>
+      <tr><td>Replay</td><td>74.68%</td><td>74.68%</td><td><strong>87.34%</strong></td></tr>
+      <tr><td>Speed Offset</td><td><strong>98.74%</strong></td><td><strong>98.74%</strong></td><td>86.79%</td></tr>
+    </tbody>
+  </table>
+
+  <div class="figure">
+    <img src="Fig_07_Attack_Specific_Recall.png" alt="Attack Specific Recall" />
+    <div class="caption">الشكل 5-4. Recall حسب نوع الهجوم والمعمارية.</div>
+  </div>
+
+  <h3>5.6.1 Certificate Tamper</h3>
+  <p>
+    حققت المعماريات الثلاث Recall يساوي 100% في هجوم Certificate Tamper. ينسجم هذا الأداء
+    مع طبيعة الدليل المشفر الذي يمكن التحقق منه بصورة أكثر مباشرة من الأدلة السياقية.
+  </p>
+
+  <p>
+    في إطار V-PUFT يتم الفصل مفاهيمياً بين الأدلة المشفرة الحاسمة وبين الأدلة التي تحتاج إلى
+    corroboration سياقي من عدة مصادر، وهو ما يساعد على تفسير الاستجابة المرتفعة لهذا النوع من الهجمات.
+  </p>
+
+  <h3>5.6.2 Flood</h3>
+  <p>
+    حققت المعماريات الثلاث Recall بلغ 96% لهجوم Flood. يشير هذا التقارب إلى أن نمط Flood كان
+    قابلاً للكشف بفاعلية في المعماريات الثلاث متى توافرت الأدلة المستقلة المطلوبة.
+  </p>
+
+  <p>
+    هذه النتيجة مهمة لأنها توضح أن زيادة عدد الشهود لا تؤدي آلياً إلى تفوق في جميع الهجمات.
+    ففي Flood لم يظهر مكسب واضح لمعمارية الشهود في Recall النهائي.
+  </p>
+
+  <h3>5.6.3 Mixed</h3>
+  <p>
+    يمثل هجوم Mixed أكبر فارق بين المعماريات. حققت Ahmed-Inspired Recall بلغ 89.68%،
+    بينما حققت Centralized وDistributed RSU نحو 33.55% فقط.
+  </p>
+
+  <p>
+    أظهر تدقيق القرارات أن الحالات كانت تُستنتج في مرحلة inference كـMixed، لكن عدداً كبيراً من
+    الحالات في عرض RSU لم يحقق متطلبات تنوع الأدلة المستقلة. في المقابل وفر مسار الشهود عدداً أكبر
+    من الحالات التي اجتازت متطلبات الاستقلال والتنوع.
+  </p>
+
+  <p>
+    لا تعني هذه النتيجة أن مجرد زيادة عدد الرسائل تحسن الأداء، لأن V-PUFT لا يحتسب المشتقات الناتجة
+    من أصل observation واحد بوصفها جذور أدلة مستقلة. القيمة هنا ترتبط بإمكانية توفير
+    <strong>provenance diversity</strong> أوسع.
+  </p>
+
+  <div class="interpretation">
+    <strong>التفسير العلمي:</strong>
+    معمارية Witness كانت أكثر فاعلية في الهجمات المركبة التي تحتاج إلى corroboration متعدد المصادر،
+    بينما كانت معمارية RSU أكثر تحفظاً، ولذلك فشلت نسبة أكبر من الحالات في اجتياز بوابة qualification.
+  </div>
+
+  <h3>5.6.4 Replay</h3>
+  <p>
+    سجلت Ahmed-Inspired Recall بلغ 87.34%، مقابل 74.68% في Centralized وDistributed.
+    يشير ذلك إلى استفادة مسار الشهود من الملاحظات الإضافية في دعم اكتشاف الرسائل القديمة أو غير
+    المتوافقة مع السياق الحالي.
+  </p>
+
+  <p>
+    تم في النسخة النهائية استخدام استدلال Root-Aware لتجنب اعتبار الآثار الحركية الناتجة عن نفس
+    الرسالة المعاد إرسالها عائلات هجومية مستقلة. وبالتالي لم يعد ظهور position أو speed inconsistency
+    الناتج من Replay كافياً وحده لتحويل الحالة إلى Mixed إذا كان مصدره observation root نفسه.
+  </p>
+
+  <h3>5.6.5 False DENM</h3>
+  <p>
+    بلغ Recall نحو 87.50% في Ahmed-Inspired، مقابل 71.09% في المعماريتين الأخريين.
+    تتوافق هذه النتيجة مع الطبيعة السياقية لهجوم False DENM، حيث يكون وجود عدة شهود مستقلين مفيداً
+    في تأييد الحدث أو معارضته.
+  </p>
+
+  <h3>5.6.6 Position Offset</h3>
+  <p>
+    حققت Centralized وDistributed Recall بلغ 96.88%، بينما بلغت القيمة 81.88% في
+    Ahmed-Inspired. يدل ذلك على أن evidence view المعتمد على RSUs كان أكثر فاعلية في سيناريو الدراسة
+    عند كشف الانحراف المباشر في الموقع.
+  </p>
+
+  <p>
+    يمكن ربط ذلك باستقرار المراقبة النسبية لدى RSUs مقارنة بالشهود المتحركين، لكن هذا التفسير يجب
+    عرضه بحذر لأنه يتأثر بافتراضات نموذج الحساسات وضوضاء القياس المستخدمة في التجربة.
+  </p>
+
+  <h3>5.6.7 Speed Offset</h3>
+  <p>
+    حققت Centralized وDistributed Recall بلغ 98.74%، مقابل 86.79% في Ahmed-Inspired.
+    وكما في Position Offset، أظهرت أدلة RSU تفوقاً في الشذوذات الحركية المباشرة.
+  </p>
+
+  <h2>5.7 تحليل زمن الاستجابة</h2>
+
+  <p>بلغ P95 End-to-End Latency:</p>
+  <ul>
+    <li>Centralized V-PUFT: حوالي 14.184 ثانية.</li>
+    <li>Distributed RSU V-PUFT: حوالي 14.357 ثانية.</li>
+    <li>Ahmed-Inspired Witness V-PUFT: حوالي 14.683 ثانية.</li>
+  </ul>
+
+  <p>
+    حققت المعمارية المركزية أقل زمن إجمالي لأنها لا تحتاج إلى مرحلة إجماع موزع. أضافت Distributed
+    زمناً محدوداً بسبب تبادل الأدلة والإجماع، بينما احتاجت Ahmed-Inspired إلى نقل شهادات الشهود أولاً
+    إلى Validator RSUs ثم نقل الأدلة البعيدة إلى المنسق عند الحاجة.
+  </p>
+
+  <p>
+    رغم ذلك، فإن الفارق بين Ahmed-Inspired وDistributed RSU عند P95 بلغ نحو 326 ms فقط تقريباً،
+    أي أن الزيادة الكبيرة في عدد الرسائل لم تتحول إلى زيادة نسبية مماثلة في زمن القرار النهائي.
+  </p>
+
+  <div class="figure">
+    <img src="Fig_04_Latency_P95.png" alt="Latency P95" />
+    <div class="caption">الشكل 5-5. زمن الاستجابة P95 للمعماريات الثلاث.</div>
+  </div>
+
+  <h2>5.8 حمل الاتصالات</h2>
+
+  <p>بلغ متوسط عدد الرسائل لكل قرار:</p>
+  <ul>
+    <li>Centralized: 48.05 رسالة تقريباً.</li>
+    <li>Distributed RSU: 45.39 رسالة تقريباً.</li>
+    <li>Ahmed-Inspired: 168.06 رسالة تقريباً.</li>
+  </ul>
+
+  <p>أما حجم البيانات لكل قرار فبلغ:</p>
+  <ul>
+    <li>Centralized: 33,829.79 بايت تقريباً.</li>
+    <li>Distributed RSU: 30,779.18 بايت تقريباً.</li>
+    <li>Ahmed-Inspired: 125,295.28 بايت تقريباً.</li>
+  </ul>
+
+  <p>
+    وبذلك استخدمت Ahmed-Inspired نحو 3.70 أضعاف عدد رسائل Distributed RSU، ونحو 4.07 أضعاف
+    عدد البايتات لكل قرار.
+  </p>
+
+  <div class="equation">168.06 / 45.39 ≈ 3.70</div>
+  <div class="equation">125295.28 / 30779.18 ≈ 4.07</div>
+
+  <p>
+    توضح النتيجة تكلفة الحصول على evidence diversity أكبر. كل شاهد إضافي قد يضيف رسالة مستقلة
+    ومرحلة نقل وتحقق وإمكانية إعادة إرسال، ولذلك فإن المكسب في اكتشاف الهجمات المركبة لا يأتي مجاناً.
+  </p>
+
+  <div class="figure">
+    <img src="Fig_05_Bytes_Per_Decision.png" alt="Bytes Per Decision" />
+    <div class="caption">الشكل 5-6. حجم البيانات المرسلة لكل قرار.</div>
+  </div>
+
+  <div class="figure">
+    <img src="Fig_06_Messages_Per_Decision.png" alt="Messages Per Decision" />
+    <div class="caption">الشكل 5-7. عدد الرسائل لكل قرار.</div>
+  </div>
+
+  <h2>5.9 استهلاك الموارد</h2>
+
+  <table class="ltr-table">
+    <thead>
+      <tr>
+        <th>Architecture</th>
+        <th>Runtime (s)</th>
+        <th>Peak Memory (KB)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Centralized V-PUFT</td><td>1.9936</td><td>6340.64</td></tr>
+      <tr><td>Distributed RSU V-PUFT</td><td>2.0573</td><td>6262.56</td></tr>
+      <tr><td>Ahmed-Inspired Witness V-PUFT</td><td>4.3076</td><td>14615.81</td></tr>
+    </tbody>
+  </table>
+
+  <p>
+    استهلكت Ahmed-Inspired زمناً حاسوبياً وذاكرة أعلى بوضوح من المعماريتين الأخريين.
+    يعكس ذلك زيادة عدد الأدلة التي يجب معالجتها والتحقق منها، وليس فقط كلفة النقل.
+  </p>
+
+  <p>
+    في المقابل بقي استهلاك Centralized وDistributed RSU متقارباً جداً، ما ينسجم مع استخدامهما
+    evidence view متشابهاً، مع إضافة تكلفة إجماع محدودة في Distributed.
+  </p>
+
+  <h2>5.10 المقارنة بين Centralized وDistributed RSU</h2>
+
+  <p>
+    من أبرز النتائج أن Centralized وDistributed RSU حققتا مؤشرات ثقة متطابقة تقريباً:
+    Recall = 80.91%، Precision = 90.82%، FRR = 1.65%، وMCC = 0.8303 تقريباً.
+  </p>
+
+  <p>
+    هذه النتيجة مفيدة منهجياً لأنها تؤكد أن منطق V-PUFT نفسه بقي ثابتاً، وأن الفرق الأساسي بين
+    المعماريتين كان في طريقة تثبيت القرار finalization وليس في منطق اكتشاف الحالة.
+  </p>
+
+  <p>
+    في Centralized يتم اعتماد القرار لدى خادم مركزي، بينما في Distributed يتم تثبيته من خلال PBFT.
+    لذلك فإن تشابه TP وFP وTN وFN متوقع عندما تصل أدلة متقاربة إلى محرك التأهيل نفسه.
+  </p>
+
+  <div class="interpretation">
+    <strong>الاستنتاج:</strong>
+    Distributed RSU أضاف خاصية finalization موزعة من دون خسارة في جودة قرار الثقة مقارنة بالنموذج
+    المركزي ضمن ظروف التجربة، مع تغير محدود في latency وكلفة الشبكة.
+  </div>
+
+  <h2>5.11 أداء PBFT واتساق السجل</h2>
+
+  <p>
+    سجلت معماريتا Distributed RSU وAhmed-Inspired معدل نجاح إجماع بلغ 100% ضمن الحملة النهائية.
+    أما Centralized فلا تستخدم PBFT، ولذلك فإن قيمة Consensus Success غير مطبقة عليها ولا ينبغي
+    تفسير القيمة NaN كفشل.
+  </p>
+
+  <p>
+    لم تظهر Safety Violations أو Liveness Failures أو View Changes في الحملة النهائية.
+    وتدل هذه النتيجة على أن PBFT نجح في ظروف الشبكة التي تم اختبارها.
+  </p>
+
+  <div class="important">
+    لا تمثل هذه النتيجة اختبار تحمل شامل لـPBFT تحت جميع ظروف VANET. لم يكن الهدف من الحملة إجراء
+    PBFT stress test مستقل عند نسب فقد وتأخير وعدد Byzantine nodes متعددة، ولذلك يجب حصر الاستنتاج
+    في ظروف التجربة المستخدمة.
+  </div>
+
+  <h2>5.12 التحليل حسب Topology</h2>
+
+  <p>
+    تم توليد جدول مقارنة مستقل حسب كل من Smoke وCorridor وIntersection وGrid، إضافة إلى رسم Recall
+    ورسم MCC حسب الشكل المروري. الغرض الرئيس من هذا التحليل هو التحقق من استقرار الاتجاه العام
+    للنتائج عبر بيئات مختلفة.
+  </p>
+
+  <div class="figure">
+    <img src="Fig_08_MCC_By_Topology.png" alt="MCC By Topology" />
+    <div class="caption">الشكل 5-8. MCC حسب شكل الشبكة.</div>
+  </div>
+
+  <div class="figure">
+    <img src="Fig_09_Recall_By_Topology.png" alt="Recall By Topology" />
+    <div class="caption">الشكل 5-9. Recall حسب شكل الشبكة.</div>
+  </div>
+
+  <p>
+    يجب تفسير فروق Topology بحذر؛ لأن تغيير شكل الشبكة يمكن أن يغيّر في الوقت نفسه كثافة المركبات،
+    وعدد مصادر الأدلة المرئية، ومدد الاتصال، وتوزيع RSUs والشهود. لذلك لا تُستخدم النتائج لإثبات
+    علاقة سببية منفردة بين اسم الـTopology والأداء، بل للتحقق من أن اتجاه المقارنة لا يعتمد على
+    سيناريو مروري واحد فقط.
+  </p>
+
+  <div class="note">
+    الجدول التفصيلي الكامل الخاص بالـTopologies موجود في الملف:
+    <strong>Table_04_Topology_Comparison.csv</strong>.
+    يُفضّل إدخاله في الرسالة مباشرة أو نقله إلى الملحق إذا كان حجمه كبيراً.
+  </div>
+
+  <h2>5.13 تصحيح سياسة Mixed وقابلية التنفيذ</h2>
+
+  <p>
+    خلال تدقيق النتائج ظهر أن سياسة Mixed الأصلية كانت تتطلب وجود نوعين مختلفين من sensor modality:
+  </p>
+
+  <div class="equation">required_modalities = 2</div>
+
+  <p>
+    إلا أن عرض RSU في التجربة يحتوي modality واحدة هي:
+    <strong>rsu_cam_plausibility</strong>،
+    بينما عرض Witness يحتوي modality واحدة هي:
+    <strong>vehicle_witness_observation</strong>.
+  </p>
+
+  <p>
+    وبذلك كان الشرط السابق مستحيلاً بنيوياً لكل evidence view على حدة، أي أن أي حالة Mixed لم تكن
+    تستطيع اجتياز qualification مهما كان عدد الجذور أو المصادر أو المناطق أو قوة الهامش.
+  </p>
+
+  <p>تم لذلك تصحيح الشرط إلى:</p>
+
+  <div class="equation">required_modalities: 2 → 1</div>
+
+  <p>
+    ولم يتم تغيير required_roots أو required_sources أو required_zones أو margin threshold.
+    بعد هذا التصحيح أعيدت المعايرة كاملة، ثم أعيد تشغيل المعماريات على الأدلة نفسها.
+  </p>
+
+  <div class="important">
+    يجب وصف هذا التغيير في الرسالة بأنه <strong>Feasibility Correction</strong> وليس ضبطاً بعدياً
+    لرفع الأداء، لأن الشرط السابق كان غير قابل للتحقق أصلاً في تصميم البيانات المستخدم.
+  </div>
+
+  <h2>5.14 تصحيح استدلال Replay باستخدام Observation Roots</h2>
+
+  <p>
+    أظهر التدقيق أن الرسالة المعاد إرسالها Replay قد تؤدي إلى ظهور أسباب مثل position inconsistency
+    أو speed inconsistency بسبب قدم بياناتها. إذا جُمعت أسباب الحالة دون النظر إلى أصل الملاحظة،
+    فقد يُصنف Replay خطأً على أنه Mixed.
+  </p>
+
+  <p>
+    تم حل ذلك من خلال تجميع الأسباب حسب <strong>observation_root_id</strong>. فإذا ظهر replay_age
+    مع آثار حركية ناتجة من الجذر نفسه، تُعامل هذه الآثار كعواقب لنفس حدث Replay ولا تُحتسب كعائلة
+    هجوم مستقلة.
+  </p>
+
+  <p>
+    أما إذا وُجد جذر مستقل آخر يحمل فعلاً دليلاً على Position أو Speed manipulation، فيمكن عندها
+    أن تُصنف الحالة على أنها Mixed.
+  </p>
+
+  <div class="interpretation">
+    يسمح هذا الأسلوب بفصل <strong>عدد الأدلة</strong> عن <strong>استقلال الأدلة</strong>،
+    وهو أحد المبادئ الأساسية في تصميم V-PUFT.
+  </div>
+
+  <h2>5.15 فصل التأهيل عن الإجماع</h2>
+
+  <p>
+    يفصل الإطار بين شرطين مختلفين:
+  </p>
+  <ul>
+    <li><strong>Q<sub>E</sub>:</strong> تأهيل الأدلة Evidence Qualification.</li>
+    <li><strong>Q<sub>B</sub>:</strong> تثبيت القرار عبر Blockchain/PBFT Finality.</li>
+  </ul>
+
+  <p>
+    إذا لم تحقق الأدلة شروط Q<sub>E</sub> فلا يبدأ النظام مرحلة PBFT من الأساس، لأن الإجماع لا يجب
+    أن يحول دليلاً ضعيفاً إلى قرار قوي بمجرد اتفاق العقد عليه.
+  </p>
+
+  <p>
+    هذا الفصل المنطقي مهم في تفسير النتائج؛ إذ إن بعض حالات الفشل نتجت عن عدم كفاية تنوع الأدلة،
+    وليس عن فشل PBFT.
+  </p>
+
+  <h2>5.16 مناقشة المقايضة بين الأمان والكلفة</h2>
+
+  <div class="summary-box">
+    <p><strong>Ahmed-Inspired Witness V-PUFT:</strong></p>
+    <ul>
+      <li>أعلى Recall إجمالي.</li>
+      <li>أعلى MCC وF1.</li>
+      <li>تفوق واضح في Mixed وReplay وFalse DENM.</li>
+      <li>FRR أعلى.</li>
+      <li>حمل اتصالات واستهلاك موارد أعلى بوضوح.</li>
+    </ul>
+
+    <p><strong>Distributed RSU V-PUFT:</strong></p>
+    <ul>
+      <li>دقة مرتفعة وFRR منخفض.</li>
+      <li>كلفة اتصالات أقل بكثير من Witness.</li>
+      <li>تثبيت موزع باستخدام PBFT.</li>
+      <li>تفوق في Position وSpeed Offset.</li>
+      <li>ضعف نسبي في Mixed مقارنة بمعمارية الشهود.</li>
+    </ul>
+
+    <p><strong>Centralized V-PUFT:</strong></p>
+    <ul>
+      <li>أقل latency تقريباً.</li>
+      <li>Precision مرتفع وFRR منخفض.</li>
+      <li>نتائج ثقة متقاربة جداً مع Distributed RSU.</li>
+      <li>لا يحتاج إلى PBFT.</li>
+      <li>يبقى معتمداً على نقطة تنفيذ مركزية.</li>
+    </ul>
+  </div>
+
+  <p>
+    لذلك لا يمكن تحديد معمارية واحدة على أنها الأفضل في كل الحالات. اختيار المعمارية يعتمد على
+    أولويات التطبيق:
+  </p>
+
+  <ul>
+    <li>إذا كانت الأولوية لاكتشاف الهجمات المركبة والسياقية: تميل النتائج لمصلحة Ahmed-Inspired.</li>
+    <li>إذا كانت الأولوية لتقليل الكلفة والـFRR مع الحفاظ على التثبيت الموزع: Distributed RSU يقدم توازناً مناسباً.</li>
+    <li>إذا كانت الأولوية للبساطة وزمن التنفيذ وعدم الحاجة إلى إجماع موزع: Centralized يبقى منافساً من ناحية الأداء.</li>
+  </ul>
+
+  <h2>5.17 القيود والتهديدات التي تواجه صلاحية النتائج</h2>
+
+  <h3>5.17.1 نموذج الحساسات</h3>
+  <p>
+    تعتمد النتائج على مستويات ضوضاء حساسات محددة تجريبياً. ولذلك فإن تفوق RSU في Position وSpeed
+    أو تفوق Witness في بعض الهجمات السياقية قد يتغير عند استخدام توزيعات ضوضاء مختلفة.
+  </p>
+
+  <h3>5.17.2 إجهاد PBFT</h3>
+  <p>
+    لم تُصمم الحملة الحالية لاختبار PBFT عند مستويات متطرفة من الفقد أو التأخير أو العقد Byzantine.
+    لذلك يجب عدم تعميم نجاح الإجماع بنسبة 100% إلى جميع ظروف VANET.
+  </p>
+
+  <h3>5.17.3 شرط المعايرة</h3>
+  <p>
+    لم يحقق أي مرشح جميع القيود المعلنة مسبقاً، ولذلك تم الإبقاء على selection_feasible=false.
+    يجب عرض هذه الحقيقة صراحةً بدلاً من إخفائها، لأنها تمثل حدوداً حقيقية للنموذج التجريبي.
+  </p>
+
+  <h3>5.17.4 تعميم نتائج Topology</h3>
+  <p>
+    لا يثبت اختلاف الأداء بين Smoke أو Corridor أو Intersection أو Grid علاقة سببية مباشرة،
+    لأن عدة متغيرات تتغير بالتزامن عند تغيير شكل الحركة.
+  </p>
+
+  <h3>5.17.5 النموذج التجريبي مقابل الشبكة الواقعية</h3>
+  <p>
+    النتائج ناتجة عن محاكاة ومكونات تجريبية مضبوطة، ولذلك فإن الانتقال إلى deployment واقعي
+    يحتاج إلى تحقق إضافي من الحساسات الحقيقية، ومصادر التوقيت، وشهادات الاتصال، وتأثير ازدحام القناة.
+  </p>
+
+  <h2>5.18 الإجابة عن سؤال التقييم العام</h2>
+
+  <p>
+    تبين النتائج أن استخدام إطار ثقة موحد لا يؤدي إلى سلوك متطابق عند تغيير البنية المعمارية.
+    مصدر الأدلة ومسار النقل وطريقة التثبيت تؤثر بوضوح على القدرة على تحقيق شروط التأهيل وعلى
+    الكلفة الشبكية والحاسوبية.
+  </p>
+
+  <p>
+    حافظ Distributed RSU على جودة قرار قريبة جداً من Centralized مع إضافة finalization موزع،
+    بينما حققت Ahmed-Inspired قدرة أعلى على كشف بعض الهجمات التي تحتاج إلى تنوع أدلة أكبر،
+    وبخاصة Mixed وReplay وFalse DENM، مقابل كلفة اتصالات وFRR أعلى.
+  </p>
+
+  <h2>5.19 أهم النتائج المستخلصة</h2>
+
+  <ol>
+    <li>حقق Ahmed-Inspired أعلى Recall إجمالي بنسبة تقارب 89.40%.</li>
+    <li>حقق Centralized وDistributed Recall يقارب 80.91% مع FRR أقل يبلغ نحو 1.65%.</li>
+    <li>بلغ MCC أعلى قيمة في Ahmed-Inspired بنحو 0.8474.</li>
+    <li>كان أكبر تفوق لـAhmed-Inspired في Mixed: 89.68% مقابل 33.55%.</li>
+    <li>تفوقت معمارية الشهود أيضاً في Replay وFalse DENM.</li>
+    <li>تفوقت معمارية RSU في Position Offset وSpeed Offset.</li>
+    <li>حققت المعماريات الثلاث 100% في Certificate Tamper و96% في Flood.</li>
+    <li>احتاج Ahmed-Inspired إلى نحو أربعة أضعاف حجم البيانات لكل قرار مقارنة بـDistributed RSU.</li>
+    <li>نجح PBFT في جميع القرارات التي وصلت إلى مرحلة الإجماع ضمن ظروف الحملة النهائية.</li>
+    <li>تشابه نتائج Centralized وDistributed يؤكد أن الاختلاف بينهما كان أساساً في finalization وليس في trust decision logic.</li>
+    <li>أظهر تحليل Mixed أهمية التحقق من قابلية تنفيذ شروط السياسة قبل تفسير النتائج.</li>
+    <li>أظهر تحليل Replay أهمية ربط الأدلة بجذور الملاحظات لتجنب تضخيم عدد العائلات الهجومية.</li>
+  </ol>
+
+  <h2>5.20 الخلاصة</h2>
+
+  <p>
+    أظهرت الدراسة أن أداء أنظمة الثقة في VANET لا يمكن تقييمه بمقياس واحد. فزيادة معدل اكتشاف
+    المركبات الخبيثة قد تؤدي إلى زيادة الإلغاءات الخاطئة وحمل الاتصالات، في حين أن خفض كلفة الشبكة
+    قد يقلل القدرة على تجميع أدلة مستقلة كافية لبعض الهجمات المركبة.
+  </p>
+
+  <p>
+    قدمت Ahmed-Inspired Witness V-PUFT أفضل قدرة إجمالية على اكتشاف الحالات الخبيثة وأفضل MCC
+    ضمن التجارب، لكنها كانت الأعلى كلفة من ناحية الاتصالات والموارد، كما سجلت FRR أعلى.
+    أما Distributed RSU V-PUFT فقدم توازناً بين جودة القرار والكلفة مع المحافظة على finalization
+    موزع، في حين بقي النموذج المركزي الأسرع والأبسط مع اعتماد واضح على نقطة مركزية.
+  </p>
+
+  <p>
+    وعليه، تدعم النتائج الفرضية القائلة إن جودة نظام الثقة لا تتحدد فقط بخوارزمية حساب الثقة،
+    وإنما أيضاً بطريقة بناء الأدلة، واستقلال مصادرها، ومسار نقلها، وآلية تثبيت القرار النهائي.
+  </p>
+
+  <p>
+    وتشكل هذه النتيجة أساساً لمناقشة التصميم المقترح V-PUFT بوصفه إطاراً يسمح بفصل مرحلة جمع
+    وتأهيل الأدلة عن مرحلة الإجماع، ويوفر أساساً موحداً لمقارنة معماريات VANET المركزية والموزعة
+    تحت ظروف تجريبية مشتركة.
+  </p>
+
+  <div class="note small">
+    ملفات الأشكال المشار إليها في هذا الفصل:
+    Fig_01_Global_Recall.png،
+    Fig_02_Global_FRR.png،
+    Fig_03_Global_MCC.png،
+    Fig_04_Latency_P95.png،
+    Fig_05_Bytes_Per_Decision.png،
+    Fig_06_Messages_Per_Decision.png،
+    Fig_07_Attack_Specific_Recall.png،
+    Fig_08_MCC_By_Topology.png،
+    Fig_09_Recall_By_Topology.png.
+    ضع ملف HTML داخل مجلد thesis_final_reports نفسه لكي تظهر الصور مباشرة باستخدام المسارات النسبية الحالية.
+  </div>
+
+</div>
+</body>
+</html>

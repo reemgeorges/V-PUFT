@@ -1,0 +1,8 @@
+[
+  {"id":"rsu-1","x":250.0,"y":0.0,"domain":"domain-1","reliability":0.96},
+  {"id":"rsu-2","x":750.0,"y":0.0,"domain":"domain-1","reliability":0.94},
+  {"id":"rsu-3","x":1000.0,"y":250.0,"domain":"domain-2","reliability":0.93},
+  {"id":"rsu-4","x":750.0,"y":500.0,"domain":"domain-2","reliability":0.95},
+  {"id":"rsu-5","x":250.0,"y":500.0,"domain":"domain-3","reliability":0.92},
+  {"id":"rsu-6","x":0.0,"y":250.0,"domain":"domain-3","reliability":0.88}
+]

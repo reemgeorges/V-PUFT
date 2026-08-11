@@ -1,0 +1,6 @@
+{
+  "cases_per_seed": [40, 80, 120],
+  "malicious_ratio": [0.10, 0.30],
+  "packet_delivery_ratio": [1.00, 0.95],
+  "central_workers": [2, 4]
+}
