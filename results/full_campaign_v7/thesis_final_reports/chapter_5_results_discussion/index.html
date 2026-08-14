@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>الفصل الخامس - النتائج والمناقشة | V-PUFT v7 + Phase A</title>
+<style>
+:root{
+  --text:#1f2937;--muted:#5b6472;--line:#cfd5dd;--soft:#f6f8fb;--soft2:#eef3f8;
+  --accent:#1f4e79;--good:#eaf6ec;--warn:#fff6df;--danger:#fff0f0;--paper:#fff;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#edf1f5;color:var(--text);font-family:Tahoma,"Segoe UI",Arial,sans-serif;line-height:2}
+.page{max-width:1180px;margin:26px auto;background:var(--paper);padding:48px 58px;box-shadow:0 2px 18px rgba(0,0,0,.08)}
+h1,h2,h3,h4{color:#172033}
+h1{text-align:center;font-size:31px;margin:0 0 12px}
+.subtitle{text-align:center;color:var(--muted);margin-bottom:30px;font-size:17px}
+h2{font-size:24px;margin-top:46px;padding-bottom:8px;border-bottom:2px solid var(--accent)}
+h3{font-size:20px;margin-top:30px}
+h4{font-size:18px;margin-top:25px}
+p{font-size:16.5px;text-align:justify;margin:12px 0}
+ul,ol{font-size:16.5px}
+a{color:#164d7d;text-decoration:none}
+a:hover{text-decoration:underline}
+.toc{background:var(--soft);border:1px solid var(--line);padding:20px 28px;margin:30px 0}
+.toc h2{margin-top:0;border:0;font-size:21px}
+.toc ol{columns:2;column-gap:40px}
+.note,.important,.method,.finding{padding:16px 20px;margin:18px 0;border-right:5px solid #64748b;background:var(--soft)}
+.important{border-color:#b7791f;background:var(--warn)}
+.method{border-color:#1f4e79;background:#eef6fc}
+.finding{border-color:#2f855a;background:var(--good)}
+.danger{border-right:5px solid #b91c1c;background:var(--danger);padding:16px 20px;margin:18px 0}
+.eq{direction:ltr;text-align:center;font-family:"Cambria Math","Times New Roman",serif;font-size:19px;background:#fafafa;border:1px solid #ddd;padding:10px;margin:14px auto;max-width:800px}
+.table-title,.figure-title{text-align:center;font-weight:700;margin:24px 0 8px}
+table{width:100%;border-collapse:collapse;margin:12px 0 30px;font-size:14px}
+th,td{border:1px solid #8b95a3;padding:8px 7px;text-align:center;vertical-align:middle}
+th{background:#e6edf4}
+tr:nth-child(even) td{background:#fbfcfd}
+.best{font-weight:700}
+.figure{text-align:center;margin:34px auto;page-break-inside:avoid}
+.figure img{max-width:96%;height:auto;border:1px solid #ccd3dc;padding:5px;background:#fff}
+.caption{text-align:center;font-size:14px;font-weight:700;margin-top:8px}
+.small{font-size:14px;color:var(--muted)}
+.metric-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:20px 0}
+.metric-card{border:1px solid var(--line);background:var(--soft);padding:14px;text-align:center}
+.metric-card b{display:block;font-size:21px;color:var(--accent)}
+.ltr{direction:ltr;display:inline-block}
+.kpi{font-family:Consolas,"Courier New",monospace;direction:ltr;display:inline-block}
+hr{border:0;border-top:1px solid #ddd;margin:32px 0}
+.source-links{background:#f8fafc;border:1px dashed #9ca3af;padding:16px 20px;margin:20px 0}
+footer{margin-top:50px;padding-top:18px;border-top:1px solid #ccc;color:#68707d;font-size:13px;text-align:center}
+@media(max-width:850px){.page{margin:0;padding:24px}.toc ol{columns:1}.metric-grid{grid-template-columns:1fr}}
+@media print{
+ body{background:#fff}.page{max-width:none;margin:0;padding:16mm;box-shadow:none}
+ .toc{page-break-after:always}.figure,table,.note,.important,.method,.finding{page-break-inside:avoid}
+ a{color:#000;text-decoration:none}
+}
+</style>
+</head>
+<body>
+<main class="page">
+<h1>الفصل الخامس: النتائج والمناقشة</h1>
+<div class="subtitle">
+رسالة: <strong>تقييم أداء شبكات المركبات اللاسلكية المعتمدة على سلاسل الكتل</strong><br/>
+Performance Evaluation of Blockchain-Based VANETs
+</div><div class="method">
+<strong>حالة الفصل بعد التجميد:</strong>
+الأرقام الأساسية في هذا الفصل مأخوذة من نتائج <span class="ltr">v7</span> المجمدة، بينما أضيفت بعد التجميد
+تحليلات إحصائية وتفسيرية من <span class="ltr">Phase A</span> فقط، من دون إعادة تشغيل
+<span class="ltr">SUMO</span> أو الكاشف أو المعايرة أو المعماريات. هذه التحليلات لا تستبدل أرقام
+<span class="ltr">v7</span>، بل تضيف فواصل ثقة، اختبارات مزدوجة، اتفاقاً على مستوى الحالة، وتفكيكاً لزمن الاستجابة.
+</div>
+<div class="toc">
+<h2>محتويات الفصل</h2>
+<ol>
+<li><a href="#s51">5.1 مقدمة</a></li>
+<li><a href="#s52">5.2 تثبيت التجربة وصلاحية النتائج</a></li>
+<li><a href="#s53">5.3 بيئة المقارنة والمعماريات</a></li>
+<li><a href="#s54">5.4 مؤشرات التقييم</a></li>
+<li><a href="#s55">5.5 نموذج تأهيل الأدلة في V-PUFT</a></li>
+<li><a href="#s56">5.6 المعايرة واختيار الأوزان</a></li>
+<li><a href="#s57">5.7 التصحيحات المنهجية قبل التجميد</a></li>
+<li><a href="#s58">5.8 النتائج الإجمالية</a></li>
+<li><a href="#s59">5.9 تحليل Recall وPrecision وFRR</a></li>
+<li><a href="#s510">5.10 تحليل MCC وF1</a></li>
+<li><a href="#s511">5.11 الأداء حسب نوع الهجوم</a></li>
+<li><a href="#s512">5.12 تحليل زمن الاستجابة</a></li>
+<li><a href="#s513">5.13 كلفة الاتصالات</a></li>
+<li><a href="#s514">5.14 PBFT وسلامة السجل</a></li>
+<li><a href="#s515">5.15 استهلاك الموارد</a></li>
+<li><a href="#s516">5.16 المقارنة حسب الطوبولوجيا</a></li>
+<li><a href="#s517">5.17 مقارنة المركزية والموزعة</a></li>
+<li><a href="#s518">5.18 المفاضلة الأمنية-التشغيلية</a></li>
+<li><a href="#s519">5.19 أهم الاستنتاجات</a></li>
+<li><a href="#s520">5.20 حدود الدراسة</a></li>
+<li><a href="#s521">5.21 خلاصة الفصل</a></li>
+</ol>
+</div>
+<section id="s51">
+<h2>5.1 مقدمة</h2>
+<p>
+يقدم هذا الفصل النتائج النهائية للتجارب التي أجريت لتقييم أداء ثلاث معماريات لتشغيل إطار الثقة
+<span class="ltr">V-PUFT</span> ضمن شبكات المركبات اللاسلكية المعتمدة على سلاسل الكتل. ولا تهدف المقارنة
+إلى اختبار ثلاث خوارزميات ثقة مختلفة، بل إلى دراسة أثر <strong>المعمارية، ومسار الأدلة، وآلية إنهاء القرار</strong>
+عند استخدام منطق ثقة موحد قدر الإمكان.
+</p>
+<p>
+تمت دراسة ثلاث معماريات: معمارية مركزية، ومعمارية موزعة تعتمد على وحدات الطريق
+<span class="ltr">RSUs</span> مع إجماع <span class="ltr">PBFT</span>، ومعمارية موزعة تعتمد على تقارير الشهود من المركبات
+ومستوحاة معمارياً من نموذج Ahmed وآخرين، مع بقاء محرك V-PUFT مسؤولاً عن تأهيل الأدلة وقرار الثقة.
+</p>
+<p>
+يركز التحليل على أربعة محاور مترابطة: جودة كشف السلوك الخبيث، احتمال الإلغاء الخاطئ للمركبات السليمة،
+زمن اتخاذ القرار، وكلفة الاتصالات والموارد. كما يفصل الفصل بين الأداء الإجمالي والأداء حسب نوع الهجوم
+حتى لا يخفي المتوسط العام نقاط القوة والضعف الخاصة بكل معمارية.
+</p>
+</section>
+<section id="s52">
+<h2>5.2 تثبيت التجربة وصلاحية النتائج</h2>
+<p>
+قبل اعتماد النتائج تم إنشاء نسخة تجميد نهائية للمشروع والنتائج، وتم التحقق من سلامة الملفات الأساسية
+باستخدام بصمات <span class="ltr">SHA-256</span>. كما تم تشغيل اختبارات المشروع النهائية بصورة مستقلة على مجلد
+الاختبارات الأصلي، ونجحت جميع الاختبارات البالغ عددها <strong>32 اختباراً</strong>.
+</p>
+<div class="metric-grid">
+<div class="metric-card"><b>32 / 32</b>اختبارات ناجحة</div>
+<div class="metric-card"><b>5 / 5</b>مطابقة SHA-256 للملفات الأساسية</div>
+<div class="metric-card"><b>v7 Final</b>نسخة النتائج المعتمدة</div>
+</div>
+<p>
+استخدمت النسخة النهائية حملة SUMO الأصلية نفسها، ولم تتم إعادة تشغيل SUMO بعد التصحيحات المنهجية
+المتأخرة. وبدلاً من ذلك أعيد بناء أو إعادة تشغيل المراحل المتأثرة فقط، مثل تشكيل الحالات في وقت التشغيل،
+معايرة الأوزان، وإعادة تشغيل المعماريات على الأدلة نفسها. يساعد ذلك على منع إدخال اختلاف جديد في الحركة
+المرورية عند مقارنة النتائج قبل التصحيح وبعده.
+</p>
+<div class="important">
+<strong>قاعدة اعتماد النتائج:</strong>
+من لحظة التجميد النهائي لم يعد مسموحاً بتغيير الأوزان أو الحدود أو سياسات الكشف استجابةً للنتائج،
+حتى لا تتحول مرحلة المناقشة إلى ضبط لاحق على بيانات الاختبار.
+</div><div class="method">
+<strong>التحليل بعد التجميد Post-Freeze:</strong>
+استخدمت <span class="ltr">Phase A</span> وحدة اقتران <span class="ltr">(topology, seed)</span>،
+مع <span class="ltr">10,000</span> إعادة سحب Bootstrap عنقودي طبقي و<span class="ltr">20,000</span>
+تبديل مزدوج، ثم تصحيح <span class="ltr">Holm</span> لعائلة المقاييس الأولية
+<span class="ltr">Recall/FRR/MCC</span>. كما أُجري تحليل اتفاق على مستوى الحالة وتفكيك مستقل لمراحل الزمن.
+</div>
+</section>
+<section id="s53">
+<h2>5.3 بيئة المقارنة والمعماريات</h2>
+<h3>5.3.1 المعمارية المركزية Centralized V-PUFT</h3>
+<p>
+في هذه المعمارية ترسل الأدلة المتاحة إلى خادم مركزي، ويقوم محرك V-PUFT بتقييم الأدلة واتخاذ قرار الثقة.
+لا تستخدم هذه المعمارية PBFT، ولذلك فإن مؤشرات الإجماع غير مطبقة عليها. ميزتها الأساسية هي بساطة مسار
+القرار وقلة طبقات التنسيق، بينما تبقى نقطة الاعتماد المركزية من أهم القيود البنيوية.
+</p>
+<h3>5.3.2 المعمارية الموزعة Distributed RSU V-PUFT</h3>
+<p>
+تعتمد هذه المعمارية على وحدات RSU. يحتفظ المنسق بالأدلة المحلية، بينما يجب أن تصل أدلة RSU البعيدة عبر
+رسائل تبادل مخصصة قبل أن تدخل مرحلة التأهيل. وعند نجاح التأهيل، يمر القرار بمرحلة PBFT لتثبيته في السجل
+الموزع.
+</p>
+<h3>5.3.3 Ahmed-Inspired Witness V-PUFT</h3>
+<p>
+تعتمد هذه المعمارية على تقارير شهود من المركبات. يجب أن يصل تقرير الشاهد أولاً إلى RSU المدقق الخاص به،
+ثم تنتقل الأدلة البعيدة إلى المنسق عند الحاجة. بعد ذلك يطبق محرك V-PUFT قواعد التأهيل، ثم يستخدم PBFT
+لإنهاء القرار.
+</p>
+<div class="method">
+<strong>مهم:</strong>
+عتبة الشهود الأصلية المستوحاة من المقالة المرجعية بقيت كمرجع/دراسة إزالة
+<span class="ltr">Reference/Ablation</span> فقط، ولم تعد بوابة توقف المسار الرئيسي للمعمارية.
+</div>
+</section>
+<section id="s54">
+<h2>5.4 مؤشرات التقييم</h2>
+<h3>5.4.1 Precision</h3>
+<div class="eq">Precision = TP / (TP + FP)</div>
+<p>تقيس نسبة قرارات الإلغاء التي كانت صحيحة فعلاً. ارتفاعها يعني أن النظام أكثر تحفظاً في اتهام المركبات السليمة.</p>
+<h3>5.4.2 Malicious Revocation Recall</h3>
+<div class="eq">Recall = TP / (TP + FN)</div>
+<p>
+يقيس نسبة الحالات الخبيثة التي تمكن النظام من اكتشافها وإلغائها. وهو من أهم المقاييس الأمنية لأنه يعكس
+قدرة النظام على منع السلوك الخبيث من الاستمرار.
+</p>
+<h3>5.4.3 False Revocation Rate</h3>
+<div class="eq">FRR = FP / (FP + TN)</div>
+<p>
+يقيس نسبة الحالات السليمة التي تم إلغاؤها خطأ. كلما انخفضت القيمة كان النظام أقل ميلاً لإلحاق الضرر
+بالمركبات الشرعية.
+</p>
+<h3>5.4.4 F1 وMCC</h3>
+<div class="eq">F1 = 2 × Precision × Recall / (Precision + Recall)</div>
+<div class="eq">MCC = (TP×TN − FP×FN) / √((TP+FP)(TP+FN)(TN+FP)(TN+FN))</div>
+<p>
+استخدم MCC خصوصاً لأنه يدمج الحالات الأربع للمصفوفة الالتباسية، ويقلل خطر تفسير نظام مرتفع Recall
+على أنه متفوق إذا كان ذلك على حساب عدد كبير من الإلغاءات الخاطئة.
+</p>
+<h3>5.4.5 مؤشرات الأداء التشغيلي</h3>
+<ul>
+<li>زمن الكشف والتأهيل والإجماع.</li>
+<li>زمن القرار النهائي عند P50 وP95 وP99.</li>
+<li>عدد الرسائل لكل قرار.</li>
+<li>عدد البايتات لكل قرار.</li>
+<li>معدل تسليم الحزم PDR وإعادات الإرسال.</li>
+<li>زمن الانتظار في الطوابير.</li>
+<li>زمن المعالج والذاكرة القصوى.</li>
+<li>نجاح الإجماع وسلامة السجل.</li>
+</ul>
+</section>
+<section id="s55">
+<h2>5.5 نموذج تأهيل الأدلة في V-PUFT</h2>
+<p>
+يعتمد V-PUFT على وزن لكل شهادة دليل، ولا يعامل جميع الأدلة باعتبارها متساوية. استخدمت الدراسة العلاقة:
+</p>
+<div class="eq">
+w<sub>i</sub> = V<sub>i</sub> · C<sub>i</sub><sup>αC</sup> · ρ<sub>i</sub><sup>αρ</sup> ·
+F<sub>i</sub><sup>αF</sup> · Q<sub>i</sub><sup>αQ</sup> · η<sub>i</sub><sup>αη</sup>
+</div>
+<div class="eq">αC + αρ + αF + αQ + αη = 1</div>
+<p>
+تمثل العوامل على الترتيب: صلاحية الدليل، ثقة الكاشف، موثوقية المصدر، الحداثة، قابلية التحقق،
+والاستقلالية. ويضاف إلى الوزن شرط بنيوي مستقل للتنوع، بحيث لا يكفي رفع مجموع الأوزان إذا كانت الأدلة
+نسخاً مشتقة من جذر ملاحظة واحد.
+</p>
+<p>
+تجمع الأدلة المرتبطة بالـ <span class="ltr">observation_root_id</span> نفسه في جذر واحد، وبالتالي لا يمكن
+لرسائل مشتقة من الملاحظة نفسها أن تتظاهر بأنها أدلة مستقلة متعددة.
+</p>
+<div class="method">
+يفصل التصميم بين <strong>تأهيل الأدلة Q<sub>E</sub></strong> وبين <strong>إنهاء القرار/الإجماع Q<sub>B</sub></strong>.
+إذا لم تحقق الأدلة Q<sub>E</sub> فلا تبدأ PBFT أصلاً. لذلك لا يستطيع الإجماع تعويض نقص الأدلة المستقلة.
+</div>
+</section>
+<section id="s56">
+<h2>5.6 المعايرة واختيار الأوزان</h2>
+<p>
+أجريت المعايرة على منظورين منفصلين للأدلة: منظور RSU ومنظور الشهود. لم يتم دمج المنظورين داخل حالة
+معايرة واحدة، لأن دمجهما كان سيمنح النموذج معلومات لا تملكها أي معمارية فعلياً أثناء التشغيل.
+</p>
+<table>
+<thead><tr><th>البند</th><th>القيمة</th></tr></thead>
+<tbody>
+<tr><td>إجمالي صفوف الأدلة</td><td>794,409</td></tr>
+<tr><td>صفوف RSU</td><td>279,588</td></tr>
+<tr><td>صفوف الشهود</td><td>514,821</td></tr>
+<tr><td>صفوف التطوير</td><td>637,906</td></tr>
+<tr><td>صفوف Holdout</td><td>156,503</td></tr>
+<tr><td>بذور Holdout</td><td>1003, 1007</td></tr>
+<tr><td>عدد المرشحين المقيمين</td><td>1202</td></tr>
+<tr><td>المرشح النهائي</td><td>650</td></tr>
+</tbody>
+</table>
+<div class="table-title">جدول (5-1): الأوزان النهائية المشتركة بين المعماريات</div>
+<table>
+<thead><tr><th>العامل</th><th>الرمز</th><th>الوزن</th><th>النسبة التقريبية</th></tr></thead>
+<tbody>
+<tr><td>ثقة الكاشف</td><td>C</td><td>0.3652673862</td><td>36.53%</td></tr>
+<tr><td>موثوقية المصدر</td><td>ρ</td><td>0.1619526015</td><td>16.20%</td></tr>
+<tr><td>الحداثة</td><td>F</td><td>0.0637051764</td><td>6.37%</td></tr>
+<tr><td>قابلية التحقق</td><td>Q</td><td>0.4060895778</td><td>40.61%</td></tr>
+<tr><td>الاستقلالية</td><td>η</td><td>0.0029852581</td><td>0.30%</td></tr>
+</tbody>
+</table>
+<p>
+كان أعلى وزن لقابلية التحقق ثم ثقة الكاشف. ولا يعني انخفاض وزن η أن الاستقلالية غير مهمة؛ فالاستقلالية
+ممثلة أيضاً في شروط التنوع الصريحة وعدد جذور الملاحظة والمصادر والمناطق، ولذلك لا يصح تفسير الوزن
+العددي وحده بوصفه أهمية المفهوم بالكامل.
+</p>
+<div class="table-title">جدول (5-2): نتائج Holdout بعد المعايرة النهائية</div>
+<table>
+<thead><tr><th>TP</th><th>FP</th><th>TN</th><th>FN</th><th>Recall</th><th>FRR</th><th>Precision</th><th>F1</th><th>MCC</th><th>Balanced Accuracy</th></tr></thead>
+<tbody><tr><td>335</td><td>47</td><td>1932</td><td>67</td><td>83.33%</td><td>2.37%</td><td>87.70%</td><td>85.46%</td><td>0.8263</td><td>90.48%</td></tr></tbody>
+</table>
+<p>
+على منظور RSU بلغ Recall في Holdout نحو 78.61% وFRR نحو 1.61% وMCC نحو 0.8165،
+بينما بلغ Recall في منظور الشهود 88.06% وFRR نحو 3.14% وMCC نحو 0.8377.
+يعكس ذلك منذ مرحلة المعايرة نفسها ميل منظور الشهود إلى حساسية أعلى مقابل زيادة محدودة في الإلغاء الخاطئ.
+</p>
+<div class="important">
+لم يحقق أي مرشح جميع القيود المعلنة مسبقاً عبر أسوأ fold × evidence-view، لذلك بقي
+<span class="ltr">selection_feasible = false</span>. تم الاحتفاظ بالمرشح الأفضل وفق قاعدة الترتيب الأصلية،
+ولم يتم تخفيف شرط Recall الأدنى 0.95 أو FRR الأقصى 0.05 بعد الاطلاع على النتائج.
+<p class="small">كانت قيمتا <span class="ltr">Recall ≥ 0.95</span> و<span class="ltr">FRR ≤ 0.05</span> أهداف صلاحية معلنة مسبقاً لا ضمانات للأداء ولا معايير أدبية عامة؛ لذلك لم تُخفف بعد ظهور النتيجة.</p></div>
+</section>
+<section id="s57">
+<h2>5.7 التصحيحات المنهجية قبل التجميد</h2>
+<p>
+مر المشروع بعدة عمليات تدقيق هدفت إلى إزالة مصادر التحيز أو التسرب من الحقيقة الأرضية، وكانت هذه
+التصحيحات شرطاً لاعتماد النسخة النهائية.
+</p>
+<h3>5.7.1 عزل Ground Truth</h3>
+<p>
+أصبحت هوية الهجوم الحقيقية وحالة المركبة الخبيثة تستخدم لأغراض التقييم فقط، ولا تدخل في تشكيل الحالة
+أو استنتاج نوع الهجوم أو اختيار السياسة أو قرار التأهيل أثناء التشغيل.
+</p>
+<h3>5.7.2 عزل Sensor Oracle</h3>
+<p>
+أزيلت المقارنات المباشرة مع القيم الحقيقية للموقع والسرعة والتسارع، واستبدلت بقياسات ملوثة بضجيج
+حساسات تجريبي، حتى لا يحصل الكاشف على معلومات لا يمكن توفرها في نظام حقيقي.
+</p>
+<h3>5.7.3 الاستدلال Root-Aware لهجوم Replay</h3>
+<p>
+تم اكتشاف أن آثار الحركة الناتجة عن الرسالة القديمة نفسها قد تجعل حالة Replay تبدو Mixed. لذلك أصبح
+الاستدلال يجمع أسباب الكشف حسب جذر الملاحظة، ويمنع احتساب آثار Position/Speed المشتقة من جذر Replay نفسه
+كهجوم مستقل. وإذا وُجد جذر حركي مستقل فعلاً يبقى التصنيف Mixed.
+</p>
+<h3>5.7.4 منع Double Sanitization</h3>
+<p>
+تم فصل trace الحساس غير المعالج الذي يدخل المعماريات عن trace التدقيق، بحيث تنفذ عملية تشكيل الحالة
+والتنظيف مرة واحدة فقط داخل مسار التشغيل الفعلي.
+</p>
+<h3>5.7.5 عدالة النقل بين المعماريات</h3>
+<p>
+أصبح كل نموذج يؤهل الأدلة التي وصلت فعلياً عبر نموذج النقل المطبق عليه، بدلاً من منح أي معمارية إمكانية
+الوصول إلى أدلة لم تنجح الشبكة في إيصالها.
+</p>
+<h3>5.7.6 تصحيح Ahmed Article-Native Gating</h3>
+<p>
+أزيل شرط كان يوقف المسار الرئيسي عند عدم تحقيق عتبة الشهود المرجعية. بقيت العتبة كبيان مرجعي فقط،
+وأظهر التدقيق النهائي أن عدد القرارات التي أوقفتها هذه العتبة في المسار الرئيسي أصبح صفراً.
+</p>
+<h3>5.7.7 تصحيح قابلية تنفيذ سياسة Mixed</h3>
+<p>
+كانت سياسة Mixed تتطلب نمطي استشعار مستقلين، في حين أن كل منظور تشغيل في التجربة يملك نمطاً واحداً فقط:
+<span class="ltr">rsu_cam_plausibility</span> لمنظور RSU و
+<span class="ltr">vehicle_witness_observation</span> لمنظور الشهود. لذلك كان الشرط
+<span class="ltr">required_modalities = 2</span> مستحيلاً بنيوياً.
+</p>
+<div class="eq">Mixed required_modalities: 2 → 1</div>
+<p>
+لم تتغير شروط الجذور والمصادر والمناطق والهامش. وبعد التصحيح أعيدت المعايرة كاملة ثم إعادة تشغيل
+المعماريات. لذلك يعامل هذا التغيير كتصحيح قابلية تنفيذ للسياسة وليس كضبط للحدود لتحسين نتيجة بعينها.
+</p>
+</section>
+<section id="s58">
+<h2>5.8 النتائج الإجمالية للمعماريات</h2>
+<div class="source-links">
+البيانات المصدرية داخل المشروع:
+<a href="../Table_01_Global_Architecture_Comparison.csv">Table_01_Global_Architecture_Comparison.csv</a>
+</div>
+<div class="table-title">جدول (5-3): المقارنة الإجمالية بين المعماريات</div>
+<table>
+<thead>
+<tr><th>المعمارية</th><th>Precision</th><th>Recall</th><th>FRR</th><th>F1</th><th>MCC</th><th>P95 Latency (ms)</th><th>Messages/Decision</th><th>Bytes/Decision</th><th>PDR</th></tr>
+</thead>
+<tbody>
+<tr><td>Centralized V-PUFT</td><td class="best">90.82%</td><td>80.91%</td><td class="best">1.65%</td><td>85.51%</td><td>0.8303</td><td class="best">14183.85</td><td>48.05</td><td>33829.79</td><td>98.01%</td></tr>
+<tr><td>Distributed RSU V-PUFT</td><td class="best">90.82%</td><td>80.91%</td><td class="best">1.65%</td><td>85.51%</td><td>0.8303</td><td>14356.60</td><td class="best">45.39</td><td class="best">30779.18</td><td>98.03%</td></tr>
+<tr><td>Ahmed-Inspired Witness V-PUFT</td><td>85.46%</td><td class="best">89.40%</td><td>3.09%</td><td class="best">87.30%</td><td class="best">0.8474</td><td>14682.75</td><td>168.06</td><td>125295.28</td><td>98.03%</td></tr>
+</tbody>
+</table>
+<div class="finding"><span><strong>القراءة الأولى للجدول:</strong>
+لا توجد معمارية متفوقة مطلقاً. حقق Ahmed-Inspired أعلى Recall وF1 وأعلى قيمة وصفية لـMCC،
+بينما حققت معماريتا RSU Precision أعلى وFRR أقل وكلفة اتصالات أقل بكثير. ويجب عدم تحويل أعلى قيمة وصفية
+لـMCC إلى ادعاء تأكيدي، لأن فرق MCC لم يبق دالاً بعد تصحيح Holm في التحليل الإحصائي اللاحق.</span></div>
+<div class="figure"><img alt="Global Recall" src="../Fig_01_Global_Recall.png"/><div class="caption">الشكل (5-1): Malicious Revocation Recall حسب المعمارية.</div></div>
+<div class="figure"><img alt="Global FRR" src="../Fig_02_Global_FRR.png"/><div class="caption">الشكل (5-2): معدل الإلغاء الخاطئ FRR حسب المعمارية.</div></div>
+<div class="figure"><img alt="Global MCC" src="../Fig_03_Global_MCC.png"/><div class="caption">الشكل (5-3): معامل MCC حسب المعمارية.</div></div>
+</section>
+<section id="s59">
+<h2>5.9 تحليل Recall وPrecision وFRR</h2>
+<h3>5.9.1 Recall</h3>
+<p>
+بلغ Recall الإجمالي في جدول <span class="ltr">v7</span> نحو <strong>89.40%</strong> في Ahmed-Inspired مقابل
+<strong>80.91%</strong> في كل من Centralized وDistributed RSU، أي فرق وصفي يقارب <strong>8.49 نقطة مئوية</strong>.
+هذا الرقم يصف الجدول الإجمالي المجمد، بينما يعرض القسم 5.10.1 مقداراً مجمعاً مختلفاً قليلاً
+(<strong>8.46 نقطة</strong>) مرتبطاً مباشرة بفاصل Bootstrap، ومتوسط فرق مزدوج عبر الوحدات الأربعين
+(<strong>8.49 نقطة</strong>). لا يجوز دمج هذه المقدرات كما لو كانت رقماً واحداً.
+</p>
+<p>
+تشير النتيجة إلى أن منظور الشهود ألغى نسبة أكبر من الحالات الخبيثة، إلا أن رفع الحساسية لا يكفي وحده
+للحكم على تفوق المعمارية، لأن التحليل نفسه يبين زيادة متزامنة في FRR.
+</p>
+
+
+
+<h3>5.9.2 Precision</h3>
+<p>
+حققت المعماريتان القائمتان على RSU Precision يقارب <strong>90.82%</strong>، مقابل <strong>85.46%</strong>
+في Ahmed-Inspired. لذلك كانت قرارات الإلغاء الصادرة عن RSU أكثر احتمالاً لأن تكون صحيحة عندما يصدر
+النظام قرار إلغاء.
+</p>
+<h3>5.9.3 FRR</h3>
+<p>
+بلغ FRR في Centralized وDistributed نحو <strong>1.65%</strong>، مقابل <strong>3.09%</strong> في Ahmed-Inspired؛
+أي أن مكسب Recall ترافق مع زيادة وصفية تقارب <strong>1.44 نقطة مئوية</strong> في الإلغاء الخاطئ.
+وأكد التحليل المزدوج بعد التجميد أن اتجاه زيادة FRR بقي دالاً بعد تصحيح Holm، ولذلك تمثل النتيجة
+مفاضلة أمنية حقيقية داخل الحملة وليست مجرد فرق وصفي عابر.
+</p>
+<div class="important">
+<strong>المفاضلة:</strong>
+مسار الشهود أكثر حساسية للهجمات في المتوسط، لكنه أكثر ميلاً أيضاً إلى إلغاء مركبات سليمة؛ أما مسارا RSU
+فهما أكثر تحفظاً في الإلغاء.
+</div>
+
+
+
+</section>
+<section id="s510">
+<h2>5.10 تحليل MCC وF1</h2>
+<p>
+حقق Ahmed-Inspired أعلى قيمة وصفية لـF1 (<span class="ltr">0.8730</span>) وأعلى قيمة وصفية لـMCC
+(<span class="ltr">0.8474</span>)، مقابل نحو <span class="ltr">0.8551</span> و<span class="ltr">0.8303</span>
+في Centralized وDistributed RSU. إلا أن الاستدلال الإحصائي يفرض التمييز بين الاتجاه الوصفي والدليل التأكيدي:
+ففرق MCC، رغم أن فاصل Bootstrap المجمع لا يشمل الصفر، لم يبق دالاً بعد تصحيح Holm.
+</p>
+<h3>5.10.1 التحقق الإحصائي بعد التجميد</h3>
+<p>
+أجري التحليل على أربعين وحدة مزدوجة <span class="ltr">(topology, seed)</span> مع Bootstrap عنقودي طبقي يحافظ
+على عشر وحدات من كل طوبولوجيا في كل إعادة سحب. شملت العائلة الأولية Recall وFRR وMCC، وطُبق عليها تصحيح
+<span class="ltr">Holm</span> عند <span class="ltr">α = 0.05</span>.
+</p>
+<div class="table-title">جدول (5-3أ): الاستدلال الإحصائي الأولي بعد التجميد</div>
+<table>
+<thead><tr>
+<th>المقياس</th><th>المقارنة</th><th>الفرق المجمع</th><th>95% CI</th><th>متوسط الفرق المزدوج</th><th>Raw p</th><th>Holm-adjusted p</th><th>Rank-biserial</th><th>الحكم التأكيدي</th>
+</tr></thead>
+<tbody>
+<tr><td>Recall</td><td>Ahmed vs Centralized</td><td>+8.46 pp</td><td>[+6.35, +10.57] pp</td><td>+8.49 pp</td><td>2.404×10⁻⁶</td><td>1.683×10⁻⁵</td><td>+0.898 (large)</td><td><strong>دال</strong></td></tr>
+<tr><td>Recall</td><td>Ahmed vs Distributed</td><td>+8.46 pp</td><td>[+6.34, +10.60] pp</td><td>+8.49 pp</td><td>2.404×10⁻⁶</td><td>1.683×10⁻⁵</td><td>+0.898 (large)</td><td><strong>دال</strong></td></tr>
+<tr><td>FRR</td><td>Ahmed vs Centralized</td><td>+1.45 pp</td><td>[+1.38, +1.51] pp</td><td>+1.44 pp</td><td>2.658×10⁻⁸</td><td>2.392×10⁻⁷</td><td>+1.000 (large)</td><td><strong>دال</strong></td></tr>
+<tr><td>FRR</td><td>Ahmed vs Distributed</td><td>+1.45 pp</td><td>[+1.39, +1.51] pp</td><td>+1.44 pp</td><td>2.658×10⁻⁸</td><td>2.392×10⁻⁷</td><td>+1.000 (large)</td><td><strong>دال</strong></td></tr>
+<tr><td>MCC</td><td>Ahmed vs Centralized</td><td>+0.0168</td><td>[+0.0024, +0.0309]</td><td>+0.0171</td><td>0.03972</td><td><strong>0.1986</strong></td><td>+0.373 (medium)</td><td>غير دال بعد Holm</td></tr>
+<tr><td>MCC</td><td>Ahmed vs Distributed</td><td>+0.0168</td><td>[+0.0025, +0.0311]</td><td>+0.0171</td><td>0.03972</td><td><strong>0.1986</strong></td><td>+0.373 (medium)</td><td>غير دال بعد Holm</td></tr>
+<tr><td>Recall / FRR / MCC</td><td>Distributed vs Centralized</td><td>0 تماماً</td><td>[0, 0]</td><td>0 تماماً</td><td>—</td><td>—</td><td>غير معرف</td><td>كل الأزواج متطابقة، فلا يلزم اختبار فرق</td></tr>
+</tbody></table>
+<div class="method">
+<strong>تمييز المقدرات:</strong>
+الفرق المجمع وفاصل Bootstrap يحسبان من المصفوفة المجمعة داخل كل إعادة سحب، بينما متوسط الفرق المزدوج
+هو متوسط فروق الوحدات الأربعين. لذلك يستخدم النص <strong>8.46 نقطة</strong> مع فاصل Bootstrap، ويذكر
+<strong>8.49 نقطة</strong> بوصفها متوسط الفرق المزدوج، لا بوصفهما تقديراً واحداً.
+</div>
+<div class="important">
+<strong>قاعدة التقرير:</strong>
+نتائج Precision وF1 والزمن والرسائل والبايتات والذاكرة، وكذلك التحليلات حسب نوع الهجوم، تعامل بوصفها
+استكشافية غير مصححة لتعدد المقارنات. أما الحكم التأكيدي في العائلة الأولية فيتبع <span class="ltr">Holm reject</span>
+لا قيمة <span class="ltr">Raw p</span> وحدها.
+</div>
+
+
+
+</section>
+<section id="s511">
+<h2>5.11 الأداء حسب نوع الهجوم</h2>
+<div class="source-links">
+ملفات المصدر:
+<a href="../Table_02_Attack_Specific_Results.csv">Table_02_Attack_Specific_Results.csv</a> |
+<a href="../Table_03_Attack_Recall_Matrix.csv">Table_03_Attack_Recall_Matrix.csv</a>
+</div>
+<div class="table-title">جدول (5-4): Recall حسب نوع الهجوم</div>
+<table>
+<thead><tr><th>الهجوم</th><th>Centralized</th><th>Distributed RSU</th><th>Ahmed-Inspired Witness</th><th>الأفضل ضمن التجربة</th></tr></thead>
+<tbody>
+<tr><td>Certificate Tamper</td><td>100.00%</td><td>100.00%</td><td>100.00%</td><td>تعادل</td></tr>
+<tr><td>False DENM</td><td>71.09%</td><td>71.09%</td><td class="best">87.50%</td><td>Ahmed</td></tr>
+<tr><td>Flood</td><td>96.00%</td><td>96.00%</td><td>96.00%</td><td>تعادل</td></tr>
+<tr><td>Mixed</td><td>33.55%</td><td>33.55%</td><td class="best">89.68%</td><td>Ahmed</td></tr>
+<tr><td>Position Offset</td><td class="best">96.88%</td><td class="best">96.88%</td><td>81.88%</td><td>RSU</td></tr>
+<tr><td>Replay</td><td>74.68%</td><td>74.68%</td><td class="best">87.34%</td><td>Ahmed</td></tr>
+<tr><td>Speed Offset</td><td class="best">98.74%</td><td class="best">98.74%</td><td>86.79%</td><td>RSU</td></tr>
+</tbody>
+</table>
+<div class="figure"><img alt="Attack Recall" src="../Fig_07_Attack_Specific_Recall.png"/><div class="caption">الشكل (5-4): Recall حسب نوع الهجوم والمعمارية.</div></div>
+<div class="important">
+<strong>نطاق الاستدلال:</strong>
+المقارنات حسب نوع الهجوم في هذا القسم <strong>استكشافية وغير مصححة لتعدد المقارنات</strong>؛ لذلك تستخدم
+فواصل Bootstrap لوصف استقرار الاتجاه داخل تصميم الحملة، ولا توصف هذه المقارنات منفردة بأنها اختبارات تأكيدية دالة.
+</div><h3>5.11.1 Certificate Tamper</h3>
+<p>
+حققت المعماريات الثلاث 100%. يتفق ذلك مع طبيعة الدليل المشفر/القابل للتحقق مباشرة، إذ لا يحتاج النظام
+إلى تنوع سياقي كبير عندما توجد إشارة حاسمة عالية القابلية للتحقق.
+</p>
+<h3>5.11.2 Flood</h3>
+<p>
+حققت المعماريات الثلاث 96%. يدل ذلك على أن نمط معدل الرسائل غير الطبيعي كان واضحاً بما يكفي في
+المسارين، وأن إضافة شهود لم تقدم مكسباً إضافياً لهذا الهجوم ضمن شروط التجربة.
+</p>
+<h3>5.11.3 Mixed</h3>
+<p>
+كانت Mixed أكثر عائلات الهجوم تمييزاً بين مسار الشهود ومساري RSU. بلغ Recall المجمع
+<strong>89.68%</strong> في Ahmed-Inspired مقابل <strong>33.55%</strong> في Distributed RSU، بفارق
+<strong>+56.13 نقطة مئوية</strong>، مع فاصل Bootstrap عنقودي طبقي استكشافي
+<span class="ltr">[+51.28, +61.18]</span> نقطة مئوية. وظهر الاتجاه في الطوبولوجيات الأربع المختبرة، لا في
+طوبولوجيا منفردة: كان الفرق المجمع <strong>+50.0</strong> نقطة في Corridor، و<strong>+40.0</strong> في Grid،
+و<strong>+57.5</strong> في Intersection، و<strong>+75.0</strong> في Smoke.
+</p>
+<p>
+على مستوى الوحدات الأربعين، كان فرق Ahmed−Distributed موجباً في <strong>38/40</strong> وحدة، وصفرًا في
+وحدتين فقط (Grid، البذرتان 1002 و1003)، ولم يكن سالباً في أي وحدة. وهذا يبين أن النتيجة المجمعة لا تحملها
+بيئة واحدة، مع بقاء حجم المكسب مختلفاً بين البيئات. كما يجب فصل الأداء المطلق عن حجم التفوق؛ فمثلاً كان Recall
+المطلق لـAhmed في Intersection هو الأدنى بين الطوبولوجيات الأربع (<strong>0.775</strong>)، ومع ذلك كان فرق
+Ahmed−RSU هناك ثاني أعلى فرق (<strong>+0.575</strong>) لأن أداء RSU كان <strong>0.200</strong>.
+</p>
+<p>
+أظهر تدقيق أسباب الفشل أن جميع حالات Mixed الحقيقية كانت قد استُنتجت كـMixed في المرحلة النهائية، لذلك لم يكن
+فشل الإلغاء ناتجاً عن خطأ في استنتاج عائلة الهجوم. في Distributed RSU كانت جميع حالات FN البالغ عددها
+<strong>103/103</strong> مسجلة بسبب <span class="ltr">insufficient_independent_evidence_diversity</span>،
+وفي Ahmed-Inspired كانت جميع حالات FN البالغ عددها <strong>16/16</strong> للسبب نفسه. أما Centralized فسجل
+<strong>101</strong> إخفاقاً بسبب نقص تنوع الأدلة المستقلة وحالتين بسبب
+<span class="ltr">central_server_unavailable</span>.
+</p>
+<div class="finding">
+<strong>النتيجة الآلية الأوضح في Mixed:</strong>
+ضمن المسارين الموزعين كان شرط تنوع الأدلة المستقلة هو القيد الملزم لكل حالات FN في Mixed؛ ولم يظهر في
+<span class="ltr">reason</span> النهائي لأي FN سبب منسوب إلى الإجماع أو إلى فشل نقل نهائي. لذلك يفسر الفرق بين
+Ahmed وDistributed هنا بقدرة مسار الشهود على تحقيق شروط التأهيل في عدد أكبر من الحالات، من دون الادعاء بأن
+بُعداً واحداً بعينه (الجذور أو المصادر أو المناطق) هو السبب ما لم يُعزل بتحليل مخصص.
+</div>
+<div class="important">
+<strong>لا استنتاج سببي من الطوبولوجيا:</strong>
+الطوبولوجيا تغيّر عدة عوامل معاً، ولذلك لا يجوز إسناد نمط Mixed إلى شكل الطريق أو إلى
+<span class="ltr">observation_root_id</span> وحده. النتيجة الآمنة هي أن المكسب ظهر في البيئات الأربع المختبرة،
+مع اختلاف حجمه بينها.
+</div>
+
+
+
+
+<h3>5.11.4 Replay</h3>
+<p>
+بلغ Recall المجمع في Ahmed-Inspired <strong>87.34%</strong> مقابل <strong>74.68%</strong> في مسار RSU،
+أي بفارق <strong>+12.66 نقطة مئوية</strong>. أعطى Bootstrap العنقودي الطبقي الاستكشافي فاصلًا ضيقاً
+<span class="ltr">[+12.50, +12.90]</span> نقطة مئوية. وتبين من فحص الوحدات الأربعين أن ضيق الفاصل ليس خطأ
+تغطية، بل نتيجة مباشرة لاستقرار الفروق داخل كل طوبولوجيا عند إعادة سحب البذور مع تثبيت تركيب الطوبولوجيات.
+</p>
+<p>
+كان فرق Ahmed−Distributed صفراً في جميع وحدات Corridor العشر وجميع وحدات Smoke العشر، وموجباً في جميع
+وحدات Intersection العشر بمقدار <span class="ltr">+0.25</span>، بينما كان في Grid
+<span class="ltr">+0.25</span> في ثماني وحدات و<span class="ltr">+0.333</span> في وحدتين. وبذلك كانت
+<strong>20/40</strong> وحدة لصالح Ahmed و<strong>20/40</strong> متطابقة و<strong>0/40</strong> لصالح RSU.
+</p>
+<div class="method">
+<strong>معنى فاصل Replay:</strong>
+لأن Bootstrap طبقي ويعيد سحب عشر بذور من داخل كل واحدة من الطوبولوجيات الأربع نفسها، فإن الفاصل يصف عدم
+اليقين الناتج عن إعادة سحب البذور <strong>ضمن هذه الطوبولوجيات المثبتة</strong>. لا يمثل الفاصل تقديراً للتعميم
+على طوبولوجيات جديدة، لأن التباين بين الطوبولوجيات ليس جزءاً من عملية السحب.
+</div>
+<div class="important">
+<strong>تحفظ التفسير:</strong>
+الأثر في Replay مشروط بالطوبولوجيا داخل الحملة الحالية؛ انعدم في Corridor وSmoke وظهر في Intersection وGrid.
+لا تسمح التجربة الحالية بتحديد سبب هذا التفاعل بصورة سببية، ولا ينبغي ربطه آلياً بتوفر جذور ملاحظة مستقلة دون
+تصميم تجريبي يعزل هذا العامل.
+</div>
+
+
+<h3>5.11.5 False DENM</h3>
+<p>
+بلغ Ahmed-Inspired <strong>87.50%</strong> مقابل <strong>71.09%</strong> في RSU. وتنسجم النتيجة مع كون
+False DENM ادعاءً سياقياً قد يستفيد من وجود مراقبين مستقلين يؤكدون أو يعارضون الادعاء.
+</p>
+<h3>5.11.6 Position Offset</h3>
+<p>
+بلغ RSU <strong>96.88%</strong> مقابل <strong>81.88%</strong> لـAhmed. ضمن نموذج الحساسات المستخدم،
+كانت أدلة RSU أكثر فاعلية في اكتشاف الانحراف المكاني المباشر.
+</p>
+<h3>5.11.7 Speed Offset</h3>
+<p>
+بلغ RSU <strong>98.74%</strong> مقابل <strong>86.79%</strong> لـAhmed. كما في Position Offset، يظهر أن
+المراقبة القائمة على RSU كانت أقوى في الانحرافات الحركية المباشرة ضمن إعدادات الضجيج الحالية.
+</p>
+<div class="important">
+لا يجوز تعميم تفوق RSU في Position/Speed على جميع الأنظمة الواقعية دون دراسة حساسية تجاه ضجيج الحساسات؛
+قيم الضجيج المستخدمة افتراضات تجريبية وليست معياراً عاماً.
+</div>
+</section>
+<section id="s512">
+<h2>5.12 تحليل زمن الاستجابة</h2>
+<p>
+أعيد تحليل الزمن بعد التجميد باستخدام مدد المراحل التي يحسبها <span class="ltr">metrics.py</span> أصلاً كفروق
+زمنية مستقلة. وحدة التحليل هنا هي <strong>P95 لكل seed-topology</strong>، ثم يعرض الجدول وسيط هذه القيم عبر
+الوحدات الأربعين مع المدى الربيعي. لذلك تختلف هذه القراءة عن قيمة P95 الإجمالية في جدول 5-3.
+</p>
+<div class="table-title">جدول (5-5): تفكيك زمن الاستجابة — وسيط P95 لكل وحدة (ms)</div>
+<table>
+<thead><tr><th>المعمارية</th><th>المرحلة</th><th>الوسيط</th><th>IQR</th><th>نطاق التفسير</th></tr></thead>
+<tbody>
+<tr><td rowspan="4">Centralized</td><td>Detection / Evidence Acquisition</td><td>8000.0</td><td>8000.0–8000.0</td><td>الكشف/اكتساب الأدلة؛ قد يتأثر بمنظور الأدلة ومسار وصولها</td></tr>
+<tr><td>Post-detection Evidence Qualification</td><td>14130.1</td><td>14103.5–14149.9</td><td>فترة ما بعد الكشف حتى تحقق التأهيل؛ ليست زمن CPU خالصاً</td></tr>
+<tr><td>Finalization</td><td>0.0</td><td>0.0–0.0</td><td>تجريد المحاكي للمسار المركزي، لا زمن خادم واقعي صفري</td></tr>
+<tr><td>End-to-End</td><td>14184.0</td><td>14156.8–14211.0</td><td>من فتح الحالة حتى الإنهاء؛ قيمة مستقلة لا تساوي مجموع P95 للمراحل</td></tr>
+<tr><td rowspan="4">Distributed RSU</td><td>Detection / Evidence Acquisition</td><td>8000.0</td><td>8000.0–8000.0</td><td>الكشف/اكتساب الأدلة</td></tr>
+<tr><td>Post-detection Evidence Qualification</td><td>14324.0</td><td>14283.0–14351.3</td><td>يشمل انتظار تحقق شروط الأدلة؛ ليس كلفة PBFT</td></tr>
+<tr><td>Finalization (PBFT)</td><td>45.0</td><td>42.7–65.9</td><td>المقارنة الأنظف لتكلفة الإنهاء الموزع</td></tr>
+<tr><td>End-to-End</td><td>14361.7</td><td>14323.4–14391.5</td><td>زمن الحالة الكلي</td></tr>
+<tr><td rowspan="4">Ahmed-Inspired</td><td>Detection / Evidence Acquisition</td><td>8000.0</td><td>8000.0–8775.0</td><td>قد يتغير مع منظور الشهود ومسار وصول الأدلة</td></tr>
+<tr><td>Post-detection Evidence Qualification</td><td>14589.2</td><td>14478.3–14817.1</td><td>يشمل انتظار تنوع/تأهيل الأدلة؛ ليس زمن CPU خالصاً</td></tr>
+<tr><td>Finalization (PBFT)</td><td>45.6</td><td>43.9–113.5</td><td>مرحلة PBFT بعد نجاح التأهيل</td></tr>
+<tr><td>End-to-End</td><td>14623.1</td><td>14511.3–14854.9</td><td>زمن الحالة الكلي</td></tr>
+</tbody></table>
+<div class="table-title">جدول (5-5أ): الفروق المزدوجة في المراحل</div>
+<table>
+<thead><tr><th>المرحلة</th><th>المقارنة</th><th>وسيط الفرق (ms)</th><th>Wilcoxon p</th><th>القراءة</th></tr></thead>
+<tbody>
+<tr><td>Qualification interval</td><td>Distributed − Centralized</td><td>+185.71</td><td>1.819×10⁻¹²</td><td>فرق في فترة ما بعد الكشف حتى التأهيل، وليس كلفة PBFT</td></tr>
+<tr><td>Qualification interval</td><td>Ahmed − Distributed</td><td>+293.44</td><td>1.819×10⁻¹²</td><td>يتسق مع مسار أدلة الشهود ومتطلبات التأهيل الإضافية</td></tr>
+<tr><td>Finalization</td><td>Distributed − Centralized</td><td><strong>+44.95</strong></td><td>1.819×10⁻¹²</td><td>المقدار الأنظف لزمن الإنهاء الموزع مقابل التجريد المركزي</td></tr>
+<tr><td>Finalization</td><td>Ahmed − Centralized</td><td>+45.63</td><td>1.819×10⁻¹²</td><td>PBFT بعد تأهيل أدلة الشهود</td></tr>
+<tr><td>Finalization</td><td>Ahmed − Distributed</td><td><strong>+1.94</strong></td><td>0.07034</td><td>لا يظهر فرق تأكيدي واضح بين مساري PBFT في finalization نفسه</td></tr>
+<tr><td>End-to-End</td><td>Distributed − Centralized</td><td>+167.80</td><td>1.819×10⁻¹²</td><td>فرق حالة كلي، لا يفسر كلفة PBFT وحدها</td></tr>
+<tr><td>End-to-End</td><td>Ahmed − Distributed</td><td>+295.14</td><td>1.819×10⁻¹²</td><td>فرق حالة كلي تساهم فيه مراحل الأدلة والتأهيل</td></tr>
+</tbody></table>
+<div class="danger">
+<strong>تحذير إحصائي:</strong>
+قيم P95 للمراحل ليست قابلة للجمع؛ أي أن
+<span class="ltr">P95(A)+P95(B)+P95(C) ≠ P95(A+B+C)</span>. لذلك لا تُعرض المراحل في مخطط stacked ولا
+تستخدم حصصاً مئوية مبنية على جمع P95. كما أن القيمة <span class="ltr">1.819×10⁻¹²</span> هي أدنى قيمة ممكنة
+تقريباً لاختبار Wilcoxon ثنائي الطرف عند أربعين فرقاً غير صفري متسق الاتجاه؛ والأهم تفسيرياً هو اتساق الاتجاه
+عبر الوحدات، لا تضخيم عدد المنازل العشرية في p.
+</div>
+<div class="finding">
+<strong>الخلاصة الزمنية:</strong>
+الجزء الذي يبلغ نحو 14 ثانية ليس «زمن PBFT». الكلفة المباشرة الأنظف لمرحلة finalization الموزعة كانت في حدود
+عشرات المللي ثانية، بينما يهيمن على زمن الحالة انتظار الكشف/اكتساب الأدلة ثم تحقق شروط التأهيل.
+</div>
+
+
+
+
+
+</section>
+<section id="s513">
+<h2>5.13 كلفة الاتصالات</h2>
+<table>
+<thead><tr><th>المعمارية</th><th>Messages/Decision</th><th>Bytes/Decision</th><th>المقارنة مع Distributed</th></tr></thead>
+<tbody>
+<tr><td>Centralized</td><td>48.05</td><td>33,829.79</td><td>أعلى قليلاً</td></tr>
+<tr><td>Distributed RSU</td><td class="best">45.39</td><td class="best">30,779.18</td><td>مرجع</td></tr>
+<tr><td>Ahmed-Inspired</td><td>168.06</td><td>125,295.28</td><td>≈3.70× رسائل و≈4.07× بايتات</td></tr>
+</tbody>
+</table>
+<p>
+كان Distributed RSU الأقل كلفة في الاتصالات. يحتاج Ahmed-Inspired إلى تقارير شهود أكثر ومسار نقل
+إضافي بين الشاهد وRSU المدقق ثم بين RSUs عند الحاجة، ولذلك ارتفع عدد الرسائل والحجم الكلي لكل قرار.
+</p>
+<div class="figure"><img alt="Bytes" src="../Fig_05_Bytes_Per_Decision.png"/><div class="caption">الشكل (5-6): عدد البايتات لكل قرار.</div></div>
+<div class="figure"><img alt="Messages" src="../Fig_06_Messages_Per_Decision.png"/><div class="caption">الشكل (5-7): عدد الرسائل لكل قرار.</div></div>
+</section>
+<section id="s514">
+<h2>5.14 PBFT وسلامة السجل</h2>
+<p>
+بلغ معدل نجاح الإجماع <strong>100%</strong> في Distributed RSU وAhmed-Inspired ضمن الحملة النهائية، ولم تسجل
+الحملة الأساسية حالات <span class="ltr">Liveness Failure</span> أو <span class="ltr">View Change</span>.
+أما Centralized فلا يستخدم PBFT، ولذلك تكون قيمة Consensus Success غير مطبقة عليه وليست حالة فشل.
+</p>
+<div class="danger">
+<strong>تصحيح ادعاء Safety:</strong>
+لا تُقدَّم قيمة «صفر Safety Violations» بوصفها نتيجة تجريبية. محرك الإجماع المجمد لم يتضمن مولداً لاقتراحات
+خبيثة ذات حمولة دلالية غير صحيحة، كما أن مؤشر <span class="ltr">safety_violation</span> لم يكن مسار قياس
+تشغيلياً يمكن أن يتحول إلى حالة موجبة في الحملة الأساسية. لذلك لا تسمح البيانات الحالية باختبار Safety تحت
+<span class="ltr">malicious semantic proposals</span>.
+</div>
+<p>
+يتحقق المحرك من صحة التوقيع المشفر للاقتراح، وهو ما يثبت أصالة المقترح ضمن النموذج، لكنه لا يمثل اختباراً
+مستقلاً لصحة المحتوى الدلالي للاقتراح مقابل القرار المؤهل. وعليه يقتصر الاستنتاج التجريبي على نجاح الإجماع
+والحيوية ضمن ظروف الحملة الأساسية، ولا يمتد إلى إثبات سلامة PBFT في سيناريوهات بيزنطية عدائية غير مولدة.
+</p>
+<div class="important">
+<strong>نطاق النتيجة:</strong>
+نجاح PBFT بنسبة 100% في baseline يثبت أن مرحلة الإجماع عملت تحت شروط القناة والأعطال المستخدمة في الحملة،
+لكنه ليس اختبار إجهاد Byzantine شاملاً. اختبار الأعطال الفعالة أو الاقتراحات الدلالية الخبيثة يبقى امتداداً
+منفصلاً بعد التجميد ولا يجوز استنتاجه من baseline.
+</div>
+
+
+
+
+</section>
+<section id="s515">
+<h2>5.15 استهلاك الموارد</h2>
+<table>
+<thead><tr><th>المعمارية</th><th>Runtime (s)</th><th>Peak Memory (KB)</th></tr></thead>
+<tbody>
+<tr><td>Centralized</td><td>1.9936</td><td>6,340.64</td></tr>
+<tr><td>Distributed RSU</td><td>2.0573</td><td>6,262.56</td></tr>
+<tr><td>Ahmed-Inspired</td><td>4.3076</td><td>14,615.81</td></tr>
+</tbody>
+</table>
+<p>
+استهلك Ahmed-Inspired زمناً تنفيذياً وذاكرة أعلى من النموذجين الآخرين، وهو متوقع بسبب عدد الأدلة
+والرسائل الأكبر ومراحل التحقق الإضافية. في المقابل كانت قيم Centralized وDistributed متقاربة جداً،
+مع عدم وجود فرق موارد كبير ناتج عن PBFT ضمن حجم التجربة الحالي.
+</p>
+</section>
+<section id="s516">
+<h2>5.16 المقارنة حسب الطوبولوجيا</h2>
+
+
+
+
+
+
+
+<div class="source-links">الجدول الكامل داخل المشروع: <span class="ltr">Table_04_Topology_Comparison.csv</span></div>
+<p>
+شملت الحملة أربع طوبولوجيات: Smoke وCorridor وIntersection وGrid. الهدف من المقارنة هو فحص تغير الاتجاهات
+داخل بيئات مرورية مختلفة، لا إثبات أن شكل الطريق وحده يسبب التحسن أو التراجع؛ فالطوبولوجيا تغير في الوقت نفسه
+كثافة المركبات، مدة البقاء ضمن نطاق المراقبة، الشهود المتاحين، توزيع RSUs، الازدحام، ومسافات النقل.
+</p>
+<div class="table-title">جدول (5-7أ): نمط أثر المعمارية حسب الطوبولوجيا في الهجمات الاستكشافية</div>
+<table>
+<thead><tr><th>الهجوم</th><th>النمط المرصود عبر 40 وحدة</th><th>القراءة المسموحة</th></tr></thead>
+<tbody>
+<tr><td>Mixed</td><td>38 موجب، 2 تعادل، 0 سالب؛ والمكسب المجمع موجود في الطوبولوجيات الأربع (+40 إلى +75 pp)</td><td>الأثر واسع داخل البيئات الأربع المختبرة، مع اختلاف حجمه بينها</td></tr>
+<tr><td>Replay</td><td>20 موجب، 20 تعادل، 0 سالب؛ صفر فرق في Corridor وSmoke، ومكسب في Intersection وGrid</td><td>الأثر مشروط بالطوبولوجيا داخل الحملة الحالية</td></tr>
+</tbody></table>
+<div class="important">
+<strong>لا تفسير سببي:</strong>
+اختلاف نمط Mixed عن Replay يمنع استخدام قصة سببية واحدة للطوبولوجيا أو لجذور الملاحظة. يلزم تصميم مخصص
+يعزل المتغير المراد اختباره قبل القول إن topology أو <span class="ltr">observation_root_id</span> سبب مباشر
+للفرق المرصود.
+</div>
+<div class="figure"><img alt="MCC Topology" src="../Fig_08_MCC_By_Topology.png"/><div class="caption">الشكل (5-8): MCC عبر طوبولوجيات VANET المختلفة.</div></div><div class="figure"><img alt="Recall Topology" src="../Fig_09_Recall_By_Topology.png"/><div class="caption">الشكل (5-9): Recall عبر طوبولوجيات VANET المختلفة.</div></div><div class="note">يبقى الجدول المولد آلياً مرجعاً رقمياً، بينما تستخدم الأشكال لإظهار تغير الاتجاه بصرياً فقط، مع تجنب أي استنتاج سببي غير معزول.</div></section>
+<section id="s517">
+<h2>5.17 مقارنة Centralized وDistributed RSU</h2>
+<p>
+أظهر تحليل ما بعد التجميد أن تطابق Centralized وDistributed RSU ليس مجرد تطابق في المجاميع. فقد احتوت
+المعماريتان على <strong>5992</strong> حالة لكل منهما، وكانت الحالات المشتركة <strong>5992/5992</strong> من دون
+حالات منفردة لأي طرف، وبلغ اتفاق القرار <strong>1.000000</strong> ومعامل Cohen's κ = <strong>1.0000</strong>
+مع <strong>0</strong> حالات discordant. لذلك كانت قرارات الإلغاء/عدم الإلغاء متطابقة حالة بحالة في الحملة المجمدة.
+</p>
+<div class="finding">
+<strong>المعنى المنهجي:</strong>
+مصفوفات الالتباس المتطابقة ناتجة عن اتفاق تصنيفي كامل على الحالات نفسها، لا عن تعويض إحصائي بين حالات مختلفة.
+وعندما تكون فروق المقاييس صفراً في جميع الأزواج الأربعين، فالوصف الأدق هو «تطابق كامل داخل الحملة»، لا مجرد
+«عدم وجود فرق معنوي».
+</div>
+<p>
+ومع ذلك لم تكن أسباب الإخفاق الداخلية متطابقة دائماً. في Mixed سجل Centralized
+<strong>101</strong> حالة <span class="ltr">insufficient_independent_evidence_diversity</span> وحالتين
+<span class="ltr">central_server_unavailable</span>، بينما سجل Distributed <strong>103</strong> حالات نقص تنوع.
+وبما أن القرار النهائي متطابق حالة بحالة، فإن الحالتين اللتين حملتا سبب عدم توفر الخادم في Centralized تقابلان
+حالتين انتهتا أيضاً إلى عدم الإلغاء في Distributed، حيث كان السبب النهائي المسجل نقص التنوع. لذلك لم تُترجم
+هاتان الحالتان إلى اختلاف تصنيفي في الحملة الحالية.
+</p>
+<div class="important">
+هذا الاستنتاج لا يثبت counterfactual من نوع «ماذا كان سيفعل الخادم المركزي لو كان متاحاً»، ولا يثبت أن مجموعات
+الأدلة الداخلية أو آثار التنفيذ كانت متطابقة. إنه يثبت فقط تطابق القرار النهائي مع اختلاف بعض أسباب الإخفاق،
+بينما تبقى الاتصالات والزمن والإجماع والسجل أبعاداً تشغيلية مستقلة للمقارنة.
+</div>
+
+
+
+</section>
+<section id="s518">
+<h2>5.18 المفاضلة الأمنية-التشغيلية بين المعماريات</h2>
+<table>
+<thead><tr><th>الأولوية</th><th>المعمارية الأنسب ضمن هذه التجربة</th><th>السبب</th></tr></thead>
+<tbody>
+<tr><td>رفع Recall العام</td><td>Ahmed-Inspired Witness</td><td>فرق Recall التأكيدي بقي دالاً بعد Holm</td></tr>
+<tr><td>رفع كشف Mixed ضمن البيئات الأربع</td><td>Ahmed-Inspired Witness</td><td>+56.13 pp مجمعاً، واتجاه موجب في 38/40 وحدة استكشافياً</td></tr>
+<tr><td>تقليل FRR</td><td>Centralized أو Distributed RSU</td><td>FRR ≈ 1.65% مقابل 3.09%، وزيادة Ahmed في FRR دالة بعد Holm</td></tr>
+<tr><td>تقليل كلفة الاتصال مع finalization موزع</td><td>Distributed RSU</td><td>رسائل وبايتات أقل بكثير من Ahmed مع PBFT</td></tr>
+<tr><td>أقل زمن إجمالي وصفي</td><td>Centralized</td><td>لا توجد مرحلة PBFT صريحة، مع ضرورة تفسير finalization=0 كخاصية للمحاكي</td></tr>
+<tr><td>أعلى MCC وصفي</td><td>Ahmed-Inspired Witness</td><td>MCC = 0.8474، لكن فرق MCC غير دال تأكيدياً بعد Holm (adjusted p=0.1986)</td></tr>
+</tbody></table>
+<p>
+هذه المفاضلة أهم من ترتيب معماري خطي من الأفضل إلى الأسوأ. ففي تطبيق قد تكون تكلفة إلغاء مركبة شرعية مرتفعة،
+وفي تطبيق آخر قد يكون تمرير هجوم مركب أخطر من زيادة الاتصالات. لذلك يجب اختيار المعمارية وفق متطلبات التطبيق،
+مع الفصل بين النتائج التأكيدية والنتائج الاستكشافية وبين الأداء الأمني والكلفة التشغيلية.
+</p>
+
+
+
+</section>
+<section id="s519">
+<h2>5.19 أهم الاستنتاجات</h2>
+<ol>
+<li><strong>Ahmed يزيد Recall مع كلفة FRR:</strong> فرق Recall بقي دالاً بعد Holm، وكذلك زيادة FRR؛ أي أن المكسب الأمني يأتي مع مفاضلة قابلة للقياس في الإلغاء الخاطئ.</li>
+<li><strong>MCC أعلى وصفياً لا تأكيدياً:</strong> القيمة الإجمالية لـAhmed أعلى، لكن فرق MCC لم يبق دالاً بعد Holm (adjusted p = 0.1986).</li>
+<li><strong>Centralized وDistributed متطابقان تصنيفياً:</strong> القرار النهائي تطابق في 5992/5992 حالة، κ=1 و0 discordant، بينما بقيت الاتصالات وfinalization والسجل مختلفة.</li>
+<li><strong>Mixed يكشف قيد تنوع الأدلة:</strong> جميع FN في Distributed (103/103) وAhmed (16/16) حملت سبب نقص تنوع الأدلة المستقلة، وظهر مكسب Ahmed في الطوبولوجيات الأربع.</li>
+<li><strong>Replay مختلف عن Mixed:</strong> مكسب Replay انعدم في Corridor وSmoke وظهر في Intersection وGrid، لذلك هو topology-conditioned داخل الحملة ولا يجوز تعميم آلية سببية له.</li>
+<li><strong>PBFT لا يعوض ضعف التأهيل:</strong> الإجماع يبدأ بعد نجاح التأهيل؛ كما أن baseline حقق نجاح إجماع كاملاً من دون أن يشكل اختبار Safety بيزنطي تحت اقتراحات دلالية خبيثة.</li>
+<li><strong>كلفة Ahmed الأساسية تشغيلية:</strong> الرسائل والبايتات والذاكرة أعلى بوضوح، بينما يبين تفكيك الزمن أن finalization PBFT نفسه يقع في نطاق عشرات المللي ثانية، وأن معظم زمن الحالة مرتبط بالكشف/اكتساب الأدلة والتأهيل.</li>
+<li><strong>المعايرة بقيت محافظة:</strong> بقي <span class="ltr">selection_feasible=false</span>، ولم تُخفف شروط Recall/FRR بعد رؤية النتائج.</li>
+<li><strong>صلاحية النتائج سبقت المناقشة:</strong> عزل Ground Truth وSensor Oracle، الاستدلال Root-Aware، منع Double Sanitization، عدالة النقل، reference-only Ahmed threshold، وتصحيح قابلية سياسة Mixed كلها ثُبتت قبل اعتماد النتائج النهائية.</li>
+</ol>
+
+
+</section>
+<section id="s520">
+<h2>5.20 حدود الدراسة</h2>
+<h3>5.20.1 نموذج PBFT محاكاة وليس شبكة إنتاجية</h3>
+<p>
+تمثل النتائج أداء محاكي PBFT ضمن الحملة الحالية. لا تشمل الدراسة تكاليف تنفيذ تشفير وشبكة بلوك تشين
+إنتاجية كاملة بكل تفاصيلها.
+</p>
+<h3>5.20.2 حدود اختبار PBFT وSafety</h3>
+<p>
+لم تظهر في baseline حالات Liveness Failure أو View Change، لكن ذلك لا يساوي اختبار تحمل بيزنطي شامل. والأهم أن
+Safety Violations لا تُعامل كقياس تجريبي في هذه الرسالة، لأن المحرك المجمد لم يتضمن مولداً لاقتراحات دلالية
+خبيثة، ولأن مؤشر <span class="ltr">safety_violation</span> لم يكن مساراً تشغيلياً قابلاً للوصول إلى قيمة موجبة
+في الحملة. لذلك يقتصر الاستنتاج على نجاح الإجماع والحيوية ضمن شروط baseline، بينما يبقى اختبار Safety العدائي
+عملاً لاحقاً منفصلاً.
+</p>
+
+
+<h3>5.20.3 افتراضات ضجيج الحساسات</h3>
+<p>
+قيم ضجيج الموقع والسرعة والتسارع افتراضات تجريبية. يوصى لاحقاً بإجراء تحليل Robustness عبر مستويات
+متعددة من الضجيج دون إعادة ضبط الأوزان لكل مستوى.
+</p>
+<h3>5.20.4 قيود المعايرة</h3>
+<p>
+لم يحقق أي مرشح أهداف الصلاحية المعلنة مسبقاً عبر أسوأ <span class="ltr">fold × view</span>، ولذلك بقي
+<span class="ltr">selection_feasible=false</span>. كانت حدود <span class="ltr">Recall ≥ 0.95</span> و
+<span class="ltr">FRR ≤ 0.05</span> أهداف feasibility للتصميم، لا ضمانات يجب أن تحققها النتيجة ولا معايير عامة
+مستمدة من الأدبيات. تم الاحتفاظ بالمرشح الأفضل وفق قاعدة الترتيب الأصلية من دون تخفيف لاحق للشروط.
+</p>
+
+
+<h3>5.20.5 عدم التعميم السببي للطوبولوجيا</h3>
+<p>
+تغير Smoke/Corridor/Intersection/Grid عدة عوامل في وقت واحد، لذلك لا تسمح الحملة بعزل أثر topology نفسه.
+كما أن Bootstrap المستخدم في Phase A كان طبقياً ويحافظ على الطوبولوجيات الأربع كعامل تصميم ثابت؛ ومن ثم تصف
+فواصل الثقة إعادة سحب البذور داخل هذه البيئات، ولا تمثل تعميماً مباشراً إلى فضاء طوبولوجيات أخرى. يظهر هذا القيد
+بوضوح في Replay، حيث اختلف الأثر جذرياً بين الطوبولوجيات، بينما كان Mixed واسعاً عبر الأربع.
+</p>
+
+
+<h3>5.20.6 حدود الأصالة</h3>
+<p>
+V-PUFT هو الإطار المقترح والمستخدم في هذه الدراسة، ولا يُقدَّم PUFT/V-PUFT بوصفه بروتوكول VANET منشوراً سابقاً
+ما لم يوجد مصدر أولي يثبت ذلك. كما أن Ahmed-Inspired تسمية تجريبية لمعمارية مستوحاة من العمل المرجعي، وليست
+اسم المقالة ولا إعادة تنفيذ حرفية لخوارزميته أو لتوقيع حلقي عتبي كامل. وتُصاغ مساهمة provenance-aware diversity
+بصورة محافظة: أضاف V-PUFT آلية صريحة لمنع احتساب عدة شهادات مشتقة من أصل ملاحظة واحد كأدلة مستقلة؛ ولا يُدعى
+أن الأدبيات كلها تخلو من أي مفهوم قريب دون مراجعة مخصصة تثبت ذلك.
+</p>
+
+
+</section>
+<section id="s521">
+<h2>5.21 خلاصة الفصل</h2>
+<p>
+أظهرت النتائج أن المعماريات الثلاث تقدم توازنات مختلفة بين كشف السلوك الخبيث، حماية المركبات السليمة، كلفة
+الاتصال، وزمن القرار. حقق Ahmed-Inspired أعلى Recall عام، وكان فرق Recall عن مساري RSU دالاً بعد Holm، لكنه
+سجل أيضاً FRR أعلى بصورة دالة؛ أي أن الزيادة في الحساسية ترافقها كلفة قابلة للقياس في الإلغاء الخاطئ.
+</p>
+<p>
+كانت قيمة MCC الإجمالية في Ahmed أعلى وصفياً، لكن فرق MCC لم يبق دالاً بعد تصحيح Holm، ولذلك لا يُستخدم MCC
+وحده كدليل تأكيدي على تفوق شامل. أما Mixed فأظهر أكبر مكسب استكشافي لمسار الشهود (+56.13 نقطة مئوية مجمعاً)
+وكان الاتجاه موجباً في 38 من 40 وحدة وعبر الطوبولوجيات الأربع، في حين كان مكسب Replay مشروطاً بالطوبولوجيا:
+انعدم في Corridor وSmoke وظهر في Intersection وGrid.
+</p>
+<p>
+تطابقت Centralized وDistributed RSU في القرار النهائي على جميع الحالات المشتركة البالغ عددها 5992
+(κ=1، 0 discordant)، ما يوضح أن اختلاف finalization من خادم مركزي إلى PBFT لم يغير التصنيف في الحملة المجمدة.
+وفي المقابل بقيت الفروق التشغيلية في الاتصالات والزمن والسجل. كما نجح PBFT في baseline، لكن Safety تحت
+اقتراحات دلالية خبيثة لم يُختبر تجريبياً ويظل من حدود الدراسة.
+</p>
+<div class="finding">
+<strong>الخلاصة النهائية:</strong><br/>
+لا تدعم النتائج فكرة «معمارية أفضل مطلقاً». تدعم بدلاً من ذلك نتيجة أدق: <strong>مصدر الأدلة، وقدرة المسار على
+تحقيق شروط تنوعها المستقل، وآلية finalization</strong> تحدد مفاضلة مختلفة بين Recall وFRR والكلفة والزمن. ويجب
+قراءة هذه النتيجة ضمن الطوبولوجيات وشروط الحملة المجمدة، مع الفصل بين الاستدلال التأكيدي والتحليل الاستكشافي
+وبين ما قيس فعلياً وما بقي ضمن حدود الدراسة.
+</div>
+
+
+
+
+</section>
+<hr/>
+<div class="source-links">
+<br/><a href="../Table_01_Global_Architecture_Comparison.csv">Table_01_Global_Architecture_Comparison.csv</a>
+<br/><a href="../Table_03_Attack_Recall_Matrix.csv">Table_03_Attack_Recall_Matrix.csv</a>
+<br/><a href="../Final_Numerical_Summary.json">Final_Numerical_Summary.json</a>
+<br/><a href="../../case_agreement/SUMMARY.md">Phase A — Case Agreement SUMMARY</a>
+
+</div>
+<footer><span>
+الفصل مبني على النسخة النهائية المجمدة من نتائج V-PUFT v7، مع دمج تحليلات Phase A بعد التجميد بتاريخ 14-08-2026.
+لم تُعد Phase A تشغيل SUMO أو الكاشف أو المعايرة أو المعماريات، ولم تستبدل أرقام v7 الأساسية.
+</span></footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,44 @@
+{
+  "version": "1.0.0",
+  "seeds": [
+    1001,
+    1002,
+    1003,
+    1004,
+    1005,
+    1006,
+    1007,
+    1008,
+    1009,
+    1010
+  ],
+  "architectures": [
+    "ahmed_inspired_witness_vpuft",
+    "centralized_vpuft",
+    "distributed_rsu_vpuft"
+  ],
+  "weights": {
+    "C": 0.3652673861753211,
+    "rho": 0.16195260151983162,
+    "F": 0.06370517641034751,
+    "Q": 0.40608957775126925,
+    "eta": 0.0029852581432305157
+  },
+  "comparison_rule": "One shared V-PUFT engine; architecture/finalization/evidence-source differ.",
+  "files": [
+    "metrics_by_seed.csv",
+    "architecture_summary.csv",
+    "metrics_by_attack.csv",
+    "attack_inference_cases.csv",
+    "decisions.csv",
+    "evidence_campaign.csv",
+    "architecture_evidence.csv",
+    "network_messages.csv",
+    "message_summary.csv",
+    "consensus_outcomes.csv",
+    "article_reference_ablation.csv",
+    "evidence_correlation_metrics.csv",
+    "trace_event_index.csv",
+    "architecture_summary.png"
+  ]
+}

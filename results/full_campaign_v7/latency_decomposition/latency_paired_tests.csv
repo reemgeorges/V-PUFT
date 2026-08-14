@@ -1,0 +1,13 @@
+stage,arch_a,arch_b,n_pairs,median_a_ms,median_b_ms,median_difference_ms,wilcoxon_p,stage_label,interpretation_scope
+detection_latency_p95_ms,Centralized V-PUFT,Distributed RSU V-PUFT,40,8000.0,8000.0,0.0,,Detection / evidence acquisition,Evidence acquisition/detection; may vary with evidence view and delivery path
+detection_latency_p95_ms,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,40,8000.0,8000.0,0.0,0.0009765625,Detection / evidence acquisition,Evidence acquisition/detection; may vary with evidence view and delivery path
+detection_latency_p95_ms,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,40,8000.0,8000.0,0.0,0.0009765625,Detection / evidence acquisition,Evidence acquisition/detection; may vary with evidence view and delivery path
+qualification_latency_p95_ms,Centralized V-PUFT,Distributed RSU V-PUFT,40,14130.11797192221,14323.957575840437,185.70501357379544,1.8189894035458565e-12,Qualification (V-PUFT),V-PUFT qualification after detection
+qualification_latency_p95_ms,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,40,14130.11797192221,14589.16693449056,461.4694001680982,1.8189894035458565e-12,Qualification (V-PUFT),V-PUFT qualification after detection
+qualification_latency_p95_ms,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,40,14323.957575840437,14589.16693449056,293.4428346969544,1.8189894035458565e-12,Qualification (V-PUFT),V-PUFT qualification after detection
+consensus_latency_p95_ms,Centralized V-PUFT,Distributed RSU V-PUFT,40,0.0,44.95041023886222,44.95041023886222,1.8189894035458565e-12,Finalization (central or PBFT),Finalization path; cleanest Central-vs-PBFT comparison
+consensus_latency_p95_ms,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,40,0.0,45.62911812110349,45.62911812110349,1.8189894035458565e-12,Finalization (central or PBFT),Finalization path; cleanest Central-vs-PBFT comparison
+consensus_latency_p95_ms,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,40,44.95041023886222,45.62911812110349,1.9430860043631668,0.07033917775879672,Finalization (central or PBFT),Finalization path; cleanest Central-vs-PBFT comparison
+latency_p95_ms,Centralized V-PUFT,Distributed RSU V-PUFT,40,14184.00204044941,14361.688421656849,167.80371687783918,1.8189894035458565e-12,End-to-end,End-to-end case latency from case opening to finalization
+latency_p95_ms,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,40,14184.00204044941,14623.086814768805,433.7073988531256,1.8189894035458565e-12,End-to-end,End-to-end case latency from case opening to finalization
+latency_p95_ms,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,40,14361.688421656849,14623.086814768805,295.1395473302837,1.8189894035458565e-12,End-to-end,End-to-end case latency from case opening to finalization

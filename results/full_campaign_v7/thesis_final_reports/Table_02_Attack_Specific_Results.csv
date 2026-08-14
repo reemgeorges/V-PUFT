@@ -1,0 +1,25 @@
+Architecture,Attack,TP,FN,Recall,FP,TN,FRR
+Ahmed-Inspired Witness V-PUFT,benign,0,0,0.0,153,4795,0.030921584478577204
+Ahmed-Inspired Witness V-PUFT,certificate_tamper,120,0,1.0,0,0,0.0
+Ahmed-Inspired Witness V-PUFT,false_denm,112,16,0.875,0,0,0.0
+Ahmed-Inspired Witness V-PUFT,flood,120,5,0.96,0,0,0.0
+Ahmed-Inspired Witness V-PUFT,mixed,139,16,0.896774193548387,0,0,0.0
+Ahmed-Inspired Witness V-PUFT,position_offset,131,29,0.81875,0,0,0.0
+Ahmed-Inspired Witness V-PUFT,replay,138,20,0.8734177215189873,0,0,0.0
+Ahmed-Inspired Witness V-PUFT,speed_offset,138,21,0.8679245283018868,0,0,0.0
+Centralized V-PUFT,benign,0,0,0.0,82,4905,0.016442751152997793
+Centralized V-PUFT,certificate_tamper,120,0,1.0,0,0,0.0
+Centralized V-PUFT,false_denm,91,37,0.7109375,0,0,0.0
+Centralized V-PUFT,flood,120,5,0.96,0,0,0.0
+Centralized V-PUFT,mixed,52,103,0.33548387096774196,0,0,0.0
+Centralized V-PUFT,position_offset,155,5,0.96875,0,0,0.0
+Centralized V-PUFT,replay,118,40,0.7468354430379747,0,0,0.0
+Centralized V-PUFT,speed_offset,157,2,0.9874213836477987,0,0,0.0
+Distributed RSU V-PUFT,benign,0,0,0.0,82,4905,0.016442751152997793
+Distributed RSU V-PUFT,certificate_tamper,120,0,1.0,0,0,0.0
+Distributed RSU V-PUFT,false_denm,91,37,0.7109375,0,0,0.0
+Distributed RSU V-PUFT,flood,120,5,0.96,0,0,0.0
+Distributed RSU V-PUFT,mixed,52,103,0.33548387096774196,0,0,0.0
+Distributed RSU V-PUFT,position_offset,155,5,0.96875,0,0,0.0
+Distributed RSU V-PUFT,replay,118,40,0.7468354430379747,0,0,0.0
+Distributed RSU V-PUFT,speed_offset,157,2,0.9874213836477987,0,0,0.0

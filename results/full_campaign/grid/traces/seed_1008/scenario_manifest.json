@@ -1,0 +1,31 @@
+{
+  "mode": "sumo_traci",
+  "seed": 1008,
+  "sumo_binary": "C:\\Program Files (x86)\\Eclipse\\Sumo\\bin\\sumo.exe",
+  "scenario_directory": "C:\\Users\\reemg\\OneDrive\\Desktop\\master\\6\\v10\\sumo\\grid",
+  "scenario_files": {
+    "grid.net.xml": "cb757d6102a13513bdd3ca185215ca2bdb525e478e8a75fb54616db030aa6df0",
+    "grid.rou.xml": "603f601fad037c175db6aebe1ee1746cc1768313251370509e0aa05857bed032",
+    "grid.sumocfg": "0b28af8e971d870c14be04a68df762056a6a3aad391e32aaaedf746073161d81",
+    "rsus.json": "713640d63e5f9120282285c865c912a9217753bec0cb53083891d04729abf196",
+    "attacks.json": "5fd2eee9732fc30127e0a86910f782bdfd30567c6230a87ec27dbbf302cf2470"
+  },
+  "counts": {
+    "mobility_snapshots": 1758,
+    "v2x_messages": 2120,
+    "detection_events": 11881,
+    "cases": 31,
+    "rsu_events": 5379,
+    "witness_events": 6502
+  },
+  "outputs": [
+    "mobility_trace.csv",
+    "generated_messages.csv",
+    "attack_ground_truth.csv",
+    "local_detections.csv",
+    "shared_detection_trace.jsonl",
+    "shared_detection_trace.csv",
+    "evidence_campaign.csv",
+    "sumo_tripinfo.xml"
+  ]
+}

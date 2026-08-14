@@ -1,0 +1,8 @@
+{
+  "seed": 1005,
+  "completed": true,
+  "case_count": 31,
+  "malicious_case_count": 7,
+  "benign_case_count": 24,
+  "detection_event_count": 21448
+}

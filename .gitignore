@@ -11,4 +11,19 @@ Thumbs.db
 
 /result
 /FINAL_FREEZE_v7_20260809
-/.venv
+/.venv# Obsolete/intermediate V-PUFT experiment outputs
+results/demo/
+results/demo_fix_check/
+results/demo_fix_check_small/
+results/demo_reference/
+results/full_campaign_v2/
+results/full_campaign_v3/
+results/sumo_seed_1001/
+results/sumo_seed_1001_models/
+# Local historical/helper files
+CLAUDE.md
+docs/claude/
+docs/archive/
+scripts/legacy/
+results/full_campaign/sensitivity_fast/
+results/full_campaign/topology_architecture_summary.csv
