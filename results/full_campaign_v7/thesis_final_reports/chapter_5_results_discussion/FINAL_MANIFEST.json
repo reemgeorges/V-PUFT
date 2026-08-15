@@ -1,0 +1,77 @@
+{
+  "artifact": "V-PUFT Chapter 5 pre-seminar final reporting package",
+  "generated_at_utc": "2026-08-15T08:35:10.143881+00:00",
+  "experiment_rerun": false,
+  "frozen_v7_modified": false,
+  "reporting_only_change": true,
+  "chapter_index_identical": true,
+  "chapter_sha256": "F05CB1A2C56FB27E213432CDB3AB8BD3DC90EB7BB624EA0134B084E8ED7B4D77",
+  "inputs_and_outputs": [
+    {
+      "path": "results/full_campaign_v7/thesis_final_reports/chapter_5_results_discussion/chapter_5_results_discussion_ar.html",
+      "exists": true,
+      "size_bytes": 74777,
+      "sha256": "F05CB1A2C56FB27E213432CDB3AB8BD3DC90EB7BB624EA0134B084E8ED7B4D77"
+    },
+    {
+      "path": "results/full_campaign_v7/thesis_final_reports/chapter_5_results_discussion/index.html",
+      "exists": true,
+      "size_bytes": 74777,
+      "sha256": "F05CB1A2C56FB27E213432CDB3AB8BD3DC90EB7BB624EA0134B084E8ED7B4D77"
+    },
+    {
+      "path": "results/full_campaign_v7/thesis_final_reports/chapter_5_results_discussion/VALIDATION.json",
+      "exists": true,
+      "size_bytes": 11745,
+      "sha256": "D83C68E38C282000CC6ECCB54DF6BA63FFA2C8F5EBDCCA194FFFB81DCDA11160"
+    },
+    {
+      "path": "results/full_campaign_v7/thesis_final_reports/chapter_5_results_discussion/chapter_metadata.json",
+      "exists": true,
+      "size_bytes": 2530,
+      "sha256": "E2938B5C54B5A3D4574854DCD92FB89C095ECA952DBF831357C9394A2716C25B"
+    },
+    {
+      "path": "results/full_campaign_v7/statistical_inference/bootstrap_pooled_differences.csv",
+      "exists": true,
+      "size_bytes": 3208,
+      "sha256": "4CF896FC17BA24B8097E26631110E7AC9627B5853530672D11209591E100BADE"
+    },
+    {
+      "path": "results/full_campaign_v7/statistical_inference/bootstrap_by_attack.csv",
+      "exists": true,
+      "size_bytes": 3770,
+      "sha256": "918B05990CAB43273BCE4199321816705D574FAC7BE417FC2153215BEE08C0C3"
+    },
+    {
+      "path": "results/full_campaign_v7/statistical_inference/paired_tests_by_seed.csv",
+      "exists": true,
+      "size_bytes": 7982,
+      "sha256": "75EDC9B94490A5348B6D3591D675A1B8631DC6C5E30F2673F1769FA756CAD51C"
+    },
+    {
+      "path": "results/full_campaign_v7/case_agreement/agreement_summary.csv",
+      "exists": true,
+      "size_bytes": 682,
+      "sha256": "2C9124B3E3CB370153D1AF6DF64636CE381E9309FCC0FDA617DD8EE9D80E0DA0"
+    },
+    {
+      "path": "results/full_campaign_v7/latency_decomposition/latency_stages.csv",
+      "exists": true,
+      "size_bytes": 2899,
+      "sha256": "48F6C09B1015B0ABF9BC59390CDA8C589E280C4D60863AAC41BC743A707580E4"
+    },
+    {
+      "path": "results/full_campaign_v7/sensitivity_shared_views_mixedfix/selected_weights.json",
+      "exists": true,
+      "size_bytes": 3008,
+      "sha256": "4E8CB5C1D8804CA9F24537A4E0796E514B13474125299EC0E22490D44614C6C9"
+    },
+    {
+      "path": "configs/full_experiment.json",
+      "exists": true,
+      "size_bytes": 4665,
+      "sha256": "71ED5637B3F90C6CDE6EBE8302D9AF1A571CB671CFA07DC3413F47B516391220"
+    }
+  ]
+}

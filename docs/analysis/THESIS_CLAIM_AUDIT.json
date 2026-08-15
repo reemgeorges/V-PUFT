@@ -1,0 +1,18 @@
+{
+  "audit_only": true,
+  "auto_rewrite": false,
+  "scope": [
+    "C:\\Users\\reemg\\OneDrive\\Desktop\\master\\6\\v10\\docs",
+    "C:\\Users\\reemg\\OneDrive\\Desktop\\master\\6\\v10\\results\\full_campaign_v7\\thesis_final_reports"
+  ],
+  "files_scanned": 13,
+  "hits": [],
+  "guidance": {
+    "8.46": "Pooled recall difference with stratified cluster-bootstrap CI.",
+    "8.49": "Mean paired difference across 40 topology-seed units / explicitly labelled macro-table context.",
+    "MCC": "Higher descriptively; NOT confirmatory after Holm (adjusted p≈0.1986).",
+    "Safety": "Do not report zero violations as empirical safety evidence; malicious semantic proposals were not exercised.",
+    "Mixed": "Attack-stratified result is exploratory/unadjusted for multiplicity.",
+    "Blockchain": "C-vs-D classification equality isolates zero classification effect under fixed trust/evidence; ledger tamper-resistance/auditability were not directly measured."
+  }
+}

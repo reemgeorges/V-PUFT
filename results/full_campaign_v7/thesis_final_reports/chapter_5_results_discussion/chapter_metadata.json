@@ -63,5 +63,12 @@
       "runtime_s": 4.307634,
       "peak_memory_kb": 14615.812378
     }
-  }
+  },
+  "reporting_revision": "PRESEMINAR_FINAL_20260815",
+  "reporting_revision_scope": "reporting_and_semantic_validation_only",
+  "experiment_rerun": false,
+  "frozen_v7_modified": false,
+  "chapter_sha256": "F05CB1A2C56FB27E213432CDB3AB8BD3DC90EB7BB624EA0134B084E8ED7B4D77",
+  "validation": "source-derived semantic/numerical validation; see VALIDATION.json",
+  "updated_at_utc": "2026-08-15T08:35:09.947287+00:00"
 }

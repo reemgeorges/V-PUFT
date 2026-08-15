@@ -90,7 +90,7 @@ Performance Evaluation of Blockchain-Based VANETs
 <li><a href="#s514">5.14 PBFT وسلامة السجل</a></li>
 <li><a href="#s515">5.15 استهلاك الموارد</a></li>
 <li><a href="#s516">5.16 المقارنة حسب الطوبولوجيا</a></li>
-<li><a href="#s517">5.17 مقارنة المركزية والموزعة</a></li>
+<li><a href="#s517">5.17 مقارنة Centralized وDistributed RSU</a></li>
 <li><a href="#s518">5.18 المفاضلة الأمنية-التشغيلية</a></li>
 <li><a href="#s519">5.19 أهم الاستنتاجات</a></li>
 <li><a href="#s520">5.20 حدود الدراسة</a></li>
@@ -414,17 +414,22 @@ F<sub>i</sub><sup>αF</sup> · Q<sub>i</sub><sup>αQ</sup> · η<sub>i</sub><sup
 <div class="table-title">جدول (5-3أ): الاستدلال الإحصائي الأولي بعد التجميد</div>
 <table>
 <thead><tr>
-<th>المقياس</th><th>المقارنة</th><th>الفرق المجمع</th><th>95% CI</th><th>متوسط الفرق المزدوج</th><th>Raw p</th><th>Holm-adjusted p</th><th>Rank-biserial</th><th>الحكم التأكيدي</th>
+<th>المقياس</th><th>المقارنة</th><th>القيمة المجمعة A</th><th>القيمة المجمعة B</th><th>الفرق المجمع</th><th>95% CI</th><th>متوسط الفرق المزدوج</th><th>Raw p</th><th>Holm-adjusted p</th><th>Rank-biserial</th><th>اتجاه الفرق</th><th>الحكم التأكيدي</th>
 </tr></thead>
 <tbody>
-<tr><td>Recall</td><td>Ahmed vs Centralized</td><td>+8.46 pp</td><td>[+6.35, +10.57] pp</td><td>+8.49 pp</td><td>2.404×10⁻⁶</td><td>1.683×10⁻⁵</td><td>+0.898 (large)</td><td><strong>دال</strong></td></tr>
-<tr><td>Recall</td><td>Ahmed vs Distributed</td><td>+8.46 pp</td><td>[+6.34, +10.60] pp</td><td>+8.49 pp</td><td>2.404×10⁻⁶</td><td>1.683×10⁻⁵</td><td>+0.898 (large)</td><td><strong>دال</strong></td></tr>
-<tr><td>FRR</td><td>Ahmed vs Centralized</td><td>+1.45 pp</td><td>[+1.38, +1.51] pp</td><td>+1.44 pp</td><td>2.658×10⁻⁸</td><td>2.392×10⁻⁷</td><td>+1.000 (large)</td><td><strong>دال</strong></td></tr>
-<tr><td>FRR</td><td>Ahmed vs Distributed</td><td>+1.45 pp</td><td>[+1.39, +1.51] pp</td><td>+1.44 pp</td><td>2.658×10⁻⁸</td><td>2.392×10⁻⁷</td><td>+1.000 (large)</td><td><strong>دال</strong></td></tr>
-<tr><td>MCC</td><td>Ahmed vs Centralized</td><td>+0.0168</td><td>[+0.0024, +0.0309]</td><td>+0.0171</td><td>0.03972</td><td><strong>0.1986</strong></td><td>+0.373 (medium)</td><td>غير دال بعد Holm</td></tr>
-<tr><td>MCC</td><td>Ahmed vs Distributed</td><td>+0.0168</td><td>[+0.0025, +0.0311]</td><td>+0.0171</td><td>0.03972</td><td><strong>0.1986</strong></td><td>+0.373 (medium)</td><td>غير دال بعد Holm</td></tr>
-<tr><td>Recall / FRR / MCC</td><td>Distributed vs Centralized</td><td>0 تماماً</td><td>[0, 0]</td><td>0 تماماً</td><td>—</td><td>—</td><td>غير معرف</td><td>كل الأزواج متطابقة، فلا يلزم اختبار فرق</td></tr>
+<tr><td>Recall</td><td>Ahmed vs Centralized</td><td>80.90%</td><td>89.35%</td><td>+8.46 pp</td><td>[+6.35, +10.57] pp</td><td>+8.49 pp</td><td>2.404×10⁻⁶</td><td>1.683×10⁻⁵</td><td>+0.898 (large)</td><td>↑ زيادة مرغوبة</td><td><strong>دال تأكيدياً</strong></td></tr>
+<tr><td>Recall</td><td>Ahmed vs Distributed</td><td>80.90%</td><td>89.35%</td><td>+8.46 pp</td><td>[+6.34, +10.60] pp</td><td>+8.49 pp</td><td>2.404×10⁻⁶</td><td>1.683×10⁻⁵</td><td>+0.898 (large)</td><td>↑ زيادة مرغوبة</td><td><strong>دال تأكيدياً</strong></td></tr>
+<tr><td>FRR</td><td>Ahmed vs Centralized</td><td>1.64%</td><td>3.09%</td><td>+1.45 pp</td><td>[+1.38, +1.51] pp</td><td>+1.44 pp</td><td>2.658×10⁻⁸</td><td>2.392×10⁻⁷</td><td>+1.000 (large)</td><td>↑ زيادة غير مرغوبة</td><td><strong>دال تأكيدياً — تدهور</strong></td></tr>
+<tr><td>FRR</td><td>Ahmed vs Distributed</td><td>1.64%</td><td>3.09%</td><td>+1.45 pp</td><td>[+1.39, +1.51] pp</td><td>+1.44 pp</td><td>2.658×10⁻⁸</td><td>2.392×10⁻⁷</td><td>+1.000 (large)</td><td>↑ زيادة غير مرغوبة</td><td><strong>دال تأكيدياً — تدهور</strong></td></tr>
+<tr><td>MCC</td><td>Ahmed vs Centralized</td><td>0.8307</td><td>0.8475</td><td>+0.0168</td><td>[+0.0024, +0.0309]</td><td>+0.0171</td><td>0.03972</td><td><strong>0.1986</strong></td><td>+0.373 (medium)</td><td>↑ أعلى وصفياً</td><td>غير دال تأكيدياً بعد Holm</td></tr>
+<tr><td>MCC</td><td>Ahmed vs Distributed</td><td>0.8307</td><td>0.8475</td><td>+0.0168</td><td>[+0.0025, +0.0311]</td><td>+0.0171</td><td>0.03972</td><td><strong>0.1986</strong></td><td>+0.373 (medium)</td><td>↑ أعلى وصفياً</td><td>غير دال تأكيدياً بعد Holm</td></tr>
+<tr><td>Recall / FRR / MCC</td><td>Distributed vs Centralized</td><td colspan="2">متطابقة لكل مقياس في الأزواج الأربعين</td><td>0 تماماً</td><td>[0, 0]</td><td>0 تماماً</td><td>—</td><td>—</td><td>غير معرف</td><td>لا اتجاه</td><td>تطابق كامل داخل الحملة؛ لا يلزم اختبار فرق</td></tr>
 </tbody></table>
+<div class="source-links">
+المصادر الإحصائية المباشرة:
+<a href="../../statistical_inference/bootstrap_pooled_differences.csv">bootstrap_pooled_differences.csv</a> |
+<a href="../../statistical_inference/paired_tests_by_seed.csv">paired_tests_by_seed.csv</a>
+</div>
 <div class="method">
 <strong>تمييز المقدرات:</strong>
 الفرق المجمع وفاصل Bootstrap يحسبان من المصفوفة المجمعة داخل كل إعادة سحب، بينما متوسط الفرق المزدوج
@@ -446,7 +451,8 @@ F<sub>i</sub><sup>αF</sup> · Q<sub>i</sub><sup>αQ</sup> · η<sub>i</sub><sup
 <div class="source-links">
 ملفات المصدر:
 <a href="../Table_02_Attack_Specific_Results.csv">Table_02_Attack_Specific_Results.csv</a> |
-<a href="../Table_03_Attack_Recall_Matrix.csv">Table_03_Attack_Recall_Matrix.csv</a>
+<a href="../Table_03_Attack_Recall_Matrix.csv">Table_03_Attack_Recall_Matrix.csv</a> |
+<a href="../../statistical_inference/bootstrap_by_attack.csv">bootstrap_by_attack.csv</a>
 </div>
 <div class="table-title">جدول (5-4): Recall حسب نوع الهجوم</div>
 <table>
@@ -468,13 +474,15 @@ F<sub>i</sub><sup>αF</sup> · Q<sub>i</sub><sup>αQ</sup> · η<sub>i</sub><sup
 فواصل Bootstrap لوصف استقرار الاتجاه داخل تصميم الحملة، ولا توصف هذه المقارنات منفردة بأنها اختبارات تأكيدية دالة.
 </div><h3>5.11.1 Certificate Tamper</h3>
 <p>
-حققت المعماريات الثلاث 100%. يتفق ذلك مع طبيعة الدليل المشفر/القابل للتحقق مباشرة، إذ لا يحتاج النظام
-إلى تنوع سياقي كبير عندما توجد إشارة حاسمة عالية القابلية للتحقق.
+حققت المعماريات الثلاث 100%. وفي المقارنة الاستكشافية Ahmed−Distributed كان الفرق <strong>0.00 نقطة مئوية</strong>
+مع فاصل Bootstrap <span class="ltr">[0.00, 0.00]</span>. يتفق ذلك مع وجود دليل مشفر/قابل للتحقق مباشرة داخل
+النموذج الحالي، من دون تعميم النتيجة إلى جميع نماذج العبث بالشهادات.
 </p>
 <h3>5.11.2 Flood</h3>
 <p>
-حققت المعماريات الثلاث 96%. يدل ذلك على أن نمط معدل الرسائل غير الطبيعي كان واضحاً بما يكفي في
-المسارين، وأن إضافة شهود لم تقدم مكسباً إضافياً لهذا الهجوم ضمن شروط التجربة.
+حققت المعماريات الثلاث 96%. وفي المقارنة الاستكشافية Ahmed−Distributed كان الفرق <strong>0.00 نقطة مئوية</strong>
+مع فاصل Bootstrap <span class="ltr">[−1.65, +2.36]</span> نقطة مئوية، وهو فاصل يشمل الصفر. لذلك لا يظهر
+مكسب مستقر لمسار الشهود في Flood ضمن هذا التحليل، ولا تُقدَّم النتيجة بوصفها فرقاً تأكيدياً.
 </p>
 <h3>5.11.3 Mixed</h3>
 <p>
@@ -546,18 +554,25 @@ Ahmed وDistributed هنا بقدرة مسار الشهود على تحقيق ش
 
 <h3>5.11.5 False DENM</h3>
 <p>
-بلغ Ahmed-Inspired <strong>87.50%</strong> مقابل <strong>71.09%</strong> في RSU. وتنسجم النتيجة مع كون
-False DENM ادعاءً سياقياً قد يستفيد من وجود مراقبين مستقلين يؤكدون أو يعارضون الادعاء.
+بلغ Ahmed-Inspired <strong>87.50%</strong> مقابل <strong>71.09%</strong> في Distributed RSU، أي فرق
+استكشافي قدره <strong>+16.41 نقطة مئوية</strong> مع فاصل Bootstrap
+<span class="ltr">[+8.73, +23.85]</span> نقطة مئوية. يصف الفاصل استقرار الاتجاه داخل تصميم الحملة، لكنه لا
+يحوّل المقارنة إلى اختبار تأكيدي مصحح لتعدد المقارنات. ويمكن أن تكون زيادة تنوع منظور الأدلة تفسيراً محتملاً
+للنتيجة، <strong>دون عزل تجريبي لهذا العامل</strong>؛ لذلك لا تُنسب الزيادة سببياً إلى وجود الشهود وحده.
 </p>
 <h3>5.11.6 Position Offset</h3>
 <p>
-بلغ RSU <strong>96.88%</strong> مقابل <strong>81.88%</strong> لـAhmed. ضمن نموذج الحساسات المستخدم،
-كانت أدلة RSU أكثر فاعلية في اكتشاف الانحراف المكاني المباشر.
+بلغ Distributed RSU <strong>96.88%</strong> مقابل <strong>81.87%</strong> لـAhmed، أي فرق Ahmed−Distributed
+استكشافي قدره <strong>−15.00 نقطة مئوية</strong> مع فاصل Bootstrap
+<span class="ltr">[−20.64, −9.38]</span> نقطة مئوية. يثبت ذلك اتجاه الفرق داخل الحملة المختبرة، لكنه لا يحدد
+سبباً آلياً منفرداً له ولا يسمح بتعميم النتيجة خارج افتراضات الضجيج الحالية.
 </p>
 <h3>5.11.7 Speed Offset</h3>
 <p>
-بلغ RSU <strong>98.74%</strong> مقابل <strong>86.79%</strong> لـAhmed. كما في Position Offset، يظهر أن
-المراقبة القائمة على RSU كانت أقوى في الانحرافات الحركية المباشرة ضمن إعدادات الضجيج الحالية.
+بلغ Distributed RSU <strong>98.74%</strong> مقابل <strong>86.79%</strong> لـAhmed، أي فرق Ahmed−Distributed
+استكشافي قدره <strong>−11.95 نقطة مئوية</strong> مع فاصل Bootstrap
+<span class="ltr">[−17.09, −6.96]</span> نقطة مئوية. كما في Position Offset، يصف ذلك اتجاهاً مستقراً داخل
+الحملة الحالية فقط، ولا يُفسر سببياً من دون تصميم إضافي يعزل مساهمة ضجيج الحساسات ومسار الأدلة.
 </p>
 <div class="important">
 لا يجوز تعميم تفوق RSU في Position/Speed على جميع الأنظمة الواقعية دون دراسة حساسية تجاه ضجيج الحساسات؛
@@ -571,19 +586,28 @@ False DENM ادعاءً سياقياً قد يستفيد من وجود مراق�
 زمنية مستقلة. وحدة التحليل هنا هي <strong>P95 لكل seed-topology</strong>، ثم يعرض الجدول وسيط هذه القيم عبر
 الوحدات الأربعين مع المدى الربيعي. لذلك تختلف هذه القراءة عن قيمة P95 الإجمالية في جدول 5-3.
 </p>
+<div class="method">
+<strong>ملاحظة حول Detection:</strong>
+قيمة <span class="ltr">Detection / Evidence Acquisition</span> ثابتة عند <strong>8000 ms</strong> في مساري
+Centralized وDistributed RSU بتباين صفري عبر الوحدات الأربعين، وهي تعكس نافذة اكتساب/توقيت مضبوطة في إعدادات
+المحاكاة الحالية أكثر من كونها كمية أداء متغيرة بين تلك الوحدات. أما Ahmed-Inspired فبقي وسيطه 8000 ms لكن
+ظهر تباين في الربيع الأعلى بسبب اختلاف مسار الشهود. ولأن كل مرحلة تُلخَّص بمئين مستقل، فإن الحالة الواقعة عند
+P95 لمرحلة ما ليست بالضرورة الحالة نفسها الواقعة عند P95 لمرحلة أخرى؛ وهذا سبب إضافي لعدم قابلية جمع مئينات
+المراحل للوصول إلى P95 الكلي.
+</div>
 <div class="table-title">جدول (5-5): تفكيك زمن الاستجابة — وسيط P95 لكل وحدة (ms)</div>
 <table>
 <thead><tr><th>المعمارية</th><th>المرحلة</th><th>الوسيط</th><th>IQR</th><th>نطاق التفسير</th></tr></thead>
 <tbody>
-<tr><td rowspan="4">Centralized</td><td>Detection / Evidence Acquisition</td><td>8000.0</td><td>8000.0–8000.0</td><td>الكشف/اكتساب الأدلة؛ قد يتأثر بمنظور الأدلة ومسار وصولها</td></tr>
+<tr><td rowspan="4">Centralized</td><td>Detection / Evidence Acquisition</td><td>8000.0</td><td>8000.0–8000.0</td><td>فترة ثابتة بنيوياً تحت الإعداد الحالي؛ ليست مؤشراً متغيراً عبر الوحدات الأربعين</td></tr>
 <tr><td>Post-detection Evidence Qualification</td><td>14130.1</td><td>14103.5–14149.9</td><td>فترة ما بعد الكشف حتى تحقق التأهيل؛ ليست زمن CPU خالصاً</td></tr>
 <tr><td>Finalization</td><td>0.0</td><td>0.0–0.0</td><td>تجريد المحاكي للمسار المركزي، لا زمن خادم واقعي صفري</td></tr>
 <tr><td>End-to-End</td><td>14184.0</td><td>14156.8–14211.0</td><td>من فتح الحالة حتى الإنهاء؛ قيمة مستقلة لا تساوي مجموع P95 للمراحل</td></tr>
-<tr><td rowspan="4">Distributed RSU</td><td>Detection / Evidence Acquisition</td><td>8000.0</td><td>8000.0–8000.0</td><td>الكشف/اكتساب الأدلة</td></tr>
+<tr><td rowspan="4">Distributed RSU</td><td>Detection / Evidence Acquisition</td><td>8000.0</td><td>8000.0–8000.0</td><td>فترة ثابتة بنيوياً تحت الإعداد الحالي؛ ليست مؤشراً متغيراً عبر الوحدات الأربعين</td></tr>
 <tr><td>Post-detection Evidence Qualification</td><td>14324.0</td><td>14283.0–14351.3</td><td>يشمل انتظار تحقق شروط الأدلة؛ ليس كلفة PBFT</td></tr>
 <tr><td>Finalization (PBFT)</td><td>45.0</td><td>42.7–65.9</td><td>المقارنة الأنظف لتكلفة الإنهاء الموزع</td></tr>
 <tr><td>End-to-End</td><td>14361.7</td><td>14323.4–14391.5</td><td>زمن الحالة الكلي</td></tr>
-<tr><td rowspan="4">Ahmed-Inspired</td><td>Detection / Evidence Acquisition</td><td>8000.0</td><td>8000.0–8775.0</td><td>قد يتغير مع منظور الشهود ومسار وصول الأدلة</td></tr>
+<tr><td rowspan="4">Ahmed-Inspired</td><td>Detection / Evidence Acquisition</td><td>8000.0</td><td>8000.0–8775.0</td><td>الوسيط 8000 ms مع تباين في الربيع الأعلى لمسار الشهود</td></tr>
 <tr><td>Post-detection Evidence Qualification</td><td>14589.2</td><td>14478.3–14817.1</td><td>يشمل انتظار تنوع/تأهيل الأدلة؛ ليس زمن CPU خالصاً</td></tr>
 <tr><td>Finalization (PBFT)</td><td>45.6</td><td>43.9–113.5</td><td>مرحلة PBFT بعد نجاح التأهيل</td></tr>
 <tr><td>End-to-End</td><td>14623.1</td><td>14511.3–14854.9</td><td>زمن الحالة الكلي</td></tr>
@@ -776,7 +800,16 @@ False DENM ادعاءً سياقياً قد يستفيد من وجود مراق�
 <li><strong>المعايرة بقيت محافظة:</strong> بقي <span class="ltr">selection_feasible=false</span>، ولم تُخفف شروط Recall/FRR بعد رؤية النتائج.</li>
 <li><strong>صلاحية النتائج سبقت المناقشة:</strong> عزل Ground Truth وSensor Oracle، الاستدلال Root-Aware، منع Double Sanitization، عدالة النقل، reference-only Ahmed threshold، وتصحيح قابلية سياسة Mixed كلها ثُبتت قبل اعتماد النتائج النهائية.</li>
 </ol>
-
+<div class="important">
+<strong>ماذا تعني نتيجة κ=1 لفائدة سلسلة الكتل؟</strong><br/>
+إن تطابق القرار التصنيفي بين Centralized وDistributed RSU لا يعني أن طبقة سلسلة الكتل «بلا فائدة»، بل يعني
+أن أثر تغيير آلية الإنهاء من خادم مركزي إلى PBFT <strong>لم يظهر في جودة التصنيف</strong> عندما بقي منطق الثقة
+ومصدر الأدلة متماثلين. مؤشرات Recall وFRR وMCC تقيس جودة القرار، ولا تقيس مباشرة مقاومة العبث بالسجل أو قابلية
+التدقيق المستقل أو إزالة نقطة الثقة الواحدة؛ لذلك لا تُقدَّم هذه الخصائص هنا كنتائج تجريبية مثبتة. ما قاستْه
+الحملة فعلياً هو <strong>الكلفة التشغيلية</strong> لإضافة finalization موزع وسجل ضمن المحاكي: عشرات المللي ثانية
+في مرحلة finalization، مع عدم تغير القرار التصنيفي على الحالات المشتركة. ومن ثم فهذه النتيجة قياس للكلفة وحدود
+الأثر على التصنيف، لا نفياً عاماً لقيمة سلسلة الكتل.
+</div>
 
 </section>
 <section id="s520">
@@ -846,8 +879,9 @@ V-PUFT هو الإطار المقترح والمستخدم في هذه الدر�
 <p>
 تطابقت Centralized وDistributed RSU في القرار النهائي على جميع الحالات المشتركة البالغ عددها 5992
 (κ=1، 0 discordant)، ما يوضح أن اختلاف finalization من خادم مركزي إلى PBFT لم يغير التصنيف في الحملة المجمدة.
-وفي المقابل بقيت الفروق التشغيلية في الاتصالات والزمن والسجل. كما نجح PBFT في baseline، لكن Safety تحت
-اقتراحات دلالية خبيثة لم يُختبر تجريبياً ويظل من حدود الدراسة.
+ولا تعني هذه النتيجة نفي قيمة سلسلة الكتل خارج مؤشرات التصنيف؛ فخصائص مثل مقاومة العبث والتدقيق المستقل لم تُقَس
+مباشرة في هذه الحملة. الذي قيس هو الكلفة التشغيلية للإجماع والسجل ضمن المحاكي، مع بقاء التصنيف ثابتاً. كما نجح
+PBFT في baseline، لكن Safety تحت اقتراحات دلالية خبيثة لم يُختبر تجريبياً ويظل من حدود الدراسة.
 </p>
 <div class="finding">
 <strong>الخلاصة النهائية:</strong><br/>
@@ -870,7 +904,7 @@ V-PUFT هو الإطار المقترح والمستخدم في هذه الدر�
 
 </div>
 <footer><span>
-الفصل مبني على النسخة النهائية المجمدة من نتائج V-PUFT v7، مع دمج تحليلات Phase A بعد التجميد بتاريخ 14-08-2026.
+الفصل مبني على النسخة النهائية المجمدة من نتائج V-PUFT v7، مع دمج تحليلات Phase A وتصحيحات ما قبل السيمنار بعد التجميد بتاريخ 14-08-2026.
 لم تُعد Phase A تشغيل SUMO أو الكاشف أو المعايرة أو المعماريات، ولم تستبدل أرقام v7 الأساسية.
 </span></footer>
 </main>
