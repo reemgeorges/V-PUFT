@@ -64,11 +64,16 @@
       "peak_memory_kb": 14615.812378
     }
   },
-  "reporting_revision": "PRESEMINAR_FINAL_20260815",
-  "reporting_revision_scope": "reporting_and_semantic_validation_only",
+  "reporting_revision": "DEFENSE_OBJECTIVES_ALIGNMENT_20260816",
+  "reporting_revision_scope": "reporting_only_objectives_and_topology_alignment",
   "experiment_rerun": false,
   "frozen_v7_modified": false,
-  "chapter_sha256": "F05CB1A2C56FB27E213432CDB3AB8BD3DC90EB7BB624EA0134B084E8ED7B4D77",
+  "chapter_sha256": "A368C797206F6E62AAD88B9FE9F24F94D0C97109BD31B8B34FDA23026062E84A",
   "validation": "source-derived semantic/numerical validation; see VALIDATION.json",
-  "updated_at_utc": "2026-08-15T08:35:09.947287+00:00"
+  "updated_at_utc": "2026-08-16T20:36:01.367083+00:00",
+  "research_objectives_alignment": {
+    "blockchain_vanet_performance": "explicitly linked to the three-architecture comparison",
+    "authentication_and_message_exchange": "message/evidence exchange evaluated experimentally; authentication-algorithm benchmark outside experimental scope",
+    "topology_recommendation": "Corridor recommended when detection quality is the priority within the tested scenarios; recommendation is metric-conditional"
+  }
 }

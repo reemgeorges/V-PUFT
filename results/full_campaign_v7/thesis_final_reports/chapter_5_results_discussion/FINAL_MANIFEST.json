@@ -1,23 +1,23 @@
 {
   "artifact": "V-PUFT Chapter 5 pre-seminar final reporting package",
-  "generated_at_utc": "2026-08-15T08:35:10.143881+00:00",
+  "generated_at_utc": "2026-08-16T20:36:01.656626+00:00",
   "experiment_rerun": false,
   "frozen_v7_modified": false,
   "reporting_only_change": true,
   "chapter_index_identical": true,
-  "chapter_sha256": "F05CB1A2C56FB27E213432CDB3AB8BD3DC90EB7BB624EA0134B084E8ED7B4D77",
+  "chapter_sha256": "A368C797206F6E62AAD88B9FE9F24F94D0C97109BD31B8B34FDA23026062E84A",
   "inputs_and_outputs": [
     {
       "path": "results/full_campaign_v7/thesis_final_reports/chapter_5_results_discussion/chapter_5_results_discussion_ar.html",
       "exists": true,
-      "size_bytes": 74777,
-      "sha256": "F05CB1A2C56FB27E213432CDB3AB8BD3DC90EB7BB624EA0134B084E8ED7B4D77"
+      "size_bytes": 77466,
+      "sha256": "A368C797206F6E62AAD88B9FE9F24F94D0C97109BD31B8B34FDA23026062E84A"
     },
     {
       "path": "results/full_campaign_v7/thesis_final_reports/chapter_5_results_discussion/index.html",
       "exists": true,
-      "size_bytes": 74777,
-      "sha256": "F05CB1A2C56FB27E213432CDB3AB8BD3DC90EB7BB624EA0134B084E8ED7B4D77"
+      "size_bytes": 77466,
+      "sha256": "A368C797206F6E62AAD88B9FE9F24F94D0C97109BD31B8B34FDA23026062E84A"
     },
     {
       "path": "results/full_campaign_v7/thesis_final_reports/chapter_5_results_discussion/VALIDATION.json",
@@ -28,8 +28,8 @@
     {
       "path": "results/full_campaign_v7/thesis_final_reports/chapter_5_results_discussion/chapter_metadata.json",
       "exists": true,
-      "size_bytes": 2530,
-      "sha256": "E2938B5C54B5A3D4574854DCD92FB89C095ECA952DBF831357C9394A2716C25B"
+      "size_bytes": 3012,
+      "sha256": "13C629011DD55D8E91210EBA9B2B2CA7C27B441BE40FD3EFBF03C96D8BD12D3A"
     },
     {
       "path": "results/full_campaign_v7/statistical_inference/bootstrap_pooled_differences.csv",
