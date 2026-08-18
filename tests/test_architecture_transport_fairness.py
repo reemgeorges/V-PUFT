@@ -91,5 +91,7 @@ def test_ahmed_witness_requires_delivered_reports_and_forwards_remote_evidence()
     assert "RSU_WITNESS_EVIDENCE_FORWARD" in types
     assert delivered.decisions[0].committed is True
     assert dropped.decisions[0].committed is False
+    assert delivered.decisions[0].metadata["independent_roots"] == 2
+    assert dropped.decisions[0].metadata["independent_roots"] == 0
     assert len(delivered.evidence_rows) == 2
     assert len(dropped.evidence_rows) == 0
