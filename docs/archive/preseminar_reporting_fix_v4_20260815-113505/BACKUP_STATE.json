@@ -1,0 +1,14 @@
+{
+  "results/full_campaign_v7/thesis_final_reports/chapter_5_results_discussion/chapter_5_results_discussion_ar.html": true,
+  "results/full_campaign_v7/thesis_final_reports/chapter_5_results_discussion/index.html": true,
+  "results/full_campaign_v7/thesis_final_reports/chapter_5_results_discussion/chapter_metadata.json": true,
+  "results/full_campaign_v7/thesis_final_reports/chapter_5_results_discussion/VALIDATION.json": false,
+  "results/full_campaign_v7/thesis_final_reports/chapter_5_results_discussion/FINAL_MANIFEST.json": false,
+  "defense_v8/validate_chapter5_semantics.py": true,
+  "scripts/reporting/finalize_reporting_artifacts.py": true,
+  "scripts/reporting/update_chapter_metadata.py": true,
+  "scripts/reporting/audit_thesis_claims.py": true,
+  "docs/analysis/PRESEMINAR_REPORTING_FIX_20260815.md": false,
+  "docs/analysis/THESIS_CLAIM_AUDIT.json": false,
+  "docs/analysis/PRESEMINAR_REPORTING_FIX_20260814.md": true
+}

@@ -1,0 +1,49 @@
+{
+  "source_sensor_trace_campaign": "C:\\Users\\reemg\\OneDrive\\Desktop\\master\\6\\v10\\results\\full_campaign_v7",
+  "output_campaign": "C:\\Users\\reemg\\OneDrive\\Desktop\\master\\6\\v10\\results\\full_campaign_v7\\final_architectures",
+  "selected_shared_weights_v1_0_9": {
+    "C": 0.3652673861753211,
+    "rho": 0.16195260151983162,
+    "F": 0.06370517641034751,
+    "Q": 0.40608957775126925,
+    "eta": 0.0029852581432305157
+  },
+  "selection_feasible_v1_0_9": false,
+  "calibration_holdout_metrics_v1_0_9": {
+    "TP": 335,
+    "FP": 47,
+    "TN": 1932,
+    "FN": 67,
+    "recall": 0.8333333333333334,
+    "frr": 0.023749368367862556,
+    "precision": 0.8769633507853403,
+    "specificity": 0.9762506316321374,
+    "f1": 0.8545918367346937,
+    "mcc": 0.8263418399892304,
+    "balanced_accuracy": 0.9047919824827354
+  },
+  "replay_scope": "architecture transport/finalization only",
+  "sumo_rerun_required": false,
+  "detector_rebuild_required": false,
+  "sensitivity_rerun_required": false,
+  "transport_semantics": {
+    "centralized": "only ATTESTATION_TO_SERVER deliveries are qualified",
+    "distributed": "coordinator-local evidence is local; remote RSU evidence must arrive via RSU_EVIDENCE_EXCHANGE before qualification",
+    "ahmed_inspired": "witness reports must reach their validator RSU; remote validator evidence must then reach the coordinator before qualification",
+    "network_model": "existing SimulatedTransport loss/retry/serialization/queue/jitter model"
+  },
+  "instrumentation_missing_required_message_types": {
+    "centralized_vpuft": [],
+    "distributed_rsu_vpuft": [],
+    "ahmed_inspired_witness_vpuft": []
+  },
+  "outputs": {
+    "global_architecture_summary": "C:\\Users\\reemg\\OneDrive\\Desktop\\master\\6\\v10\\results\\full_campaign_v7\\final_architectures\\final_global_architecture_summary.csv",
+    "topology_architecture_summary": "C:\\Users\\reemg\\OneDrive\\Desktop\\master\\6\\v10\\results\\full_campaign_v7\\final_architectures\\final_topology_architecture_summary.csv",
+    "metrics_by_seed": "C:\\Users\\reemg\\OneDrive\\Desktop\\master\\6\\v10\\results\\full_campaign_v7\\final_architectures\\final_metrics_by_seed.csv",
+    "metrics_by_attack": "C:\\Users\\reemg\\OneDrive\\Desktop\\master\\6\\v10\\results\\full_campaign_v7\\final_architectures\\final_metrics_by_attack.csv",
+    "decisions": "C:\\Users\\reemg\\OneDrive\\Desktop\\master\\6\\v10\\results\\full_campaign_v7\\final_architectures\\final_decisions.csv",
+    "network_messages": "C:\\Users\\reemg\\OneDrive\\Desktop\\master\\6\\v10\\results\\full_campaign_v7\\final_architectures\\final_network_messages.csv",
+    "transport_fairness_audit": "C:\\Users\\reemg\\OneDrive\\Desktop\\master\\6\\v10\\results\\full_campaign_v7\\final_architectures\\transport_fairness_audit.csv"
+  }
+}

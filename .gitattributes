@@ -53,3 +53,5 @@ results/full_campaign_v7/intersection/runtime_root_aware_trace_audit_only.jsonl 
 results/full_campaign_v7/intersection/sensor_detection_trace_all_seeds.jsonl filter=lfs diff=lfs merge=lfs -text
 results/full_campaign_v7/smoke/runtime_root_aware_trace_audit_only.jsonl filter=lfs diff=lfs merge=lfs -text
 results/full_campaign_v7/smoke/sensor_detection_trace_all_seeds.jsonl filter=lfs diff=lfs merge=lfs -text
+FINAL_FREEZE_v7_20260809/** -text
+docs/archive/** -text
