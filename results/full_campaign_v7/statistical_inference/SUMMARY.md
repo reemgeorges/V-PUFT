@@ -1,5 +1,11 @@
 # Post-Freeze Statistical Validation (V-PUFT v8)
 
+<!-- POST_CLAUDE_REMEDIATION_V3 -->
+> **Post-audit interpretation boundary.** The numerical tables below are unchanged. Centralized and Distributed RSU
+> consume the same RSU evidence view and are the cleanest finalization comparison. Ahmed-Inspired consumes the witness
+> evidence view, so Ahmed-vs-RSU contrasts are integrated evidence-path contrasts and must not be used as single-variable
+> causal evidence for Blockchain, PBFT, witness density, or any one sensing factor. MCC remains non-confirmatory after Holm.
+
 This analysis re-runs no experiment. It reports intervals, paired tests and
 effect sizes over the frozen v7 results. No v7 number is replaced.
 

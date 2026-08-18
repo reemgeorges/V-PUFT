@@ -64,16 +64,16 @@
       "peak_memory_kb": 14615.812378
     }
   },
-  "reporting_revision": "DEFENSE_OBJECTIVES_ALIGNMENT_20260816",
-  "reporting_revision_scope": "reporting_only_objectives_and_topology_alignment",
+  "reporting_revision": "POST_CLAUDE_FINAL_REVIEW_V5_20260819",
+  "reporting_revision_scope": "final wording/reproducibility consistency; reporting-only; no experiment rerun",
   "experiment_rerun": false,
   "frozen_v7_modified": false,
-  "chapter_sha256": "A368C797206F6E62AAD88B9FE9F24F94D0C97109BD31B8B34FDA23026062E84A",
+  "chapter_sha256": "53DA9B802B5FE8370B119132477AD4F1C66E583AD2A46B0063645B70F267DF6D",
   "validation": "source-derived semantic/numerical validation; see VALIDATION.json",
-  "updated_at_utc": "2026-08-16T20:36:01.367083+00:00",
+  "updated_at_utc": "2026-08-18T23:01:49.800872+00:00",
   "research_objectives_alignment": {
-    "blockchain_vanet_performance": "explicitly linked to the three-architecture comparison",
-    "authentication_and_message_exchange": "message/evidence exchange evaluated experimentally; authentication-algorithm benchmark outside experimental scope",
-    "topology_recommendation": "Corridor recommended when detection quality is the priority within the tested scenarios; recommendation is metric-conditional"
+    "blockchain_vanet_performance": "Centralized↔Distributed isolates finalization; Ahmed↔RSU is integrated evidence-path.",
+    "authentication_and_message_exchange": "Message/evidence exchange empirical; authentication-method comparison theoretical because only Ed25519 is executed.",
+    "topology_recommendation": "Corridor is metric-conditional within tested scenarios, not a universal/causal topology recommendation."
   }
 }

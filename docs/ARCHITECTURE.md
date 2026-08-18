@@ -42,10 +42,10 @@ Failure variables:
 ## Model 2 — Distributed RSU V-PUFT
 
 ```text
-RSU evidence → local V-PUFT qualification → signed PBFT → distributed hash-linked ledger → state recovery
+RSU evidence → coordinator/remote-RSU evidence exchange → V-PUFT qualification → signed PBFT-style finalization → distributed hash-linked ledger → state recovery
 ```
 
-PBFT simulation includes recipient certificates, vote locks, loss/retries, leader failure, view change, and recovery.
+PBFT-style simulation includes recipient certificates, vote locks, loss/retries, timeout-driven bounded leader/view rotation, and recovery. It does not implement a full VIEW-CHANGE/NEW-VIEW message protocol, and the frozen final campaign did not activate Byzantine validator behavior.
 
 ## Model 3 — Ahmed-Inspired Witness V-PUFT
 
@@ -57,4 +57,4 @@ The article-native witness threshold is recorded as an ablation reference. It do
 
 ## Fairness rule
 
-The same mobility, attacks, seeds, message roots and ground truth are produced once. All architectures replay the same trace. The difference is evidence source and finalization/storage architecture, not a separate trust formula.
+The same mobility, attacks, seeds, raw upstream messages and ground truth are produced once. Centralized and Distributed consume the RSU evidence view, while Ahmed-Inspired consumes the witness evidence view. Thus Centralized↔Distributed is the clean finalization comparison; Ahmed↔RSU is an integrated evidence-path comparison, not a single-variable ablation. The trust formula remains shared.

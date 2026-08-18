@@ -19,6 +19,22 @@
 
 ---
 
+## عقد التفسير العلمي بعد التدقيق المستقل
+
+- **Centralized ↔ Distributed RSU:** كلاهما يستهلك `bundle.rsu_cases` ويستخدم محرك V-PUFT والأوزان نفسها؛
+  وهذه هي المقارنة الأنظف لدراسة كلفة/أثر مسار PBFT-style finalization والسجل الموزع مع ثبات منظور RSU. النتيجة المجمدة:
+  لا تحسن في جودة التصنيف، مع كلفة تشغيلية للإنهاء.
+- **Ahmed-Inspired ↔ RSU:** Ahmed يستهلك `bundle.witness_cases`، لذلك هذه **integrated evidence-path comparison**.
+  تتغير معاً خصائص المصدر والحساس والضجيج والمدى والكثافة وعدد قفزات النقل وتوقيت الوصول/الحداثة.
+  لا يجوز إسناد فرق Recall إلى Blockchain أو PBFT أو كثافة الجذور أو الشهود وحدهم.
+- `validator_behaviors` فارغ في إعداد الحملة النهائية؛ لم تُختبر Byzantine safety تجريبياً.
+- MCC أعلى وصفياً لمسار Ahmed لكنه غير دال تأكيدياً بعد Holm.
+- التنفيذ التجريبي يستخدم Ed25519؛ مقارنة تقنيات المصادقة المختلفة ليست benchmark تجريبياً.
+- `selection_feasible=false` جزء من النتيجة ويجب إبقاؤه.
+- ملف القرارات التاريخي لمسار Ahmed لا يحتوي `independent_roots`; الإصلاح البرمجي الحالي للمستقبل فقط ولا يعيد كتابة النتائج المجمدة.
+
+---
+
 ## ما الذي يعمل فعلياً؟
 
 - محرك V-PUFT واحد مشترك بين النماذج الثلاثة.
@@ -42,12 +58,12 @@
   - COMMIT certificates
   - vote locks
   - leader timeout
-  - view change
-  - Byzantine/offline behavior
+  - bounded view rotation after timeout (not a full VIEW-CHANGE/NEW-VIEW message protocol)
+  - crash/offline and message-loss behavior; the frozen final campaign used no active validator fault behavior
 - سجل Hash-linked موزع مع replication وstate recovery.
 - نموذج شهود مركبات مستوحى من مقالة Ahmed مع RSU validation ومرجع witness-threshold داخلي.
 - SUMO/TraCI حقيقي مع سيناريو صغير جاهز، هجمات، RSUs، CAM/DENM، traces مشتركة.
-- حملة موحدة تشغل النماذج الثلاثة على الـTrace نفسه.
+- حملة موحدة تبدأ من أثر الكشف الخام نفسه، ثم تفصل منظور RSU لمساري Centralized/Distributed عن منظور الشهود لمسار Ahmed-Inspired.
 - تحليل حساسية للأوزان مع:
   - Grouped Cross-Validation بحسب Seed
   - Holdout نهائي غير مستخدم في الاختيار
@@ -101,6 +117,35 @@ results/demo_reference/
 ```
 
 هي بيانات اصطناعية لا تستخدم كنتيجة للرسالة، لكنها تثبت أن المسار البرمجي الكامل يعمل.
+
+---
+
+# إعادة إنتاج النسخة النهائية المجمدة — مهم
+
+المرجع التاريخي:
+`files/clean @ 10b7ab507351818a7d8a1685d13a6c6b5cfd867b`
+
+بعد clone/checkout:
+```powershell
+git lfs install
+git lfs pull
+git lfs status
+```
+
+الإعداد الأساسي هو `configs/full_experiment.json`، لكن الأوزان النهائية المستخدمة في replay تأتي من:
+`results/full_campaign_v7/sensitivity_shared_views_mixedfix/selected_weights.json`
+وهي أوزان candidate 650. بقي `selection_feasible=false`.
+
+لإعادة architecture replay من الآثار المجمدة من دون إعادة SUMO أو الكاشف أو المعايرة، اكتب إلى مجلد جديد:
+```powershell
+python replay_final_v7.py `
+  --input-v4 results/full_campaign_v7 `
+  --output reproduction_check/final_architectures `
+  --config configs/full_experiment.json `
+  --weights results/full_campaign_v7/sensitivity_shared_views_mixedfix/selected_weights.json
+```
+
+راجع `docs/reproducibility/FINAL_REPRODUCTION_RUNBOOK.md`.
 
 ---
 
@@ -228,7 +273,7 @@ results/sumo_seed_1001/
 
 ---
 
-# 6. تشغيل النماذج الثلاثة على Trace نفسه
+# 6. تشغيل المسارات انطلاقاً من أثر كشف خام مشترك
 
 ```powershell
 vpuft replay `
@@ -237,7 +282,7 @@ vpuft replay `
   --output-dir results/sumo_seed_1001_models
 ```
 
-هذا هو شرط المقارنة العادلة: لا يعاد تشغيل الحركة لكل نموذج، بل يُولد الـTrace مرة واحدة ثم يمر إلى النماذج الثلاثة.
+لا يعاد تشغيل الحركة لكل مسار، لكن الأثر الخام المشترك يُقسّم حسب `source_kind`: Centralized وDistributed يستهلكان منظور RSU، بينما Ahmed-Inspired يستهلك منظور الشهود. لذلك Centralized↔Distributed هي المقارنة الأنظف لدراسة أثر finalization الموزع مع منظور RSU مشترك، أما Ahmed↔RSU فهي integrated evidence-path comparison وليست ablation سببية أحادية المتغير.
 
 ---
 
@@ -338,8 +383,8 @@ vpuft sensitivity `
 
 - Consensus success rate
 - Liveness failures
-- Safety violations
-- View changes
+- حقل `safety_violation` للتجهيز القياسي فقط؛ لا يمثل إثبات Byzantine safety في baseline المجمد
+- bounded view rotations / timeout transitions
 - Ledger blocks
 - Ledger consistency
 - State recoveries
@@ -396,7 +441,7 @@ src/vpuft/
 # 11. الحدود العلمية الصريحة
 
 - المشروع إطار محاكاة بحثي، وليس نظام VANET إنتاجياً.
-- PBFT منفذ كمحاكي رسائل موقّع مع نصابات وView Change، وليس مكتبة إجماع موزع للنشر الحقيقي.
+- PBFT منفذ كمُنهٍ بحثي PBFT-style برسائل موقعة ونصاب PRE-PREPARE/PREPARE/COMMIT ودوران bounded للـview بعد timeout؛ ولا ينفذ VIEW-CHANGE/NEW-VIEW كاملاً ولا يقدم baseline المجمد اختبار Byzantine safety.
 - كاشف SUMO يستخدم الحقيقة الأرضية المتاحة للمحاكاة لبناء plausibility evidence؛ يجب مقارنة نتائجه لاحقاً مع كاشف منشور أو VeReMi عند كتابة الرسالة النهائية.
 - نموذج Ahmed مستوحى من المعمارية المنشورة، وليس إعادة تنفيذ حرفي للتوقيع الحلقي العتبي؛ هذه النقطة موثقة لمنع ادعاء غير صحيح.
 - نتائج `demo_reference` ليست نتائج علمية للرسالة.

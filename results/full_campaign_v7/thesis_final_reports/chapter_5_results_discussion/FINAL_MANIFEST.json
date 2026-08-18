@@ -1,23 +1,23 @@
 {
-  "artifact": "V-PUFT Chapter 5 pre-seminar final reporting package",
-  "generated_at_utc": "2026-08-16T20:36:01.656626+00:00",
+  "artifact": "V-PUFT Chapter 5 final post-Claude review reporting package",
+  "generated_at_utc": "2026-08-18T23:01:49.855408+00:00",
   "experiment_rerun": false,
   "frozen_v7_modified": false,
   "reporting_only_change": true,
   "chapter_index_identical": true,
-  "chapter_sha256": "A368C797206F6E62AAD88B9FE9F24F94D0C97109BD31B8B34FDA23026062E84A",
+  "chapter_sha256": "53DA9B802B5FE8370B119132477AD4F1C66E583AD2A46B0063645B70F267DF6D",
   "inputs_and_outputs": [
     {
       "path": "results/full_campaign_v7/thesis_final_reports/chapter_5_results_discussion/chapter_5_results_discussion_ar.html",
       "exists": true,
-      "size_bytes": 77466,
-      "sha256": "A368C797206F6E62AAD88B9FE9F24F94D0C97109BD31B8B34FDA23026062E84A"
+      "size_bytes": 83446,
+      "sha256": "53DA9B802B5FE8370B119132477AD4F1C66E583AD2A46B0063645B70F267DF6D"
     },
     {
       "path": "results/full_campaign_v7/thesis_final_reports/chapter_5_results_discussion/index.html",
       "exists": true,
-      "size_bytes": 77466,
-      "sha256": "A368C797206F6E62AAD88B9FE9F24F94D0C97109BD31B8B34FDA23026062E84A"
+      "size_bytes": 83446,
+      "sha256": "53DA9B802B5FE8370B119132477AD4F1C66E583AD2A46B0063645B70F267DF6D"
     },
     {
       "path": "results/full_campaign_v7/thesis_final_reports/chapter_5_results_discussion/VALIDATION.json",
@@ -28,8 +28,8 @@
     {
       "path": "results/full_campaign_v7/thesis_final_reports/chapter_5_results_discussion/chapter_metadata.json",
       "exists": true,
-      "size_bytes": 3012,
-      "sha256": "13C629011DD55D8E91210EBA9B2B2CA7C27B441BE40FD3EFBF03C96D8BD12D3A"
+      "size_bytes": 2979,
+      "sha256": "68757C894FB9E223E426F5103EC44C1E8EC777C39325B48C531AF2BA4F7ED6DB"
     },
     {
       "path": "results/full_campaign_v7/statistical_inference/bootstrap_pooled_differences.csv",
@@ -73,5 +73,6 @@
       "size_bytes": 4665,
       "sha256": "71ED5637B3F90C6CDE6EBE8302D9AF1A571CB671CFA07DC3413F47B516391220"
     }
-  ]
+  ],
+  "post_audit_note": "Scientific numeric CSV/JSON inputs were not rewritten. Chapter/index wording and reporting metadata were updated for final claim consistency; separate interpretation-only notes remain in the three post-freeze SUMMARY.md reports."
 }

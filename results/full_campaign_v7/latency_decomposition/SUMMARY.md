@@ -1,5 +1,10 @@
 # Latency Decomposition (V-PUFT v8, post-freeze)
 
+<!-- POST_CLAUDE_REMEDIATION_V3 -->
+> **Post-audit scope.** Centralized↔Distributed RSU is the cleanest finalization contrast because both use the RSU evidence
+> view. Ahmed-Inspired uses the witness evidence path, so its end-to-end and qualification differences also reflect sensing,
+> hop count, arrival timing and freshness assumptions. Observed near-lossless delivery does not remove this timing caveat.
+
 No experiment was re-run. Stage durations are read from the frozen
 `final_metrics_by_seed.csv`, where metrics.py already defines them as
 independent stage deltas rather than cumulative sums.

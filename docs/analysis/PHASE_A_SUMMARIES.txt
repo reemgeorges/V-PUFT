@@ -1,4 +1,10 @@
-﻿================ STATISTICAL INFERENCE ================
+﻿# POST_CLAUDE_INTERPRETATION_BOUNDARY_V4
+# Historical Phase-A snapshot. Numerical tables are preserved.
+# Current interpretation: Centralized↔Distributed is the clean finalization comparison;
+# Ahmed↔RSU is an integrated evidence-path comparison; MCC is non-confirmatory after Holm (adjusted p≈0.1986).
+# Use results/full_campaign_v7/statistical_inference/SUMMARY.md and docs/remediation/CLAIM_AUDIT.md for current wording.
+
+================ STATISTICAL INFERENCE ================
 # Post-Freeze Statistical Validation (V-PUFT v8)
 
 This analysis re-runs no experiment. It reports intervals, paired tests and

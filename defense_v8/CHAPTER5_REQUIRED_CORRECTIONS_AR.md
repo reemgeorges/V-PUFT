@@ -1,5 +1,22 @@
 # تعديلات الفصل الخامس المطلوبة الآن
 
+<!-- POST_CLAUDE_REMEDIATION_V3 -->
+## ملحق إلزامي بعد التدقيق المستقل
+
+هذه النقاط تكمل التعليمات أدناه وتصبح المرجع الأحدث:
+
+1. Centralized وDistributed يستهلكان `bundle.rsu_cases`، بينما Ahmed-Inspired يستهلك `bundle.witness_cases`.
+   لذلك Ahmed↔RSU ليست ablation لعامل واحد ولا يجوز نسبة فرق Recall إلى Blockchain/PBFT/الشهود وحدهم.
+2. لا تستخدم «كثافة الجذور» كتفسير سببي منفرد؛ التحليل الموسع يدعم حزمة عوامل مترابطة
+   (نوع الحساس، الضجيج، المدى، الكثافة، hops، freshness).
+3. التسليم الفعلي شبه الكامل يستبعد packet loss كتفسير عملي للفروق المرصودة، لكنه لا يثبت أن transport
+   غير مؤثر من حيث المبدأ لأن arrival time يدخل في freshness.
+4. MCC يبقى وصفياً فقط؛ Holm-adjusted p≈0.1986 في التحليل الكامل و1.0000 بعد استبعاد smoke.
+5. المقارنة التجريبية لتقنيات authentication لم تُنفذ؛ التنفيذ يستخدم Ed25519، والباقي Related Work.
+6. `independent_roots` مفقود تاريخياً من Ahmed decisions؛ إصلاح الكود للتشغيلات المستقبلية فقط دون backfill.
+7. إعادة الإنتاج يجب أن تستخدم Git LFS والأوزان من
+   `results/full_campaign_v7/sensitivity_shared_views_mixedfix/selected_weights.json`.
+
 ## 1) تصحيح قسم PBFT / Safety فوراً
 
 احذف أي جملة من نوع:

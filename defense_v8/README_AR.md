@@ -1,5 +1,19 @@
 # V-PUFT Defense v8 — Phase A Final
 
+<!-- POST_CLAUDE_REMEDIATION_V3 -->
+## ملاحظة ما بعد تدقيق Claude — المرجع الأحدث
+
+هذه الصفحة توثق **Phase A التاريخية** ولا تلغي قاعدة تجميد النتائج العلمية.
+بعد التدقيق المستقل، يجب تفسير عبارة «v7 مجمدة» بدقة:
+
+- لا إعادة SUMO أو detector أو calibration أو candidate search.
+- لا تغيير CSV/JSON الرقمية المجمدة لتحسين الاستنتاجات.
+- يسمح بتصحيح **derived reporting artifacts** (مثل نص الفصل/الملخصات) مع توثيق lineage وhashes.
+- يسمح بإصلاح instrumentation للكود من أجل التشغيلات المستقبلية فقط، بشرط عدم backfill للنتائج التاريخية.
+- المرجع الحالي لإعادة الإنتاج هو `docs/reproducibility/FINAL_REPRODUCTION_RUNBOOK.md`.
+- المقارنة السببية الأنظف هي Centralized↔Distributed RSU؛ أما Ahmed↔RSU فهي integrated evidence-path comparison.
+- الحملة النهائية لا تثبت Byzantine safety، وMCC لمسار Ahmed غير دال بعد Holm.
+
 هذه الحزمة هي النسخة المصححة للمرحلة A بعد كل المراجعات الأخيرة.
 
 ## المبدأ الحاكم

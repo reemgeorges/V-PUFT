@@ -1,5 +1,10 @@
 # Case-Level Agreement (V-PUFT v8, post-freeze)
 
+<!-- POST_CLAUDE_REMEDIATION_V3 -->
+> **Post-audit scope.** Complete Centralized↔Distributed case agreement supports classification equivalence on the shared
+> RSU-view cases and is the clean comparison for finalization. Ahmed comparisons use a different witness evidence view;
+> their disagreement/agreement rates describe an integrated evidence path and do not isolate a single architectural cause.
+
 No experiment was re-run. This analysis explains, at the level of individual
 cases, why two architectures report identical aggregate confusion matrices.
 
