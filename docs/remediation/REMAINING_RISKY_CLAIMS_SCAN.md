@@ -5,17 +5,17 @@ The generated scan file itself is excluded to prevent recursive hit inflation.
 
 | file | line | trigger | excerpt |
 |---|---:|---|---|
-| `README.md` | 18 | `Ring Signature` | النموذج الثالث مستوحى من معمارية الشهود والعتبة وPBFT وBlockchain في Ahmed et al. (Sensors, 2022, DOI: 10.3390/s22176715). وهو ليس ادعاءً بأنه الكود الأصلي للمؤلفين، ولا ينفذ Threshold Ring Signature  |
-| `README.md` | 29 | `كثافة الجذور` | لا يجوز إسناد فرق Recall إلى Blockchain أو PBFT أو كثافة الجذور أو الشهود وحدهم. |
-| `README.md` | 30 | `Byzantine` | - `validator_behaviors` فارغ في إعداد الحملة النهائية؛ لم تُختبر Byzantine safety تجريبياً. |
-| `README.md` | 31 | `MCC` | - MCC أعلى وصفياً لمسار Ahmed لكنه غير دال تأكيدياً بعد Holm. |
-| `README.md` | 61 | `VIEW-CHANGE` | - bounded view rotation after timeout (not a full VIEW-CHANGE/NEW-VIEW message protocol) |
-| `README.md` | 362 | `MCC` | - MCC |
-| `README.md` | 386 | `Byzantine` | - حقل `safety_violation` للتجهيز القياسي فقط؛ لا يمثل إثبات Byzantine safety في baseline المجمد |
-| `README.md` | 444 | `Byzantine` | - PBFT منفذ كمُنهٍ بحثي PBFT-style برسائل موقعة ونصاب PRE-PREPARE/PREPARE/COMMIT ودوران bounded للـview بعد timeout؛ ولا ينفذ VIEW-CHANGE/NEW-VIEW كاملاً ولا يقدم baseline المجمد اختبار Byzantine safe |
+| `README.md` | 13 | `أفضل` | 2. **اقتراح طوبولوجية الشبكة المناسبة التي تساعد في تحقيق أفضل أداء.** |
+| `README.md` | 27 | `Ring Signature` | النموذج الثالث مستوحى من معمارية الشهود والعتبة وPBFT وBlockchain في Ahmed et al. (Sensors, 2022, DOI: 10.3390/s22176715). وهو ليس ادعاءً بأنه الكود الأصلي للمؤلفين، ولا ينفذ Threshold Ring Signature  |
+| `README.md` | 38 | `كثافة الجذور` | لا يجوز إسناد فرق Recall إلى Blockchain أو PBFT أو كثافة الجذور أو الشهود وحدهم. |
+| `README.md` | 39 | `Byzantine` | - `validator_behaviors` فارغ في إعداد الحملة النهائية؛ لم تُختبر Byzantine safety تجريبياً. |
+| `README.md` | 40 | `MCC` | - MCC أعلى وصفياً لمسار Ahmed لكنه غير دال تأكيدياً بعد Holm. |
+| `README.md` | 70 | `VIEW-CHANGE` | - bounded view rotation after timeout (not a full VIEW-CHANGE/NEW-VIEW message protocol) |
+| `README.md` | 371 | `MCC` | - MCC |
+| `README.md` | 395 | `Byzantine` | - حقل `safety_violation` للتجهيز القياسي فقط؛ لا يمثل إثبات Byzantine safety في baseline المجمد |
+| `README.md` | 453 | `Byzantine` | - PBFT منفذ كمُنهٍ بحثي PBFT-style برسائل موقعة ونصاب PRE-PREPARE/PREPARE/COMMIT ودوران bounded للـview بعد timeout؛ ولا ينفذ VIEW-CHANGE/NEW-VIEW كاملاً ولا يقدم baseline المجمد اختبار Byzantine safe |
 | `defense_v8/CHAPTER5_REQUIRED_CORRECTIONS_AR.md` | 10 | `كثافة الجذور` | 2. لا تستخدم «كثافة الجذور» كتفسير سببي منفرد؛ التحليل الموسع يدعم حزمة عوامل مترابطة |
 | `defense_v8/CHAPTER5_REQUIRED_CORRECTIONS_AR.md` | 14 | `MCC` | 4. MCC يبقى وصفياً فقط؛ Holm-adjusted p≈0.1986 في التحليل الكامل و1.0000 بعد استبعاد smoke. |
-| `defense_v8/CHAPTER5_REQUIRED_CORRECTIONS_AR.md` | 15 | `authentication` | 5. المقارنة التجريبية لتقنيات authentication لم تُنفذ؛ التنفيذ يستخدم Ed25519، والباقي Related Work. |
 | `defense_v8/CHAPTER5_REQUIRED_CORRECTIONS_AR.md` | 20 | `Safety` | ## 1) تصحيح قسم PBFT / Safety فوراً |
 | `defense_v8/CHAPTER5_REQUIRED_CORRECTIONS_AR.md` | 24 | `Safety` | > لم تسجل انتهاكات Safety أو حالات Liveness Failure أو View Change. |
 | `defense_v8/CHAPTER5_REQUIRED_CORRECTIONS_AR.md` | 28 | `safety_violation` | > حققت المعماريتان الموزعتان نجاحاً كاملاً لمرحلة الإجماع ضمن ظروف الحملة النهائية، ولم تسجل الحملة حالات فشل حيوية أو تغيير قائد. أما انتهاكات الأمان Safety Violations فلا تُقدَّم في هذه الدراسة بوصف |
@@ -54,6 +54,8 @@ The generated scan file itself is excluded to prevent recursive hit inflation.
 | `docs/EXPERIMENT_PROTOCOL.md` | 31 | `Safety` | - consensus success, timeout-driven bounded view/leader rotations and liveness; Safety is reportable only in a separate run that actually activates malicious semantic proposals and a working safety me |
 | `docs/LIMITATIONS.md` | 6 | `Ring Signature` | 4. Ahmed-inspired mode does not reproduce threshold ring signatures literally. |
 | `docs/METHODOLOGY.md` | 88 | `MCC` | 6. Rank by worst-fold MCC, then mean MCC. |
+| `docs/OBJECTIVES.md` | 13 | `أفضل` | 2. **اقتراح طوبولوجية الشبكة المناسبة التي تساعد في تحقيق أفضل أداء.** |
+| `docs/OBJECTIVES.md` | 25 | `أفضل` | \| اقتراح طوبولوجية مناسبة لأفضل أداء \| Smoke / Corridor / Intersection / Grid عبر 10 seeds مع مقاييس كشف وكلفة تشغيل \| التوصية metric-conditional وضمن السيناريوهات المختبرة، وليست تعميماً سببياً أو فا |
 | `docs/TEST_REPORT.md` | 22 | `VIEW-CHANGE` | - PBFT quorum and timeout-driven bounded leader/view rotation (not a full VIEW-CHANGE/NEW-VIEW protocol) |
 | `docs/THREAT_MODEL.md` | 18 | `Byzantine` | > an empirical Byzantine-Safety experiment. Future robustness runs must record fault configuration **and activation**. |
 | `docs/THREAT_MODEL.md` | 51 | `Safety` | - the declared PBFT fault bound is respected in experiments claiming PBFT safety |
@@ -89,7 +91,6 @@ The generated scan file itself is excluded to prevent recursive hit inflation.
 | `docs/remediation/STATISTICAL_ROBUSTNESS_ADDENDUM.md` | 18 | `MCC` | - MCC remains non-confirmatory; Holm p = 1.0000. |
 | `docs/reproducibility/FINAL_REPRODUCTION_RUNBOOK.md` | 55 | `Byzantine` | The frozen baseline has `validator_behaviors={}` and does not support an empirical Byzantine-safety claim. |
 | `docs/reproducibility/FINAL_REPRODUCTION_RUNBOOK.md` | 56 | `MCC` | MCC is descriptive only after Holm (adjusted p≈0.1986). |
-| `docs/reproducibility/FINAL_REPRODUCTION_RUNBOOK.md` | 57 | `authentication` | Authentication-method benchmarking was not executed beyond Ed25519. |
 | `docs/reproducibility/effective_final_configuration.json` | 35 | `MCC` | "mcc": 0.8263418399892304, |
 | `docs/reproducibility/effective_final_configuration.json` | 63 | `Byzantine` | "max_byzantine": 1, |
 | `results/full_campaign_v7/statistical_inference/SUMMARY.md` | 7 | `MCC` | > causal evidence for Blockchain, PBFT, witness density, or any one sensing factor. MCC remains non-confirmatory after Holm. |
@@ -149,13 +150,15 @@ The generated scan file itself is excluded to prevent recursive hit inflation.
 | `results/full_campaign_v7/thesis_final_reports/chapter_5_results_discussion/chapter_5_results_discussion_ar.html` | 850 | `MCC` | <li><strong>MCC أعلى وصفياً لا تأكيدياً:</strong> القيمة الإجمالية لـAhmed أعلى، لكن فرق MCC لم يبق دالاً بعد Holm (adjusted p = 0.1986).</li> |
 | `results/full_campaign_v7/thesis_final_reports/chapter_5_results_discussion/chapter_5_results_discussion_ar.html` | 854 | `Safety` | <li><strong>PBFT لا يعوض ضعف التأهيل:</strong> الإجماع يبدأ بعد نجاح التأهيل؛ كما أن baseline حقق نجاح إجماع كاملاً من دون أن يشكل اختبار Safety بيزنطي تحت اقتراحات دلالية خبيثة.</li> |
 | `results/full_campaign_v7/thesis_final_reports/chapter_5_results_discussion/chapter_5_results_discussion_ar.html` | 863 | `MCC` | ومصدر الأدلة متماثلين. مؤشرات Recall وFRR وMCC تقيس جودة القرار، ولا تقيس مباشرة مقاومة العبث بالسجل أو قابلية |
-| `results/full_campaign_v7/thesis_final_reports/chapter_5_results_discussion/chapter_5_results_discussion_ar.html` | 879 | `تفوق` | <li><strong>Ahmed ليس دليلاً على تفوق معماري:</strong> |
-| `results/full_campaign_v7/thesis_final_reports/chapter_5_results_discussion/chapter_5_results_discussion_ar.html` | 901 | `Safety` | <h3>5.20.2 حدود اختبار PBFT وSafety</h3> |
-| `results/full_campaign_v7/thesis_final_reports/chapter_5_results_discussion/chapter_5_results_discussion_ar.html` | 904 | `Safety` | Safety Violations لا تُعامل كقياس تجريبي في هذه الرسالة، لأن المحرك المجمد لم يتضمن مولداً لاقتراحات دلالية |
-| `results/full_campaign_v7/thesis_final_reports/chapter_5_results_discussion/chapter_5_results_discussion_ar.html` | 905 | `safety_violation` | خبيثة، ولأن مؤشر <span class="ltr">safety_violation</span> لم يكن مساراً تشغيلياً قابلاً للوصول إلى قيمة موجبة |
-| `results/full_campaign_v7/thesis_final_reports/chapter_5_results_discussion/chapter_5_results_discussion_ar.html` | 906 | `Safety` | في الحملة. لذلك يقتصر الاستنتاج على نجاح الإجماع والحيوية ضمن شروط baseline، بينما يبقى اختبار Safety العدائي |
-| `results/full_campaign_v7/thesis_final_reports/chapter_5_results_discussion/chapter_5_results_discussion_ar.html` | 921 | `أفضل` | مستمدة من الأدبيات. تم الاحتفاظ بالمرشح الأفضل وفق قاعدة الترتيب الأصلية من دون تخفيف لاحق للشروط. |
-| `results/full_campaign_v7/thesis_final_reports/chapter_5_results_discussion/chapter_5_results_discussion_ar.html` | 980 | `MCC` | كانت قيمة MCC الإجمالية في Ahmed أعلى وصفياً، لكن فرق MCC لم يبق دالاً بعد تصحيح Holm، ولذلك لا يُستخدم MCC |
-| `results/full_campaign_v7/thesis_final_reports/chapter_5_results_discussion/chapter_5_results_discussion_ar.html` | 981 | `تفوق` | وحده كدليل تأكيدي على تفوق شامل. أما Mixed فأظهر أكبر مكسب استكشافي لمسار الشهود (+56.13 نقطة مئوية مجمعاً) |
-| `results/full_campaign_v7/thesis_final_reports/chapter_5_results_discussion/chapter_5_results_discussion_ar.html` | 990 | `Safety` | PBFT في baseline، لكن Safety تحت اقتراحات دلالية خبيثة لم يُختبر تجريبياً ويظل من حدود الدراسة. |
-| `results/full_campaign_v7/thesis_final_reports/chapter_5_results_discussion/chapter_5_results_discussion_ar.html` | 994 | `أفضل` | لا تدعم النتائج فكرة «معمارية أفضل مطلقاً». تدعم بدلاً من ذلك نتيجة أدق: <strong>مصدر الأدلة، وقدرة المسار على |
+| `results/full_campaign_v7/thesis_final_reports/chapter_5_results_discussion/chapter_5_results_discussion_ar.html` | 877 | `أفضل` | و(2) اقتراح طوبولوجية الشبكة المناسبة التي تساعد في تحقيق أفضل أداء. |
+| `results/full_campaign_v7/thesis_final_reports/chapter_5_results_discussion/chapter_5_results_discussion_ar.html` | 885 | `تفوق` | <li><strong>Ahmed ليس دليلاً على تفوق معماري:</strong> |
+| `results/full_campaign_v7/thesis_final_reports/chapter_5_results_discussion/chapter_5_results_discussion_ar.html` | 918 | `Safety` | <h3>5.20.2 حدود اختبار PBFT وSafety</h3> |
+| `results/full_campaign_v7/thesis_final_reports/chapter_5_results_discussion/chapter_5_results_discussion_ar.html` | 921 | `Safety` | Safety Violations لا تُعامل كقياس تجريبي في هذه الرسالة، لأن المحرك المجمد لم يتضمن مولداً لاقتراحات دلالية |
+| `results/full_campaign_v7/thesis_final_reports/chapter_5_results_discussion/chapter_5_results_discussion_ar.html` | 922 | `safety_violation` | خبيثة، ولأن مؤشر <span class="ltr">safety_violation</span> لم يكن مساراً تشغيلياً قابلاً للوصول إلى قيمة موجبة |
+| `results/full_campaign_v7/thesis_final_reports/chapter_5_results_discussion/chapter_5_results_discussion_ar.html` | 923 | `Safety` | في الحملة. لذلك يقتصر الاستنتاج على نجاح الإجماع والحيوية ضمن شروط baseline، بينما يبقى اختبار Safety العدائي |
+| `results/full_campaign_v7/thesis_final_reports/chapter_5_results_discussion/chapter_5_results_discussion_ar.html` | 938 | `أفضل` | مستمدة من الأدبيات. تم الاحتفاظ بالمرشح الأفضل وفق قاعدة الترتيب الأصلية من دون تخفيف لاحق للشروط. |
+| `results/full_campaign_v7/thesis_final_reports/chapter_5_results_discussion/chapter_5_results_discussion_ar.html` | 969 | `Ring Signature` | Ring/Threshold Ring Signature؛ لذلك تبقى مقارنة هذه البدائل التشفيرية ضمن Related Work/العمل اللاحق، |
+| `results/full_campaign_v7/thesis_final_reports/chapter_5_results_discussion/chapter_5_results_discussion_ar.html` | 1000 | `MCC` | كانت قيمة MCC الإجمالية في Ahmed أعلى وصفياً، لكن فرق MCC لم يبق دالاً بعد تصحيح Holm، ولذلك لا يُستخدم MCC |
+| `results/full_campaign_v7/thesis_final_reports/chapter_5_results_discussion/chapter_5_results_discussion_ar.html` | 1001 | `تفوق` | وحده كدليل تأكيدي على تفوق شامل. أما Mixed فأظهر أكبر مكسب استكشافي لمسار الشهود (+56.13 نقطة مئوية مجمعاً) |
+| `results/full_campaign_v7/thesis_final_reports/chapter_5_results_discussion/chapter_5_results_discussion_ar.html` | 1010 | `Safety` | PBFT في baseline، لكن Safety تحت اقتراحات دلالية خبيثة لم يُختبر تجريبياً ويظل من حدود الدراسة. |
+| `results/full_campaign_v7/thesis_final_reports/chapter_5_results_discussion/chapter_5_results_discussion_ar.html` | 1014 | `أفضل` | لا تدعم النتائج فكرة «معمارية أفضل مطلقاً». تدعم بدلاً من ذلك نتيجة أدق: <strong>مصدر الأدلة، وقدرة المسار على |

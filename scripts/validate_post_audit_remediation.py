@@ -38,6 +38,16 @@ else:
     for required_test_text in ["جُمِع <strong>32 اختباراً</strong>", "<strong>31</strong>", "SUMO/TraCI"]:
         if required_test_text not in text:
             fail("Chapter missing corrected test-status wording: " + required_test_text)
+    for required_objective_text in [
+        "قورنت تجريبياً ثلاث طرق دمج لتحقيق تبادل رسائل موثقة/موقعة",
+        "ثُبّتت primitive التوقيع",
+        "لا تدّعي الدراسة أنها قارنت cryptographic primitives مختلفة",
+        "نطاق مقارنة المصادقة وحدود تقنيات التوقيع",
+    ]:
+        if required_objective_text not in text:
+            fail("Chapter missing final objective-alignment wording: " + required_objective_text)
+    if "لذلك يقتصر الجزء التجريبي" in text:
+        fail("Chapter still under-claims objective fulfillment")
 
 # V5 final-review checks
 legacy_chapter = [
@@ -50,6 +60,17 @@ if chapter.exists():
     for phrase in legacy_chapter:
         if phrase in ctext:
             fail("V5 legacy Chapter wording remains: " + phrase)
+
+objectives = Path("docs/OBJECTIVES.md").read_text(encoding="utf-8") if Path("docs/OBJECTIVES.md").exists() else ""
+for objective_text in [
+    "دراسة طرق دمج تقنية سلاسل الكتل Blockchain مع شبكات المركبات اللاسلكية VANET وتقييم أداءها وتشمل:",
+    "مقارنة الطرق المختلفة المستخدمة في تحقيق المصادقة وتبادل الرسائل",
+    "اقتراح طوبولوجية الشبكة المناسبة التي تساعد في تحقيق أفضل أداء.",
+]:
+    if objective_text not in objectives:
+        fail("official objective missing from docs/OBJECTIVES.md: " + objective_text)
+if objectives:
+    print("[PASS] official objective hierarchy recorded")
 
 threat = Path("docs/THREAT_MODEL.md").read_text(encoding="utf-8")
 if "configured behavior (for example accept-invalid/equivocation) can be a no-op" not in threat:
@@ -73,6 +94,18 @@ try:
         print("[PASS] self-contained effective final configuration")
 except Exception as e:
     fail("effective final configuration check failed: " + str(e))
+
+try:
+    objective_meta = json.loads(Path("results/full_campaign_v7/thesis_final_reports/chapter_5_results_discussion/chapter_metadata.json").read_text(encoding="utf-8"))
+    if objective_meta.get("official_objectives", {}).get("hierarchy") != "one general objective containing two sub-objectives":
+        fail("chapter_metadata missing correct official objective hierarchy")
+    auth_alignment = objective_meta.get("research_objectives_alignment", {}).get("authentication_and_message_exchange", "")
+    if "Three authenticated message-exchange integration methods are compared empirically" not in auth_alignment:
+        fail("chapter_metadata still under-claims authentication/message-exchange objective")
+    else:
+        print("[PASS] objective/evidence alignment metadata")
+except Exception as e:
+    fail("objective metadata check failed: " + str(e))
 
 readme = Path("README.md").read_text(encoding="utf-8")
 for bad in ["Byzantine/offline behavior", "  - view change\n", "حملة موحدة تشغل النماذج الثلاثة على الـTrace نفسه"]:
@@ -105,6 +138,8 @@ required = [
     "docs/remediation/CLAIM_AUDIT.md",
     "docs/remediation/STATISTICAL_ROBUSTNESS_ADDENDUM.md",
     "docs/remediation/FINAL_CONSISTENCY_AUDIT.md",
+    "docs/OBJECTIVES.md",
+    "docs/remediation/FINAL_OBJECTIVES_ALIGNMENT.md",
 ]
 for p in required:
     if not Path(p).exists():

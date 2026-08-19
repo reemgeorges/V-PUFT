@@ -64,16 +64,16 @@
       "peak_memory_kb": 14615.812378
     }
   },
-  "reporting_revision": "POST_CLAUDE_NONBLOCKING_NOTES_CLOSURE_V6_20260819",
-  "reporting_revision_scope": "Claude non-blocking notes closure: validator hardening, safe replay default, accurate test-status wording, cross-platform manifest verification; reporting/tooling only; no experiment rerun",
+  "reporting_revision": "FINAL_OBJECTIVES_ALIGNMENT_V7_20260819",
+  "reporting_revision_scope": "Official-objective alignment and Chapter 5 wording correction only; no experiment rerun, no detector/calibration change, no frozen scientific data rewrite",
   "experiment_rerun": false,
   "frozen_v7_modified": false,
-  "chapter_sha256": "CE21DC50F919F066E9A1A4BDF293C0D809331CF3A886DDB356A45B87984A58CD",
+  "chapter_sha256": "9267E573A4E9F046BC6173772F20DF3E07F92DADAC899AD75F0AB1F975D23533",
   "validation": "source-derived semantic/numerical validation; see VALIDATION.json",
-  "updated_at_utc": "2026-08-19T06:59:28.026532+00:00",
+  "updated_at_utc": "2026-08-19T08:08:08.102836+00:00",
   "research_objectives_alignment": {
     "blockchain_vanet_performance": "Centralized↔Distributed is the cleanest finalization comparison with a shared RSU evidence view; Ahmed↔RSU is an integrated evidence-path comparison.",
-    "authentication_and_message_exchange": "Message/evidence exchange empirical; authentication-method comparison theoretical because only Ed25519 is executed.",
+    "authentication_and_message_exchange": "Three authenticated message-exchange integration methods are compared empirically while Ed25519 is deliberately held constant; cryptographic-primitive benchmarking (PKI/Group/Ring/Threshold Ring alternatives) remains theoretical/Related Work.",
     "topology_recommendation": "Corridor is metric-conditional within tested scenarios, not a universal/causal topology recommendation."
   },
   "test_status": {
@@ -81,5 +81,13 @@
     "passed": 31,
     "skipped": 1,
     "skipped_reason": "SUMO/TraCI unavailable in the audited test environment"
+  },
+  "official_objectives": {
+    "general": "دراسة طرق دمج تقنية سلاسل الكتل Blockchain مع شبكات المركبات اللاسلكية VANET وتقييم أداءها وتشمل:",
+    "subobjectives": [
+      "مقارنة الطرق المختلفة المستخدمة في تحقيق المصادقة وتبادل الرسائل",
+      "اقتراح طوبولوجية الشبكة المناسبة التي تساعد في تحقيق أفضل أداء."
+    ],
+    "hierarchy": "one general objective containing two sub-objectives"
   }
 }

@@ -870,6 +870,12 @@ P95 لمرحلة ما ليست بالضرورة الحالة نفسها الوا
 
 
 <h3 data-post-audit="5.19.1">5.19.1 ربط الاستنتاجات بأهداف الدراسة بعد التدقيق</h3>
+<div class="method">
+<strong>الأهداف الرسمية المعتمدة:</strong>
+الهدف العام هو «دراسة طرق دمج تقنية سلاسل الكتل Blockchain مع شبكات المركبات اللاسلكية VANET وتقييم أداءها»،
+وتشمل هذه المظلة هدفين فرعيين: (1) مقارنة الطرق المختلفة المستخدمة في تحقيق المصادقة وتبادل الرسائل،
+و(2) اقتراح طوبولوجية الشبكة المناسبة التي تساعد في تحقيق أفضل أداء.
+</div>
 <ol>
 <li><strong>أثر Blockchain/finalization:</strong>
 Centralized↔Distributed RSU هي المقارنة الأنظف لدراسة finalization لأن منظور RSU ومحرك التأهيل والأوزان ثابتة.
@@ -881,8 +887,19 @@ Ahmed-Inspired يستهلك منظور أدلة مختلفاً، ولذلك فر
 سبباً واحداً دون تجربة عزل.
 </li>
 <li><strong>المصادقة وتبادل الرسائل:</strong>
-تبادل الرسائل/الأدلة قيس تجريبياً، أما مقارنة تقنيات المصادقة المختلفة فلم تُنفذ كbenchmark؛ التنفيذ المستخدم
-هو Ed25519، وتبقى PKI وGroup/Ring/Threshold signatures ضمن Related Work.
+قورنت تجريبياً ثلاث طرق دمج لتحقيق تبادل رسائل موثقة/موقعة: سلطة مركزية في المسار Centralized،
+ونصاب RSU مع PBFT في Distributed RSU، ومسار شهود مع RSU validation وthreshold certificate في Ahmed-Inspired.
+ثُبّتت primitive التوقيع <span class="ltr">Ed25519</span> بين المسارات عمداً حتى تُنسب الفروق المرصودة إلى بنية الدمج
+وتبادل الرسائل/الإنهاء لا إلى تغيير خوارزمية التوقيع. لذلك تحقق المقارنة التجريبية هدف طرق الدمج المستخدمة في
+المصادقة وتبادل الرسائل، بينما لا تدّعي الدراسة أنها قارنت cryptographic primitives مختلفة.
+<table>
+<thead><tr><th>المسار</th><th>سلطة/بنية التحقق</th><th>بنية تبادل الرسائل</th><th>Messages/Decision</th><th>Bytes/Decision</th></tr></thead>
+<tbody>
+<tr><td>Centralized V-PUFT</td><td>خادم مركزي يتحقق من الأدلة الموقعة</td><td>RSU → Central server</td><td>48.05368</td><td>33829.790693</td></tr>
+<tr><td>Distributed RSU V-PUFT</td><td>نصاب RSU مع PBFT-style finalization</td><td>Coordinator + PRE-PREPARE/PREPARE/COMMIT + replication</td><td>45.385926</td><td>30779.183202</td></tr>
+<tr><td>Ahmed-Inspired Witness V-PUFT</td><td>Witness set + RSU validation + threshold certificate</td><td>Witness → RSU → coordinator + PBFT + replication</td><td>168.061515</td><td>125295.283005</td></tr>
+</tbody>
+</table>
 </li>
 <li><strong>الطوبولوجيا:</strong>
 يمكن وصف Corridor كملاحظة قوية في بعض المقاييس ضمن السيناريوهات المختبرة، لكن أي توصية تبقى مشروطة بالمقياس
@@ -943,11 +960,14 @@ V-PUFT هو الإطار المقترح والمستخدم في هذه الدر�
 
 
 
-<h3 data-post-audit="5.20.7">5.20.7 حدود مقارنة تقنيات المصادقة</h3>
+<h3 data-post-audit="5.20.7">5.20.7 نطاق مقارنة المصادقة وحدود تقنيات التوقيع</h3>
 <p>
-لم تنفذ الدراسة Benchmark تجريبياً يقارن PKI أو Group Signature أو Ring/Threshold Signature.
-استخدم التنفيذ التجريبي <span class="ltr">Ed25519</span> للتحقق من أصالة الرسائل؛ لذلك يقتصر الجزء التجريبي
-من الهدف الثاني على تبادل الرسائل/الأدلة والfinalization، بينما تبقى مقارنة تقنيات المصادقة الأخرى نظرية.
+قورنت تجريبياً طرق الدمج الثلاث في كيفية تحقيق تبادل رسائل موثقة والتحقق/الإنهاء عبر سلطة مركزية،
+ونصاب RSU مع PBFT، ومسار شهود مع RSU validation وthreshold certificate. وحُفظت
+<span class="ltr">Ed25519</span> كـcryptographic primitive ثابتة بين المسارات لضبط المقارنة.
+لم تنفذ الدراسة Benchmark منفصلاً يقارن primitives أو مخططات توقيع بديلة مثل PKI أو Group Signature أو
+Ring/Threshold Ring Signature؛ لذلك تبقى مقارنة هذه البدائل التشفيرية ضمن Related Work/العمل اللاحق،
+من دون أن ينفي ذلك المقارنة التجريبية المنفذة بين طرق دمج المصادقة وتبادل الرسائل نفسها.
 </p>
 
 <h3 data-post-audit="5.20.8">5.20.8 حدود نموذج النقل والحداثة</h3>

@@ -12,7 +12,7 @@
 3. التسليم الفعلي شبه الكامل يستبعد packet loss كتفسير عملي للفروق المرصودة، لكنه لا يثبت أن transport
    غير مؤثر من حيث المبدأ لأن arrival time يدخل في freshness.
 4. MCC يبقى وصفياً فقط؛ Holm-adjusted p≈0.1986 في التحليل الكامل و1.0000 بعد استبعاد smoke.
-5. المقارنة التجريبية لتقنيات authentication لم تُنفذ؛ التنفيذ يستخدم Ed25519، والباقي Related Work.
+5. قورنت تجريبياً طرق دمج المصادقة وتبادل الرسائل بين المعماريات مع تثبيت Ed25519 لضبط المقارنة؛ أما benchmark لمختلف cryptographic primitives/PKI/Group/Ring/Threshold Ring فلم يُنفذ ويبقى Related Work.
 6. `independent_roots` مفقود تاريخياً من Ahmed decisions؛ إصلاح الكود للتشغيلات المستقبلية فقط دون backfill.
 7. إعادة الإنتاج يجب أن تستخدم Git LFS والأوزان من
    `results/full_campaign_v7/sensitivity_shared_views_mixedfix/selected_weights.json`.

@@ -54,4 +54,4 @@ python replay_final_v7.py `
 Centralized and Distributed consume `bundle.rsu_cases`; Ahmed consumes `bundle.witness_cases`.
 The frozen baseline has `validator_behaviors={}` and does not support an empirical Byzantine-safety claim.
 MCC is descriptive only after Holm (adjusted p≈0.1986).
-Authentication-method benchmarking was not executed beyond Ed25519.
+Authenticated message-exchange integration methods are compared empirically; cryptographic-primitive benchmarking was not executed beyond the deliberately constant Ed25519 primitive.

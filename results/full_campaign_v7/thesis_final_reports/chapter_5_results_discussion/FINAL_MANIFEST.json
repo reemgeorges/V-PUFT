@@ -1,23 +1,23 @@
 {
-  "artifact": "V-PUFT Chapter 5 final reporting package — Claude non-blocking notes closed",
-  "generated_at_utc": "2026-08-19T06:59:28.035877+00:00",
+  "artifact": "V-PUFT Chapter 5 final reporting package — official objectives aligned",
+  "generated_at_utc": "2026-08-19T08:08:08.136696+00:00",
   "experiment_rerun": false,
   "frozen_v7_modified": false,
   "reporting_only_change": true,
   "chapter_index_identical": true,
-  "chapter_sha256": "CE21DC50F919F066E9A1A4BDF293C0D809331CF3A886DDB356A45B87984A58CD",
+  "chapter_sha256": "9267E573A4E9F046BC6173772F20DF3E07F92DADAC899AD75F0AB1F975D23533",
   "inputs_and_outputs": [
     {
       "path": "results/full_campaign_v7/thesis_final_reports/chapter_5_results_discussion/chapter_5_results_discussion_ar.html",
       "exists": true,
-      "size_bytes": 83610,
-      "sha256": "CE21DC50F919F066E9A1A4BDF293C0D809331CF3A886DDB356A45B87984A58CD"
+      "size_bytes": 85954,
+      "sha256": "9267E573A4E9F046BC6173772F20DF3E07F92DADAC899AD75F0AB1F975D23533"
     },
     {
       "path": "results/full_campaign_v7/thesis_final_reports/chapter_5_results_discussion/index.html",
       "exists": true,
-      "size_bytes": 83610,
-      "sha256": "CE21DC50F919F066E9A1A4BDF293C0D809331CF3A886DDB356A45B87984A58CD"
+      "size_bytes": 85954,
+      "sha256": "9267E573A4E9F046BC6173772F20DF3E07F92DADAC899AD75F0AB1F975D23533"
     },
     {
       "path": "results/full_campaign_v7/thesis_final_reports/chapter_5_results_discussion/VALIDATION.json",
@@ -28,8 +28,8 @@
     {
       "path": "results/full_campaign_v7/thesis_final_reports/chapter_5_results_discussion/chapter_metadata.json",
       "exists": true,
-      "size_bytes": 3326,
-      "sha256": "7ED10380A46D712CF5450B20D878862E152AA7F168DBF42361FC34E81B9984C9"
+      "size_bytes": 3979,
+      "sha256": "C2E68127DFC515DA5DAD91AB114B69197A654C39C3521319FB2CBC584C0F7AC0"
     },
     {
       "path": "results/full_campaign_v7/statistical_inference/bootstrap_pooled_differences.csv",
@@ -74,7 +74,7 @@
       "sha256": "4D8A930F57F719F54DB0EAA1180D453C859CBE52644B20173CCE3187A0B0E104"
     }
   ],
-  "post_audit_note": "Claude independent audit notes N1-N5 are closed. No frozen numeric/scientific input was rewritten. Manifest hashes use canonical-LF verification to avoid Windows CRLF ambiguity.",
+  "post_audit_note": "Official approved objectives were added verbatim and Chapter 5 was reframed to distinguish empirical comparison of authenticated message-exchange integration methods from unexecuted cryptographic-primitive benchmarking. No frozen numeric/scientific input was rewritten.",
   "hash_policy": {
     "algorithm": "SHA-256",
     "text_line_endings": "canonical LF",
