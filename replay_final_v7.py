@@ -35,7 +35,7 @@ def main() -> None:
         description="Replay the already-built v4 sensor-isolated runtime traces with transport-fair architectures."
     )
     parser.add_argument("--input-v4", default="results/full_campaign_v7")
-    parser.add_argument("--output", default="results/full_campaign_v7/final_architectures")
+    parser.add_argument("--output", default="reproduction_check/final_architectures")
     parser.add_argument("--config", default="configs/full_experiment.json")
     parser.add_argument("--weights", default="results/full_campaign_v7/sensitivity_shared_views_mixedfix/selected_weights.json")
     parser.add_argument("--resume", action="store_true")

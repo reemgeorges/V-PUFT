@@ -1,78 +1,83 @@
 {
-  "artifact": "V-PUFT Chapter 5 final post-Claude review reporting package",
-  "generated_at_utc": "2026-08-18T23:01:49.855408+00:00",
+  "artifact": "V-PUFT Chapter 5 final reporting package — Claude non-blocking notes closed",
+  "generated_at_utc": "2026-08-19T06:59:28.035877+00:00",
   "experiment_rerun": false,
   "frozen_v7_modified": false,
   "reporting_only_change": true,
   "chapter_index_identical": true,
-  "chapter_sha256": "53DA9B802B5FE8370B119132477AD4F1C66E583AD2A46B0063645B70F267DF6D",
+  "chapter_sha256": "CE21DC50F919F066E9A1A4BDF293C0D809331CF3A886DDB356A45B87984A58CD",
   "inputs_and_outputs": [
     {
       "path": "results/full_campaign_v7/thesis_final_reports/chapter_5_results_discussion/chapter_5_results_discussion_ar.html",
       "exists": true,
-      "size_bytes": 83446,
-      "sha256": "53DA9B802B5FE8370B119132477AD4F1C66E583AD2A46B0063645B70F267DF6D"
+      "size_bytes": 83610,
+      "sha256": "CE21DC50F919F066E9A1A4BDF293C0D809331CF3A886DDB356A45B87984A58CD"
     },
     {
       "path": "results/full_campaign_v7/thesis_final_reports/chapter_5_results_discussion/index.html",
       "exists": true,
-      "size_bytes": 83446,
-      "sha256": "53DA9B802B5FE8370B119132477AD4F1C66E583AD2A46B0063645B70F267DF6D"
+      "size_bytes": 83610,
+      "sha256": "CE21DC50F919F066E9A1A4BDF293C0D809331CF3A886DDB356A45B87984A58CD"
     },
     {
       "path": "results/full_campaign_v7/thesis_final_reports/chapter_5_results_discussion/VALIDATION.json",
       "exists": true,
-      "size_bytes": 11745,
-      "sha256": "D83C68E38C282000CC6ECCB54DF6BA63FFA2C8F5EBDCCA194FFFB81DCDA11160"
+      "size_bytes": 11376,
+      "sha256": "6556516D87A31A99FC2EFEAB27BCD404DEA320B75B207FC6595840979A61A927"
     },
     {
       "path": "results/full_campaign_v7/thesis_final_reports/chapter_5_results_discussion/chapter_metadata.json",
       "exists": true,
-      "size_bytes": 2979,
-      "sha256": "68757C894FB9E223E426F5103EC44C1E8EC777C39325B48C531AF2BA4F7ED6DB"
+      "size_bytes": 3326,
+      "sha256": "7ED10380A46D712CF5450B20D878862E152AA7F168DBF42361FC34E81B9984C9"
     },
     {
       "path": "results/full_campaign_v7/statistical_inference/bootstrap_pooled_differences.csv",
       "exists": true,
-      "size_bytes": 3208,
-      "sha256": "4CF896FC17BA24B8097E26631110E7AC9627B5853530672D11209591E100BADE"
+      "size_bytes": 3192,
+      "sha256": "BB0D8C6ECECAA7B0CA53F75E9DDD039840A8E87C3FC028237C5C65DD8625C843"
     },
     {
       "path": "results/full_campaign_v7/statistical_inference/bootstrap_by_attack.csv",
       "exists": true,
-      "size_bytes": 3770,
-      "sha256": "918B05990CAB43273BCE4199321816705D574FAC7BE417FC2153215BEE08C0C3"
+      "size_bytes": 3748,
+      "sha256": "F932BC3AC3134057DA7189F9358C83D63CEFF0F500F99202138D9E0A053036BE"
     },
     {
       "path": "results/full_campaign_v7/statistical_inference/paired_tests_by_seed.csv",
       "exists": true,
-      "size_bytes": 7982,
-      "sha256": "75EDC9B94490A5348B6D3591D675A1B8631DC6C5E30F2673F1769FA756CAD51C"
+      "size_bytes": 7954,
+      "sha256": "2E941CB7061DC79AC6428717B2A231E72B406348DC5AD0F1DE2FFC49925F6999"
     },
     {
       "path": "results/full_campaign_v7/case_agreement/agreement_summary.csv",
       "exists": true,
-      "size_bytes": 682,
-      "sha256": "2C9124B3E3CB370153D1AF6DF64636CE381E9309FCC0FDA617DD8EE9D80E0DA0"
+      "size_bytes": 678,
+      "sha256": "85E59F4EB8E05E6093288FED9AE10897D5658D8935CD99173820B092EC577714"
     },
     {
       "path": "results/full_campaign_v7/latency_decomposition/latency_stages.csv",
       "exists": true,
-      "size_bytes": 2899,
-      "sha256": "48F6C09B1015B0ABF9BC59390CDA8C589E280C4D60863AAC41BC743A707580E4"
+      "size_bytes": 2886,
+      "sha256": "00B117E2398C6DE1C9CE53ADF693100F6DB753C8ED3B04B8234FB73BFB471E36"
     },
     {
       "path": "results/full_campaign_v7/sensitivity_shared_views_mixedfix/selected_weights.json",
       "exists": true,
-      "size_bytes": 3008,
-      "sha256": "4E8CB5C1D8804CA9F24537A4E0796E514B13474125299EC0E22490D44614C6C9"
+      "size_bytes": 2899,
+      "sha256": "004679A95C2B81F7F2B51D4170917E332BA26510CE0FADF95B4141B8893CBBF4"
     },
     {
       "path": "configs/full_experiment.json",
       "exists": true,
-      "size_bytes": 4665,
-      "sha256": "71ED5637B3F90C6CDE6EBE8302D9AF1A571CB671CFA07DC3413F47B516391220"
+      "size_bytes": 4490,
+      "sha256": "4D8A930F57F719F54DB0EAA1180D453C859CBE52644B20173CCE3187A0B0E104"
     }
   ],
-  "post_audit_note": "Scientific numeric CSV/JSON inputs were not rewritten. Chapter/index wording and reporting metadata were updated for final claim consistency; separate interpretation-only notes remain in the three post-freeze SUMMARY.md reports."
+  "post_audit_note": "Claude independent audit notes N1-N5 are closed. No frozen numeric/scientific input was rewritten. Manifest hashes use canonical-LF verification to avoid Windows CRLF ambiguity.",
+  "hash_policy": {
+    "algorithm": "SHA-256",
+    "text_line_endings": "canonical LF",
+    "verification": "Before size/hash verification, CRLF and CR are normalized to LF. This removes checkout-platform ambiguity without changing scientific source artifacts."
+  }
 }

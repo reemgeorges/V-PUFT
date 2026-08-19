@@ -64,16 +64,22 @@
       "peak_memory_kb": 14615.812378
     }
   },
-  "reporting_revision": "POST_CLAUDE_FINAL_REVIEW_V5_20260819",
-  "reporting_revision_scope": "final wording/reproducibility consistency; reporting-only; no experiment rerun",
+  "reporting_revision": "POST_CLAUDE_NONBLOCKING_NOTES_CLOSURE_V6_20260819",
+  "reporting_revision_scope": "Claude non-blocking notes closure: validator hardening, safe replay default, accurate test-status wording, cross-platform manifest verification; reporting/tooling only; no experiment rerun",
   "experiment_rerun": false,
   "frozen_v7_modified": false,
-  "chapter_sha256": "53DA9B802B5FE8370B119132477AD4F1C66E583AD2A46B0063645B70F267DF6D",
+  "chapter_sha256": "CE21DC50F919F066E9A1A4BDF293C0D809331CF3A886DDB356A45B87984A58CD",
   "validation": "source-derived semantic/numerical validation; see VALIDATION.json",
-  "updated_at_utc": "2026-08-18T23:01:49.800872+00:00",
+  "updated_at_utc": "2026-08-19T06:59:28.026532+00:00",
   "research_objectives_alignment": {
-    "blockchain_vanet_performance": "Centralized↔Distributed isolates finalization; Ahmed↔RSU is integrated evidence-path.",
+    "blockchain_vanet_performance": "Centralized↔Distributed is the cleanest finalization comparison with a shared RSU evidence view; Ahmed↔RSU is an integrated evidence-path comparison.",
     "authentication_and_message_exchange": "Message/evidence exchange empirical; authentication-method comparison theoretical because only Ed25519 is executed.",
     "topology_recommendation": "Corridor is metric-conditional within tested scenarios, not a universal/causal topology recommendation."
+  },
+  "test_status": {
+    "collected": 32,
+    "passed": 31,
+    "skipped": 1,
+    "skipped_reason": "SUMO/TraCI unavailable in the audited test environment"
   }
 }

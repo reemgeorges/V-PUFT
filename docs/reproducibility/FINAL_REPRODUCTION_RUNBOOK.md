@@ -41,6 +41,7 @@ The embedded default weights in the base config are not the final replay weights
 candidate-650 weights, matching `replay_final_v7.py`.
 
 ## Replay without SUMO/recalibration
+The CLI default output is intentionally outside the frozen tree: `reproduction_check/final_architectures`.
 Use a new output folder:
 ```powershell
 python replay_final_v7.py `

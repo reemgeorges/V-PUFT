@@ -1,6 +1,7 @@
 from pathlib import Path
 import subprocess
 import json
+import hashlib
 
 BASELINE = "10b7ab507351818a7d8a1685d13a6c6b5cfd867b"
 errors = []
@@ -32,6 +33,11 @@ else:
     for marker in ['comparison-scope','without-smoke','5.16.1','5.19.1','5.20.7','5.20.8','5.20.9']:
         if f'data-post-audit="{marker}"' not in text:
             fail(f"missing Chapter marker {marker}")
+    if "<b>32 / 32</b>اختبارات ناجحة" in text or "ونجحت جميع الاختبارات البالغ عددها" in text:
+        fail("Chapter still overstates test status as 32/32 passed")
+    for required_test_text in ["جُمِع <strong>32 اختباراً</strong>", "<strong>31</strong>", "SUMO/TraCI"]:
+        if required_test_text not in text:
+            fail("Chapter missing corrected test-status wording: " + required_test_text)
 
 # V5 final-review checks
 legacy_chapter = [
@@ -81,6 +87,10 @@ if 'default="results/full_campaign_v7/sensitivity_shared_views_mixedfix/selected
     fail("weights path not fixed")
 else:
     print("[PASS] final weights path")
+if 'parser.add_argument("--output", default="reproduction_check/final_architectures")' not in replay:
+    fail("replay default output is not safely outside frozen results")
+else:
+    print("[PASS] safe replay default output")
 
 ahmed = Path("src/vpuft/architectures/ahmed_witness.py").read_text(encoding="utf-8")
 if ahmed.count('"independent_roots": result.independent_roots') < 2:
@@ -100,7 +110,15 @@ for p in required:
     if not Path(p).exists():
         fail("missing doc " + p)
 
-changed = [x.replace("\\","/") for x in run("git","diff","--name-only",BASELINE,"--","results/full_campaign_v7").splitlines() if x]
+protected_scopes = [
+    "results/full_campaign_v7",
+    "FINAL_FREEZE_v7_20260809",
+    "configs",
+    "sumo",
+]
+changed = [x.replace("\\","/") for x in run(
+    "git","diff","--name-only",BASELINE,"--",*protected_scopes
+).splitlines() if x]
 prefix = "results/full_campaign_v7/thesis_final_reports/chapter_5_results_discussion/"
 allowed = {
     prefix+"chapter_5_results_discussion_ar.html",
@@ -116,6 +134,38 @@ if bad_changed:
     fail("unexpected frozen result changes: " + ", ".join(bad_changed))
 else:
     print("[PASS] frozen numeric/scientific result files untouched")
+
+def canonical_text_bytes(path):
+    b = Path(path).read_bytes()
+    return b.replace(b"\r\n", b"\n").replace(b"\r", b"\n")
+
+try:
+    manifest_path = Path("results/full_campaign_v7/thesis_final_reports/chapter_5_results_discussion/FINAL_MANIFEST.json")
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    policy = manifest.get("hash_policy", {})
+    if policy.get("algorithm") != "SHA-256" or policy.get("text_line_endings") != "canonical LF":
+        fail("FINAL_MANIFEST missing canonical-LF SHA-256 policy")
+    for item in manifest.get("inputs_and_outputs", []):
+        p = Path(item["path"])
+        if not p.exists():
+            fail("manifest entry missing: " + item["path"])
+            continue
+        cb = canonical_text_bytes(p)
+        got = hashlib.sha256(cb).hexdigest().upper()
+        if got != item.get("sha256"):
+            fail("manifest hash mismatch: " + item["path"])
+        if len(cb) != item.get("size_bytes"):
+            fail("manifest canonical size mismatch: " + item["path"])
+    chapter_hash = hashlib.sha256(canonical_text_bytes(chapter)).hexdigest().upper()
+    if manifest.get("chapter_sha256") != chapter_hash:
+        fail("manifest top-level chapter_sha256 mismatch")
+    meta = json.loads(Path("results/full_campaign_v7/thesis_final_reports/chapter_5_results_discussion/chapter_metadata.json").read_text(encoding="utf-8"))
+    if meta.get("chapter_sha256") != chapter_hash:
+        fail("chapter_metadata chapter_sha256 mismatch")
+    if not any(e.startswith("manifest ") or e.startswith("FINAL_MANIFEST") or e.startswith("chapter_metadata") for e in errors):
+        print("[PASS] canonical-LF manifest verification")
+except Exception as e:
+    fail("manifest verification failed: " + str(e))
 
 active_doc_checks = {
     "docs/ARCHITECTURE.md": [
@@ -150,7 +200,7 @@ bases = [
     chapter,
 ]
 for base in bases:
-    files = [base] if base.is_file() else [p for p in base.rglob("*") if p.is_file()]
+    files = [base] if base.is_file() else sorted((p for p in base.rglob("*") if p.is_file()), key=lambda p: p.as_posix())
     for p in files:
         posix = p.as_posix()
         if p == scan:
@@ -169,14 +219,20 @@ for base in bases:
                     hits.append((posix, no, n, line.strip()[:200]))
                     break
 
-with scan.open("w",encoding="utf-8",newline="\n") as f:
-    f.write("# Remaining risky-claim lexical scan\n\n")
-    f.write("Lexical inventory of active/non-archive material for contextual review; hits are not automatically errors.\n")
-    f.write("The generated scan file itself is excluded to prevent recursive hit inflation.\n\n")
-    f.write("| file | line | trigger | excerpt |\n|---|---:|---|---|\n")
-    for p,no,n,line in hits:
-        line = line.replace("|","\\|")
-        f.write(f"| `{p}` | {no} | `{n}` | {line} |\n")
+hits.sort(key=lambda x: (x[0], x[1], x[2], x[3]))
+parts = [
+    "# Remaining risky-claim lexical scan\n\n",
+    "Lexical inventory of active/non-archive material for contextual review; hits are not automatically errors.\n",
+    "The generated scan file itself is excluded to prevent recursive hit inflation.\n\n",
+    "| file | line | trigger | excerpt |\n|---|---:|---|---|\n",
+]
+for p,no,n,line in hits:
+    line = line.replace("|","\\|")
+    parts.append(f"| `{p}` | {no} | `{n}` | {line} |\n")
+rendered_scan = "".join(parts)
+existing_scan = scan.read_text(encoding="utf-8") if scan.exists() else None
+if existing_scan != rendered_scan:
+    scan.write_text(rendered_scan, encoding="utf-8", newline="\n")
 print(f"[INFO] active claim scan: {len(hits)} hits -> {scan}")
 
 if errors:
