@@ -64,7 +64,7 @@
 
 ## 6. النتائج
 
-| Extra one-way backhaul | Centralized P95 | Distributed P95 | Distributed − Centralized |
+| Extra one-way backhaul | Centralized P95 (median of per-seed) | Distributed P95 (median of per-seed) | Distributed − Centralized |
 |---:|---:|---:|---:|
 | 0 ms | 14184.00 ms | 14351.81 ms | +167.80 ms |
 | 20 ms | 14204.00 ms | 14351.81 ms | +147.80 ms |
