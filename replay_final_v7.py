@@ -38,6 +38,12 @@ def main() -> None:
     parser.add_argument("--output", default="reproduction_check/final_architectures")
     parser.add_argument("--config", default="configs/full_experiment.json")
     parser.add_argument("--weights", default="results/full_campaign_v7/sensitivity_shared_views_mixedfix/selected_weights.json")
+    parser.add_argument(
+        "--central-backhaul-extra-ms",
+        type=float,
+        default=0.0,
+        help="Additional one-way latency applied only to messages whose receiver is central-server.",
+    )
     parser.add_argument("--resume", action="store_true")
     args = parser.parse_args()
 
@@ -56,12 +62,26 @@ def main() -> None:
         raise ValueError("selected_weights.json does not contain a 'weights' object")
 
     cfg = load_config(args.config)
-    calibrated_cfg = replace(cfg, weights=WeightConfig(**selected["weights"]))
+    if args.central_backhaul_extra_ms < 0:
+        raise ValueError("--central-backhaul-extra-ms cannot be negative")
+    calibrated_cfg = replace(
+        cfg,
+        weights=WeightConfig(**selected["weights"]),
+        network=replace(
+            cfg.network,
+            central_backhaul_extra_latency_ms=args.central_backhaul_extra_ms,
+        ),
+    )
     output.mkdir(parents=True, exist_ok=True)
 
     print("[v7-final] architecture-only replay with transport-fair evidence delivery ...", flush=True)
     print(f"[v7-final] using v1.0.9 shared-view weights={selected['weights']}", flush=True)
     print("[v7-final] SUMO rerun: NO; detector rebuild: NO; sensitivity rerun: NO", flush=True)
+    print(
+        f"[v7-final] central-server extra one-way backhaul latency="
+        f"{args.central_backhaul_extra_ms} ms",
+        flush=True,
+    )
 
     combined_metrics: list[pd.DataFrame] = []
     combined_decisions: list[pd.DataFrame] = []
@@ -166,6 +186,7 @@ def main() -> None:
         "selection_feasible_v1_0_9": bool(selected.get("selection_feasible", False)),
         "calibration_holdout_metrics_v1_0_9": selected.get("holdout_metrics", {}),
         "replay_scope": "architecture transport/finalization only",
+        "central_backhaul_extra_latency_ms": args.central_backhaul_extra_ms,
         "sumo_rerun_required": False,
         "detector_rebuild_required": False,
         "sensitivity_rerun_required": False,

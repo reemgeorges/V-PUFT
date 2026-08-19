@@ -57,6 +57,8 @@ class SimulatedTransport:
             queue_delay_ms = max(0.0, queue_start - requested_time) * 1000.0
             delivered = self.rng.random() <= self.config.packet_delivery_ratio
             propagation_ms = max(0.1, self.rng.gauss(self.config.base_latency_ms, self.config.jitter_ms))
+            if receiver == "central-server":
+                propagation_ms += self.config.central_backhaul_extra_latency_ms
             delivered_at = queue_start + serialization_seconds + propagation_ms / 1000.0 if delivered else None
             message = NetworkMessage(
                 message_id=f"net-{next(self._counter)}",
