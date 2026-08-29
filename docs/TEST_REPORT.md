@@ -19,7 +19,7 @@ Covered tests:
 - invalid-signature rejection
 - root de-duplication
 - independent-root qualification
-- PBFT quorum and view change
+- PBFT quorum and timeout-driven bounded leader/view rotation (not a full VIEW-CHANGE/NEW-VIEW protocol)
 - all three architecture smoke test
 - sensitivity analysis smoke test
 - trace JSONL round trip

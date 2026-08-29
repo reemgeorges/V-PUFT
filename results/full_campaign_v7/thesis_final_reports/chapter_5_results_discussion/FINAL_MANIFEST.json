@@ -1,0 +1,83 @@
+{
+  "artifact": "V-PUFT Chapter 5 final reporting package — official objectives aligned",
+  "generated_at_utc": "2026-08-19T08:08:08.136696+00:00",
+  "experiment_rerun": false,
+  "frozen_v7_modified": false,
+  "reporting_only_change": true,
+  "chapter_index_identical": true,
+  "chapter_sha256": "9267E573A4E9F046BC6173772F20DF3E07F92DADAC899AD75F0AB1F975D23533",
+  "inputs_and_outputs": [
+    {
+      "path": "results/full_campaign_v7/thesis_final_reports/chapter_5_results_discussion/chapter_5_results_discussion_ar.html",
+      "exists": true,
+      "size_bytes": 85954,
+      "sha256": "9267E573A4E9F046BC6173772F20DF3E07F92DADAC899AD75F0AB1F975D23533"
+    },
+    {
+      "path": "results/full_campaign_v7/thesis_final_reports/chapter_5_results_discussion/index.html",
+      "exists": true,
+      "size_bytes": 85954,
+      "sha256": "9267E573A4E9F046BC6173772F20DF3E07F92DADAC899AD75F0AB1F975D23533"
+    },
+    {
+      "path": "results/full_campaign_v7/thesis_final_reports/chapter_5_results_discussion/VALIDATION.json",
+      "exists": true,
+      "size_bytes": 11376,
+      "sha256": "6556516D87A31A99FC2EFEAB27BCD404DEA320B75B207FC6595840979A61A927"
+    },
+    {
+      "path": "results/full_campaign_v7/thesis_final_reports/chapter_5_results_discussion/chapter_metadata.json",
+      "exists": true,
+      "size_bytes": 3979,
+      "sha256": "C2E68127DFC515DA5DAD91AB114B69197A654C39C3521319FB2CBC584C0F7AC0"
+    },
+    {
+      "path": "results/full_campaign_v7/statistical_inference/bootstrap_pooled_differences.csv",
+      "exists": true,
+      "size_bytes": 3192,
+      "sha256": "BB0D8C6ECECAA7B0CA53F75E9DDD039840A8E87C3FC028237C5C65DD8625C843"
+    },
+    {
+      "path": "results/full_campaign_v7/statistical_inference/bootstrap_by_attack.csv",
+      "exists": true,
+      "size_bytes": 3748,
+      "sha256": "F932BC3AC3134057DA7189F9358C83D63CEFF0F500F99202138D9E0A053036BE"
+    },
+    {
+      "path": "results/full_campaign_v7/statistical_inference/paired_tests_by_seed.csv",
+      "exists": true,
+      "size_bytes": 7954,
+      "sha256": "2E941CB7061DC79AC6428717B2A231E72B406348DC5AD0F1DE2FFC49925F6999"
+    },
+    {
+      "path": "results/full_campaign_v7/case_agreement/agreement_summary.csv",
+      "exists": true,
+      "size_bytes": 678,
+      "sha256": "85E59F4EB8E05E6093288FED9AE10897D5658D8935CD99173820B092EC577714"
+    },
+    {
+      "path": "results/full_campaign_v7/latency_decomposition/latency_stages.csv",
+      "exists": true,
+      "size_bytes": 2886,
+      "sha256": "00B117E2398C6DE1C9CE53ADF693100F6DB753C8ED3B04B8234FB73BFB471E36"
+    },
+    {
+      "path": "results/full_campaign_v7/sensitivity_shared_views_mixedfix/selected_weights.json",
+      "exists": true,
+      "size_bytes": 2899,
+      "sha256": "004679A95C2B81F7F2B51D4170917E332BA26510CE0FADF95B4141B8893CBBF4"
+    },
+    {
+      "path": "configs/full_experiment.json",
+      "exists": true,
+      "size_bytes": 4490,
+      "sha256": "4D8A930F57F719F54DB0EAA1180D453C859CBE52644B20173CCE3187A0B0E104"
+    }
+  ],
+  "post_audit_note": "Official approved objectives were added verbatim and Chapter 5 was reframed to distinguish empirical comparison of authenticated message-exchange integration methods from unexecuted cryptographic-primitive benchmarking. No frozen numeric/scientific input was rewritten.",
+  "hash_policy": {
+    "algorithm": "SHA-256",
+    "text_line_endings": "canonical LF",
+    "verification": "Before size/hash verification, CRLF and CR are normalized to LF. This removes checkout-platform ambiguity without changing scientific source artifacts."
+  }
+}

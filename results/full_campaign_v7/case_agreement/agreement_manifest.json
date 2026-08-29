@@ -1,0 +1,19 @@
+{
+  "analysis_type": "post_freeze_case_agreement",
+  "experiments_rerun": false,
+  "case_key": [
+    "topology",
+    "seed",
+    "case_id"
+  ],
+  "focus_pair": [
+    "Centralized V-PUFT",
+    "Distributed RSU V-PUFT"
+  ],
+  "exact_mcnemar_threshold": 25,
+  "duplicate_case_keys_allowed": false,
+  "ground_truth_consistency_required": true,
+  "attack_label_consistency_required": true,
+  "input_decisions": ".\\\\results\\\\full_campaign_v7\\\\final_architectures\\\\final_decisions.csv",
+  "input_decisions_sha256": "C2979CE4BE99D9595143BA416E6FF47DBC24BE87A51ABB8D8B6BDE1CE20FA457"
+}

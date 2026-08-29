@@ -1,4 +1,5 @@
 from pathlib import Path
+import shutil
 
 import pytest
 
@@ -13,12 +14,18 @@ def test_bundled_sumo_smoke_when_available(tmp_path: Path):
     report = doctor_report(cfg.sumo.sumo_binary, cfg.sumo.netconvert_binary)
     if not report.ready_for_sumo:
         pytest.skip("SUMO/TraCI is not installed in this environment")
+
+    scenario_directory = tmp_path / "smoke"
+    output_directory = tmp_path / "output"
+    shutil.copytree(Path("sumo/smoke"), scenario_directory)
+
     manifest = run_sumo_trace(
         cfg,
-        scenario_directory="sumo/smoke",
-        output_directory=tmp_path,
+        scenario_directory=scenario_directory,
+        output_directory=output_directory,
         seed=1001,
         force_prepare=True,
     )
+
     assert manifest["counts"]["detection_events"] > 0
-    assert (tmp_path / "shared_detection_trace.jsonl").exists()
+    assert (output_directory / "shared_detection_trace.jsonl").exists()

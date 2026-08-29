@@ -1,0 +1,370 @@
+{
+  "validator": "validate_chapter5_semantics.py",
+  "validation_type": "source-derived semantic/numerical validation",
+  "experiment_rerun": false,
+  "checks_total": 46,
+  "checks_passed": 46,
+  "checks_failed": 0,
+  "overall_pass": true,
+  "checks": [
+    {
+      "name": "pooled_recall_identity_Centralized V-PUFT",
+      "passed": true,
+      "detail": "Pooled recall difference equals B-A.",
+      "evidence": {
+        "value_a": 0.808955223880597,
+        "value_b": 0.8935323383084577,
+        "difference": 0.0845771144278606,
+        "ci_low": 0.0634920634920634,
+        "ci_high": 0.1056829511465603
+      }
+    },
+    {
+      "name": "pooled_recall_frozen_range_Centralized V-PUFT",
+      "passed": true,
+      "detail": "Pooled recall is about +8.46 pp and CI excludes zero.",
+      "evidence": null
+    },
+    {
+      "name": "pooled_frr_identity_Centralized V-PUFT",
+      "passed": true,
+      "detail": "Pooled FRR difference equals B-A.",
+      "evidence": {
+        "value_a": 0.0164427511529977,
+        "value_b": 0.0309215844785772,
+        "difference": 0.0144788333255794,
+        "ci_low": 0.0138498794522038,
+        "ci_high": 0.0151194783525996
+      }
+    },
+    {
+      "name": "pooled_frr_direction_Centralized V-PUFT",
+      "passed": true,
+      "detail": "Ahmed FRR is higher; this direction is undesirable.",
+      "evidence": null
+    },
+    {
+      "name": "pooled_mcc_identity_Centralized V-PUFT",
+      "passed": true,
+      "detail": "Pooled MCC difference equals B-A.",
+      "evidence": null
+    },
+    {
+      "name": "pooled_recall_identity_Distributed RSU V-PUFT",
+      "passed": true,
+      "detail": "Pooled recall difference equals B-A.",
+      "evidence": {
+        "value_a": 0.808955223880597,
+        "value_b": 0.8935323383084577,
+        "difference": 0.0845771144278606,
+        "ci_low": 0.0634291377601585,
+        "ci_high": 0.1059999999999999
+      }
+    },
+    {
+      "name": "pooled_recall_frozen_range_Distributed RSU V-PUFT",
+      "passed": true,
+      "detail": "Pooled recall is about +8.46 pp and CI excludes zero.",
+      "evidence": null
+    },
+    {
+      "name": "pooled_frr_identity_Distributed RSU V-PUFT",
+      "passed": true,
+      "detail": "Pooled FRR difference equals B-A.",
+      "evidence": {
+        "value_a": 0.0164427511529977,
+        "value_b": 0.0309215844785772,
+        "difference": 0.0144788333255794,
+        "ci_low": 0.0138525299717246,
+        "ci_high": 0.0151199279950808
+      }
+    },
+    {
+      "name": "pooled_frr_direction_Distributed RSU V-PUFT",
+      "passed": true,
+      "detail": "Ahmed FRR is higher; this direction is undesirable.",
+      "evidence": null
+    },
+    {
+      "name": "pooled_mcc_identity_Distributed RSU V-PUFT",
+      "passed": true,
+      "detail": "Pooled MCC difference equals B-A.",
+      "evidence": null
+    },
+    {
+      "name": "holm_recall_Centralized V-PUFT",
+      "passed": true,
+      "detail": "Recall remains confirmatory after Holm.",
+      "evidence": {
+        "raw_p": 2.4038052614864414e-06,
+        "holm_p": 1.682663683040509e-05
+      }
+    },
+    {
+      "name": "holm_frr_Centralized V-PUFT",
+      "passed": true,
+      "detail": "FRR increase remains confirmatory after Holm and has adverse direction.",
+      "evidence": {
+        "raw_p": 2.657619723125558e-08,
+        "holm_p": 2.391857750813002e-07
+      }
+    },
+    {
+      "name": "holm_mcc_Centralized V-PUFT",
+      "passed": true,
+      "detail": "MCC is not confirmatory after Holm.",
+      "evidence": {
+        "raw_p": 0.0397169152179454,
+        "holm_p": 0.1985845760897274
+      }
+    },
+    {
+      "name": "holm_recall_Distributed RSU V-PUFT",
+      "passed": true,
+      "detail": "Recall remains confirmatory after Holm.",
+      "evidence": {
+        "raw_p": 2.4038052614864414e-06,
+        "holm_p": 1.682663683040509e-05
+      }
+    },
+    {
+      "name": "holm_frr_Distributed RSU V-PUFT",
+      "passed": true,
+      "detail": "FRR increase remains confirmatory after Holm and has adverse direction.",
+      "evidence": {
+        "raw_p": 2.657619723125558e-08,
+        "holm_p": 2.391857750813002e-07
+      }
+    },
+    {
+      "name": "holm_mcc_Distributed RSU V-PUFT",
+      "passed": true,
+      "detail": "MCC is not confirmatory after Holm.",
+      "evidence": {
+        "raw_p": 0.0397169152179454,
+        "holm_p": 0.1985845760897274
+      }
+    },
+    {
+      "name": "attack_ci_certificate_tamper",
+      "passed": true,
+      "detail": "Attack-specific exploratory estimate matches frozen Phase A output.",
+      "evidence": {
+        "difference": 0.0,
+        "ci_low": 0.0,
+        "ci_high": 0.0
+      }
+    },
+    {
+      "name": "attack_ci_false_denm",
+      "passed": true,
+      "detail": "Attack-specific exploratory estimate matches frozen Phase A output.",
+      "evidence": {
+        "difference": 0.1640625,
+        "ci_low": 0.0873015873015873,
+        "ci_high": 0.2384999999999998
+      }
+    },
+    {
+      "name": "attack_ci_flood",
+      "passed": true,
+      "detail": "Attack-specific exploratory estimate matches frozen Phase A output.",
+      "evidence": {
+        "difference": 0.0,
+        "ci_low": -0.0165289256198347,
+        "ci_high": 0.0236220472440944
+      }
+    },
+    {
+      "name": "attack_ci_mixed",
+      "passed": true,
+      "detail": "Attack-specific exploratory estimate matches frozen Phase A output.",
+      "evidence": {
+        "difference": 0.5612903225806452,
+        "ci_low": 0.5128205128205128,
+        "ci_high": 0.6118421052631579
+      }
+    },
+    {
+      "name": "attack_ci_position_offset",
+      "passed": true,
+      "detail": "Attack-specific exploratory estimate matches frozen Phase A output.",
+      "evidence": {
+        "difference": -0.15,
+        "ci_low": -0.20640625,
+        "ci_high": -0.09375
+      }
+    },
+    {
+      "name": "attack_ci_replay",
+      "passed": true,
+      "detail": "Attack-specific exploratory estimate matches frozen Phase A output.",
+      "evidence": {
+        "difference": 0.1265822784810126,
+        "ci_low": 0.125,
+        "ci_high": 0.1290322580645161
+      }
+    },
+    {
+      "name": "attack_ci_speed_offset",
+      "passed": true,
+      "detail": "Attack-specific exploratory estimate matches frozen Phase A output.",
+      "evidence": {
+        "difference": -0.1194968553459119,
+        "ci_low": -0.1708860759493671,
+        "ci_high": -0.069620253164557
+      }
+    },
+    {
+      "name": "table_5_3a_has_pooled_values",
+      "passed": true,
+      "detail": "Table 5-3a exposes both pooled endpoints, not only their difference.",
+      "evidence": null
+    },
+    {
+      "name": "table_5_3a_has_direction",
+      "passed": true,
+      "detail": "Table 5-3a makes beneficial/adverse direction explicit.",
+      "evidence": null
+    },
+    {
+      "name": "table_5_3a_recall_values",
+      "passed": true,
+      "detail": "Displayed pooled recall endpoints close arithmetically to the reported +8.46 pp difference.",
+      "evidence": null
+    },
+    {
+      "name": "table_5_3a_frr_adverse",
+      "passed": true,
+      "detail": "FRR significance is explicitly reported as an adverse increase.",
+      "evidence": null
+    },
+    {
+      "name": "table_5_3a_mcc_holm",
+      "passed": true,
+      "detail": "MCC raw direction is separated from Holm-confirmatory inference.",
+      "evidence": null
+    },
+    {
+      "name": "chapter_attack_interval_certificate_tamper",
+      "passed": true,
+      "detail": "Chapter reports the Phase A interval for certificate_tamper: [+0.00, +0.00] pp.",
+      "evidence": null
+    },
+    {
+      "name": "chapter_attack_interval_false_denm",
+      "passed": true,
+      "detail": "Chapter reports the Phase A interval for false_denm: [+8.73, +23.85] pp.",
+      "evidence": null
+    },
+    {
+      "name": "chapter_attack_interval_flood",
+      "passed": true,
+      "detail": "Chapter reports the Phase A interval for flood: [−1.65, +2.36] pp.",
+      "evidence": null
+    },
+    {
+      "name": "chapter_attack_interval_mixed",
+      "passed": true,
+      "detail": "Chapter reports the Phase A interval for mixed: [+51.28, +61.18] pp.",
+      "evidence": null
+    },
+    {
+      "name": "chapter_attack_interval_position_offset",
+      "passed": true,
+      "detail": "Chapter reports the Phase A interval for position_offset: [−20.64, −9.38] pp.",
+      "evidence": null
+    },
+    {
+      "name": "chapter_attack_interval_replay",
+      "passed": true,
+      "detail": "Chapter reports the Phase A interval for replay: [+12.50, +12.90] pp.",
+      "evidence": null
+    },
+    {
+      "name": "chapter_attack_interval_speed_offset",
+      "passed": true,
+      "detail": "Chapter reports the Phase A interval for speed_offset: [−17.09, −6.96] pp.",
+      "evidence": null
+    },
+    {
+      "name": "false_denm_causal_caution",
+      "passed": true,
+      "detail": "False DENM mechanism is framed as a hypothesis, not an isolated causal result.",
+      "evidence": null
+    },
+    {
+      "name": "latency_detection_zero_iqr_detected",
+      "passed": true,
+      "detail": "Centralized and Distributed detection rows have 8000/8000-8000 in the rendered stage table.",
+      "evidence": null
+    },
+    {
+      "name": "latency_detection_interpretation",
+      "passed": true,
+      "detail": "Zero-IQR detection is described as a configured/model interval, not a variable measured performance quantity.",
+      "evidence": null
+    },
+    {
+      "name": "latency_p95_nonadditive",
+      "passed": true,
+      "detail": "Independent percentiles are explicitly non-additive and the case-level reason is stated.",
+      "evidence": null
+    },
+    {
+      "name": "case_agreement_central_distributed",
+      "passed": true,
+      "detail": "Centralized vs Distributed has 5992 shared cases, agreement=1, kappa=1, discordant=0.",
+      "evidence": {
+        "shared": 5992.0,
+        "agreement": 1.0,
+        "kappa": 1.0,
+        "discordant": 0.0
+      }
+    },
+    {
+      "name": "candidate_650_weights",
+      "passed": true,
+      "detail": "Frozen shared weight vector matches candidate 650.",
+      "evidence": {
+        "C": 0.3652673861753211,
+        "rho": 0.16195260151983162,
+        "F": 0.06370517641034751,
+        "Q": 0.40608957775126925,
+        "eta": 0.0029852581432305157
+      }
+    },
+    {
+      "name": "selection_feasible_false",
+      "passed": true,
+      "detail": "selection_feasible remains false; feasibility targets were not relaxed post hoc.",
+      "evidence": null
+    },
+    {
+      "name": "mixed_required_modalities_one",
+      "passed": true,
+      "detail": "Mixed policy requires one modality after the structural feasibility correction.",
+      "evidence": null
+    },
+    {
+      "name": "forbidden_overclaims_absent",
+      "passed": true,
+      "detail": "No unmeasured Safety/blockchain-accuracy claim is asserted.",
+      "evidence": {
+        "forbidden_hits": []
+      }
+    },
+    {
+      "name": "safety_scope_explicit",
+      "passed": true,
+      "detail": "Safety is explicitly treated as unmeasured under malicious semantic proposals.",
+      "evidence": null
+    },
+    {
+      "name": "blockchain_value_scope",
+      "passed": true,
+      "detail": "kappa=1 is framed as zero classification effect under controlled logic, not as proof that blockchain has no value.",
+      "evidence": null
+    }
+  ]
+}

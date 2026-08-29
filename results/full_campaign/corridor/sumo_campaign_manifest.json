@@ -1,0 +1,390 @@
+{
+  "seeds": [
+    1001,
+    1002,
+    1003,
+    1004,
+    1005,
+    1006,
+    1007,
+    1008,
+    1009,
+    1010
+  ],
+  "combined_trace": "C:\\Users\\reemg\\OneDrive\\Desktop\\master\\6\\v10\\results\\full_campaign\\corridor\\shared_detection_trace_all_seeds.jsonl",
+  "trace_manifests": [
+    {
+      "mode": "sumo_traci",
+      "seed": 1001,
+      "sumo_binary": "C:\\Program Files (x86)\\Eclipse\\Sumo\\bin\\sumo.exe",
+      "scenario_directory": "C:\\Users\\reemg\\OneDrive\\Desktop\\master\\6\\v10\\sumo\\corridor",
+      "scenario_files": {
+        "corridor.net.xml": "32914a524b5b867bf4d9fa1ae570506e36db0def67d4b3dc4a54fde6d3a26bb7",
+        "corridor.rou.xml": "62919544f1dd2d9526cdc819589669e32ce2ab3516345fb4415786359859bf48",
+        "corridor.sumocfg": "ffe0eb5fb86c14efd85992a99319b92946c534832d5ccc93ea2f7ed551319d19",
+        "rsus.json": "8e62b833bcbb3393fa439f5ae86a8e894b9d1bb5628c37a2c4904520ec0183e1",
+        "attacks.json": "5fd2eee9732fc30127e0a86910f782bdfd30567c6230a87ec27dbbf302cf2470"
+      },
+      "counts": {
+        "mobility_snapshots": 2004,
+        "v2x_messages": 2375,
+        "detection_events": 23894,
+        "cases": 31,
+        "rsu_events": 6795,
+        "witness_events": 17099
+      },
+      "outputs": [
+        "mobility_trace.csv",
+        "generated_messages.csv",
+        "attack_ground_truth.csv",
+        "local_detections.csv",
+        "shared_detection_trace.jsonl",
+        "shared_detection_trace.csv",
+        "evidence_campaign.csv",
+        "sumo_tripinfo.xml"
+      ]
+    },
+    {
+      "mode": "sumo_traci",
+      "seed": 1002,
+      "sumo_binary": "C:\\Program Files (x86)\\Eclipse\\Sumo\\bin\\sumo.exe",
+      "scenario_directory": "C:\\Users\\reemg\\OneDrive\\Desktop\\master\\6\\v10\\sumo\\corridor",
+      "scenario_files": {
+        "corridor.net.xml": "32914a524b5b867bf4d9fa1ae570506e36db0def67d4b3dc4a54fde6d3a26bb7",
+        "corridor.rou.xml": "62919544f1dd2d9526cdc819589669e32ce2ab3516345fb4415786359859bf48",
+        "corridor.sumocfg": "ffe0eb5fb86c14efd85992a99319b92946c534832d5ccc93ea2f7ed551319d19",
+        "rsus.json": "8e62b833bcbb3393fa439f5ae86a8e894b9d1bb5628c37a2c4904520ec0183e1",
+        "attacks.json": "5fd2eee9732fc30127e0a86910f782bdfd30567c6230a87ec27dbbf302cf2470"
+      },
+      "counts": {
+        "mobility_snapshots": 2004,
+        "v2x_messages": 2375,
+        "detection_events": 23912,
+        "cases": 31,
+        "rsu_events": 6804,
+        "witness_events": 17108
+      },
+      "outputs": [
+        "mobility_trace.csv",
+        "generated_messages.csv",
+        "attack_ground_truth.csv",
+        "local_detections.csv",
+        "shared_detection_trace.jsonl",
+        "shared_detection_trace.csv",
+        "evidence_campaign.csv",
+        "sumo_tripinfo.xml"
+      ]
+    },
+    {
+      "mode": "sumo_traci",
+      "seed": 1003,
+      "sumo_binary": "C:\\Program Files (x86)\\Eclipse\\Sumo\\bin\\sumo.exe",
+      "scenario_directory": "C:\\Users\\reemg\\OneDrive\\Desktop\\master\\6\\v10\\sumo\\corridor",
+      "scenario_files": {
+        "corridor.net.xml": "32914a524b5b867bf4d9fa1ae570506e36db0def67d4b3dc4a54fde6d3a26bb7",
+        "corridor.rou.xml": "62919544f1dd2d9526cdc819589669e32ce2ab3516345fb4415786359859bf48",
+        "corridor.sumocfg": "ffe0eb5fb86c14efd85992a99319b92946c534832d5ccc93ea2f7ed551319d19",
+        "rsus.json": "8e62b833bcbb3393fa439f5ae86a8e894b9d1bb5628c37a2c4904520ec0183e1",
+        "attacks.json": "5fd2eee9732fc30127e0a86910f782bdfd30567c6230a87ec27dbbf302cf2470"
+      },
+      "counts": {
+        "mobility_snapshots": 2004,
+        "v2x_messages": 2375,
+        "detection_events": 23900,
+        "cases": 31,
+        "rsu_events": 6793,
+        "witness_events": 17107
+      },
+      "outputs": [
+        "mobility_trace.csv",
+        "generated_messages.csv",
+        "attack_ground_truth.csv",
+        "local_detections.csv",
+        "shared_detection_trace.jsonl",
+        "shared_detection_trace.csv",
+        "evidence_campaign.csv",
+        "sumo_tripinfo.xml"
+      ]
+    },
+    {
+      "mode": "sumo_traci",
+      "seed": 1004,
+      "sumo_binary": "C:\\Program Files (x86)\\Eclipse\\Sumo\\bin\\sumo.exe",
+      "scenario_directory": "C:\\Users\\reemg\\OneDrive\\Desktop\\master\\6\\v10\\sumo\\corridor",
+      "scenario_files": {
+        "corridor.net.xml": "32914a524b5b867bf4d9fa1ae570506e36db0def67d4b3dc4a54fde6d3a26bb7",
+        "corridor.rou.xml": "62919544f1dd2d9526cdc819589669e32ce2ab3516345fb4415786359859bf48",
+        "corridor.sumocfg": "ffe0eb5fb86c14efd85992a99319b92946c534832d5ccc93ea2f7ed551319d19",
+        "rsus.json": "8e62b833bcbb3393fa439f5ae86a8e894b9d1bb5628c37a2c4904520ec0183e1",
+        "attacks.json": "5fd2eee9732fc30127e0a86910f782bdfd30567c6230a87ec27dbbf302cf2470"
+      },
+      "counts": {
+        "mobility_snapshots": 2004,
+        "v2x_messages": 2375,
+        "detection_events": 23908,
+        "cases": 31,
+        "rsu_events": 6806,
+        "witness_events": 17102
+      },
+      "outputs": [
+        "mobility_trace.csv",
+        "generated_messages.csv",
+        "attack_ground_truth.csv",
+        "local_detections.csv",
+        "shared_detection_trace.jsonl",
+        "shared_detection_trace.csv",
+        "evidence_campaign.csv",
+        "sumo_tripinfo.xml"
+      ]
+    },
+    {
+      "mode": "sumo_traci",
+      "seed": 1005,
+      "sumo_binary": "C:\\Program Files (x86)\\Eclipse\\Sumo\\bin\\sumo.exe",
+      "scenario_directory": "C:\\Users\\reemg\\OneDrive\\Desktop\\master\\6\\v10\\sumo\\corridor",
+      "scenario_files": {
+        "corridor.net.xml": "32914a524b5b867bf4d9fa1ae570506e36db0def67d4b3dc4a54fde6d3a26bb7",
+        "corridor.rou.xml": "62919544f1dd2d9526cdc819589669e32ce2ab3516345fb4415786359859bf48",
+        "corridor.sumocfg": "ffe0eb5fb86c14efd85992a99319b92946c534832d5ccc93ea2f7ed551319d19",
+        "rsus.json": "8e62b833bcbb3393fa439f5ae86a8e894b9d1bb5628c37a2c4904520ec0183e1",
+        "attacks.json": "5fd2eee9732fc30127e0a86910f782bdfd30567c6230a87ec27dbbf302cf2470"
+      },
+      "counts": {
+        "mobility_snapshots": 2004,
+        "v2x_messages": 2375,
+        "detection_events": 23919,
+        "cases": 31,
+        "rsu_events": 6808,
+        "witness_events": 17111
+      },
+      "outputs": [
+        "mobility_trace.csv",
+        "generated_messages.csv",
+        "attack_ground_truth.csv",
+        "local_detections.csv",
+        "shared_detection_trace.jsonl",
+        "shared_detection_trace.csv",
+        "evidence_campaign.csv",
+        "sumo_tripinfo.xml"
+      ]
+    },
+    {
+      "mode": "sumo_traci",
+      "seed": 1006,
+      "sumo_binary": "C:\\Program Files (x86)\\Eclipse\\Sumo\\bin\\sumo.exe",
+      "scenario_directory": "C:\\Users\\reemg\\OneDrive\\Desktop\\master\\6\\v10\\sumo\\corridor",
+      "scenario_files": {
+        "corridor.net.xml": "32914a524b5b867bf4d9fa1ae570506e36db0def67d4b3dc4a54fde6d3a26bb7",
+        "corridor.rou.xml": "62919544f1dd2d9526cdc819589669e32ce2ab3516345fb4415786359859bf48",
+        "corridor.sumocfg": "ffe0eb5fb86c14efd85992a99319b92946c534832d5ccc93ea2f7ed551319d19",
+        "rsus.json": "8e62b833bcbb3393fa439f5ae86a8e894b9d1bb5628c37a2c4904520ec0183e1",
+        "attacks.json": "5fd2eee9732fc30127e0a86910f782bdfd30567c6230a87ec27dbbf302cf2470"
+      },
+      "counts": {
+        "mobility_snapshots": 2004,
+        "v2x_messages": 2375,
+        "detection_events": 23903,
+        "cases": 31,
+        "rsu_events": 6792,
+        "witness_events": 17111
+      },
+      "outputs": [
+        "mobility_trace.csv",
+        "generated_messages.csv",
+        "attack_ground_truth.csv",
+        "local_detections.csv",
+        "shared_detection_trace.jsonl",
+        "shared_detection_trace.csv",
+        "evidence_campaign.csv",
+        "sumo_tripinfo.xml"
+      ]
+    },
+    {
+      "mode": "sumo_traci",
+      "seed": 1007,
+      "sumo_binary": "C:\\Program Files (x86)\\Eclipse\\Sumo\\bin\\sumo.exe",
+      "scenario_directory": "C:\\Users\\reemg\\OneDrive\\Desktop\\master\\6\\v10\\sumo\\corridor",
+      "scenario_files": {
+        "corridor.net.xml": "32914a524b5b867bf4d9fa1ae570506e36db0def67d4b3dc4a54fde6d3a26bb7",
+        "corridor.rou.xml": "62919544f1dd2d9526cdc819589669e32ce2ab3516345fb4415786359859bf48",
+        "corridor.sumocfg": "ffe0eb5fb86c14efd85992a99319b92946c534832d5ccc93ea2f7ed551319d19",
+        "rsus.json": "8e62b833bcbb3393fa439f5ae86a8e894b9d1bb5628c37a2c4904520ec0183e1",
+        "attacks.json": "5fd2eee9732fc30127e0a86910f782bdfd30567c6230a87ec27dbbf302cf2470"
+      },
+      "counts": {
+        "mobility_snapshots": 2004,
+        "v2x_messages": 2375,
+        "detection_events": 23898,
+        "cases": 31,
+        "rsu_events": 6792,
+        "witness_events": 17106
+      },
+      "outputs": [
+        "mobility_trace.csv",
+        "generated_messages.csv",
+        "attack_ground_truth.csv",
+        "local_detections.csv",
+        "shared_detection_trace.jsonl",
+        "shared_detection_trace.csv",
+        "evidence_campaign.csv",
+        "sumo_tripinfo.xml"
+      ]
+    },
+    {
+      "mode": "sumo_traci",
+      "seed": 1008,
+      "sumo_binary": "C:\\Program Files (x86)\\Eclipse\\Sumo\\bin\\sumo.exe",
+      "scenario_directory": "C:\\Users\\reemg\\OneDrive\\Desktop\\master\\6\\v10\\sumo\\corridor",
+      "scenario_files": {
+        "corridor.net.xml": "32914a524b5b867bf4d9fa1ae570506e36db0def67d4b3dc4a54fde6d3a26bb7",
+        "corridor.rou.xml": "62919544f1dd2d9526cdc819589669e32ce2ab3516345fb4415786359859bf48",
+        "corridor.sumocfg": "ffe0eb5fb86c14efd85992a99319b92946c534832d5ccc93ea2f7ed551319d19",
+        "rsus.json": "8e62b833bcbb3393fa439f5ae86a8e894b9d1bb5628c37a2c4904520ec0183e1",
+        "attacks.json": "5fd2eee9732fc30127e0a86910f782bdfd30567c6230a87ec27dbbf302cf2470"
+      },
+      "counts": {
+        "mobility_snapshots": 2004,
+        "v2x_messages": 2375,
+        "detection_events": 23893,
+        "cases": 31,
+        "rsu_events": 6791,
+        "witness_events": 17102
+      },
+      "outputs": [
+        "mobility_trace.csv",
+        "generated_messages.csv",
+        "attack_ground_truth.csv",
+        "local_detections.csv",
+        "shared_detection_trace.jsonl",
+        "shared_detection_trace.csv",
+        "evidence_campaign.csv",
+        "sumo_tripinfo.xml"
+      ]
+    },
+    {
+      "mode": "sumo_traci",
+      "seed": 1009,
+      "sumo_binary": "C:\\Program Files (x86)\\Eclipse\\Sumo\\bin\\sumo.exe",
+      "scenario_directory": "C:\\Users\\reemg\\OneDrive\\Desktop\\master\\6\\v10\\sumo\\corridor",
+      "scenario_files": {
+        "corridor.net.xml": "32914a524b5b867bf4d9fa1ae570506e36db0def67d4b3dc4a54fde6d3a26bb7",
+        "corridor.rou.xml": "62919544f1dd2d9526cdc819589669e32ce2ab3516345fb4415786359859bf48",
+        "corridor.sumocfg": "ffe0eb5fb86c14efd85992a99319b92946c534832d5ccc93ea2f7ed551319d19",
+        "rsus.json": "8e62b833bcbb3393fa439f5ae86a8e894b9d1bb5628c37a2c4904520ec0183e1",
+        "attacks.json": "5fd2eee9732fc30127e0a86910f782bdfd30567c6230a87ec27dbbf302cf2470"
+      },
+      "counts": {
+        "mobility_snapshots": 2004,
+        "v2x_messages": 2375,
+        "detection_events": 23909,
+        "cases": 31,
+        "rsu_events": 6805,
+        "witness_events": 17104
+      },
+      "outputs": [
+        "mobility_trace.csv",
+        "generated_messages.csv",
+        "attack_ground_truth.csv",
+        "local_detections.csv",
+        "shared_detection_trace.jsonl",
+        "shared_detection_trace.csv",
+        "evidence_campaign.csv",
+        "sumo_tripinfo.xml"
+      ]
+    },
+    {
+      "mode": "sumo_traci",
+      "seed": 1010,
+      "sumo_binary": "C:\\Program Files (x86)\\Eclipse\\Sumo\\bin\\sumo.exe",
+      "scenario_directory": "C:\\Users\\reemg\\OneDrive\\Desktop\\master\\6\\v10\\sumo\\corridor",
+      "scenario_files": {
+        "corridor.net.xml": "32914a524b5b867bf4d9fa1ae570506e36db0def67d4b3dc4a54fde6d3a26bb7",
+        "corridor.rou.xml": "62919544f1dd2d9526cdc819589669e32ce2ab3516345fb4415786359859bf48",
+        "corridor.sumocfg": "ffe0eb5fb86c14efd85992a99319b92946c534832d5ccc93ea2f7ed551319d19",
+        "rsus.json": "8e62b833bcbb3393fa439f5ae86a8e894b9d1bb5628c37a2c4904520ec0183e1",
+        "attacks.json": "5fd2eee9732fc30127e0a86910f782bdfd30567c6230a87ec27dbbf302cf2470"
+      },
+      "counts": {
+        "mobility_snapshots": 2004,
+        "v2x_messages": 2375,
+        "detection_events": 23896,
+        "cases": 31,
+        "rsu_events": 6796,
+        "witness_events": 17100
+      },
+      "outputs": [
+        "mobility_trace.csv",
+        "generated_messages.csv",
+        "attack_ground_truth.csv",
+        "local_detections.csv",
+        "shared_detection_trace.jsonl",
+        "shared_detection_trace.csv",
+        "evidence_campaign.csv",
+        "sumo_tripinfo.xml"
+      ]
+    }
+  ],
+  "architecture_campaign": {
+    "version": "1.0.0",
+    "seeds": [
+      1001,
+      1002,
+      1003,
+      1004,
+      1005,
+      1006,
+      1007,
+      1008,
+      1009,
+      1010
+    ],
+    "architectures": [
+      "ahmed_inspired_witness_vpuft",
+      "centralized_vpuft",
+      "distributed_rsu_vpuft"
+    ],
+    "weights": {
+      "C": 0.2,
+      "rho": 0.15,
+      "F": 0.15,
+      "Q": 0.2,
+      "eta": 0.3
+    },
+    "comparison_rule": "One shared V-PUFT engine; architecture/finalization/evidence-source differ.",
+    "files": [
+      "metrics_by_seed.csv",
+      "architecture_summary.csv",
+      "metrics_by_attack.csv",
+      "decisions.csv",
+      "evidence_campaign.csv",
+      "architecture_evidence.csv",
+      "network_messages.csv",
+      "message_summary.csv",
+      "consensus_outcomes.csv",
+      "article_reference_ablation.csv",
+      "evidence_correlation_metrics.csv",
+      "trace_event_index.csv",
+      "architecture_summary.png"
+    ]
+  },
+  "sensitivity_completed": false,
+  "selected_weights": null,
+  "resume": {
+    "enabled": true,
+    "resumed_seeds": [
+      1001,
+      1002,
+      1003,
+      1004,
+      1005,
+      1006,
+      1007,
+      1008,
+      1009,
+      1010
+    ],
+    "executed_seeds": [],
+    "architecture_resumed": true,
+    "sensitivity_resumed": false
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "thesis_title_ar": "تقييم أداء شبكات المركبات اللاسلكية المعتمدة على سلاسل الكتل",
+  "thesis_title_en": "Performance Evaluation of Blockchain-Based VANETs",
+  "chapter": "الفصل الخامس - النتائج والمناقشة",
+  "final_candidate": 650,
+  "weights": {
+    "C": 0.3652673861753211,
+    "rho": 0.16195260151983162,
+    "F": 0.06370517641034751,
+    "Q": 0.40608957775126925,
+    "eta": 0.0029852581432305157
+  },
+  "holdout": {
+    "TP": 335,
+    "FP": 47,
+    "TN": 1932,
+    "FN": 67,
+    "recall": 0.8333333333333334,
+    "frr": 0.023749368367862556,
+    "precision": 0.8769633507853403,
+    "f1": 0.8545918367346937,
+    "mcc": 0.8263418399892304,
+    "balanced_accuracy": 0.9047919824827354,
+    "selection_feasible": false
+  },
+  "global": {
+    "Centralized V-PUFT": {
+      "precision": 0.9081843591191416,
+      "recall": 0.8090592251950948,
+      "frr": 0.016492205540973175,
+      "f1": 0.855098,
+      "mcc": 0.830297,
+      "latency_p95_ms": 14183.849747,
+      "messages_per_decision": 48.05368,
+      "bytes_per_decision": 33829.790693,
+      "pdr": 0.980122,
+      "runtime_s": 1.993622,
+      "peak_memory_kb": 6340.641357
+    },
+    "Distributed RSU V-PUFT": {
+      "precision": 0.9081843591191416,
+      "recall": 0.8090592251950948,
+      "frr": 0.016492205540973175,
+      "f1": 0.855098,
+      "mcc": 0.830297,
+      "latency_p95_ms": 14356.600514,
+      "messages_per_decision": 45.385926,
+      "bytes_per_decision": 30779.183202,
+      "pdr": 0.98031,
+      "runtime_s": 2.057278,
+      "peak_memory_kb": 6262.556323
+    },
+    "Ahmed-Inspired Witness V-PUFT": {
+      "precision": 0.8546122303622303,
+      "recall": 0.8939799331103678,
+      "frr": 0.030931005888951712,
+      "f1": 0.873033,
+      "mcc": 0.847417,
+      "latency_p95_ms": 14682.74898,
+      "messages_per_decision": 168.061515,
+      "bytes_per_decision": 125295.283005,
+      "pdr": 0.980271,
+      "runtime_s": 4.307634,
+      "peak_memory_kb": 14615.812378
+    }
+  }
+}

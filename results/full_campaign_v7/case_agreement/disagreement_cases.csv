@@ -1,0 +1,525 @@
+case_key,arch_a,arch_b,ground_truth_malicious,a_predicted_revoked,b_predicted_revoked,a_reason,b_reason,attack_type
+smoke|1001|case-1001-veh_004-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,evidence_qualified,insufficient_weighted_margin,speed_offset
+smoke|1001|case-1001-veh_012-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+smoke|1001|case-1001-veh_012-w0002,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,false_denm
+smoke|1001|case-1001-veh_014-w0002,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+smoke|1001|case-1001-veh_012-w0003,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,false_denm
+smoke|1001|case-1001-veh_014-w0003,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+smoke|1001|case-1001-veh_002-w0004,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,evidence_qualified,insufficient_weighted_margin,position_offset
+smoke|1001|case-1001-veh_012-w0005,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+smoke|1001|case-1001-veh_014-w0005,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+smoke|1002|case-1002-veh_004-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,speed_offset
+smoke|1002|case-1002-veh_012-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+smoke|1002|case-1002-veh_014-w0002,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+smoke|1002|case-1002-veh_012-w0003,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,false_denm
+smoke|1002|case-1002-veh_014-w0003,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+smoke|1002|case-1002-veh_012-w0005,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+smoke|1002|case-1002-veh_014-w0005,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+smoke|1003|case-1003-veh_004-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,evidence_qualified,insufficient_weighted_margin,speed_offset
+smoke|1003|case-1003-veh_012-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+smoke|1003|case-1003-veh_012-w0002,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,false_denm
+smoke|1003|case-1003-veh_014-w0002,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+smoke|1003|case-1003-veh_012-w0003,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,false_denm
+smoke|1003|case-1003-veh_014-w0003,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+smoke|1003|case-1003-veh_002-w0004,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,evidence_qualified,insufficient_weighted_margin,position_offset
+smoke|1003|case-1003-veh_012-w0005,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+smoke|1003|case-1003-veh_014-w0005,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,central_server_unavailable,committed,mixed
+smoke|1004|case-1004-veh_004-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,evidence_qualified,insufficient_weighted_margin,speed_offset
+smoke|1004|case-1004-veh_012-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+smoke|1004|case-1004-veh_012-w0002,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,false_denm
+smoke|1004|case-1004-veh_014-w0002,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+smoke|1004|case-1004-veh_012-w0003,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,false_denm
+smoke|1004|case-1004-veh_014-w0003,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+smoke|1004|case-1004-veh_002-w0004,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,evidence_qualified,insufficient_weighted_margin,position_offset
+smoke|1004|case-1004-veh_012-w0005,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+smoke|1004|case-1004-veh_014-w0005,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+smoke|1005|case-1005-veh_002-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,evidence_qualified,insufficient_weighted_margin,position_offset
+smoke|1005|case-1005-veh_004-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,evidence_qualified,insufficient_weighted_margin,speed_offset
+smoke|1005|case-1005-veh_012-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+smoke|1005|case-1005-veh_014-w0002,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+smoke|1005|case-1005-veh_014-w0003,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+smoke|1005|case-1005-veh_002-w0004,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,evidence_qualified,insufficient_weighted_margin,position_offset
+smoke|1005|case-1005-veh_004-w0004,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,evidence_qualified,insufficient_weighted_margin,speed_offset
+smoke|1005|case-1005-veh_012-w0005,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+smoke|1005|case-1005-veh_014-w0005,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+smoke|1006|case-1006-veh_002-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,position_offset
+smoke|1006|case-1006-veh_004-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,evidence_qualified,insufficient_weighted_margin,speed_offset
+smoke|1006|case-1006-veh_012-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+smoke|1006|case-1006-veh_014-w0002,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+smoke|1006|case-1006-veh_002-w0004,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,evidence_qualified,insufficient_weighted_margin,position_offset
+smoke|1006|case-1006-veh_014-w0004,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+smoke|1006|case-1006-veh_012-w0005,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+smoke|1006|case-1006-veh_014-w0005,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+smoke|1007|case-1007-veh_004-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,speed_offset
+smoke|1007|case-1007-veh_012-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+smoke|1007|case-1007-veh_012-w0002,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,false_denm
+smoke|1007|case-1007-veh_014-w0002,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+smoke|1007|case-1007-veh_002-w0004,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,evidence_qualified,insufficient_weighted_margin,position_offset
+smoke|1007|case-1007-veh_014-w0004,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+smoke|1007|case-1007-veh_012-w0005,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+smoke|1007|case-1007-veh_014-w0005,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+smoke|1008|case-1008-veh_012-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+smoke|1008|case-1008-veh_014-w0002,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+smoke|1008|case-1008-veh_014-w0003,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+smoke|1008|case-1008-veh_014-w0005,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+smoke|1009|case-1009-veh_012-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+smoke|1009|case-1009-veh_014-w0002,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+smoke|1009|case-1009-veh_002-w0004,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,evidence_qualified,insufficient_weighted_margin,position_offset
+smoke|1009|case-1009-veh_012-w0004,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,false_denm
+smoke|1009|case-1009-veh_014-w0004,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+smoke|1009|case-1009-veh_012-w0005,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+smoke|1009|case-1009-veh_014-w0005,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+smoke|1010|case-1010-veh_002-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,position_offset
+smoke|1010|case-1010-veh_004-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,evidence_qualified,insufficient_weighted_margin,speed_offset
+smoke|1010|case-1010-veh_012-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+smoke|1010|case-1010-veh_014-w0002,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+smoke|1010|case-1010-veh_014-w0003,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+smoke|1010|case-1010-veh_002-w0004,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,evidence_qualified,insufficient_weighted_margin,position_offset
+smoke|1010|case-1010-veh_012-w0004,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,false_denm
+smoke|1010|case-1010-veh_012-w0005,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+smoke|1010|case-1010-veh_014-w0005,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+corridor|1001|case-1001-veh_004-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,evidence_qualified,insufficient_weighted_margin,speed_offset
+corridor|1001|case-1001-veh_012-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+corridor|1001|case-1001-veh_012-w0002,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,false_denm
+corridor|1001|case-1001-veh_014-w0002,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+corridor|1001|case-1001-veh_002-w0004,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,evidence_qualified,insufficient_weighted_margin,position_offset
+corridor|1001|case-1001-veh_012-w0005,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+corridor|1001|case-1001-veh_014-w0005,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+corridor|1002|case-1002-veh_012-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+corridor|1002|case-1002-veh_012-w0002,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,false_denm
+corridor|1002|case-1002-veh_014-w0002,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+corridor|1002|case-1002-veh_012-w0005,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+corridor|1002|case-1002-veh_014-w0005,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+corridor|1003|case-1003-veh_004-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,evidence_qualified,insufficient_weighted_margin,speed_offset
+corridor|1003|case-1003-veh_012-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+corridor|1003|case-1003-veh_014-w0002,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+corridor|1003|case-1003-veh_002-w0004,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,evidence_qualified,insufficient_weighted_margin,position_offset
+corridor|1003|case-1003-veh_012-w0005,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+corridor|1003|case-1003-veh_014-w0005,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,central_server_unavailable,committed,mixed
+corridor|1004|case-1004-veh_004-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,evidence_qualified,insufficient_weighted_margin,speed_offset
+corridor|1004|case-1004-veh_012-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+corridor|1004|case-1004-veh_014-w0002,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+corridor|1004|case-1004-veh_012-w0005,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+corridor|1004|case-1004-veh_014-w0005,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+corridor|1005|case-1005-veh_002-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,evidence_qualified,insufficient_weighted_margin,position_offset
+corridor|1005|case-1005-veh_004-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,evidence_qualified,insufficient_weighted_margin,speed_offset
+corridor|1005|case-1005-veh_012-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+corridor|1005|case-1005-veh_014-w0002,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+corridor|1005|case-1005-veh_012-w0005,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+corridor|1005|case-1005-veh_014-w0005,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+corridor|1006|case-1006-veh_004-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,evidence_qualified,insufficient_weighted_margin,speed_offset
+corridor|1006|case-1006-veh_012-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+corridor|1006|case-1006-veh_014-w0002,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+corridor|1006|case-1006-veh_012-w0003,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,false_denm
+corridor|1006|case-1006-veh_002-w0004,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,evidence_qualified,insufficient_weighted_margin,position_offset
+corridor|1006|case-1006-veh_012-w0005,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+corridor|1006|case-1006-veh_014-w0005,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+corridor|1007|case-1007-veh_012-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+corridor|1007|case-1007-veh_012-w0002,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,false_denm
+corridor|1007|case-1007-veh_014-w0002,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+corridor|1007|case-1007-veh_012-w0003,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,false_denm
+corridor|1007|case-1007-veh_012-w0005,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+corridor|1007|case-1007-veh_014-w0005,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+corridor|1008|case-1008-veh_012-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+corridor|1008|case-1008-veh_014-w0002,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+corridor|1008|case-1008-veh_012-w0005,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+corridor|1008|case-1008-veh_014-w0005,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+corridor|1009|case-1009-veh_012-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+corridor|1009|case-1009-veh_014-w0002,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+corridor|1009|case-1009-veh_012-w0005,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+corridor|1009|case-1009-veh_014-w0005,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+corridor|1010|case-1010-veh_004-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,evidence_qualified,insufficient_weighted_margin,speed_offset
+corridor|1010|case-1010-veh_012-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+corridor|1010|case-1010-veh_014-w0002,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+corridor|1010|case-1010-veh_012-w0005,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+corridor|1010|case-1010-veh_014-w0005,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+intersection|1001|case-1001-veh_006-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_weighted_margin,committed,replay
+intersection|1001|case-1001-veh_012-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+intersection|1001|case-1001-veh_014-w0002,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+intersection|1001|case-1001-veh_014-w0003,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+intersection|1001|case-1001-veh_012-w0005,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+intersection|1002|case-1002-veh_009-w0000,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+intersection|1002|case-1002-veh_006-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_weighted_margin,committed,replay
+intersection|1002|case-1002-veh_012-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+intersection|1002|case-1002-veh_014-w0002,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+intersection|1002|case-1002-veh_012-w0003,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,false_denm
+intersection|1002|case-1002-veh_014-w0003,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+intersection|1002|case-1002-veh_012-w0005,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+intersection|1003|case-1003-veh_004-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,evidence_qualified,insufficient_weighted_margin,speed_offset
+intersection|1003|case-1003-veh_006-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_weighted_margin,committed,replay
+intersection|1003|case-1003-veh_012-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+intersection|1003|case-1003-veh_014-w0002,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+intersection|1003|case-1003-veh_014-w0003,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+intersection|1003|case-1003-veh_002-w0004,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,evidence_qualified,insufficient_independent_evidence_diversity,position_offset
+intersection|1003|case-1003-veh_012-w0005,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+intersection|1003|case-1003-veh_019-w0005,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+intersection|1004|case-1004-veh_006-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_weighted_margin,committed,replay
+intersection|1004|case-1004-veh_012-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+intersection|1004|case-1004-veh_014-w0002,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+intersection|1004|case-1004-veh_014-w0003,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+intersection|1004|case-1004-veh_002-w0004,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,evidence_qualified,insufficient_independent_evidence_diversity,position_offset
+intersection|1004|case-1004-veh_010-w0005,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_weighted_margin,committed,flood
+intersection|1004|case-1004-veh_012-w0005,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+intersection|1005|case-1005-veh_004-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,evidence_qualified,insufficient_weighted_margin,speed_offset
+intersection|1005|case-1005-veh_006-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_weighted_margin,committed,replay
+intersection|1005|case-1005-veh_012-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+intersection|1005|case-1005-veh_014-w0002,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+intersection|1005|case-1005-veh_014-w0003,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+intersection|1005|case-1005-veh_002-w0004,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,evidence_qualified,insufficient_independent_evidence_diversity,position_offset
+intersection|1005|case-1005-veh_014-w0004,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+intersection|1005|case-1005-veh_012-w0005,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+intersection|1005|case-1005-veh_014-w0005,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+intersection|1006|case-1006-veh_004-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,evidence_qualified,insufficient_weighted_margin,speed_offset
+intersection|1006|case-1006-veh_006-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_weighted_margin,committed,replay
+intersection|1006|case-1006-veh_012-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+intersection|1006|case-1006-veh_014-w0002,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+intersection|1006|case-1006-veh_014-w0003,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+intersection|1006|case-1006-veh_002-w0004,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,evidence_qualified,insufficient_independent_evidence_diversity,position_offset
+intersection|1006|case-1006-veh_012-w0005,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+intersection|1007|case-1007-veh_006-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_weighted_margin,committed,replay
+intersection|1007|case-1007-veh_012-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+intersection|1007|case-1007-veh_014-w0002,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+intersection|1007|case-1007-veh_014-w0003,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+intersection|1007|case-1007-veh_012-w0004,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,false_denm
+intersection|1007|case-1007-veh_012-w0005,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+intersection|1008|case-1008-veh_006-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_weighted_margin,committed,replay
+intersection|1008|case-1008-veh_012-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+intersection|1008|case-1008-veh_014-w0002,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+intersection|1008|case-1008-veh_014-w0003,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+intersection|1008|case-1008-veh_014-w0004,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+intersection|1008|case-1008-veh_012-w0005,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+intersection|1009|case-1009-veh_006-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_weighted_margin,committed,replay
+intersection|1009|case-1009-veh_012-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+intersection|1009|case-1009-veh_014-w0002,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+intersection|1009|case-1009-veh_014-w0003,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+intersection|1009|case-1009-veh_012-w0005,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+intersection|1010|case-1010-veh_004-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,evidence_qualified,insufficient_weighted_margin,speed_offset
+intersection|1010|case-1010-veh_006-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_weighted_margin,committed,replay
+intersection|1010|case-1010-veh_012-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+intersection|1010|case-1010-veh_014-w0002,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+intersection|1010|case-1010-veh_014-w0003,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+intersection|1010|case-1010-veh_012-w0005,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+grid|1001|case-1001-veh_006-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_weighted_margin,committed,replay
+grid|1001|case-1001-veh_012-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+grid|1001|case-1001-veh_012-w0002,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,false_denm
+grid|1001|case-1001-veh_014-w0003,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+grid|1002|case-1002-veh_006-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_weighted_margin,committed,replay
+grid|1002|case-1002-veh_012-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+grid|1002|case-1002-veh_014-w0002,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+grid|1002|case-1002-veh_004-w0004,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,evidence_qualified,insufficient_independent_evidence_diversity,speed_offset
+grid|1002|case-1002-veh_014-w0004,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,evidence_qualified,insufficient_independent_evidence_diversity,mixed
+grid|1003|case-1003-veh_002-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,evidence_qualified,insufficient_independent_evidence_diversity,position_offset
+grid|1003|case-1003-veh_006-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_weighted_margin,committed,replay
+grid|1003|case-1003-veh_012-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+grid|1003|case-1003-veh_002-w0002,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,evidence_qualified,insufficient_independent_evidence_diversity,position_offset
+grid|1003|case-1003-veh_014-w0002,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+grid|1003|case-1003-veh_004-w0004,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,evidence_qualified,insufficient_independent_evidence_diversity,speed_offset
+grid|1003|case-1003-veh_012-w0004,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,evidence_qualified,insufficient_independent_evidence_diversity,false_denm
+grid|1003|case-1003-veh_014-w0004,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,evidence_qualified,insufficient_independent_evidence_diversity,mixed
+grid|1004|case-1004-veh_006-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_weighted_margin,committed,replay
+grid|1004|case-1004-veh_012-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+grid|1004|case-1004-veh_002-w0003,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,evidence_qualified,insufficient_weighted_margin,position_offset
+grid|1004|case-1004-veh_010-w0003,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,evidence_qualified,insufficient_independent_evidence_diversity,flood
+grid|1004|case-1004-veh_014-w0003,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+grid|1004|case-1004-veh_012-w0004,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,evidence_qualified,insufficient_independent_evidence_diversity,false_denm
+grid|1004|case-1004-veh_014-w0004,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+grid|1005|case-1005-veh_002-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,evidence_qualified,insufficient_weighted_margin,position_offset
+grid|1005|case-1005-veh_004-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,evidence_qualified,insufficient_weighted_margin,speed_offset
+grid|1005|case-1005-veh_006-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_weighted_margin,committed,replay
+grid|1005|case-1005-veh_012-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+grid|1005|case-1005-veh_002-w0002,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,evidence_qualified,insufficient_independent_evidence_diversity,position_offset
+grid|1005|case-1005-veh_014-w0002,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+grid|1005|case-1005-veh_002-w0003,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,evidence_qualified,insufficient_weighted_margin,position_offset
+grid|1005|case-1005-veh_004-w0004,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,evidence_qualified,insufficient_weighted_margin,speed_offset
+grid|1005|case-1005-veh_012-w0005,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,false_denm
+grid|1005|case-1005-veh_014-w0005,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+grid|1006|case-1006-veh_006-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_weighted_margin,committed,replay
+grid|1006|case-1006-veh_012-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+grid|1006|case-1006-veh_012-w0002,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_weighted_margin,committed,false_denm
+grid|1006|case-1006-veh_014-w0003,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+grid|1006|case-1006-veh_014-w0004,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+grid|1006|case-1006-veh_012-w0005,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,false_denm
+grid|1007|case-1007-veh_006-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_weighted_margin,committed,replay
+grid|1007|case-1007-veh_012-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+grid|1007|case-1007-veh_014-w0002,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+grid|1007|case-1007-veh_012-w0003,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,false_denm
+grid|1007|case-1007-veh_014-w0003,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+grid|1007|case-1007-veh_014-w0004,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+grid|1008|case-1008-veh_002-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,evidence_qualified,insufficient_independent_evidence_diversity,position_offset
+grid|1008|case-1008-veh_006-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_weighted_margin,committed,replay
+grid|1008|case-1008-veh_012-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+grid|1008|case-1008-veh_002-w0002,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,evidence_qualified,insufficient_independent_evidence_diversity,position_offset
+grid|1008|case-1008-veh_014-w0002,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+grid|1008|case-1008-veh_002-w0004,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,evidence_qualified,insufficient_weighted_margin,position_offset
+grid|1008|case-1008-veh_012-w0004,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,evidence_qualified,insufficient_independent_evidence_diversity,false_denm
+grid|1008|case-1008-veh_014-w0005,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+grid|1009|case-1009-veh_006-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_weighted_margin,committed,replay
+grid|1009|case-1009-veh_012-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+grid|1009|case-1009-veh_012-w0002,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,false_denm
+grid|1009|case-1009-veh_014-w0004,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+grid|1009|case-1009-veh_012-w0005,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,false_denm
+grid|1010|case-1010-veh_006-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_weighted_margin,committed,replay
+grid|1010|case-1010-veh_012-w0001,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+grid|1010|case-1010-veh_014-w0003,Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+smoke|1001|case-1001-veh_004-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,committed,insufficient_weighted_margin,speed_offset
+smoke|1001|case-1001-veh_012-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+smoke|1001|case-1001-veh_012-w0002,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,false_denm
+smoke|1001|case-1001-veh_014-w0002,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+smoke|1001|case-1001-veh_012-w0003,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,false_denm
+smoke|1001|case-1001-veh_014-w0003,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+smoke|1001|case-1001-veh_002-w0004,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,committed,insufficient_weighted_margin,position_offset
+smoke|1001|case-1001-veh_012-w0005,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+smoke|1001|case-1001-veh_014-w0005,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+smoke|1002|case-1002-veh_004-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,speed_offset
+smoke|1002|case-1002-veh_012-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+smoke|1002|case-1002-veh_014-w0002,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+smoke|1002|case-1002-veh_012-w0003,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,false_denm
+smoke|1002|case-1002-veh_014-w0003,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+smoke|1002|case-1002-veh_012-w0005,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+smoke|1002|case-1002-veh_014-w0005,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+smoke|1003|case-1003-veh_004-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,committed,insufficient_weighted_margin,speed_offset
+smoke|1003|case-1003-veh_012-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+smoke|1003|case-1003-veh_012-w0002,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,false_denm
+smoke|1003|case-1003-veh_014-w0002,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+smoke|1003|case-1003-veh_012-w0003,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,false_denm
+smoke|1003|case-1003-veh_014-w0003,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+smoke|1003|case-1003-veh_002-w0004,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,committed,insufficient_weighted_margin,position_offset
+smoke|1003|case-1003-veh_012-w0005,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+smoke|1003|case-1003-veh_014-w0005,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+smoke|1004|case-1004-veh_004-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,committed,insufficient_weighted_margin,speed_offset
+smoke|1004|case-1004-veh_012-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+smoke|1004|case-1004-veh_012-w0002,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,false_denm
+smoke|1004|case-1004-veh_014-w0002,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+smoke|1004|case-1004-veh_012-w0003,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,false_denm
+smoke|1004|case-1004-veh_014-w0003,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+smoke|1004|case-1004-veh_002-w0004,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,committed,insufficient_weighted_margin,position_offset
+smoke|1004|case-1004-veh_012-w0005,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+smoke|1004|case-1004-veh_014-w0005,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+smoke|1005|case-1005-veh_002-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,committed,insufficient_weighted_margin,position_offset
+smoke|1005|case-1005-veh_004-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,committed,insufficient_weighted_margin,speed_offset
+smoke|1005|case-1005-veh_012-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+smoke|1005|case-1005-veh_014-w0002,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+smoke|1005|case-1005-veh_014-w0003,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+smoke|1005|case-1005-veh_002-w0004,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,committed,insufficient_weighted_margin,position_offset
+smoke|1005|case-1005-veh_004-w0004,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,committed,insufficient_weighted_margin,speed_offset
+smoke|1005|case-1005-veh_012-w0005,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+smoke|1005|case-1005-veh_014-w0005,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+smoke|1006|case-1006-veh_002-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,position_offset
+smoke|1006|case-1006-veh_004-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,committed,insufficient_weighted_margin,speed_offset
+smoke|1006|case-1006-veh_012-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+smoke|1006|case-1006-veh_014-w0002,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+smoke|1006|case-1006-veh_002-w0004,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,committed,insufficient_weighted_margin,position_offset
+smoke|1006|case-1006-veh_014-w0004,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+smoke|1006|case-1006-veh_012-w0005,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+smoke|1006|case-1006-veh_014-w0005,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+smoke|1007|case-1007-veh_004-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,speed_offset
+smoke|1007|case-1007-veh_012-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+smoke|1007|case-1007-veh_012-w0002,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,false_denm
+smoke|1007|case-1007-veh_014-w0002,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+smoke|1007|case-1007-veh_002-w0004,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,committed,insufficient_weighted_margin,position_offset
+smoke|1007|case-1007-veh_014-w0004,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+smoke|1007|case-1007-veh_012-w0005,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+smoke|1007|case-1007-veh_014-w0005,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+smoke|1008|case-1008-veh_012-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+smoke|1008|case-1008-veh_014-w0002,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+smoke|1008|case-1008-veh_014-w0003,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+smoke|1008|case-1008-veh_014-w0005,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+smoke|1009|case-1009-veh_012-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+smoke|1009|case-1009-veh_014-w0002,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+smoke|1009|case-1009-veh_002-w0004,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,committed,insufficient_weighted_margin,position_offset
+smoke|1009|case-1009-veh_012-w0004,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,false_denm
+smoke|1009|case-1009-veh_014-w0004,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+smoke|1009|case-1009-veh_012-w0005,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+smoke|1009|case-1009-veh_014-w0005,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+smoke|1010|case-1010-veh_002-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,position_offset
+smoke|1010|case-1010-veh_004-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,committed,insufficient_weighted_margin,speed_offset
+smoke|1010|case-1010-veh_012-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+smoke|1010|case-1010-veh_014-w0002,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+smoke|1010|case-1010-veh_014-w0003,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+smoke|1010|case-1010-veh_002-w0004,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,committed,insufficient_weighted_margin,position_offset
+smoke|1010|case-1010-veh_012-w0004,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,false_denm
+smoke|1010|case-1010-veh_012-w0005,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+smoke|1010|case-1010-veh_014-w0005,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+corridor|1001|case-1001-veh_004-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,committed,insufficient_weighted_margin,speed_offset
+corridor|1001|case-1001-veh_012-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+corridor|1001|case-1001-veh_012-w0002,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,false_denm
+corridor|1001|case-1001-veh_014-w0002,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+corridor|1001|case-1001-veh_002-w0004,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,committed,insufficient_weighted_margin,position_offset
+corridor|1001|case-1001-veh_012-w0005,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+corridor|1001|case-1001-veh_014-w0005,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+corridor|1002|case-1002-veh_012-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+corridor|1002|case-1002-veh_012-w0002,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,false_denm
+corridor|1002|case-1002-veh_014-w0002,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+corridor|1002|case-1002-veh_012-w0005,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+corridor|1002|case-1002-veh_014-w0005,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+corridor|1003|case-1003-veh_004-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,committed,insufficient_weighted_margin,speed_offset
+corridor|1003|case-1003-veh_012-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+corridor|1003|case-1003-veh_014-w0002,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+corridor|1003|case-1003-veh_002-w0004,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,committed,insufficient_weighted_margin,position_offset
+corridor|1003|case-1003-veh_012-w0005,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+corridor|1003|case-1003-veh_014-w0005,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+corridor|1004|case-1004-veh_004-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,committed,insufficient_weighted_margin,speed_offset
+corridor|1004|case-1004-veh_012-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+corridor|1004|case-1004-veh_014-w0002,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+corridor|1004|case-1004-veh_012-w0005,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+corridor|1004|case-1004-veh_014-w0005,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+corridor|1005|case-1005-veh_002-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,committed,insufficient_weighted_margin,position_offset
+corridor|1005|case-1005-veh_004-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,committed,insufficient_weighted_margin,speed_offset
+corridor|1005|case-1005-veh_012-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+corridor|1005|case-1005-veh_014-w0002,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+corridor|1005|case-1005-veh_012-w0005,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+corridor|1005|case-1005-veh_014-w0005,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+corridor|1006|case-1006-veh_004-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,committed,insufficient_weighted_margin,speed_offset
+corridor|1006|case-1006-veh_012-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+corridor|1006|case-1006-veh_014-w0002,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+corridor|1006|case-1006-veh_012-w0003,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,false_denm
+corridor|1006|case-1006-veh_002-w0004,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,committed,insufficient_weighted_margin,position_offset
+corridor|1006|case-1006-veh_012-w0005,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+corridor|1006|case-1006-veh_014-w0005,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+corridor|1007|case-1007-veh_012-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+corridor|1007|case-1007-veh_012-w0002,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,false_denm
+corridor|1007|case-1007-veh_014-w0002,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+corridor|1007|case-1007-veh_012-w0003,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,false_denm
+corridor|1007|case-1007-veh_012-w0005,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+corridor|1007|case-1007-veh_014-w0005,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+corridor|1008|case-1008-veh_012-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+corridor|1008|case-1008-veh_014-w0002,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+corridor|1008|case-1008-veh_012-w0005,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+corridor|1008|case-1008-veh_014-w0005,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+corridor|1009|case-1009-veh_012-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+corridor|1009|case-1009-veh_014-w0002,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+corridor|1009|case-1009-veh_012-w0005,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+corridor|1009|case-1009-veh_014-w0005,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+corridor|1010|case-1010-veh_004-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,committed,insufficient_weighted_margin,speed_offset
+corridor|1010|case-1010-veh_012-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+corridor|1010|case-1010-veh_014-w0002,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+corridor|1010|case-1010-veh_012-w0005,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+corridor|1010|case-1010-veh_014-w0005,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+intersection|1001|case-1001-veh_006-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_weighted_margin,committed,replay
+intersection|1001|case-1001-veh_012-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+intersection|1001|case-1001-veh_014-w0002,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+intersection|1001|case-1001-veh_014-w0003,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+intersection|1001|case-1001-veh_012-w0005,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+intersection|1002|case-1002-veh_009-w0000,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+intersection|1002|case-1002-veh_006-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_weighted_margin,committed,replay
+intersection|1002|case-1002-veh_012-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+intersection|1002|case-1002-veh_014-w0002,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+intersection|1002|case-1002-veh_012-w0003,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,false_denm
+intersection|1002|case-1002-veh_014-w0003,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+intersection|1002|case-1002-veh_012-w0005,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+intersection|1003|case-1003-veh_004-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,committed,insufficient_weighted_margin,speed_offset
+intersection|1003|case-1003-veh_006-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_weighted_margin,committed,replay
+intersection|1003|case-1003-veh_012-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+intersection|1003|case-1003-veh_014-w0002,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+intersection|1003|case-1003-veh_014-w0003,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+intersection|1003|case-1003-veh_002-w0004,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,committed,insufficient_independent_evidence_diversity,position_offset
+intersection|1003|case-1003-veh_012-w0005,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+intersection|1003|case-1003-veh_019-w0005,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+intersection|1004|case-1004-veh_006-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_weighted_margin,committed,replay
+intersection|1004|case-1004-veh_012-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+intersection|1004|case-1004-veh_014-w0002,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+intersection|1004|case-1004-veh_014-w0003,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+intersection|1004|case-1004-veh_002-w0004,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,committed,insufficient_independent_evidence_diversity,position_offset
+intersection|1004|case-1004-veh_010-w0005,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_weighted_margin,committed,flood
+intersection|1004|case-1004-veh_012-w0005,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+intersection|1005|case-1005-veh_004-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,committed,insufficient_weighted_margin,speed_offset
+intersection|1005|case-1005-veh_006-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_weighted_margin,committed,replay
+intersection|1005|case-1005-veh_012-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+intersection|1005|case-1005-veh_014-w0002,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+intersection|1005|case-1005-veh_014-w0003,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+intersection|1005|case-1005-veh_002-w0004,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,committed,insufficient_independent_evidence_diversity,position_offset
+intersection|1005|case-1005-veh_014-w0004,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+intersection|1005|case-1005-veh_012-w0005,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+intersection|1005|case-1005-veh_014-w0005,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+intersection|1006|case-1006-veh_004-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,committed,insufficient_weighted_margin,speed_offset
+intersection|1006|case-1006-veh_006-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_weighted_margin,committed,replay
+intersection|1006|case-1006-veh_012-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+intersection|1006|case-1006-veh_014-w0002,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+intersection|1006|case-1006-veh_014-w0003,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+intersection|1006|case-1006-veh_002-w0004,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,committed,insufficient_independent_evidence_diversity,position_offset
+intersection|1006|case-1006-veh_012-w0005,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+intersection|1007|case-1007-veh_006-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_weighted_margin,committed,replay
+intersection|1007|case-1007-veh_012-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+intersection|1007|case-1007-veh_014-w0002,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+intersection|1007|case-1007-veh_014-w0003,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+intersection|1007|case-1007-veh_012-w0004,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,false_denm
+intersection|1007|case-1007-veh_012-w0005,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+intersection|1008|case-1008-veh_006-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_weighted_margin,committed,replay
+intersection|1008|case-1008-veh_012-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+intersection|1008|case-1008-veh_014-w0002,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+intersection|1008|case-1008-veh_014-w0003,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+intersection|1008|case-1008-veh_014-w0004,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+intersection|1008|case-1008-veh_012-w0005,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+intersection|1009|case-1009-veh_006-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_weighted_margin,committed,replay
+intersection|1009|case-1009-veh_012-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+intersection|1009|case-1009-veh_014-w0002,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+intersection|1009|case-1009-veh_014-w0003,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+intersection|1009|case-1009-veh_012-w0005,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+intersection|1010|case-1010-veh_004-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,committed,insufficient_weighted_margin,speed_offset
+intersection|1010|case-1010-veh_006-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_weighted_margin,committed,replay
+intersection|1010|case-1010-veh_012-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+intersection|1010|case-1010-veh_014-w0002,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+intersection|1010|case-1010-veh_014-w0003,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+intersection|1010|case-1010-veh_012-w0005,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+grid|1001|case-1001-veh_006-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_weighted_margin,committed,replay
+grid|1001|case-1001-veh_012-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+grid|1001|case-1001-veh_012-w0002,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,false_denm
+grid|1001|case-1001-veh_014-w0003,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+grid|1002|case-1002-veh_006-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_weighted_margin,committed,replay
+grid|1002|case-1002-veh_012-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+grid|1002|case-1002-veh_014-w0002,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+grid|1002|case-1002-veh_004-w0004,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,committed,insufficient_independent_evidence_diversity,speed_offset
+grid|1002|case-1002-veh_014-w0004,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,committed,insufficient_independent_evidence_diversity,mixed
+grid|1003|case-1003-veh_002-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,committed,insufficient_independent_evidence_diversity,position_offset
+grid|1003|case-1003-veh_006-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_weighted_margin,committed,replay
+grid|1003|case-1003-veh_012-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+grid|1003|case-1003-veh_002-w0002,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,committed,insufficient_independent_evidence_diversity,position_offset
+grid|1003|case-1003-veh_014-w0002,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+grid|1003|case-1003-veh_004-w0004,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,committed,insufficient_independent_evidence_diversity,speed_offset
+grid|1003|case-1003-veh_012-w0004,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,committed,insufficient_independent_evidence_diversity,false_denm
+grid|1003|case-1003-veh_014-w0004,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,committed,insufficient_independent_evidence_diversity,mixed
+grid|1004|case-1004-veh_006-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_weighted_margin,committed,replay
+grid|1004|case-1004-veh_012-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+grid|1004|case-1004-veh_002-w0003,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,committed,insufficient_weighted_margin,position_offset
+grid|1004|case-1004-veh_010-w0003,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,committed,insufficient_independent_evidence_diversity,flood
+grid|1004|case-1004-veh_014-w0003,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+grid|1004|case-1004-veh_012-w0004,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,committed,insufficient_independent_evidence_diversity,false_denm
+grid|1004|case-1004-veh_014-w0004,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+grid|1005|case-1005-veh_002-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,committed,insufficient_weighted_margin,position_offset
+grid|1005|case-1005-veh_004-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,committed,insufficient_weighted_margin,speed_offset
+grid|1005|case-1005-veh_006-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_weighted_margin,committed,replay
+grid|1005|case-1005-veh_012-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+grid|1005|case-1005-veh_002-w0002,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,committed,insufficient_independent_evidence_diversity,position_offset
+grid|1005|case-1005-veh_014-w0002,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+grid|1005|case-1005-veh_002-w0003,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,committed,insufficient_weighted_margin,position_offset
+grid|1005|case-1005-veh_004-w0004,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,committed,insufficient_weighted_margin,speed_offset
+grid|1005|case-1005-veh_012-w0005,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,false_denm
+grid|1005|case-1005-veh_014-w0005,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+grid|1006|case-1006-veh_006-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_weighted_margin,committed,replay
+grid|1006|case-1006-veh_012-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+grid|1006|case-1006-veh_012-w0002,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_weighted_margin,committed,false_denm
+grid|1006|case-1006-veh_014-w0003,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+grid|1006|case-1006-veh_014-w0004,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+grid|1006|case-1006-veh_012-w0005,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,false_denm
+grid|1007|case-1007-veh_006-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_weighted_margin,committed,replay
+grid|1007|case-1007-veh_012-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+grid|1007|case-1007-veh_014-w0002,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+grid|1007|case-1007-veh_012-w0003,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,false_denm
+grid|1007|case-1007-veh_014-w0003,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+grid|1007|case-1007-veh_014-w0004,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+grid|1008|case-1008-veh_002-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,committed,insufficient_independent_evidence_diversity,position_offset
+grid|1008|case-1008-veh_006-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_weighted_margin,committed,replay
+grid|1008|case-1008-veh_012-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+grid|1008|case-1008-veh_002-w0002,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,committed,insufficient_independent_evidence_diversity,position_offset
+grid|1008|case-1008-veh_014-w0002,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+grid|1008|case-1008-veh_002-w0004,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,committed,insufficient_weighted_margin,position_offset
+grid|1008|case-1008-veh_012-w0004,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,1,0,committed,insufficient_independent_evidence_diversity,false_denm
+grid|1008|case-1008-veh_014-w0005,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+grid|1009|case-1009-veh_006-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_weighted_margin,committed,replay
+grid|1009|case-1009-veh_012-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+grid|1009|case-1009-veh_012-w0002,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,false_denm
+grid|1009|case-1009-veh_014-w0004,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed
+grid|1009|case-1009-veh_012-w0005,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,false_denm
+grid|1010|case-1010-veh_006-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_weighted_margin,committed,replay
+grid|1010|case-1010-veh_012-w0001,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,0,0,1,insufficient_independent_evidence_diversity,committed,benign
+grid|1010|case-1010-veh_014-w0003,Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,1,0,1,insufficient_independent_evidence_diversity,committed,mixed

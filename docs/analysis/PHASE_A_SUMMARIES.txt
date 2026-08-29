@@ -1,0 +1,191 @@
+﻿# POST_CLAUDE_INTERPRETATION_BOUNDARY_V4
+# Historical Phase-A snapshot. Numerical tables are preserved.
+# Current interpretation: Centralized↔Distributed is the clean finalization comparison;
+# Ahmed↔RSU is an integrated evidence-path comparison; MCC is non-confirmatory after Holm (adjusted p≈0.1986).
+# Use results/full_campaign_v7/statistical_inference/SUMMARY.md and docs/remediation/CLAIM_AUDIT.md for current wording.
+
+================ STATISTICAL INFERENCE ================
+# Post-Freeze Statistical Validation (V-PUFT v8)
+
+This analysis re-runs no experiment. It reports intervals, paired tests and
+effect sizes over the frozen v7 results. No v7 number is replaced.
+
+- Pairing unit: `['topology', 'seed']`
+- Bootstrap: stratified cluster resampling, composition per replicate {'corridor': 10, 'grid': 10, 'intersection': 10, 'smoke': 10}
+- Resamples: 10000 bootstrap, 20000 permutation
+- Effect sizes: matched-pairs rank-biserial and Cohen's dz (paired design)
+- Primary family: recall, FRR, MCC, Holm-corrected at alpha = 0.05
+- Exploratory family: precision, F1, latency, messages, bytes, memory (uncorrected)
+- RNG seed: 20260814
+
+## Primary metrics - pooled difference with 95% stratified cluster-bootstrap CI
+
+| Comparison | Metric | A | B | Difference | 95% CI | CI excludes 0 |
+|---|---|---|---|---|---|---|
+| Distributed RSU V-PUFT vs Centralized V-PUFT | recall | 0.8090 | 0.8090 | +0.0000 | [+0.0000, +0.0000] | no |
+| Distributed RSU V-PUFT vs Centralized V-PUFT | frr | 0.0164 | 0.0164 | +0.0000 | [+0.0000, +0.0000] | no |
+| Distributed RSU V-PUFT vs Centralized V-PUFT | mcc | 0.8307 | 0.8307 | +0.0000 | [+0.0000, +0.0000] | no |
+| Ahmed-Inspired Witness V-PUFT vs Centralized V-PUFT | recall | 0.8090 | 0.8935 | +0.0846 | [+0.0635, +0.1057] | YES |
+| Ahmed-Inspired Witness V-PUFT vs Centralized V-PUFT | frr | 0.0164 | 0.0309 | +0.0145 | [+0.0138, +0.0151] | YES |
+| Ahmed-Inspired Witness V-PUFT vs Centralized V-PUFT | mcc | 0.8307 | 0.8475 | +0.0168 | [+0.0024, +0.0309] | YES |
+| Ahmed-Inspired Witness V-PUFT vs Distributed RSU V-PUFT | recall | 0.8090 | 0.8935 | +0.0846 | [+0.0634, +0.1060] | YES |
+| Ahmed-Inspired Witness V-PUFT vs Distributed RSU V-PUFT | frr | 0.0164 | 0.0309 | +0.0145 | [+0.0139, +0.0151] | YES |
+| Ahmed-Inspired Witness V-PUFT vs Distributed RSU V-PUFT | mcc | 0.8307 | 0.8475 | +0.0168 | [+0.0025, +0.0311] | YES |
+
+## Exploratory metrics - pooled difference with 95% stratified cluster-bootstrap CI
+
+| Comparison | Metric | A | B | Difference | 95% CI | CI excludes 0 |
+|---|---|---|---|---|---|---|
+| Distributed RSU V-PUFT vs Centralized V-PUFT | precision | 0.9084 | 0.9084 | +0.0000 | [+0.0000, +0.0000] | no |
+| Distributed RSU V-PUFT vs Centralized V-PUFT | f1 | 0.8558 | 0.8558 | +0.0000 | [+0.0000, +0.0000] | no |
+| Ahmed-Inspired Witness V-PUFT vs Centralized V-PUFT | precision | 0.9084 | 0.8544 | -0.0540 | [-0.0577, -0.0503] | YES |
+| Ahmed-Inspired Witness V-PUFT vs Centralized V-PUFT | f1 | 0.8558 | 0.8735 | +0.0178 | [+0.0055, +0.0298] | YES |
+| Ahmed-Inspired Witness V-PUFT vs Distributed RSU V-PUFT | precision | 0.9084 | 0.8544 | -0.0540 | [-0.0579, -0.0502] | YES |
+| Ahmed-Inspired Witness V-PUFT vs Distributed RSU V-PUFT | f1 | 0.8558 | 0.8735 | +0.0178 | [+0.0055, +0.0300] | YES |
+
+## Exploratory attack-stratified recall - unadjusted for multiplicity
+
+This section is explicitly exploratory. Attack-specific contrasts were examined after the global pattern was known, so the intervals below must not be presented as confirmatory hypothesis tests. `CI excludes 0` is descriptive evidence of a stable direction under the stratified cluster bootstrap, not a multiplicity-adjusted claim of statistical significance.
+
+| Attack | Comparison | Recall A | Recall B | Difference | 95% CI | CI excludes 0 |
+|---|---|---|---|---|---|---|
+| certificate_tamper | Ahmed-Inspired Witness V-PUFT vs Centralized V-PUFT | 1.0000 | 1.0000 | +0.0000 | [+0.0000, +0.0000] | no |
+| certificate_tamper | Ahmed-Inspired Witness V-PUFT vs Distributed RSU V-PUFT | 1.0000 | 1.0000 | +0.0000 | [+0.0000, +0.0000] | no |
+| certificate_tamper | Distributed RSU V-PUFT vs Centralized V-PUFT | 1.0000 | 1.0000 | +0.0000 | [+0.0000, +0.0000] | no |
+| false_denm | Ahmed-Inspired Witness V-PUFT vs Centralized V-PUFT | 0.7109 | 0.8750 | +0.1641 | [+0.0930, +0.2422] | YES |
+| false_denm | Ahmed-Inspired Witness V-PUFT vs Distributed RSU V-PUFT | 0.7109 | 0.8750 | +0.1641 | [+0.0873, +0.2385] | YES |
+| false_denm | Distributed RSU V-PUFT vs Centralized V-PUFT | 0.7109 | 0.7109 | +0.0000 | [+0.0000, +0.0000] | no |
+| flood | Ahmed-Inspired Witness V-PUFT vs Centralized V-PUFT | 0.9600 | 0.9600 | +0.0000 | [-0.0238, +0.0236] | no |
+| flood | Ahmed-Inspired Witness V-PUFT vs Distributed RSU V-PUFT | 0.9600 | 0.9600 | +0.0000 | [-0.0165, +0.0236] | no |
+| flood | Distributed RSU V-PUFT vs Centralized V-PUFT | 0.9600 | 0.9600 | +0.0000 | [+0.0000, +0.0000] | no |
+| mixed | Ahmed-Inspired Witness V-PUFT vs Centralized V-PUFT | 0.3355 | 0.8968 | +0.5613 | [+0.5128, +0.6104] | YES |
+| mixed | Ahmed-Inspired Witness V-PUFT vs Distributed RSU V-PUFT | 0.3355 | 0.8968 | +0.5613 | [+0.5128, +0.6118] | YES |
+| mixed | Distributed RSU V-PUFT vs Centralized V-PUFT | 0.3355 | 0.3355 | +0.0000 | [+0.0000, +0.0000] | no |
+| position_offset | Ahmed-Inspired Witness V-PUFT vs Centralized V-PUFT | 0.9688 | 0.8187 | -0.1500 | [-0.2125, -0.0938] | YES |
+| position_offset | Ahmed-Inspired Witness V-PUFT vs Distributed RSU V-PUFT | 0.9688 | 0.8187 | -0.1500 | [-0.2064, -0.0938] | YES |
+| position_offset | Distributed RSU V-PUFT vs Centralized V-PUFT | 0.9688 | 0.9688 | +0.0000 | [+0.0000, +0.0000] | no |
+| replay | Ahmed-Inspired Witness V-PUFT vs Centralized V-PUFT | 0.7468 | 0.8734 | +0.1266 | [+0.1250, +0.1290] | YES |
+| replay | Ahmed-Inspired Witness V-PUFT vs Distributed RSU V-PUFT | 0.7468 | 0.8734 | +0.1266 | [+0.1250, +0.1290] | YES |
+| replay | Distributed RSU V-PUFT vs Centralized V-PUFT | 0.7468 | 0.7468 | +0.0000 | [+0.0000, +0.0000] | no |
+| speed_offset | Ahmed-Inspired Witness V-PUFT vs Centralized V-PUFT | 0.9874 | 0.8679 | -0.1195 | [-0.1698, -0.0687] | YES |
+| speed_offset | Ahmed-Inspired Witness V-PUFT vs Distributed RSU V-PUFT | 0.9874 | 0.8679 | -0.1195 | [-0.1709, -0.0696] | YES |
+| speed_offset | Distributed RSU V-PUFT vs Centralized V-PUFT | 0.9874 | 0.9874 | +0.0000 | [+0.0000, +0.0000] | no |
+
+## Primary family - Holm-corrected
+
+| Metric | Comparison | n | Mean diff | p | rank-biserial | Effect | Significant |
+|---|---|---|---|---|---|---|---|
+| malicious_revocation_recall | Distributed RSU V-PUFT vs Centralized V-PUFT | 40 | +0.0000 | 1 | +nan | undefined | no |
+| malicious_revocation_recall | Ahmed-Inspired Witness V-PUFT vs Centralized V-PUFT | 40 | +0.0849 | 2.404e-06 | +0.898 | large | YES |
+| malicious_revocation_recall | Ahmed-Inspired Witness V-PUFT vs Distributed RSU V-PUFT | 40 | +0.0849 | 2.404e-06 | +0.898 | large | YES |
+| false_revocation_rate | Distributed RSU V-PUFT vs Centralized V-PUFT | 40 | +0.0000 | 1 | +nan | undefined | no |
+| false_revocation_rate | Ahmed-Inspired Witness V-PUFT vs Centralized V-PUFT | 40 | +0.0144 | 2.658e-08 | +1.000 | large | YES |
+| false_revocation_rate | Ahmed-Inspired Witness V-PUFT vs Distributed RSU V-PUFT | 40 | +0.0144 | 2.658e-08 | +1.000 | large | YES |
+| mcc | Distributed RSU V-PUFT vs Centralized V-PUFT | 40 | +0.0000 | 1 | +nan | undefined | no |
+| mcc | Ahmed-Inspired Witness V-PUFT vs Centralized V-PUFT | 40 | +0.0171 | 0.03972 | +0.373 | medium | no |
+| mcc | Ahmed-Inspired Witness V-PUFT vs Distributed RSU V-PUFT | 40 | +0.0171 | 0.03972 | +0.373 | medium | no |
+
+## Exploratory family - uncorrected, not confirmatory
+
+| Metric | Comparison | n | Mean diff | p | rank-biserial | Effect | Significant |
+|---|---|---|---|---|---|---|---|
+| trust_precision | Distributed RSU V-PUFT vs Centralized V-PUFT | 40 | +0.0000 | 1 | +nan | undefined | no |
+| trust_precision | Ahmed-Inspired Witness V-PUFT vs Centralized V-PUFT | 40 | -0.0536 | 3.532e-08 | -1.000 | large | YES |
+| trust_precision | Ahmed-Inspired Witness V-PUFT vs Distributed RSU V-PUFT | 40 | -0.0536 | 3.532e-08 | -1.000 | large | YES |
+| trust_f1 | Distributed RSU V-PUFT vs Centralized V-PUFT | 40 | +0.0000 | 1 | +nan | undefined | no |
+| trust_f1 | Ahmed-Inspired Witness V-PUFT vs Centralized V-PUFT | 40 | +0.0179 | 0.01442 | +0.444 | medium | YES |
+| trust_f1 | Ahmed-Inspired Witness V-PUFT vs Distributed RSU V-PUFT | 40 | +0.0179 | 0.01442 | +0.444 | medium | YES |
+| latency_p95_ms | Distributed RSU V-PUFT vs Centralized V-PUFT | 40 | +172.7508 | 1.819e-12 | +1.000 | large | YES |
+| latency_p95_ms | Ahmed-Inspired Witness V-PUFT vs Centralized V-PUFT | 40 | +498.8992 | 1.819e-12 | +1.000 | large | YES |
+| latency_p95_ms | Ahmed-Inspired Witness V-PUFT vs Distributed RSU V-PUFT | 40 | +326.1485 | 1.819e-12 | +1.000 | large | YES |
+| messages_per_decision | Distributed RSU V-PUFT vs Centralized V-PUFT | 40 | -2.6678 | 5.905e-06 | -0.822 | large | YES |
+| messages_per_decision | Ahmed-Inspired Witness V-PUFT vs Centralized V-PUFT | 40 | +120.0078 | 1.819e-12 | +1.000 | large | YES |
+| messages_per_decision | Ahmed-Inspired Witness V-PUFT vs Distributed RSU V-PUFT | 40 | +122.6756 | 1.819e-12 | +1.000 | large | YES |
+| bytes_per_decision | Distributed RSU V-PUFT vs Centralized V-PUFT | 40 | -3050.6075 | 1.819e-12 | -1.000 | large | YES |
+| bytes_per_decision | Ahmed-Inspired Witness V-PUFT vs Centralized V-PUFT | 40 | +91465.4923 | 1.819e-12 | +1.000 | large | YES |
+| bytes_per_decision | Ahmed-Inspired Witness V-PUFT vs Distributed RSU V-PUFT | 40 | +94516.0998 | 1.819e-12 | +1.000 | large | YES |
+| peak_memory_kb | Distributed RSU V-PUFT vs Centralized V-PUFT | 40 | -78.0850 | 2.923e-06 | -0.785 | large | YES |
+| peak_memory_kb | Ahmed-Inspired Witness V-PUFT vs Centralized V-PUFT | 40 | +8275.1710 | 1.819e-12 | +1.000 | large | YES |
+| peak_memory_kb | Ahmed-Inspired Witness V-PUFT vs Distributed RSU V-PUFT | 40 | +8353.2561 | 1.819e-12 | +1.000 | large | YES |
+
+## Wording rules for Chapter 5
+
+1. Every point estimate gets an interval. Replace "improved recall by 8.49 points" with "improved pooled recall by X.XX points (95% stratified cluster-bootstrap CI [L, U], paired across N seed-topology units, Wilcoxon p = ..., rank-biserial r = ...)".
+
+2. If an interval includes zero, say so and downgrade the claim to "no difference detectable at this sample size". A reported null is stronger than an unqualified estimate.
+
+3. Exploratory-family results must be labelled exploratory in the text. They are not corrected for multiplicity and must not carry a confirmatory claim.
+
+4. Attack-stratified recall is exploratory and unadjusted for multiplicity. If an attack-specific bootstrap CI excludes zero, describe the direction as stable under the exploratory stratified bootstrap; do not call it a confirmatory significant difference.
+
+================ CASE AGREEMENT ================
+# Case-Level Agreement (V-PUFT v8, post-freeze)
+
+No experiment was re-run. This analysis explains, at the level of individual
+cases, why two architectures report identical aggregate confusion matrices.
+
+## Coverage and agreement
+
+| Pair | A | B | Shared | A-only | B-only | Agreement | Kappa | Discordant | Test | p |
+|---|---|---|---|---|---|---|---|---|---|---|
+| Centralized V-PUFT vs Distributed RSU V-PUFT | 5992 | 5992 | 5992 | 0 | 0 | 1.000000 | 1.0000 | 0 | none | 1 |
+| Centralized V-PUFT vs Ahmed-Inspired Witness V-PUFT | 5992 | 5953 | 5953 | 39 | 0 | 0.955989 | 0.8393 | 262 | chi2_continuity_corrected | 0 |
+| Distributed RSU V-PUFT vs Ahmed-Inspired Witness V-PUFT | 5992 | 5953 | 5953 | 39 | 0 | 0.955989 | 0.8393 | 262 | chi2_continuity_corrected | 0 |
+
+## Text for section 5.17
+
+The measured agreement is exactly 1.0. Suggested wording:
+
+> Across all 5992 shared cases, the two RSU-based architectures issued identical trust decisions. Their identical aggregate confusion matrices are therefore explained by complete case-level classification agreement on the shared case set. This supports treating classification quality as equivalent for those cases in the frozen campaign, while communication, latency, consensus and ledger metrics remain separate dimensions of the architectural comparison. This result does not by itself prove that the internal evidence sets or processing traces were identical.
+
+================ LATENCY DECOMPOSITION ================
+# Latency Decomposition (V-PUFT v8, post-freeze)
+
+No experiment was re-run. Stage durations are read from the frozen
+`final_metrics_by_seed.csv`, where metrics.py already defines them as
+independent stage deltas rather than cumulative sums.
+
+**Unit of analysis:** each row is a per-seed P95; the tables report the
+distribution of those per-seed P95 values across the seed-topology units.
+
+**Arithmetic warning carried into the thesis:** the stage values below do
+not sum to the end-to-end value, and must never be drawn as a stacked bar.
+P95(A) + P95(B) + P95(C) is not P95(A+B+C).
+
+## Stage medians (of per-seed P95, ms)
+
+| Architecture | Stage | Median | IQR | Interpretation scope |
+|---|---|---|---|---|
+| Centralized V-PUFT | Detection / evidence acquisition | 8000.0 | 8000.0 - 8000.0 | Evidence acquisition/detection; may vary with evidence view and delivery path |
+| Centralized V-PUFT | Qualification (V-PUFT) | 14130.1 | 14103.5 - 14149.9 | V-PUFT qualification after detection |
+| Centralized V-PUFT | Finalization (central or PBFT) | 0.0 | 0.0 - 0.0 | Finalization path; cleanest Central-vs-PBFT comparison |
+| Centralized V-PUFT | End-to-end (NOT the sum of the stages above) | 14184.0 | 14156.8 - 14211.0 | End-to-end case latency from case opening to finalization |
+| Distributed RSU V-PUFT | Detection / evidence acquisition | 8000.0 | 8000.0 - 8000.0 | Evidence acquisition/detection; may vary with evidence view and delivery path |
+| Distributed RSU V-PUFT | Qualification (V-PUFT) | 14324.0 | 14283.0 - 14351.3 | V-PUFT qualification after detection |
+| Distributed RSU V-PUFT | Finalization (central or PBFT) | 45.0 | 42.7 - 65.9 | Finalization path; cleanest Central-vs-PBFT comparison |
+| Distributed RSU V-PUFT | End-to-end (NOT the sum of the stages above) | 14361.7 | 14323.4 - 14391.5 | End-to-end case latency from case opening to finalization |
+| Ahmed-Inspired Witness V-PUFT | Detection / evidence acquisition | 8000.0 | 8000.0 - 8775.0 | Evidence acquisition/detection; may vary with evidence view and delivery path |
+| Ahmed-Inspired Witness V-PUFT | Qualification (V-PUFT) | 14589.2 | 14478.3 - 14817.1 | V-PUFT qualification after detection |
+| Ahmed-Inspired Witness V-PUFT | Finalization (central or PBFT) | 45.6 | 43.9 - 113.5 | Finalization path; cleanest Central-vs-PBFT comparison |
+| Ahmed-Inspired Witness V-PUFT | End-to-end (NOT the sum of the stages above) | 14623.1 | 14511.3 - 14854.9 | End-to-end case latency from case opening to finalization |
+
+## Paired stage comparisons
+
+| Stage | Comparison | n | Median diff (ms) | Wilcoxon p | Interpretation scope |
+|---|---|---|---|---|---|
+| Detection / evidence acquisition | Distributed RSU V-PUFT vs Centralized V-PUFT | 40 | +0.00 | - | Evidence acquisition/detection; may vary with evidence view and delivery path |
+| Detection / evidence acquisition | Ahmed-Inspired Witness V-PUFT vs Centralized V-PUFT | 40 | +0.00 | 0.0009766 | Evidence acquisition/detection; may vary with evidence view and delivery path |
+| Detection / evidence acquisition | Ahmed-Inspired Witness V-PUFT vs Distributed RSU V-PUFT | 40 | +0.00 | 0.0009766 | Evidence acquisition/detection; may vary with evidence view and delivery path |
+| Qualification (V-PUFT) | Distributed RSU V-PUFT vs Centralized V-PUFT | 40 | +185.71 | 1.819e-12 | V-PUFT qualification after detection |
+| Qualification (V-PUFT) | Ahmed-Inspired Witness V-PUFT vs Centralized V-PUFT | 40 | +461.47 | 1.819e-12 | V-PUFT qualification after detection |
+| Qualification (V-PUFT) | Ahmed-Inspired Witness V-PUFT vs Distributed RSU V-PUFT | 40 | +293.44 | 1.819e-12 | V-PUFT qualification after detection |
+| Finalization (central or PBFT) | Distributed RSU V-PUFT vs Centralized V-PUFT | 40 | +44.95 | 1.819e-12 | Finalization path; cleanest Central-vs-PBFT comparison |
+| Finalization (central or PBFT) | Ahmed-Inspired Witness V-PUFT vs Centralized V-PUFT | 40 | +45.63 | 1.819e-12 | Finalization path; cleanest Central-vs-PBFT comparison |
+| Finalization (central or PBFT) | Ahmed-Inspired Witness V-PUFT vs Distributed RSU V-PUFT | 40 | +1.94 | 0.07034 | Finalization path; cleanest Central-vs-PBFT comparison |
+| End-to-end | Distributed RSU V-PUFT vs Centralized V-PUFT | 40 | +167.80 | 1.819e-12 | End-to-end case latency from case opening to finalization |
+| End-to-end | Ahmed-Inspired Witness V-PUFT vs Centralized V-PUFT | 40 | +433.71 | 1.819e-12 | End-to-end case latency from case opening to finalization |
+| End-to-end | Ahmed-Inspired Witness V-PUFT vs Distributed RSU V-PUFT | 40 | +295.14 | 1.819e-12 | End-to-end case latency from case opening to finalization |
+
+## Text for section 5.12 - place BEFORE any number
+
+> The end-to-end value reported here is measured from the opening of an evidence case until finalization, not from the arrival of a single V2X message. It therefore includes evidence acquisition/detection, V-PUFT qualification and finalization. The detection/evidence-acquisition stage is not assumed to be identical across architectures: it may vary with the evidence view and delivery path and is therefore part of the broader architectural comparison. The qualification stage reports the V-PUFT interval after detection, while the finalization stage is the cleanest measure for comparing centralized finalization with PBFT. The end-to-end figure is not a single-message dissemination latency and should not be interpreted as such. Finally, the reported values are percentiles and are not additive: P95(A)+P95(B)+P95(C) is not P95(A+B+C), so the stages are shown separately and no share-of-total claim is made.

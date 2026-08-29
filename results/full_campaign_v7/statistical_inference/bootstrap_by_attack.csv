@@ -1,0 +1,22 @@
+analysis_family,attack_type,comparison,recall_a,recall_b,difference,ci_low,ci_high,excludes_zero,multiplicity_adjusted
+exploratory_attack_stratified_unadjusted,certificate_tamper,Distributed RSU V-PUFT vs Centralized V-PUFT,1.0,1.0,0.0,0.0,0.0,False,False
+exploratory_attack_stratified_unadjusted,certificate_tamper,Ahmed-Inspired Witness V-PUFT vs Centralized V-PUFT,1.0,1.0,0.0,0.0,0.0,False,False
+exploratory_attack_stratified_unadjusted,certificate_tamper,Ahmed-Inspired Witness V-PUFT vs Distributed RSU V-PUFT,1.0,1.0,0.0,0.0,0.0,False,False
+exploratory_attack_stratified_unadjusted,false_denm,Distributed RSU V-PUFT vs Centralized V-PUFT,0.7109375,0.7109375,0.0,0.0,0.0,False,False
+exploratory_attack_stratified_unadjusted,false_denm,Ahmed-Inspired Witness V-PUFT vs Centralized V-PUFT,0.7109375,0.875,0.1640625,0.09302325581395343,0.2421875,True,False
+exploratory_attack_stratified_unadjusted,false_denm,Ahmed-Inspired Witness V-PUFT vs Distributed RSU V-PUFT,0.7109375,0.875,0.1640625,0.08730158730158732,0.23849999999999982,True,False
+exploratory_attack_stratified_unadjusted,flood,Distributed RSU V-PUFT vs Centralized V-PUFT,0.96,0.96,0.0,0.0,0.0,False,False
+exploratory_attack_stratified_unadjusted,flood,Ahmed-Inspired Witness V-PUFT vs Centralized V-PUFT,0.96,0.96,0.0,-0.023809523809523725,0.023622047244094446,False,False
+exploratory_attack_stratified_unadjusted,flood,Ahmed-Inspired Witness V-PUFT vs Distributed RSU V-PUFT,0.96,0.96,0.0,-0.016528925619834767,0.023622047244094446,False,False
+exploratory_attack_stratified_unadjusted,mixed,Distributed RSU V-PUFT vs Centralized V-PUFT,0.33548387096774196,0.33548387096774196,0.0,0.0,0.0,False,False
+exploratory_attack_stratified_unadjusted,mixed,Ahmed-Inspired Witness V-PUFT vs Centralized V-PUFT,0.33548387096774196,0.896774193548387,0.5612903225806452,0.5128205128205128,0.6103896103896105,True,False
+exploratory_attack_stratified_unadjusted,mixed,Ahmed-Inspired Witness V-PUFT vs Distributed RSU V-PUFT,0.33548387096774196,0.896774193548387,0.5612903225806452,0.5128205128205128,0.6118421052631579,True,False
+exploratory_attack_stratified_unadjusted,position_offset,Distributed RSU V-PUFT vs Centralized V-PUFT,0.96875,0.96875,0.0,0.0,0.0,False,False
+exploratory_attack_stratified_unadjusted,position_offset,Ahmed-Inspired Witness V-PUFT vs Centralized V-PUFT,0.96875,0.81875,-0.15000000000000002,-0.21250000000000002,-0.09375,True,False
+exploratory_attack_stratified_unadjusted,position_offset,Ahmed-Inspired Witness V-PUFT vs Distributed RSU V-PUFT,0.96875,0.81875,-0.15000000000000002,-0.20640625000000004,-0.09375,True,False
+exploratory_attack_stratified_unadjusted,replay,Distributed RSU V-PUFT vs Centralized V-PUFT,0.7468354430379747,0.7468354430379747,0.0,0.0,0.0,False,False
+exploratory_attack_stratified_unadjusted,replay,Ahmed-Inspired Witness V-PUFT vs Centralized V-PUFT,0.7468354430379747,0.8734177215189873,0.12658227848101267,0.125,0.12903225806451613,True,False
+exploratory_attack_stratified_unadjusted,replay,Ahmed-Inspired Witness V-PUFT vs Distributed RSU V-PUFT,0.7468354430379747,0.8734177215189873,0.12658227848101267,0.125,0.12903225806451613,True,False
+exploratory_attack_stratified_unadjusted,speed_offset,Distributed RSU V-PUFT vs Centralized V-PUFT,0.9874213836477987,0.9874213836477987,0.0,0.0,0.0,False,False
+exploratory_attack_stratified_unadjusted,speed_offset,Ahmed-Inspired Witness V-PUFT vs Centralized V-PUFT,0.9874213836477987,0.8679245283018868,-0.11949685534591192,-0.16981132075471694,-0.06874999999999998,True,False
+exploratory_attack_stratified_unadjusted,speed_offset,Ahmed-Inspired Witness V-PUFT vs Distributed RSU V-PUFT,0.9874213836477987,0.8679245283018868,-0.11949685534591192,-0.1708860759493671,-0.069620253164557,True,False

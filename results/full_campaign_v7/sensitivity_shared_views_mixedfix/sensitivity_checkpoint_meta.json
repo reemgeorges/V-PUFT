@@ -1,0 +1,14 @@
+{
+  "input": {
+    "path": "C:\\Users\\reemg\\OneDrive\\Desktop\\master\\6\\v10\\results\\full_campaign_v7\\all_topologies_evidence_campaign.csv",
+    "size": 197274849,
+    "mtime_ns": 1786299667495112200,
+    "edge_sha256": "a385b7cd70769c9e8d963a70d6375c1d1dd2026b0e7ca1b3155cebfad26c2319"
+  },
+  "candidates": 1200,
+  "folds": 5,
+  "min_recall": 0.95,
+  "max_frr": 0.05,
+  "random_seed": 20260804,
+  "engine": "fast-v3-source-view-robust-policy-aligned-log-mass"
+}

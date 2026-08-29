@@ -1,0 +1,30 @@
+{
+  "frozen_candidate": 650,
+  "weights": {
+    "C": 0.3652673861753211,
+    "rho": 0.16195260151983162,
+    "F": 0.06370517641034751,
+    "Q": 0.40608957775126925,
+    "eta": 0.0029852581432305157
+  },
+  "weights_file": "results\\full_campaign_v7\\sensitivity_shared_views_mixedfix\\selected_weights.json",
+  "weights_sha256": "4E8CB5C1D8804CA9F24537A4E0796E514B13474125299EC0E22490D44614C6C9",
+  "config_file": "configs\\full_experiment.json",
+  "config_sha256": "71ED5637B3F90C6CDE6EBE8302D9AF1A571CB671CFA07DC3413F47B516391220",
+  "freeze_root": "FINAL_FREEZE_v7_20260809",
+  "expected_external_config_sha256": "71ED5637B3F90C6CDE6EBE8302D9AF1A571CB671CFA07DC3413F47B516391220",
+  "external_config_hash_verified": true,
+  "policy_invariants": {
+    "mixed.required_modalities": 1
+  },
+  "input_trace_sha256": {
+    "results\\full_campaign_v7\\smoke\\sensor_detection_trace_all_seeds.jsonl": "97B272AB0791BF77C3B5AE2B3F7E7D323ADF063A383D1091B21B091B51D09013",
+    "results\\full_campaign_v7\\corridor\\sensor_detection_trace_all_seeds.jsonl": "BB59A07469A69E6F973312917C01CD5A428FB1CC8B126426E1FFD33E3D7D9589",
+    "results\\full_campaign_v7\\intersection\\sensor_detection_trace_all_seeds.jsonl": "5E7BA970BBCA708E342102492389507CD14F025FBD7290871DDD850D64BD6DC0",
+    "results\\full_campaign_v7\\grid\\sensor_detection_trace_all_seeds.jsonl": "66410E764A9CC4D483BFF0DDDF45CCD0FE17BD3BCAB374BCFED7D1DC0BC924C5"
+  },
+  "sumo_rerun": false,
+  "detector_rerun": false,
+  "calibration_rerun": false,
+  "candidate_search_rerun": false
+}

@@ -1,0 +1,110 @@
+{
+  "weights": {
+    "C": 0.3652673861753211,
+    "rho": 0.16195260151983162,
+    "F": 0.06370517641034751,
+    "Q": 0.40608957775126925,
+    "eta": 0.0029852581432305157
+  },
+  "attack_policies": {
+    "position_offset": {
+      "margin_threshold": 0.45,
+      "opposition_lambda": 1.0,
+      "required_roots": 2,
+      "required_sources": 2,
+      "required_zones": 2,
+      "required_modalities": 1
+    },
+    "speed_offset": {
+      "margin_threshold": 0.45,
+      "opposition_lambda": 1.0,
+      "required_roots": 2,
+      "required_sources": 2,
+      "required_zones": 1,
+      "required_modalities": 1
+    },
+    "replay": {
+      "margin_threshold": 0.35,
+      "opposition_lambda": 1.0,
+      "required_roots": 1,
+      "required_sources": 1,
+      "required_zones": 1,
+      "required_modalities": 1
+    },
+    "certificate_tamper": {
+      "margin_threshold": 0.25,
+      "opposition_lambda": 1.0,
+      "required_roots": 1,
+      "required_sources": 1,
+      "required_zones": 1,
+      "required_modalities": 1
+    },
+    "flood": {
+      "margin_threshold": 0.5,
+      "opposition_lambda": 1.0,
+      "required_roots": 2,
+      "required_sources": 2,
+      "required_zones": 1,
+      "required_modalities": 1
+    },
+    "false_denm": {
+      "margin_threshold": 0.5,
+      "opposition_lambda": 1.0,
+      "required_roots": 2,
+      "required_sources": 2,
+      "required_zones": 2,
+      "required_modalities": 1
+    },
+    "mixed": {
+      "margin_threshold": 0.55,
+      "opposition_lambda": 1.0,
+      "required_roots": 2,
+      "required_sources": 2,
+      "required_zones": 2,
+      "required_modalities": 1
+    },
+    "benign": {
+      "margin_threshold": 0.5,
+      "opposition_lambda": 1.0,
+      "required_roots": 2,
+      "required_sources": 2,
+      "required_zones": 1,
+      "required_modalities": 1
+    }
+  },
+  "selection_feasible": false,
+  "selection_constraints": {
+    "min_recall": 0.95,
+    "max_frr": 0.05
+  },
+  "development_seeds": [
+    1001,
+    1002,
+    1004,
+    1005,
+    1006,
+    1008,
+    1009,
+    1010
+  ],
+  "holdout_seeds": [
+    1003,
+    1007
+  ],
+  "holdout_metrics": {
+    "TP": 335,
+    "FP": 47,
+    "TN": 1932,
+    "FN": 67,
+    "recall": 0.8333333333333334,
+    "frr": 0.023749368367862556,
+    "precision": 0.8769633507853403,
+    "specificity": 0.9762506316321374,
+    "f1": 0.8545918367346937,
+    "mcc": 0.8263418399892304,
+    "balanced_accuracy": 0.9047919824827354
+  },
+  "method": "grouped CV weight-only selection with fixed predeclared attack policies; validation constraints/ranking evaluated on every fold x evidence-source view; untouched holdout + grouped bootstrap + ablation + grouped permutation importance",
+  "engine": "fast vectorized policy-aligned log-evidence-mass evaluator with checkpoint/resume",
+  "warning": "No candidate met all predeclared recall/FRR constraints; the least-bad ranked candidate was retained."
+}

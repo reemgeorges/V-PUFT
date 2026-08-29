@@ -12,6 +12,16 @@
 
 ## Infrastructure faults and attacks
 
+<!-- POST_CLAUDE_ACTIVE_SCOPE_V4 -->
+> Scope note: this section enumerates modeled threats/fault capabilities. The frozen final campaign used
+> `validator_behaviors={}` and did not activate malicious semantic PBFT proposals; therefore it does not constitute
+> an empirical Byzantine-Safety experiment. Future robustness runs must record fault configuration **and activation**.
+>
+<!-- POST_CLAUDE_FAULT_ACTIVATION_V5 -->
+> A listed fault behavior is not automatically an exercised fault. In a replay path where the required semantic
+> stimulus is absent, a configured behavior (for example accept-invalid/equivocation) can be a no-op. Robustness
+> claims therefore require explicit `fault_activated` / event evidence, not configuration alone.
+
 - central server outage
 - central false-revocation compromise
 - central censorship compromise

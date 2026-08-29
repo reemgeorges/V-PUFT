@@ -1,0 +1,36 @@
+﻿V-PUFT FINAL EXPERIMENT FREEZE
+Date: 2026-08-09
+Version: v7 final
+
+Included corrections:
+- Ground-truth isolation
+- Sensor/oracle isolation
+- Root-aware attack inference
+- Replay inference correction
+- Single runtime case-formation pass
+- RSU/Witness calibration-view separation
+- Shared weight selection
+- Transport-fair architecture comparison
+- Ahmed article-native threshold retained as reference/ablation only
+- Mixed required_modalities feasibility correction: 2 -> 1
+
+Final selected candidate: 650
+
+Final shared weights:
+C   = 0.3652673861753211
+rho = 0.16195260151983162
+F   = 0.06370517641034751
+Q   = 0.40608957775126925
+eta = 0.0029852581432305157
+
+Calibration holdout:
+Recall = 0.8333333333333334
+FRR    = 0.023749368367862556
+MCC    = 0.8263418399892304
+
+IMPORTANT:
+selection_feasible = false
+Predeclared constraints were NOT changed post hoc.
+
+SUMO was not rerun for the corrective v7 stages.
+Original completed SUMO campaign remains under results/full_campaign.

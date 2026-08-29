@@ -1,0 +1,13 @@
+{
+  "analysis_type": "post_freeze_latency_decomposition",
+  "experiments_rerun": false,
+  "stage_source": "final_metrics_by_seed.csv (metrics.py stage deltas)",
+  "reconstruction_used": false,
+  "stacked_visualisation": false,
+  "share_of_total_reported": false,
+  "share_of_total_blocked_reason": "requires paired per-case timings; percentiles are not additive",
+  "detection_stage_assumed_shared_across_architectures": false,
+  "finalization_stage_is_cleanest_central_vs_pbft_comparison": true,
+  "input_metrics": ".\\\\results\\\\full_campaign_v7\\\\final_architectures\\\\final_metrics_by_seed.csv",
+  "input_metrics_sha256": "E59133BE68F504CB8B4ECCA01190C9A92BDDCD51138823EB5F81D22C3726E5DE"
+}

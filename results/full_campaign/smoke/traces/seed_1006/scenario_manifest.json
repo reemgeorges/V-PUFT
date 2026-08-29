@@ -1,0 +1,31 @@
+{
+  "mode": "sumo_traci",
+  "seed": 1006,
+  "sumo_binary": "C:\\Program Files (x86)\\Eclipse\\Sumo\\bin\\sumo.exe",
+  "scenario_directory": "C:\\Users\\reemg\\OneDrive\\Desktop\\master\\6\\v10\\sumo\\smoke",
+  "scenario_files": {
+    "smoke.net.xml": "ef7eec369fc13e3a9c0f98b66fb7954126baf94e3737f9ff45e1ae0c13ea34b8",
+    "smoke.rou.xml": "8b2f110732a3077c119f331578501c7a95f2db623821687ccffecdb5f670ecc0",
+    "smoke.sumocfg": "059b2b8523bfc260957276fae4017e0aeb07f754a5cb0ee6d57a78a14312de22",
+    "rsus.json": "47fb949b0afe1f2c9aa2ca8793e93bdd325e741300390b937c7fa1bcf190699c",
+    "attacks.json": "dca31a5d6e05491bc984bd3bc6226111feb80571d7a6d7349bac9bee8d4bfbdb"
+  },
+  "counts": {
+    "mobility_snapshots": 2004,
+    "v2x_messages": 2375,
+    "detection_events": 21455,
+    "cases": 31,
+    "rsu_events": 5293,
+    "witness_events": 16162
+  },
+  "outputs": [
+    "mobility_trace.csv",
+    "generated_messages.csv",
+    "attack_ground_truth.csv",
+    "local_detections.csv",
+    "shared_detection_trace.jsonl",
+    "shared_detection_trace.csv",
+    "evidence_campaign.csv",
+    "sumo_tripinfo.xml"
+  ]
+}

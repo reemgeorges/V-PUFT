@@ -1,0 +1,60 @@
+{
+  "analysis": "supplementary central-server backhaul latency sensitivity",
+  "scope": "post-freeze one-factor latency sensitivity",
+  "frozen_reference": {
+    "tag": "thesis-final-2026-08-19",
+    "commit": "f32aec6aad16a9da76357ae6ca11cdd4c1b9f2b8"
+  },
+  "supplementary_branch": "supplementary/backhaul-sensitivity-20260819",
+  "sweep_levels_one_way_ms": [
+    0,
+    20,
+    50,
+    100,
+    200
+  ],
+  "varied_parameter": "network.central_backhaul_extra_latency_ms",
+  "application_scope": "receiver == \"central-server\"",
+  "fixed_inputs": {
+    "sumo_rerun": false,
+    "detector_rebuild": false,
+    "weight_sensitivity_rerun": false,
+    "candidate": 650,
+    "same_frozen_traces": true,
+    "same_seeds": true,
+    "distributed_unchanged": true,
+    "ahmed_unchanged": true
+  },
+  "integrity": {
+    "classification_flips_total": 0,
+    "latency_only_integrity": true,
+    "TP": 813,
+    "FP": 82,
+    "TN": 4905,
+    "FN": 192
+  },
+  "result": {
+    "baseline_distributed_minus_central_p95_median_ms": 167.80371687783918,
+    "break_even_one_way_extra_latency_ms": 167.80371687783645,
+    "break_even_bracket_ms": [
+      100.0,
+      200.0
+    ],
+    "interpolation": "linear between adjacent tested levels where paired-median difference changes sign"
+  },
+  "input_hashes_sha256": {
+    "selected_weights_json": "4e8cb5c1d8804ca9f24537a4e0796e514b13474125299ec0e22490d44614c6c9",
+    "frozen_sensor_traces": {
+      "smoke": "97b272ab0791bf77c3b5ae2b3f7e7d323adf063a383d1091b21b091b51d09013",
+      "corridor": "bb59a07469a69e6f973312917c01cd5a428fb1cc8b126426e1ffd33e3d7d9589",
+      "intersection": "5e7ba970bbca708e342102492389507cd14f025fbd7290871ddd850d64bd6dc0",
+      "grid": "66410e764a9cc4d483bff0dddf45ccd0fe17bd3bcab374bcfed7d1dc0bc924c5"
+    }
+  },
+  "outputs": [
+    "SUPPLEMENTARY_BACKHAUL_REPORT_AR.md",
+    "supplementary_backhaul_results.csv",
+    "supplementary_backhaul_latency_sensitivity.png"
+  ],
+  "claim_boundary": "Model-conditional parametric result only; not a measured WAN/cloud deployment result and not a revision of the frozen main campaign."
+}

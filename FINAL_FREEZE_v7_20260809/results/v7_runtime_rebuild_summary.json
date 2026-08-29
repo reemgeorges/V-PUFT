@@ -1,0 +1,12 @@
+{
+  "source_campaign": "C:\\Users\\reemg\\OneDrive\\Desktop\\master\\6\\v10\\results\\full_campaign",
+  "output_campaign": "C:\\Users\\reemg\\OneDrive\\Desktop\\master\\6\\v10\\results\\full_campaign_v7",
+  "sumo_rerun_required": false,
+  "detector_reassessment_from_existing_traces": true,
+  "root_aware_runtime_case_formation": true,
+  "runtime_case_formation_passes_for_calibration": 1,
+  "architecture_replay_rule": "Pass sensor_detection_trace_all_seeds.jsonl to run_trace_campaign; do NOT pass runtime_root_aware_trace_audit_only.jsonl.",
+  "evidence_campaign": "C:\\Users\\reemg\\OneDrive\\Desktop\\master\\6\\v10\\results\\full_campaign_v7\\all_topologies_evidence_campaign.csv",
+  "attack_inference_audit": "C:\\Users\\reemg\\OneDrive\\Desktop\\master\\6\\v10\\results\\full_campaign_v7\\attack_inference_audit.csv",
+  "runtime_rebuild_audit": "C:\\Users\\reemg\\OneDrive\\Desktop\\master\\6\\v10\\results\\full_campaign_v7\\runtime_rebuild_audit.csv"
+}

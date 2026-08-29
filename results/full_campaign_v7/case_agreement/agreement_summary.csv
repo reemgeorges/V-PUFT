@@ -1,0 +1,4 @@
+arch_a,arch_b,n_cases_A,n_cases_B,n_shared,n_A_only,n_B_only,coverage_identical,n_agree,n_disagree,agreement_rate,cohens_kappa,a_revoked_b_kept,a_kept_b_revoked,n_discordant,mcnemar_test,mcnemar_statistic,mcnemar_p
+Centralized V-PUFT,Distributed RSU V-PUFT,5992,5992,5992,0,0,True,5992,0,1.0,1.0,0,0,0,none,,1.0
+Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,5992,5953,5953,39,0,False,5691,262,0.9559885771879725,0.8392614514232761,53,209,262,chi2_continuity_corrected,91.69847328244275,0.0
+Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,5992,5953,5953,39,0,False,5691,262,0.9559885771879725,0.8392614514232761,53,209,262,chi2_continuity_corrected,91.69847328244275,0.0

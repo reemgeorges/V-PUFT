@@ -1,0 +1,58 @@
+{
+  "analysis_type": "post_freeze_statistical_validation",
+  "experiments_rerun": false,
+  "bootstrap_resamples": 10000,
+  "bootstrap_stratified_by": "topology",
+  "bootstrap_composition": {
+    "corridor": 10,
+    "grid": 10,
+    "intersection": 10,
+    "smoke": 10
+  },
+  "permutation_resamples": 20000,
+  "rng_seed": 20260814,
+  "alpha": 0.05,
+  "cluster_columns": [
+    "topology",
+    "seed"
+  ],
+  "primary_family": [
+    "malicious_revocation_recall",
+    "false_revocation_rate",
+    "mcc"
+  ],
+  "primary_multiplicity_correction": "Holm step-down FWER",
+  "primary_reported_p_values": [
+    "raw_p",
+    "holm_adjusted_p"
+  ],
+  "primary_decision_column": "holm_reject",
+  "secondary_family": [
+    "trust_precision",
+    "trust_f1",
+    "latency_p95_ms",
+    "messages_per_decision",
+    "bytes_per_decision",
+    "peak_memory_kb"
+  ],
+  "secondary_multiplicity_correction": null,
+  "effect_sizes": [
+    "matched_pairs_rank_biserial",
+    "cohens_dz"
+  ],
+  "architectures": [
+    "centralized_vpuft",
+    "distributed_rsu_vpuft",
+    "ahmed_inspired_witness_vpuft"
+  ],
+  "input_metrics": ".\\results\\full_campaign_v7\\final_architectures\\final_metrics_by_seed.csv",
+  "input_metrics_sha256": "E59133BE68F504CB8B4ECCA01190C9A92BDDCD51138823EB5F81D22C3726E5DE",
+  "input_decisions": ".\\results\\full_campaign_v7\\final_architectures\\final_decisions.csv",
+  "input_decisions_sha256": "C2979CE4BE99D9595143BA416E6FF47DBC24BE87A51ABB8D8B6BDE1CE20FA457",
+  "attack_stratified_analysis": {
+    "status": "exploratory",
+    "multiplicity_adjusted": false,
+    "metric": "recall",
+    "benign_excluded": true
+  }
+}

@@ -39,6 +39,7 @@ class AttackPolicy:
 class NetworkConfig:
     base_latency_ms: float = 8.0
     jitter_ms: float = 3.0
+    central_backhaul_extra_latency_ms: float = 0.0
     packet_delivery_ratio: float = 0.98
     max_retries: int = 2
     retry_backoff_ms: float = 5.0
@@ -153,6 +154,8 @@ class ResearchConfig:
             raise ValueError("PBFT validator identities must be unique")
         if not 0 < self.network.packet_delivery_ratio <= 1:
             raise ValueError("PDR must be in (0, 1]")
+        if self.network.central_backhaul_extra_latency_ms < 0:
+            raise ValueError("central_backhaul_extra_latency_ms cannot be negative")
         if self.network.max_retries < 0:
             raise ValueError("max_retries cannot be negative")
         if self.central.workers < 1 or self.central.queue_capacity < 1:

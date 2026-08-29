@@ -1,0 +1,59 @@
+{
+  "scope": "shared V-PUFT weight recalibration only",
+  "sumo_rerun_required": false,
+  "detector_rebuild_required": false,
+  "calibration_case_semantics": "RSU and witness evidence are separate runtime views; never fused into one case",
+  "selection_rule": "one shared weight vector; ranking/constraints use worst fold x evidence-source view",
+  "selected_weights": {
+    "C": 0.3652673861753211,
+    "rho": 0.16195260151983162,
+    "F": 0.06370517641034751,
+    "Q": 0.40608957775126925,
+    "eta": 0.0029852581432305157
+  },
+  "selection_feasible": false,
+  "holdout_metrics_overall": {
+    "TP": 335,
+    "FP": 47,
+    "TN": 1932,
+    "FN": 67,
+    "recall": 0.8333333333333334,
+    "frr": 0.023749368367862556,
+    "precision": 0.8769633507853403,
+    "specificity": 0.9762506316321374,
+    "f1": 0.8545918367346937,
+    "mcc": 0.8263418399892304,
+    "balanced_accuracy": 0.9047919824827354
+  },
+  "holdout_metrics_by_calibration_view": [
+    {
+      "calibration_view": "rsu",
+      "TP": 158,
+      "FP": 16,
+      "TN": 977,
+      "FN": 43,
+      "recall": 0.7860696517412935,
+      "frr": 0.0161127895266868,
+      "precision": 0.9080459770114944,
+      "specificity": 0.9838872104733132,
+      "f1": 0.8426666666666667,
+      "mcc": 0.8165153185619604,
+      "balanced_accuracy": 0.8849784311073033
+    },
+    {
+      "calibration_view": "witness",
+      "TP": 177,
+      "FP": 31,
+      "TN": 955,
+      "FN": 24,
+      "recall": 0.8805970149253731,
+      "frr": 0.0314401622718052,
+      "precision": 0.8509615384615384,
+      "specificity": 0.9685598377281948,
+      "f1": 0.8655256723716381,
+      "mcc": 0.8377248366559228,
+      "balanced_accuracy": 0.924578426326784
+    }
+  ],
+  "output": "C:\\Users\\reemg\\OneDrive\\Desktop\\master\\6\\v10\\results\\full_campaign_v7\\sensitivity_shared_views_mixedfix"
+}

@@ -1,0 +1,15 @@
+arch_a,arch_b,attack_type,n_disagreements
+Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,benign,71
+Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,false_denm,27
+Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,flood,2
+Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,mixed,91
+Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,position_offset,28
+Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,replay,20
+Centralized V-PUFT,Ahmed-Inspired Witness V-PUFT,speed_offset,23
+Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,benign,71
+Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,false_denm,27
+Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,flood,2
+Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,mixed,91
+Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,position_offset,28
+Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,replay,20
+Distributed RSU V-PUFT,Ahmed-Inspired Witness V-PUFT,speed_offset,23

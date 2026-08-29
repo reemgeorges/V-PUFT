@@ -1,0 +1,227 @@
+{
+  "historical_baseline_commit": "10b7ab507351818a7d8a1685d13a6c6b5cfd867b",
+  "base_config": "configs/full_experiment.json",
+  "final_weights_source": "results/full_campaign_v7/sensitivity_shared_views_mixedfix/selected_weights.json",
+  "selected_candidate": 650,
+  "selection_feasible": false,
+  "selection_constraints": {
+    "min_recall": 0.95,
+    "max_frr": 0.05
+  },
+  "development_seeds": [
+    1001,
+    1002,
+    1004,
+    1005,
+    1006,
+    1008,
+    1009,
+    1010
+  ],
+  "holdout_seeds": [
+    1003,
+    1007
+  ],
+  "holdout_metrics": {
+    "TP": 335,
+    "FP": 47,
+    "TN": 1932,
+    "FN": 67,
+    "recall": 0.8333333333333334,
+    "frr": 0.023749368367862556,
+    "precision": 0.8769633507853403,
+    "specificity": 0.9762506316321374,
+    "f1": 0.8545918367346937,
+    "mcc": 0.8263418399892304,
+    "balanced_accuracy": 0.9047919824827354
+  },
+  "composition_note": "replay_final_v7.py loads configs/full_experiment.json and replaces only WeightConfig from selected_weights.json; effective_runtime_config below is that merged runtime snapshot.",
+  "environment_reproducibility_note": "The frozen baseline has no dependency lockfile/pip-freeze artifact; exact original package versions cannot be reconstructed from repository state alone.",
+  "effective_runtime_config": {
+    "weights": {
+      "C": 0.3652673861753211,
+      "rho": 0.16195260151983162,
+      "F": 0.06370517641034751,
+      "Q": 0.40608957775126925,
+      "eta": 0.0029852581432305157
+    },
+    "network": {
+      "base_latency_ms": 8.0,
+      "jitter_ms": 3.0,
+      "packet_delivery_ratio": 0.98,
+      "max_retries": 2,
+      "retry_backoff_ms": 5.0,
+      "queue_rate_bytes_per_second": 2000000.0
+    },
+    "pbft": {
+      "validators": [
+        "rsu-1",
+        "rsu-2",
+        "rsu-3",
+        "rsu-4"
+      ],
+      "max_byzantine": 1,
+      "timeout_ms": 120.0,
+      "max_views": 4,
+      "validator_behaviors": {},
+      "state_recovery_enabled": true
+    },
+    "central": {
+      "workers": 4,
+      "service_time_ms": 12.0,
+      "queue_capacity": 1000,
+      "availability": 0.995,
+      "compromised": false,
+      "compromise_mode": "false_revocation",
+      "audit_replica_enabled": true
+    },
+    "detector": {
+      "rsu_range_m": 450.0,
+      "witness_range_m": 180.0,
+      "position_error_threshold_m": 20.0,
+      "speed_error_threshold_mps": 5.0,
+      "replay_max_age_seconds": 2.5,
+      "flood_messages_per_second": 3,
+      "false_denm_deceleration_threshold_mps2": -3.0,
+      "benign_clean_confidence": 0.78,
+      "freshness_tau_seconds": 12.0
+    },
+    "sumo": {
+      "step_length_seconds": 1.0,
+      "end_time_seconds": 95.0,
+      "use_gui": false,
+      "sumo_binary": null,
+      "netconvert_binary": null,
+      "scenario_directory": "sumo/smoke",
+      "rsu_file": "rsus.json",
+      "attack_file": "attacks.json",
+      "deterministic_seed": 1001,
+      "keep_sumo_output": true
+    },
+    "security": {
+      "deterministic_master_seed": "vpuft-thesis-reproducible-keys-v1",
+      "compromised_rsus": [],
+      "compromised_witness_ratio": 0.1
+    },
+    "simulation": {
+      "seeds": [
+        1001,
+        1002,
+        1003,
+        1004,
+        1005,
+        1006,
+        1007,
+        1008,
+        1009,
+        1010
+      ],
+      "cases_per_seed": 60,
+      "malicious_ratio": 0.3,
+      "witness_count_mean": 4.0,
+      "rsu_count": 6,
+      "source": "sumo"
+    },
+    "policies": {
+      "position_offset": {
+        "required_roots": 2,
+        "required_sources": 2,
+        "required_zones": 2,
+        "required_modalities": 1,
+        "margin_threshold": 0.45,
+        "opposition_lambda": 1.0,
+        "cryptographic_decisive": false,
+        "freshness_window_seconds": 15.0,
+        "min_representative_weight": 0.05
+      },
+      "speed_offset": {
+        "required_roots": 2,
+        "required_sources": 2,
+        "required_zones": 1,
+        "required_modalities": 1,
+        "margin_threshold": 0.45,
+        "opposition_lambda": 1.0,
+        "cryptographic_decisive": false,
+        "freshness_window_seconds": 15.0,
+        "min_representative_weight": 0.05
+      },
+      "replay": {
+        "required_roots": 1,
+        "required_sources": 1,
+        "required_zones": 1,
+        "required_modalities": 1,
+        "margin_threshold": 0.35,
+        "opposition_lambda": 1.0,
+        "cryptographic_decisive": true,
+        "freshness_window_seconds": 15.0,
+        "min_representative_weight": 0.05
+      },
+      "certificate_tamper": {
+        "required_roots": 1,
+        "required_sources": 1,
+        "required_zones": 1,
+        "required_modalities": 1,
+        "margin_threshold": 0.25,
+        "opposition_lambda": 1.0,
+        "cryptographic_decisive": true,
+        "freshness_window_seconds": 15.0,
+        "min_representative_weight": 0.05
+      },
+      "flood": {
+        "required_roots": 2,
+        "required_sources": 2,
+        "required_zones": 1,
+        "required_modalities": 1,
+        "margin_threshold": 0.5,
+        "opposition_lambda": 1.0,
+        "cryptographic_decisive": false,
+        "freshness_window_seconds": 15.0,
+        "min_representative_weight": 0.05
+      },
+      "false_denm": {
+        "required_roots": 2,
+        "required_sources": 2,
+        "required_zones": 2,
+        "required_modalities": 1,
+        "margin_threshold": 0.5,
+        "opposition_lambda": 1.0,
+        "cryptographic_decisive": false,
+        "freshness_window_seconds": 15.0,
+        "min_representative_weight": 0.05
+      },
+      "mixed": {
+        "required_roots": 2,
+        "required_sources": 2,
+        "required_zones": 2,
+        "required_modalities": 1,
+        "margin_threshold": 0.55,
+        "opposition_lambda": 1.0,
+        "cryptographic_decisive": false,
+        "freshness_window_seconds": 15.0,
+        "min_representative_weight": 0.05
+      },
+      "benign": {
+        "required_roots": 2,
+        "required_sources": 2,
+        "required_zones": 1,
+        "required_modalities": 1,
+        "margin_threshold": 0.5,
+        "opposition_lambda": 1.0,
+        "cryptographic_decisive": false,
+        "freshness_window_seconds": 15.0,
+        "min_representative_weight": 0.05
+      }
+    }
+  },
+  "evidence_views": {
+    "centralized_vpuft": "bundle.rsu_cases",
+    "distributed_rsu_vpuft": "bundle.rsu_cases",
+    "ahmed_inspired_witness_vpuft": "bundle.witness_cases"
+  },
+  "rerun_contract": {
+    "sumo": false,
+    "detector": false,
+    "recalibration": false,
+    "overwrite_frozen_results": false
+  }
+}

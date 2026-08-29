@@ -1,0 +1,93 @@
+{
+  "thesis_title_ar": "تقييم أداء شبكات المركبات اللاسلكية المعتمدة على سلاسل الكتل",
+  "thesis_title_en": "Performance Evaluation of Blockchain-Based VANETs",
+  "chapter": "الفصل الخامس - النتائج والمناقشة",
+  "final_candidate": 650,
+  "weights": {
+    "C": 0.3652673861753211,
+    "rho": 0.16195260151983162,
+    "F": 0.06370517641034751,
+    "Q": 0.40608957775126925,
+    "eta": 0.0029852581432305157
+  },
+  "holdout": {
+    "TP": 335,
+    "FP": 47,
+    "TN": 1932,
+    "FN": 67,
+    "recall": 0.8333333333333334,
+    "frr": 0.023749368367862556,
+    "precision": 0.8769633507853403,
+    "f1": 0.8545918367346937,
+    "mcc": 0.8263418399892304,
+    "balanced_accuracy": 0.9047919824827354,
+    "selection_feasible": false
+  },
+  "global": {
+    "Centralized V-PUFT": {
+      "precision": 0.9081843591191416,
+      "recall": 0.8090592251950948,
+      "frr": 0.016492205540973175,
+      "f1": 0.855098,
+      "mcc": 0.830297,
+      "latency_p95_ms": 14183.849747,
+      "messages_per_decision": 48.05368,
+      "bytes_per_decision": 33829.790693,
+      "pdr": 0.980122,
+      "runtime_s": 1.993622,
+      "peak_memory_kb": 6340.641357
+    },
+    "Distributed RSU V-PUFT": {
+      "precision": 0.9081843591191416,
+      "recall": 0.8090592251950948,
+      "frr": 0.016492205540973175,
+      "f1": 0.855098,
+      "mcc": 0.830297,
+      "latency_p95_ms": 14356.600514,
+      "messages_per_decision": 45.385926,
+      "bytes_per_decision": 30779.183202,
+      "pdr": 0.98031,
+      "runtime_s": 2.057278,
+      "peak_memory_kb": 6262.556323
+    },
+    "Ahmed-Inspired Witness V-PUFT": {
+      "precision": 0.8546122303622303,
+      "recall": 0.8939799331103678,
+      "frr": 0.030931005888951712,
+      "f1": 0.873033,
+      "mcc": 0.847417,
+      "latency_p95_ms": 14682.74898,
+      "messages_per_decision": 168.061515,
+      "bytes_per_decision": 125295.283005,
+      "pdr": 0.980271,
+      "runtime_s": 4.307634,
+      "peak_memory_kb": 14615.812378
+    }
+  },
+  "reporting_revision": "FINAL_OBJECTIVES_ALIGNMENT_V7_20260819",
+  "reporting_revision_scope": "Official-objective alignment and Chapter 5 wording correction only; no experiment rerun, no detector/calibration change, no frozen scientific data rewrite",
+  "experiment_rerun": false,
+  "frozen_v7_modified": false,
+  "chapter_sha256": "9267E573A4E9F046BC6173772F20DF3E07F92DADAC899AD75F0AB1F975D23533",
+  "validation": "source-derived semantic/numerical validation; see VALIDATION.json",
+  "updated_at_utc": "2026-08-19T08:08:08.102836+00:00",
+  "research_objectives_alignment": {
+    "blockchain_vanet_performance": "Centralized↔Distributed is the cleanest finalization comparison with a shared RSU evidence view; Ahmed↔RSU is an integrated evidence-path comparison.",
+    "authentication_and_message_exchange": "Three authenticated message-exchange integration methods are compared empirically while Ed25519 is deliberately held constant; cryptographic-primitive benchmarking (PKI/Group/Ring/Threshold Ring alternatives) remains theoretical/Related Work.",
+    "topology_recommendation": "Corridor is metric-conditional within tested scenarios, not a universal/causal topology recommendation."
+  },
+  "test_status": {
+    "collected": 32,
+    "passed": 31,
+    "skipped": 1,
+    "skipped_reason": "SUMO/TraCI unavailable in the audited test environment"
+  },
+  "official_objectives": {
+    "general": "دراسة طرق دمج تقنية سلاسل الكتل Blockchain مع شبكات المركبات اللاسلكية VANET وتقييم أداءها وتشمل:",
+    "subobjectives": [
+      "مقارنة الطرق المختلفة المستخدمة في تحقيق المصادقة وتبادل الرسائل",
+      "اقتراح طوبولوجية الشبكة المناسبة التي تساعد في تحقيق أفضل أداء."
+    ],
+    "hierarchy": "one general objective containing two sub-objectives"
+  }
+}

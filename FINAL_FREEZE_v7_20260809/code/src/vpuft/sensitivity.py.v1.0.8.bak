@@ -1,0 +1,791 @@
+from __future__ import annotations
+
+import hashlib
+import json
+import os
+from concurrent.futures import ThreadPoolExecutor
+from dataclasses import asdict, dataclass
+from pathlib import Path
+from typing import Iterable
+
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import GroupKFold
+
+from .config import ResearchConfig, WeightConfig
+from .reporting import plot_weight_stability
+
+
+FACTOR_COLUMNS = [
+    "detector_confidence",
+    "source_reliability",
+    "freshness",
+    "verifiability",
+    "independence",
+]
+WEIGHT_KEYS = ["C", "rho", "F", "Q", "eta"]
+
+
+@dataclass(frozen=True)
+class Candidate:
+    weights: WeightConfig
+
+
+@dataclass
+class PreparedEvidence:
+    """Immutable structural preprocessing for fast candidate evaluation.
+
+    Expensive grouping/factorization is performed once. A candidate changes only
+    the geometric evidence weights, so candidate evaluation can remain NumPy-only.
+    """
+
+    df: pd.DataFrame
+    log_factors: np.ndarray
+    validity: np.ndarray
+    direction: np.ndarray
+    root_code: np.ndarray
+    root_count: int
+    root_to_case: np.ndarray
+    case_count: int
+    case_architecture: np.ndarray
+    case_id: np.ndarray
+    case_label: np.ndarray
+    case_seed: np.ndarray
+    case_attack: np.ndarray
+    source_code: np.ndarray
+    zone_code: np.ndarray
+    modality_code: np.ndarray
+    source_base: int
+    zone_base: int
+    modality_base: int
+    verifiability: np.ndarray
+    min_rep_weight_by_case: np.ndarray
+    required_roots_by_case: np.ndarray
+    required_sources_by_case: np.ndarray
+    required_zones_by_case: np.ndarray
+    required_modalities_by_case: np.ndarray
+    policy_margin_by_case: np.ndarray
+    policy_lambda_by_case: np.ndarray
+    crypto_decisive_by_case: np.ndarray
+
+
+@dataclass
+class FastPrediction:
+    prediction: np.ndarray
+    supporting_strength: np.ndarray
+    opposing_strength: np.ndarray
+    margin: np.ndarray
+    independent_roots: np.ndarray
+    distinct_sources: np.ndarray
+    distinct_zones: np.ndarray
+    distinct_modalities: np.ndarray
+    correlated_reports_suppressed: np.ndarray
+
+
+def _safe_div(a: float, b: float) -> float:
+    return float(a / b) if b else 0.0
+
+
+def _metrics(y: np.ndarray, pred: np.ndarray) -> dict[str, float]:
+    tp = int(np.sum((y == 1) & (pred == 1)))
+    fp = int(np.sum((y == 0) & (pred == 1)))
+    tn = int(np.sum((y == 0) & (pred == 0)))
+    fn = int(np.sum((y == 1) & (pred == 0)))
+    recall = _safe_div(tp, tp + fn)
+    frr = _safe_div(fp, fp + tn)
+    precision = _safe_div(tp, tp + fp)
+    specificity = _safe_div(tn, tn + fp)
+    denom = np.sqrt((tp + fp) * (tp + fn) * (tn + fp) * (tn + fn))
+    mcc = _safe_div(tp * tn - fp * fn, float(denom))
+    balanced = 0.5 * (recall + specificity)
+    f1 = _safe_div(2 * precision * recall, precision + recall)
+    return {
+        "TP": tp,
+        "FP": fp,
+        "TN": tn,
+        "FN": fn,
+        "recall": recall,
+        "frr": frr,
+        "precision": precision,
+        "specificity": specificity,
+        "f1": f1,
+        "mcc": mcc,
+        "balanced_accuracy": balanced,
+    }
+
+
+def _metrics_from_counts(tp: int, fp: int, tn: int, fn: int) -> dict[str, float]:
+    recall = _safe_div(tp, tp + fn)
+    frr = _safe_div(fp, fp + tn)
+    precision = _safe_div(tp, tp + fp)
+    specificity = _safe_div(tn, tn + fp)
+    denom = np.sqrt((tp + fp) * (tp + fn) * (tn + fp) * (tn + fn))
+    mcc = _safe_div(tp * tn - fp * fn, float(denom))
+    balanced = 0.5 * (recall + specificity)
+    f1 = _safe_div(2 * precision * recall, precision + recall)
+    return {
+        "TP": int(tp), "FP": int(fp), "TN": int(tn), "FN": int(fn),
+        "recall": recall, "frr": frr, "precision": precision,
+        "specificity": specificity, "f1": f1, "mcc": mcc,
+        "balanced_accuracy": balanced,
+    }
+
+
+def _prepare_dataframe(evidence_csv: str | Path) -> pd.DataFrame:
+    df = pd.read_csv(evidence_csv)
+    if "architecture" not in df.columns:
+        df["architecture"] = "shared_vpuft_calibration"
+    # A combined multi-topology calibration can reuse the same seed/vehicle/window
+    # identifiers across road networks. Include topology in the internal identity
+    # so cases from different topologies can never be merged accidentally.
+    if "topology" in df.columns:
+        df["architecture"] = (
+            df["architecture"].astype(str) + "::topology=" + df["topology"].astype(str)
+        )
+    required = {
+        "architecture", "case_id", "observation_root_id", "seed", "attack_type",
+        "label", "validity", "direction", "source_id", "geographic_cell",
+        "sensor_modality", *FACTOR_COLUMNS,
+    }
+    missing = sorted(required - set(df.columns))
+    if missing:
+        raise ValueError(f"Missing evidence columns: {missing}")
+    for column in FACTOR_COLUMNS:
+        df[column] = pd.to_numeric(df[column], errors="raise")
+        if not df[column].between(0, 1).all():
+            raise ValueError(f"{column} must be within [0,1]")
+    df["validity"] = pd.to_numeric(df["validity"], errors="raise").astype(int)
+    df["direction"] = pd.to_numeric(df["direction"], errors="raise").astype(int)
+    df["label"] = pd.to_numeric(df["label"], errors="raise").astype(int)
+    df["seed"] = pd.to_numeric(df["seed"], errors="raise").astype(int)
+    return df
+
+
+def _first_index_by_code(codes: np.ndarray, count: int, n_rows: int) -> np.ndarray:
+    out = np.full(count, n_rows, dtype=np.int64)
+    np.minimum.at(out, codes, np.arange(n_rows, dtype=np.int64))
+    return out
+
+
+def _prepare_fast(df: pd.DataFrame, config: ResearchConfig) -> PreparedEvidence:
+    n = len(df)
+    factors = np.clip(df[FACTOR_COLUMNS].to_numpy(float), 1e-12, 1.0)
+    log_factors = np.log(factors)
+
+    # factorize case and root identities once. Including architecture preserves the
+    # original implementation's comparison semantics.
+    case_index = pd.MultiIndex.from_frame(df[["architecture", "case_id"]].astype(str))
+    case_code, case_uniques = pd.factorize(case_index, sort=False)
+    case_code = case_code.astype(np.int64, copy=False)
+    case_count = len(case_uniques)
+
+    root_index = pd.MultiIndex.from_frame(
+        df[["architecture", "case_id", "observation_root_id"]].astype(str)
+    )
+    root_code, _ = pd.factorize(root_index, sort=False)
+    root_code = root_code.astype(np.int64, copy=False)
+    root_count = int(root_code.max()) + 1 if n else 0
+
+    first_case_row = _first_index_by_code(case_code, case_count, n)
+    first_root_row = _first_index_by_code(root_code, root_count, n)
+    root_to_case = case_code[first_root_row]
+
+    source_code, source_uniques = pd.factorize(df["source_id"].astype(str), sort=False)
+    zone_code, zone_uniques = pd.factorize(df["geographic_cell"].astype(str), sort=False)
+    modality_code, modality_uniques = pd.factorize(df["sensor_modality"].astype(str), sort=False)
+
+    case_attack = df["attack_type"].astype(str).to_numpy()[first_case_row]
+    missing_policies = sorted(set(case_attack) - set(config.policies))
+    if missing_policies:
+        raise ValueError(f"Missing attack policies for: {missing_policies}")
+
+    policies = [config.policies[a] for a in case_attack]
+    return PreparedEvidence(
+        df=df,
+        log_factors=log_factors,
+        validity=df["validity"].to_numpy(float),
+        direction=df["direction"].to_numpy(np.int8),
+        root_code=root_code,
+        root_count=root_count,
+        root_to_case=root_to_case,
+        case_count=case_count,
+        case_architecture=df["architecture"].astype(str).to_numpy()[first_case_row],
+        case_id=df["case_id"].astype(str).to_numpy()[first_case_row],
+        case_label=df["label"].to_numpy(int)[first_case_row],
+        case_seed=df["seed"].to_numpy(int)[first_case_row],
+        case_attack=case_attack,
+        source_code=np.asarray(source_code, dtype=np.int64),
+        zone_code=np.asarray(zone_code, dtype=np.int64),
+        modality_code=np.asarray(modality_code, dtype=np.int64),
+        source_base=max(1, len(source_uniques)),
+        zone_base=max(1, len(zone_uniques)),
+        modality_base=max(1, len(modality_uniques)),
+        verifiability=df["verifiability"].to_numpy(float),
+        min_rep_weight_by_case=np.array([p.min_representative_weight for p in policies], dtype=float),
+        required_roots_by_case=np.array([p.required_roots for p in policies], dtype=np.int32),
+        required_sources_by_case=np.array([p.required_sources for p in policies], dtype=np.int32),
+        required_zones_by_case=np.array([p.required_zones for p in policies], dtype=np.int32),
+        required_modalities_by_case=np.array([p.required_modalities for p in policies], dtype=np.int32),
+        policy_margin_by_case=np.array([p.margin_threshold for p in policies], dtype=float),
+        policy_lambda_by_case=np.array([p.opposition_lambda for p in policies], dtype=float),
+        crypto_decisive_by_case=np.array([p.cryptographic_decisive for p in policies], dtype=bool),
+    )
+
+
+def _distinct_count_per_case(case_ids: np.ndarray, values: np.ndarray, case_count: int, base: int) -> np.ndarray:
+    if len(case_ids) == 0:
+        return np.zeros(case_count, dtype=np.int32)
+    composite = case_ids.astype(np.int64) * int(base) + values.astype(np.int64)
+    unique = np.unique(composite)
+    unique_cases = unique // int(base)
+    return np.bincount(unique_cases, minlength=case_count).astype(np.int32)
+
+
+def _evaluate_fast(
+    prepared: PreparedEvidence,
+    candidate: Candidate,
+    *,
+    log_factors_override: np.ndarray | None = None,
+) -> FastPrediction:
+    logs = prepared.log_factors if log_factors_override is None else log_factors_override
+    exponents = np.array([
+        candidate.weights.C, candidate.weights.rho, candidate.weights.F,
+        candidate.weights.Q, candidate.weights.eta,
+    ], dtype=float)
+    row_weight = prepared.validity * np.exp(logs @ exponents)
+
+    r = prepared.root_count
+    n = len(row_weight)
+    support_max = np.zeros(r, dtype=float)
+    oppose_max = np.zeros(r, dtype=float)
+    support_mask = prepared.direction == 1
+    oppose_mask = prepared.direction == -1
+    np.maximum.at(support_max, prepared.root_code[support_mask], row_weight[support_mask])
+    np.maximum.at(oppose_max, prepared.root_code[oppose_mask], row_weight[oppose_mask])
+
+    net = support_max - oppose_max
+    root_weight = np.abs(net)
+    root_direction = np.sign(net).astype(np.int8)
+
+    # Representative supporting row per root, equivalent to idxmax() in the
+    # original pandas implementation; ties choose the first source row.
+    support_arg = np.full(r, n, dtype=np.int64)
+    if np.any(support_mask):
+        s_codes = prepared.root_code[support_mask]
+        s_rows = np.flatnonzero(support_mask)
+        s_weight = row_weight[support_mask]
+        winners = s_weight == support_max[s_codes]
+        np.minimum.at(support_arg, s_codes[winners], s_rows[winners])
+
+    case_of_root = prepared.root_to_case
+    min_rep = prepared.min_rep_weight_by_case[case_of_root]
+    supporter_root = (root_direction == 1) & (root_weight >= min_rep)
+
+    c = prepared.case_count
+    pos = root_direction == 1
+    neg = root_direction == -1
+    positive_mass = np.zeros(c, dtype=float)
+    negative_mass = np.zeros(c, dtype=float)
+    if np.any(pos):
+        np.add.at(
+            positive_mass,
+            case_of_root[pos],
+            -np.log1p(-np.clip(root_weight[pos], 0.0, 1.0 - 1e-12)),
+        )
+    if np.any(neg):
+        np.add.at(
+            negative_mass,
+            case_of_root[neg],
+            -np.log1p(-np.clip(root_weight[neg], 0.0, 1.0 - 1e-12)),
+        )
+
+    policy_lambda = prepared.policy_lambda_by_case
+    denom = 1.0 + positive_mass + policy_lambda * negative_mass
+    supporting = positive_mass / denom
+    opposing = negative_mass / denom
+
+    support_cases = case_of_root[supporter_root]
+    root_counts = np.bincount(support_cases, minlength=c).astype(np.int32)
+
+    support_rows = support_arg[supporter_root]
+    # Sentinel rows cannot occur for a positive supporting root, but guard anyway.
+    valid_rep = support_rows < n
+    support_cases = support_cases[valid_rep]
+    support_rows = support_rows[valid_rep]
+
+    source_counts = _distinct_count_per_case(
+        support_cases, prepared.source_code[support_rows], c, prepared.source_base
+    )
+    zone_counts = _distinct_count_per_case(
+        support_cases, prepared.zone_code[support_rows], c, prepared.zone_base
+    )
+    modality_counts = _distinct_count_per_case(
+        support_cases, prepared.modality_code[support_rows], c, prepared.modality_base
+    )
+
+    margin = supporting - policy_lambda * opposing
+    threshold_by_case = prepared.policy_margin_by_case
+    diversity_ok = (
+        (root_counts >= prepared.required_roots_by_case)
+        & (source_counts >= prepared.required_sources_by_case)
+        & (zone_counts >= prepared.required_zones_by_case)
+        & (modality_counts >= prepared.required_modalities_by_case)
+    )
+
+    crypto_case = np.zeros(c, dtype=bool)
+    if len(support_rows):
+        rep_root_codes = prepared.root_code[support_rows]
+        rep_root_weights = root_weight[rep_root_codes]
+        crypto_ok = (
+            (rep_root_weights >= threshold_by_case[support_cases])
+            & (prepared.verifiability[support_rows] >= 0.95)
+            & (prepared.validity[support_rows] == 1)
+            & prepared.crypto_decisive_by_case[support_cases]
+        )
+        if np.any(crypto_ok):
+            crypto_hits = np.bincount(support_cases[crypto_ok], minlength=c)
+            crypto_case = crypto_hits > 0
+
+    prediction = (crypto_case | (diversity_ok & (margin >= threshold_by_case))).astype(np.int8)
+
+    duplicate_count = np.bincount(prepared.root_code, minlength=r) - 1
+    suppressed = np.bincount(case_of_root, weights=duplicate_count, minlength=c).astype(np.int64)
+
+    return FastPrediction(
+        prediction=prediction,
+        supporting_strength=supporting,
+        opposing_strength=opposing,
+        margin=margin,
+        independent_roots=root_counts,
+        distinct_sources=source_counts,
+        distinct_zones=zone_counts,
+        distinct_modalities=modality_counts,
+        correlated_reports_suppressed=suppressed,
+    )
+
+
+def _prediction_dataframe(prepared: PreparedEvidence, fast: FastPrediction) -> pd.DataFrame:
+    return pd.DataFrame({
+        "architecture": prepared.case_architecture,
+        "case_id": prepared.case_id,
+        "label": prepared.case_label,
+        "seed": prepared.case_seed,
+        "attack_type": prepared.case_attack,
+        "supporting_strength": fast.supporting_strength,
+        "opposing_strength": fast.opposing_strength,
+        "margin": fast.margin,
+        "independent_roots": fast.independent_roots,
+        "distinct_sources": fast.distinct_sources,
+        "distinct_zones": fast.distinct_zones,
+        "distinct_modalities": fast.distinct_modalities,
+        "correlated_reports_suppressed": fast.correlated_reports_suppressed,
+        "prediction": fast.prediction,
+    })
+
+
+def _case_predictions(df: pd.DataFrame, candidate: Candidate, config: ResearchConfig) -> pd.DataFrame:
+    prepared = _prepare_fast(df, config)
+    return _prediction_dataframe(prepared, _evaluate_fast(prepared, candidate))
+
+
+def generate_candidates(rng: np.random.Generator, count: int) -> list[Candidate]:
+    if count < 1:
+        raise ValueError("Candidate count must be positive")
+    weight_vectors = rng.dirichlet(np.ones(5), size=count)
+    result = [
+        Candidate(WeightConfig(C=v[0], rho=v[1], F=v[2], Q=v[3], eta=v[4]))
+        for v in weight_vectors
+    ]
+    result.append(Candidate(WeightConfig(0.2, 0.2, 0.2, 0.2, 0.2)))
+    result.append(Candidate(WeightConfig()))
+    return result
+
+
+def _candidate_row(candidate: Candidate) -> dict[str, float]:
+    return {
+        "alpha_C": candidate.weights.C,
+        "alpha_rho": candidate.weights.rho,
+        "alpha_F": candidate.weights.F,
+        "alpha_Q": candidate.weights.Q,
+        "alpha_eta": candidate.weights.eta,
+    }
+
+
+def _evaluate(predictions: pd.DataFrame) -> dict[str, float]:
+    return _metrics(predictions["label"].to_numpy(int), predictions["prediction"].to_numpy(int))
+
+
+def _baseline_candidates(best: Candidate) -> dict[str, Candidate]:
+    return {
+        "selected": best,
+        "equal_weights": Candidate(WeightConfig(0.2, 0.2, 0.2, 0.2, 0.2)),
+        "theoretical_prior": Candidate(WeightConfig()),
+        "C_only": Candidate(WeightConfig(1, 0, 0, 0, 0)),
+        "rho_only": Candidate(WeightConfig(0, 1, 0, 0, 0)),
+        "F_only": Candidate(WeightConfig(0, 0, 1, 0, 0)),
+        "Q_only": Candidate(WeightConfig(0, 0, 0, 1, 0)),
+        "eta_only": Candidate(WeightConfig(0, 0, 0, 0, 1)),
+    }
+
+
+def _input_signature(path: str | Path) -> dict[str, object]:
+    p = Path(path).resolve()
+    stat = p.stat()
+    # Hash just the first/last blocks plus size/mtime. Enough to prevent accidental
+    # resume against a different campaign without rereading a very large CSV twice.
+    h = hashlib.sha256()
+    with p.open("rb") as handle:
+        head = handle.read(1024 * 1024)
+        h.update(head)
+        if stat.st_size > 1024 * 1024:
+            handle.seek(max(0, stat.st_size - 1024 * 1024))
+            h.update(handle.read(1024 * 1024))
+    return {
+        "path": str(p), "size": stat.st_size, "mtime_ns": stat.st_mtime_ns,
+        "edge_sha256": h.hexdigest(),
+    }
+
+
+def _checkpoint_meta(
+    evidence_csv: str | Path, *, candidates: int, folds: int, min_recall: float,
+    max_frr: float, random_seed: int,
+) -> dict[str, object]:
+    return {
+        "input": _input_signature(evidence_csv),
+        "candidates": int(candidates), "folds": int(folds),
+        "min_recall": float(min_recall), "max_frr": float(max_frr),
+        "random_seed": int(random_seed), "engine": "fast-v2-policy-aligned-log-mass",
+    }
+
+
+def _candidate_metrics_row(
+    idx: int,
+    candidate: Candidate,
+    prepared: PreparedEvidence,
+    fold_seed_sets: list[set[int]],
+    min_recall: float,
+    max_frr: float,
+) -> dict[str, float]:
+    fast = _evaluate_fast(prepared, candidate)
+    fold_metrics = []
+    for val_seeds in fold_seed_sets:
+        mask = np.isin(prepared.case_seed, list(val_seeds))
+        fold_metrics.append(_metrics(prepared.case_label[mask], fast.prediction[mask]))
+    row = _candidate_row(candidate)
+    row.update({
+        "candidate_id": idx,
+        "mean_mcc": float(np.mean([m["mcc"] for m in fold_metrics])),
+        "worst_mcc": float(np.min([m["mcc"] for m in fold_metrics])),
+        "mean_recall": float(np.mean([m["recall"] for m in fold_metrics])),
+        "worst_recall": float(np.min([m["recall"] for m in fold_metrics])),
+        "mean_frr": float(np.mean([m["frr"] for m in fold_metrics])),
+        "worst_frr": float(np.max([m["frr"] for m in fold_metrics])),
+    })
+    row["feasible"] = int(row["worst_recall"] >= min_recall and row["worst_frr"] <= max_frr)
+    return row
+
+
+def _confusion_by_seed(prepared: PreparedEvidence, pred: np.ndarray, seeds: np.ndarray) -> np.ndarray:
+    rows = []
+    for seed in seeds:
+        mask = prepared.case_seed == seed
+        y = prepared.case_label[mask]
+        p = pred[mask]
+        m = _metrics(y, p)
+        rows.append([m["TP"], m["FP"], m["TN"], m["FN"]])
+    return np.asarray(rows, dtype=np.int64)
+
+
+def select_weights(
+    evidence_csv: str | Path,
+    output_dir: str | Path,
+    config: ResearchConfig,
+    *,
+    candidates: int = 1200,
+    folds: int = 5,
+    min_recall: float = 0.90,
+    max_frr: float = 0.08,
+    bootstrap_repeats: int = 200,
+    permutation_repeats: int = 50,
+    random_seed: int = 20260804,
+    resume: bool = False,
+    checkpoint_every: int = 25,
+    jobs: int = 1,
+) -> dict:
+    output = Path(output_dir)
+    output.mkdir(parents=True, exist_ok=True)
+    print("[sensitivity] loading evidence CSV ...", flush=True)
+    df = _prepare_dataframe(evidence_csv)
+    groups = sorted(df["seed"].unique())
+    if len(groups) < 4:
+        raise ValueError("At least four independent seeds/groups are required for defensible sensitivity analysis")
+
+    rng = np.random.default_rng(random_seed)
+    holdout_size = max(1, int(round(0.20 * len(groups))))
+    holdout_groups = set(rng.choice(groups, size=holdout_size, replace=False).tolist())
+    dev = df[~df["seed"].isin(holdout_groups)].copy()
+    test = df[df["seed"].isin(holdout_groups)].copy()
+    unique_dev_seeds = np.array(sorted(dev["seed"].unique()))
+    n_splits = min(folds, len(unique_dev_seeds))
+    if n_splits < 2:
+        raise ValueError("At least two development seed groups are required")
+
+    print(
+        f"[sensitivity] rows={len(df):,}; dev_rows={len(dev):,}; holdout_rows={len(test):,}; "
+        f"dev_seeds={len(unique_dev_seeds)}; holdout_seeds={sorted(map(int, holdout_groups))}",
+        flush=True,
+    )
+    print("[sensitivity] preprocessing roots/cases once ...", flush=True)
+    dev_prepared = _prepare_fast(dev, config)
+    test_prepared = _prepare_fast(test, config)
+    print(
+        f"[sensitivity] dev cases={dev_prepared.case_count:,}, roots={dev_prepared.root_count:,}; "
+        f"holdout cases={test_prepared.case_count:,}, roots={test_prepared.root_count:,}",
+        flush=True,
+    )
+
+    cv = GroupKFold(n_splits=n_splits)
+    candidate_list = generate_candidates(rng, candidates)
+    fold_seed_sets = [
+        set(unique_dev_seeds[val_idx].tolist())
+        for _, val_idx in cv.split(unique_dev_seeds, groups=unique_dev_seeds)
+    ]
+
+    meta = _checkpoint_meta(
+        evidence_csv, candidates=candidates, folds=folds,
+        min_recall=min_recall, max_frr=max_frr, random_seed=random_seed,
+    )
+    meta_path = output / "sensitivity_checkpoint_meta.json"
+    partial_path = output / "candidate_ranking.partial.csv"
+    completed: dict[int, dict] = {}
+    if resume and meta_path.exists() and partial_path.exists():
+        try:
+            old_meta = json.loads(meta_path.read_text(encoding="utf-8"))
+            if old_meta == meta:
+                partial = pd.read_csv(partial_path)
+                for record in partial.to_dict(orient="records"):
+                    completed[int(record["candidate_id"])] = record
+                print(f"[resume] loaded {len(completed)}/{len(candidate_list)} completed candidates", flush=True)
+            else:
+                print("[resume] checkpoint parameters/input changed; starting candidate search fresh", flush=True)
+        except Exception as exc:  # checkpoint must never make the analysis unusable
+            print(f"[resume] ignored unreadable checkpoint: {exc}", flush=True)
+    meta_path.write_text(json.dumps(meta, indent=2), encoding="utf-8")
+
+    ranking: list[dict] = [completed[k] for k in sorted(completed)]
+    pending = [(idx, candidate_list[idx]) for idx in range(len(candidate_list)) if idx not in completed]
+    total = len(candidate_list)
+    done = len(completed)
+    jobs = max(1, int(jobs))
+    checkpoint_every = max(1, int(checkpoint_every))
+    print(f"[sensitivity] candidate search: {done}/{total} already done; jobs={jobs}", flush=True)
+
+    def evaluate_item(item: tuple[int, Candidate]) -> dict:
+        idx, candidate = item
+        return _candidate_metrics_row(idx, candidate, dev_prepared, fold_seed_sets, min_recall, max_frr)
+
+    if jobs == 1:
+        iterator: Iterable[dict] = map(evaluate_item, pending)
+        executor = None
+    else:
+        executor = ThreadPoolExecutor(max_workers=jobs, thread_name_prefix="vpuft-sens")
+        iterator = executor.map(evaluate_item, pending, chunksize=1)
+
+    try:
+        for row in iterator:
+            ranking.append(row)
+            done += 1
+            if done % checkpoint_every == 0 or done == total:
+                pd.DataFrame(ranking).sort_values("candidate_id").to_csv(partial_path, index=False)
+                pct = 100.0 * done / total
+                feasible_so_far = int(sum(int(r.get("feasible", 0)) for r in ranking))
+                print(
+                    f"[sensitivity] candidates {done}/{total} ({pct:5.1f}%) | feasible={feasible_so_far} | checkpoint saved",
+                    flush=True,
+                )
+    except KeyboardInterrupt:
+        pd.DataFrame(ranking).sort_values("candidate_id").to_csv(partial_path, index=False)
+        print(f"\n[sensitivity] interrupted safely; checkpoint saved at {done}/{total}. Re-run with --resume.", flush=True)
+        raise
+    finally:
+        if executor is not None:
+            executor.shutdown(wait=False, cancel_futures=True)
+
+    ranking_df = pd.DataFrame(ranking).sort_values(
+        ["feasible", "worst_mcc", "mean_mcc", "worst_recall", "worst_frr"],
+        ascending=[False, False, False, False, True],
+    )
+    ranking_df.to_csv(output / "candidate_ranking.csv", index=False)
+    ranking_df.to_csv(output / "global_candidate_sensitivity.csv", index=False)
+    best_row = ranking_df.iloc[0]
+    best = Candidate(
+        weights=WeightConfig(
+            C=float(best_row.alpha_C), rho=float(best_row.alpha_rho), F=float(best_row.alpha_F),
+            Q=float(best_row.alpha_Q), eta=float(best_row.alpha_eta),
+        )
+    )
+    print(
+        f"[sensitivity] selected candidate {int(best_row.candidate_id)} | feasible={bool(best_row.feasible)} | "
+        f"worst_MCC={float(best_row.worst_mcc):.4f}",
+        flush=True,
+    )
+
+    test_fast = _evaluate_fast(test_prepared, best)
+    test_predictions = _prediction_dataframe(test_prepared, test_fast)
+    test_predictions.to_csv(output / "holdout_predictions.csv", index=False)
+    test_metrics = _metrics(test_prepared.case_label, test_fast.prediction)
+    by_attack = []
+    for attack in pd.unique(test_prepared.case_attack):
+        mask = test_prepared.case_attack == attack
+        by_attack.append({"attack_type": attack, **_metrics(test_prepared.case_label[mask], test_fast.prediction[mask])})
+    pd.DataFrame(by_attack).to_csv(output / "holdout_metrics_by_attack.csv", index=False)
+    print(
+        f"[sensitivity] untouched holdout: MCC={test_metrics['mcc']:.4f}, recall={test_metrics['recall']:.4f}, FRR={test_metrics['frr']:.4f}",
+        flush=True,
+    )
+
+    # Bootstrap re-selection only needs per-seed confusion counts for the top 100
+    # candidates. This preserves grouped bootstrap semantics without reconstructing
+    # millions of evidence rows on every repeat.
+    top_ids = ranking_df.head(min(100, len(ranking_df)))["candidate_id"].astype(int).tolist()
+    dev_seeds = np.array(sorted(dev_prepared.case_seed.astype(int).tolist()))
+    dev_seeds = np.unique(dev_seeds)
+    print(f"[sensitivity] preparing top-{len(top_ids)} candidates for grouped bootstrap ...", flush=True)
+    confusion = np.zeros((len(top_ids), len(dev_seeds), 4), dtype=np.int64)
+    for pos, candidate_id in enumerate(top_ids):
+        fast = _evaluate_fast(dev_prepared, candidate_list[candidate_id])
+        confusion[pos] = _confusion_by_seed(dev_prepared, fast.prediction, dev_seeds)
+        if (pos + 1) % 20 == 0 or pos + 1 == len(top_ids):
+            print(f"[sensitivity] bootstrap cache {pos + 1}/{len(top_ids)}", flush=True)
+
+    bootstrap_rows = []
+    for repeat in range(max(0, bootstrap_repeats)):
+        sampled_idx = rng.integers(0, len(dev_seeds), size=len(dev_seeds))
+        counts = confusion[:, sampled_idx, :].sum(axis=1)
+        best_boot = None
+        for pos, candidate_id in enumerate(top_ids):
+            tp, fp, tn, fn = map(int, counts[pos])
+            metric = _metrics_from_counts(tp, fp, tn, fn)
+            feasible = metric["recall"] >= min_recall and metric["frr"] <= max_frr
+            score = (int(feasible), metric["mcc"], metric["recall"], -metric["frr"])
+            if best_boot is None or score > best_boot[0]:
+                best_boot = (score, candidate_list[candidate_id], metric)
+        assert best_boot is not None
+        bootstrap_rows.append({"repeat": repeat, **_candidate_row(best_boot[1]), **best_boot[2]})
+        if (repeat + 1) % max(1, min(25, bootstrap_repeats)) == 0 or repeat + 1 == bootstrap_repeats:
+            print(f"[sensitivity] bootstrap {repeat + 1}/{bootstrap_repeats}", flush=True)
+
+    bootstrap_df = pd.DataFrame(bootstrap_rows)
+    bootstrap_df.to_csv(output / "bootstrap_reselection.csv", index=False)
+    summary_rows = []
+    parameters = ["alpha_C", "alpha_rho", "alpha_F", "alpha_Q", "alpha_eta"]
+    if not bootstrap_df.empty:
+        for column in parameters:
+            values = bootstrap_df[column].to_numpy(float)
+            mean = float(np.mean(values))
+            std = float(np.std(values, ddof=1)) if len(values) > 1 else 0.0
+            summary_rows.append({
+                "parameter": column, "mean": mean, "std": std,
+                "median": float(np.median(values)),
+                "ci95_low": float(np.percentile(values, 2.5)),
+                "ci95_high": float(np.percentile(values, 97.5)),
+                "coefficient_of_variation": _safe_div(std, abs(mean)),
+            })
+    else:
+        values = [best.weights.C, best.weights.rho, best.weights.F, best.weights.Q, best.weights.eta]
+        for column, value in zip(parameters, values):
+            summary_rows.append({"parameter": column, "mean": value, "std": 0.0, "median": value, "ci95_low": value, "ci95_high": value, "coefficient_of_variation": 0.0})
+    pd.DataFrame(summary_rows).to_csv(output / "bootstrap_parameter_summary.csv", index=False)
+    plot_weight_stability(output / "bootstrap_parameter_summary.csv", output / "weight_stability.png")
+
+    print("[sensitivity] local sensitivity + ablation ...", flush=True)
+    local_rows = []
+    base_vector = np.array([best.weights.C, best.weights.rho, best.weights.F, best.weights.Q, best.weights.eta])
+    for factor_idx, factor in enumerate(WEIGHT_KEYS):
+        for delta in [-0.15, -0.10, -0.05, 0.05, 0.10, 0.15]:
+            vector = base_vector.copy()
+            new_value = np.clip(vector[factor_idx] + delta, 0.001, 0.996)
+            others = [i for i in range(5) if i != factor_idx]
+            remaining = 1.0 - new_value
+            other_sum = vector[others].sum()
+            vector[factor_idx] = new_value
+            vector[others] = vector[others] / max(other_sum, 1e-12) * remaining
+            candidate = Candidate(WeightConfig(*vector.tolist()))
+            fast = _evaluate_fast(test_prepared, candidate)
+            local_rows.append({"factor": factor, "delta": delta, **_candidate_row(candidate), **_metrics(test_prepared.case_label, fast.prediction)})
+    pd.DataFrame(local_rows).to_csv(output / "local_weight_sensitivity.csv", index=False)
+
+    ablation_rows = []
+    for name, candidate in _baseline_candidates(best).items():
+        fast = _evaluate_fast(test_prepared, candidate)
+        ablation_rows.append({"configuration": name, **_candidate_row(candidate), **_metrics(test_prepared.case_label, fast.prediction)})
+    pd.DataFrame(ablation_rows).to_csv(output / "baseline_ablation_comparison.csv", index=False)
+
+    print(f"[sensitivity] grouped permutation importance: {len(FACTOR_COLUMNS)} factors x {permutation_repeats} repeats", flush=True)
+    base_mcc = test_metrics["mcc"]
+    importance_rows = []
+    seed_row_indices = [np.flatnonzero(test_prepared.df["seed"].to_numpy(int) == seed) for seed in np.unique(test_prepared.df["seed"].to_numpy(int))]
+    for col_idx, column in enumerate(FACTOR_COLUMNS):
+        drops = []
+        for repeat in range(max(1, permutation_repeats)):
+            override = test_prepared.log_factors.copy()
+            for idxs in seed_row_indices:
+                override[idxs, col_idx] = rng.permutation(override[idxs, col_idx])
+            fast = _evaluate_fast(test_prepared, best, log_factors_override=override)
+            metric = _metrics(test_prepared.case_label, fast.prediction)
+            drops.append(base_mcc - metric["mcc"])
+        importance_rows.append({
+            "factor": column,
+            "mean_mcc_drop": float(np.mean(drops)),
+            "std_mcc_drop": float(np.std(drops, ddof=1)) if len(drops) > 1 else 0.0,
+            "ci95_low": float(np.percentile(drops, 2.5)),
+            "ci95_high": float(np.percentile(drops, 97.5)),
+        })
+        print(f"[sensitivity] permutation factor {col_idx + 1}/{len(FACTOR_COLUMNS)}: {column}", flush=True)
+    pd.DataFrame(importance_rows).sort_values("mean_mcc_drop", ascending=False).to_csv(output / "permutation_importance.csv", index=False)
+
+    selected = {
+        "weights": asdict(best.weights),
+        "attack_policies": {
+            name: {
+                "margin_threshold": policy.margin_threshold,
+                "opposition_lambda": policy.opposition_lambda,
+                "required_roots": policy.required_roots,
+                "required_sources": policy.required_sources,
+                "required_zones": policy.required_zones,
+                "required_modalities": policy.required_modalities,
+            }
+            for name, policy in config.policies.items()
+        },
+        "selection_feasible": bool(best_row.feasible),
+        "selection_constraints": {"min_recall": min_recall, "max_frr": max_frr},
+        "development_seeds": sorted(map(int, set(groups) - holdout_groups)),
+        "holdout_seeds": sorted(map(int, holdout_groups)),
+        "holdout_metrics": test_metrics,
+        "method": "grouped CV weight-only selection with fixed predeclared attack policies + untouched holdout + grouped bootstrap + ablation + grouped permutation importance",
+        "engine": "fast vectorized policy-aligned log-evidence-mass evaluator with checkpoint/resume",
+        "warning": None if bool(best_row.feasible) else "No candidate met all predeclared recall/FRR constraints; the least-bad ranked candidate was retained.",
+    }
+    (output / "selected_weights.json").write_text(json.dumps(selected, indent=2), encoding="utf-8")
+    (output / "selected_weights_config.json").write_text(json.dumps({"weights": selected["weights"]}, indent=2), encoding="utf-8")
+    methodology = f"""# V-PUFT Weight Selection Report
+
+- Development seeds: {selected['development_seeds']}
+- Untouched holdout seeds: {selected['holdout_seeds']}
+- Minimum recall constraint: {min_recall}
+- Maximum false-revocation-rate constraint: {max_frr}
+- Candidate count evaluated: {len(candidate_list)}
+- Bootstrap repetitions: {bootstrap_repeats}
+- Selected weights: `{json.dumps(selected['weights'], sort_keys=True)}`
+- Decision thresholds: fixed predeclared per-attack policies from the experiment configuration
+- Opposing-evidence coefficients: fixed predeclared per-attack policies from the experiment configuration
+- Holdout MCC: {test_metrics['mcc']:.6f}
+- Holdout recall: {test_metrics['recall']:.6f}
+- Holdout FRR: {test_metrics['frr']:.6f}
+
+The holdout groups were not used during candidate selection. Weight stability is reported by grouped bootstrap re-selection; factor contribution is checked by ablation and grouped permutation importance. Only the five V-PUFT weight exponents are calibrated. Attack-specific diversity requirements, margin thresholds, and opposing-evidence coefficients remain predeclared and fixed. Evidence aggregation uses a regularized additive log-evidence mass so supporting and opposing channels retain their relative magnitude instead of independently saturating to one.
+"""
+    (output / "METHODOLOGY_REPORT.md").write_text(methodology, encoding="utf-8")
+    (output / "sensitivity_complete.json").write_text(json.dumps({"completed": True, "meta": meta}, indent=2), encoding="utf-8")
+    print("[sensitivity] COMPLETE", flush=True)
+    return selected
