@@ -68,7 +68,7 @@
   "reporting_revision_scope": "Official-objective alignment and Chapter 5 wording correction only; no experiment rerun, no detector/calibration change, no frozen scientific data rewrite",
   "experiment_rerun": false,
   "frozen_v7_modified": false,
-  "chapter_sha256": "9267E573A4E9F046BC6173772F20DF3E07F92DADAC899AD75F0AB1F975D23533",
+  "chapter_sha256": "F4932D651326ADC516E1C821B3A6B4B8511099033A4A99D7FB7D2FEA92BC86A9",
   "validation": "source-derived semantic/numerical validation; see VALIDATION.json",
   "updated_at_utc": "2026-08-19T08:08:08.102836+00:00",
   "research_objectives_alignment": {

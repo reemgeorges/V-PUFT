@@ -5,19 +5,19 @@
   "frozen_v7_modified": false,
   "reporting_only_change": true,
   "chapter_index_identical": true,
-  "chapter_sha256": "9267E573A4E9F046BC6173772F20DF3E07F92DADAC899AD75F0AB1F975D23533",
+  "chapter_sha256": "F4932D651326ADC516E1C821B3A6B4B8511099033A4A99D7FB7D2FEA92BC86A9",
   "inputs_and_outputs": [
     {
       "path": "results/full_campaign_v7/thesis_final_reports/chapter_5_results_discussion/chapter_5_results_discussion_ar.html",
       "exists": true,
-      "size_bytes": 85954,
-      "sha256": "9267E573A4E9F046BC6173772F20DF3E07F92DADAC899AD75F0AB1F975D23533"
+      "size_bytes": 92887,
+      "sha256": "F4932D651326ADC516E1C821B3A6B4B8511099033A4A99D7FB7D2FEA92BC86A9"
     },
     {
       "path": "results/full_campaign_v7/thesis_final_reports/chapter_5_results_discussion/index.html",
       "exists": true,
-      "size_bytes": 85954,
-      "sha256": "9267E573A4E9F046BC6173772F20DF3E07F92DADAC899AD75F0AB1F975D23533"
+      "size_bytes": 92887,
+      "sha256": "F4932D651326ADC516E1C821B3A6B4B8511099033A4A99D7FB7D2FEA92BC86A9"
     },
     {
       "path": "results/full_campaign_v7/thesis_final_reports/chapter_5_results_discussion/VALIDATION.json",
@@ -28,8 +28,8 @@
     {
       "path": "results/full_campaign_v7/thesis_final_reports/chapter_5_results_discussion/chapter_metadata.json",
       "exists": true,
-      "size_bytes": 3979,
-      "sha256": "C2E68127DFC515DA5DAD91AB114B69197A654C39C3521319FB2CBC584C0F7AC0"
+      "size_bytes": 3978,
+      "sha256": "0C6535A64E1D7563C9D953B2B681B841E597BE4F617CCFB9BBCED053B402E44B"
     },
     {
       "path": "results/full_campaign_v7/statistical_inference/bootstrap_pooled_differences.csv",
