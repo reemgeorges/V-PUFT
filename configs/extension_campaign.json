@@ -1,0 +1,64 @@
+{
+  "weights": {
+    "C": 0.3652673861753211,
+    "rho": 0.16195260151983162,
+    "F": 0.06370517641034751,
+    "Q": 0.40608957775126925,
+    "eta": 0.0029852581432305157
+  },
+  "network": {
+    "base_latency_ms": 8.0,
+    "jitter_ms": 3.0,
+    "central_backhaul_extra_latency_ms": 0.0,
+    "packet_delivery_ratio": 0.98,
+    "max_retries": 2,
+    "retry_backoff_ms": 5.0,
+    "queue_rate_bytes_per_second": 2000000.0
+  },
+  "pbft": {
+    "validators": ["rsu-1", "rsu-2", "rsu-3", "rsu-4"],
+    "max_byzantine": 1,
+    "timeout_ms": 120.0,
+    "max_views": 4,
+    "validator_behaviors": {},
+    "state_recovery_enabled": true
+  },
+  "security": {
+    "deterministic_master_seed": "vpuft-thesis-reproducible-keys-v1",
+    "compromised_rsus": [],
+    "compromised_witness_ratio": 0.1
+  },
+  "simulation": {
+    "seeds": [1001, 1002, 1003, 1004, 1005, 1006, 1007, 1008, 1009, 1010],
+    "cases_per_seed": 60,
+    "malicious_ratio": 0.3,
+    "witness_count_mean": 4.0,
+    "rsu_count": 6,
+    "source": "synthetic"
+  },
+  "distributed_extension": {
+    "coordinator_strategy": "first_observer_then_hash",
+    "validator_requalification": true,
+    "evidence_bundle_base_bytes": 384,
+    "evidence_bundle_bytes_per_attestation": 704,
+    "replicate_read_cache_to_all_rsus": true
+  },
+  "robustness": {
+    "compromised_evidence_rsu": "rsu-6",
+    "evidence_attack_mode": "false_accusation",
+    "correlated_forgery_copies": 4,
+    "malicious_validator": "rsu-1",
+    "malicious_validator_behavior": "propose_invalid"
+  },
+  "trust_cache": {
+    "ttl_seconds": [0, 1, 2, 5, 10, 30],
+    "vehicle_counts": [20, 40, 60, 80, 100],
+    "interactions_per_vehicle": 12,
+    "interaction_interval_seconds": 0.25,
+    "local_verification_ms": 0.25,
+    "query_bytes": 256,
+    "token_response_bytes": 1152,
+    "revocation_ratio": 0.1,
+    "anomaly_ratio": 0.02
+  }
+}

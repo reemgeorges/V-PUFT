@@ -1,0 +1,63 @@
+{
+  "campaign": "post_freeze_extension",
+  "centralized_near_edge_rerun": false,
+  "centralized_near_edge_role": "frozen_v7_reference_and_0ms_backhaul_control_only",
+  "seeds": [
+    1001,
+    1002,
+    1003,
+    1004,
+    1005,
+    1006,
+    1007,
+    1008,
+    1009,
+    1010
+  ],
+  "topologies": [
+    "grid"
+  ],
+  "trace_replay": true,
+  "weights": {
+    "C": 0.3652673861753211,
+    "rho": 0.16195260151983162,
+    "F": 0.06370517641034751,
+    "Q": 0.40608957775126925,
+    "eta": 0.0029852581432305157
+  },
+  "variants": [
+    "distributed_extension_concealment_rsu",
+    "distributed_extension_false_accusation_rsu",
+    "distributed_extension_guard_false_accusation_rsu",
+    "distributed_extension_guard_honest",
+    "distributed_extension_honest",
+    "distributed_extension_malicious_validator"
+  ],
+  "v2v_ttl_seconds": [
+    0.0,
+    1.0,
+    2.0,
+    5.0,
+    10.0,
+    30.0
+  ],
+  "v2v_vehicle_counts": [
+    20,
+    40,
+    60,
+    80,
+    100
+  ],
+  "files": [
+    "extension_metrics_by_seed.csv",
+    "extension_summary.csv",
+    "extension_summary_by_topology.csv",
+    "extension_decisions.csv",
+    "extension_case_agreement.csv",
+    "extension_network_messages.csv",
+    "extension_consensus_outcomes.csv",
+    "compromised_evidence_injection_audit.csv",
+    "v2v_trust_cache_sensitivity.csv"
+  ],
+  "claim_boundary": "Results apply only to the modeled evidence-forgery, validator-fault, and light-cache stimuli; they do not prove production PBFT Byzantine safety or field-radio performance."
+}

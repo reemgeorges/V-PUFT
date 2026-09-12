@@ -224,6 +224,11 @@ class ConsensusOutcome:
     message_count: int
     bytes_sent: int
     safety_violation: bool = False
+    semantic_proposal_valid: bool = True
+    fault_activated: bool = False
+    validator_rechecks: int = 0
+    validator_recheck_failures: int = 0
+    invalid_proposal_attempted: bool = False
 
 
 @dataclass(frozen=True, slots=True)
@@ -237,3 +242,4 @@ class ArchitectureRunResult:
     runtime_seconds: float
     ledger_consistent: bool = True
     state_recoveries: int = 0
+    extension_metrics: Mapping[str, Any] = field(default_factory=dict)

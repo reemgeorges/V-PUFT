@@ -93,24 +93,44 @@ class PBFTConsensus:
         max_certificate = max((len(votes) for votes in received.values()), default=0)
         return max_certificate, latest_time
 
-    def finalize(self, *, case_id: str, payload: dict, started_at: float) -> ConsensusOutcome:
+    def finalize(
+        self,
+        *,
+        case_id: str,
+        payload: dict,
+        started_at: float,
+        preferred_leader: str | None = None,
+        semantic_proposal_valid: bool = True,
+        validator_checks: dict[str, bool] | None = None,
+    ) -> ConsensusOutcome:
         validators = list(self.config.validators)
+        if preferred_leader in validators:
+            validators = [preferred_leader, *[v for v in validators if v != preferred_leader]]
         payload_digest = digest_hex(payload)
         view_changes = 0
         total_message_start = len(self.transport.messages)
         last_prepare = 0
         last_commit = 0
+        fault_activated = False
+        invalid_proposal_attempted = False
+        rechecks = validator_checks or {}
 
         for view in range(self.config.max_views):
             leader = validators[view % len(validators)]
             view_start = started_at + view * self.config.timeout_ms / 1000.0
-            if not self.online(leader, view_start) or self._behavior(leader) == "offline":
+            leader_behavior = self._behavior(leader)
+            if not self.online(leader, view_start) or leader_behavior == "offline":
+                fault_activated = fault_activated or leader_behavior == "offline"
                 view_changes += 1
                 continue
 
             proposal = {"case_id": case_id, "view": view, "leader": leader, "payload_digest": payload_digest}
             proposal_signature = self.keys.sign(leader, proposal)
-            valid_proposal = self.keys.verify(leader, proposal, proposal_signature)
+            leader_semantic_valid = semantic_proposal_valid and leader_behavior != "propose_invalid"
+            if leader_behavior == "propose_invalid":
+                fault_activated = True
+                invalid_proposal_attempted = True
+            valid_proposal = self.keys.verify(leader, proposal, proposal_signature) and leader_semantic_valid
             eligible_voters: list[str] = []
             proposal_latest = view_start
             for validator in validators:
@@ -130,8 +150,17 @@ class PBFTConsensus:
                     delivered = message.delivered_at is not None
                     if message.delivered_at is not None:
                         proposal_latest = max(proposal_latest, message.delivered_at)
+                behavior = self._behavior(validator)
+                if behavior == "offline":
+                    fault_activated = True
+                if behavior == "reject_valid" and valid_proposal:
+                    fault_activated = True
                 if delivered and self._can_vote(validator, valid_proposal):
-                    eligible_voters.append(validator)
+                    validator_check = rechecks.get(validator, True)
+                    if behavior in {"accept_invalid", "equivocate"} and not valid_proposal:
+                        fault_activated = True
+                    if behavior in {"accept_invalid", "equivocate"} or validator_check:
+                        eligible_voters.append(validator)
 
             last_prepare, prepare_latest = self._certificate_counts(
                 phase="PREPARE",
@@ -172,6 +201,11 @@ class PBFTConsensus:
                     message_count=len(relevant),
                     bytes_sent=sum(m.size_bytes for m in relevant),
                     safety_violation=False,
+                    semantic_proposal_valid=leader_semantic_valid,
+                    fault_activated=fault_activated,
+                    validator_rechecks=len(rechecks),
+                    validator_recheck_failures=sum(not accepted for accepted in rechecks.values()),
+                    invalid_proposal_attempted=invalid_proposal_attempted,
                 )
             view_changes += 1
 
@@ -190,4 +224,9 @@ class PBFTConsensus:
             message_count=len(relevant),
             bytes_sent=sum(m.size_bytes for m in relevant),
             safety_violation=False,
+            semantic_proposal_valid=semantic_proposal_valid,
+            fault_activated=fault_activated,
+            validator_rechecks=len(rechecks),
+            validator_recheck_failures=sum(not accepted for accepted in rechecks.values()),
+            invalid_proposal_attempted=invalid_proposal_attempted,
         )

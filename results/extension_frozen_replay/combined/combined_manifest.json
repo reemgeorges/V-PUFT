@@ -1,0 +1,23 @@
+{
+  "campaign": "post_freeze_extension_combined",
+  "topologies": [
+    "smoke",
+    "corridor",
+    "intersection",
+    "grid"
+  ],
+  "centralized_near_edge_rerun": false,
+  "source": "frozen v7 sensor traces; no SUMO rerun",
+  "files": [
+    "compromised_evidence_injection_audit.csv",
+    "extension_case_agreement.csv",
+    "extension_consensus_outcomes.csv",
+    "extension_decisions.csv",
+    "extension_global_summary.csv",
+    "extension_metrics_by_seed.csv",
+    "extension_network_messages.csv",
+    "extension_topology_summary.csv",
+    "v2v_trust_cache_sensitivity.csv",
+    "v2v_trust_cache_summary.csv"
+  ]
+}

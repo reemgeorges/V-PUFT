@@ -2,10 +2,12 @@ from __future__ import annotations
 
 import argparse
 import json
+from dataclasses import replace
 from pathlib import Path
 
-from .config import load_config
+from .config import WeightConfig, load_config
 from .experiments import run_experiment_grid
+from .extension_campaign import run_extension_campaign
 from .runner import run_campaign, run_trace_campaign
 from .sensitivity import select_weights
 from .sumo import doctor_report, prepare_sumo_scenario, run_multi_topology_campaign, run_sumo_campaign, run_sumo_trace
@@ -87,6 +89,24 @@ def _parser() -> argparse.ArgumentParser:
     demo.add_argument("--output-dir", default="results/demo")
     demo.add_argument("--candidates", type=int, default=250)
     demo.add_argument("--bootstrap-repeats", type=int, default=30)
+
+    extension = sub.add_parser(
+        "extension-campaign",
+        help="Run dynamic-RSU, malicious-RSU/validator, and V2V TTL experiments without rerunning Centralized Near-Edge",
+    )
+    extension.add_argument("--config", default="configs/extension_campaign.json")
+    extension.add_argument("--output-dir", default="results/extension_campaign")
+    extension.add_argument(
+        "--weights",
+        default=None,
+        help="Optional selected_weights.json used by the frozen v7 campaign",
+    )
+    extension.add_argument(
+        "--traces",
+        nargs="*",
+        default=None,
+        help="Optional frozen sensor trace JSONL files; avoids rerunning SUMO",
+    )
     return parser
 
 
@@ -178,6 +198,12 @@ def main() -> None:
             max_frr=0.35,
         )
         print(json.dumps(result, indent=2))
+    elif args.command == "extension-campaign":
+        if args.weights:
+            selected = json.loads(Path(args.weights).read_text(encoding="utf-8"))
+            config = replace(config, weights=WeightConfig(**selected["weights"]))
+            config.validate()
+        print(json.dumps(run_extension_campaign(config, args.output_dir, args.traces), indent=2))
 
 
 if __name__ == "__main__":

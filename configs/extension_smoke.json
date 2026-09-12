@@ -1,0 +1,33 @@
+{
+  "network": {"packet_delivery_ratio": 1.0},
+  "pbft": {
+    "validators": ["rsu-1", "rsu-2", "rsu-3", "rsu-4"],
+    "max_byzantine": 1,
+    "validator_behaviors": {}
+  },
+  "simulation": {
+    "seeds": [1001],
+    "cases_per_seed": 12,
+    "malicious_ratio": 0.4,
+    "rsu_count": 6,
+    "source": "synthetic"
+  },
+  "distributed_extension": {
+    "coordinator_strategy": "first_observer_then_hash",
+    "validator_requalification": true,
+    "replicate_read_cache_to_all_rsus": true
+  },
+  "robustness": {
+    "compromised_evidence_rsu": "rsu-6",
+    "correlated_forgery_copies": 4,
+    "malicious_validator": "rsu-1",
+    "malicious_validator_behavior": "propose_invalid"
+  },
+  "trust_cache": {
+    "ttl_seconds": [0, 2, 10],
+    "vehicle_counts": [20],
+    "interactions_per_vehicle": 5,
+    "revocation_ratio": 0.1,
+    "anomaly_ratio": 0.02
+  }
+}

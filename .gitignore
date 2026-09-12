@@ -27,3 +27,6 @@ docs/archive/
 scripts/legacy/
 results/full_campaign/sensitivity_fast/
 results/full_campaign/topology_architecture_summary.csv
+
+# Generated post-freeze extension campaigns (large, reproducible artifacts)
+results/extension_*/

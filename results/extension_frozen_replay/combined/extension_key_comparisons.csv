@@ -1,0 +1,6 @@
+scenario,reference,delta_malicious_revocation_recall,delta_false_revocation_rate,delta_trust_precision,delta_mcc,delta_latency_p95_ms,delta_messages_per_decision,delta_bytes_per_decision,classification_changes,shared_cases
+distributed_extension_false_accusation_rsu,distributed_extension_honest,0.0,0.0079529313242911,-0.03763324557889769,-0.02250764073042799,-4.466345715416537,3.6319688479792305,3292.0802169141607,40,5992
+distributed_extension_concealment_rsu,distributed_extension_honest,-0.22587709030100334,0.0,-0.031163590285292364,-0.15806502709508152,-195.12100305730928,-0.6677333001531949,-10522.033406767085,227,5992
+distributed_extension_malicious_validator,distributed_extension_honest,0.0,0.0,0.0,0.0,249.80032044821746,0.15495553144754126,11.224960538354935,0,5992
+distributed_extension_guard_false_accusation_rsu,distributed_extension_guard_honest,0.0,0.0,0.0,0.0,1.706157930981135,3.3961142068001635,2556.93594863404,0,5992
+distributed_extension_guard_honest,distributed_extension_honest,-0.20385869565217396,-0.00018796992481199745,-0.031577662292613606,-0.14583412880401359,-101.65665327276656,-1.209769496161023,-6452.142718168718,205,5992

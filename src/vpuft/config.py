@@ -114,6 +114,46 @@ class SecurityConfig:
 
 
 @dataclass(frozen=True)
+class DistributedExtensionConfig:
+    """Opt-in controls for the post-freeze distributed architecture extension."""
+
+    coordinator_strategy: str = "first_observer_then_hash"
+    validator_requalification: bool = True
+    evidence_bundle_base_bytes: int = 384
+    evidence_bundle_bytes_per_attestation: int = 704
+    leave_one_source_out_guard: bool = False
+    evidence_source_fault_budget: int = 1
+    guard_on_directional_conflict_only: bool = True
+    replicate_read_cache_to_all_rsus: bool = True
+
+
+@dataclass(frozen=True)
+class TrustCacheConfig:
+    """Light-client V2V trust-cache experiment controls."""
+
+    ttl_seconds: tuple[float, ...] = (0.0, 1.0, 2.0, 5.0, 10.0, 30.0)
+    vehicle_counts: tuple[int, ...] = (20, 40, 60, 80, 100)
+    interactions_per_vehicle: int = 12
+    interaction_interval_seconds: float = 0.25
+    local_verification_ms: float = 0.25
+    query_bytes: int = 256
+    token_response_bytes: int = 1152
+    revocation_ratio: float = 0.10
+    anomaly_ratio: float = 0.02
+
+
+@dataclass(frozen=True)
+class RobustnessConfig:
+    """Adversarial stimuli used only by the extension campaign."""
+
+    compromised_evidence_rsu: str = "rsu-6"
+    evidence_attack_mode: str = "false_accusation"
+    correlated_forgery_copies: int = 4
+    malicious_validator: str = "rsu-1"
+    malicious_validator_behavior: str = "propose_invalid"
+
+
+@dataclass(frozen=True)
 class SimulationConfig:
     seeds: tuple[int, ...] = tuple(range(1000, 1010))
     cases_per_seed: int = 60
@@ -142,6 +182,9 @@ class ResearchConfig:
     detector: DetectorConfig = field(default_factory=DetectorConfig)
     sumo: SumoConfig = field(default_factory=SumoConfig)
     security: SecurityConfig = field(default_factory=SecurityConfig)
+    distributed_extension: DistributedExtensionConfig = field(default_factory=DistributedExtensionConfig)
+    trust_cache: TrustCacheConfig = field(default_factory=TrustCacheConfig)
+    robustness: RobustnessConfig = field(default_factory=RobustnessConfig)
     simulation: SimulationConfig = field(default_factory=SimulationConfig)
 
     def validate(self) -> None:
@@ -164,6 +207,30 @@ class ResearchConfig:
             raise ValueError("malicious_ratio must be within [0, 1]")
         if not 0 <= self.security.compromised_witness_ratio <= 1:
             raise ValueError("compromised_witness_ratio must be within [0, 1]")
+        if self.distributed_extension.coordinator_strategy not in {"first_observer_then_hash", "case_hash"}:
+            raise ValueError("Unsupported distributed coordinator strategy")
+        if self.distributed_extension.evidence_bundle_base_bytes <= 0:
+            raise ValueError("Evidence bundle base size must be positive")
+        if self.distributed_extension.evidence_bundle_bytes_per_attestation <= 0:
+            raise ValueError("Evidence attestation size must be positive")
+        if self.distributed_extension.evidence_source_fault_budget < 0:
+            raise ValueError("Evidence source fault budget cannot be negative")
+        if any(ttl < 0 for ttl in self.trust_cache.ttl_seconds):
+            raise ValueError("Trust-cache TTL values cannot be negative")
+        if any(count < 2 for count in self.trust_cache.vehicle_counts):
+            raise ValueError("Trust-cache vehicle counts must be at least two")
+        if self.trust_cache.interactions_per_vehicle < 1:
+            raise ValueError("interactions_per_vehicle must be positive")
+        if not 0 <= self.trust_cache.revocation_ratio <= 1:
+            raise ValueError("trust-cache revocation_ratio must be within [0, 1]")
+        if not 0 <= self.trust_cache.anomaly_ratio <= 1:
+            raise ValueError("trust-cache anomaly_ratio must be within [0, 1]")
+        if self.robustness.correlated_forgery_copies < 1:
+            raise ValueError("correlated_forgery_copies must be positive")
+        if self.robustness.evidence_attack_mode not in {"false_accusation", "concealment", "both"}:
+            raise ValueError("Unsupported compromised-RSU evidence attack mode")
+        if self.robustness.malicious_validator not in self.pbft.validators:
+            raise ValueError("malicious_validator must be a configured PBFT validator")
         if self.sumo.step_length_seconds <= 0 or self.sumo.end_time_seconds <= 0:
             raise ValueError("SUMO step and end time must be positive")
         if self.detector.case_window_seconds <= 0:
@@ -208,6 +275,9 @@ def load_config(path: str | Path | None = None) -> ResearchConfig:
     pbft_raw = _section(raw, "pbft")
     sim_raw = _section(raw, "simulation")
     sec_raw = _section(raw, "security")
+    ext_raw = _section(raw, "distributed_extension")
+    cache_raw = _section(raw, "trust_cache")
+    robust_raw = _section(raw, "robustness")
     cfg = ResearchConfig(
         weights=WeightConfig(**_section(raw, "weights")),
         policies={k: _coerce_attack_policy(v) for k, v in _section(raw, "policies").items()} or ResearchConfig().policies,
@@ -228,6 +298,19 @@ def load_config(path: str | Path | None = None) -> ResearchConfig:
             compromised_rsus=tuple(sec_raw.get("compromised_rsus", [])),
             compromised_witness_ratio=sec_raw.get("compromised_witness_ratio", SecurityConfig().compromised_witness_ratio),
         ),
+        distributed_extension=DistributedExtensionConfig(**ext_raw),
+        trust_cache=TrustCacheConfig(
+            ttl_seconds=tuple(cache_raw.get("ttl_seconds", TrustCacheConfig().ttl_seconds)),
+            vehicle_counts=tuple(cache_raw.get("vehicle_counts", TrustCacheConfig().vehicle_counts)),
+            interactions_per_vehicle=cache_raw.get("interactions_per_vehicle", TrustCacheConfig().interactions_per_vehicle),
+            interaction_interval_seconds=cache_raw.get("interaction_interval_seconds", TrustCacheConfig().interaction_interval_seconds),
+            local_verification_ms=cache_raw.get("local_verification_ms", TrustCacheConfig().local_verification_ms),
+            query_bytes=cache_raw.get("query_bytes", TrustCacheConfig().query_bytes),
+            token_response_bytes=cache_raw.get("token_response_bytes", TrustCacheConfig().token_response_bytes),
+            revocation_ratio=cache_raw.get("revocation_ratio", TrustCacheConfig().revocation_ratio),
+            anomaly_ratio=cache_raw.get("anomaly_ratio", TrustCacheConfig().anomaly_ratio),
+        ),
+        robustness=RobustnessConfig(**robust_raw),
         simulation=SimulationConfig(
             seeds=tuple(sim_raw.get("seeds", SimulationConfig().seeds)),
             cases_per_seed=sim_raw.get("cases_per_seed", SimulationConfig().cases_per_seed),
