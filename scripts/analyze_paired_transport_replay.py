@@ -241,6 +241,71 @@ def _breakeven(metrics: pd.DataFrame, max_delay: float) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
+def _message_summaries(messages: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """Aggregate queue delay without averaging incompatible group means.
+
+    The raw file contains one mean queue delay for each
+    topology/density/seed/architecture/message-type row.  A plain mean of
+    those row means gives a tiny message type the same weight as millions of
+    evidence messages.  Retain that diagnostic value under an explicit name,
+    but use message counts for the descriptive per-message mean.
+
+    The paired inferential metric in ``paired_metrics_by_seed.csv`` remains a
+    per-run outcome and is intentionally not replaced here: seeds are the
+    experimental units in that analysis.
+    """
+    frame = messages.copy()
+    frame["queue_delay_message_ms"] = (
+        frame["mean_queue_delay_ms"] * frame["messages"]
+    )
+    by_type = (
+        frame.groupby(["architecture", "message_type"], as_index=False)
+        .agg(
+            messages=("messages", "sum"),
+            delivered=("delivered", "sum"),
+            dropped=("dropped", "sum"),
+            bytes_total=("bytes_total", "sum"),
+            retransmissions=("retransmissions", "sum"),
+            queue_delay_message_ms=("queue_delay_message_ms", "sum"),
+            unweighted_cell_mean_queue_delay_ms=("mean_queue_delay_ms", "mean"),
+        )
+    )
+    by_type["message_weighted_mean_queue_delay_ms"] = (
+        by_type["queue_delay_message_ms"] / by_type["messages"].clip(lower=1)
+    )
+    by_type["mean_bytes_per_message"] = (
+        by_type["bytes_total"] / by_type["messages"].clip(lower=1)
+    )
+    by_type["delivery_rate"] = (
+        by_type["delivered"] / by_type["messages"].clip(lower=1)
+    )
+    by_type = by_type.drop(columns="queue_delay_message_ms")
+
+    architecture = (
+        frame.groupby("architecture", as_index=False)
+        .agg(
+            messages=("messages", "sum"),
+            delivered=("delivered", "sum"),
+            dropped=("dropped", "sum"),
+            bytes_total=("bytes_total", "sum"),
+            retransmissions=("retransmissions", "sum"),
+            queue_delay_message_ms=("queue_delay_message_ms", "sum"),
+        )
+    )
+    architecture["message_weighted_mean_queue_delay_ms"] = (
+        architecture["queue_delay_message_ms"]
+        / architecture["messages"].clip(lower=1)
+    )
+    architecture["mean_bytes_per_message"] = (
+        architecture["bytes_total"] / architecture["messages"].clip(lower=1)
+    )
+    architecture["delivery_rate"] = (
+        architecture["delivered"] / architecture["messages"].clip(lower=1)
+    )
+    architecture = architecture.drop(columns="queue_delay_message_ms")
+    return by_type, architecture
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -260,17 +325,7 @@ def main() -> None:
     delays = [float(value) for value in manifest["backhaul_levels_derived_after_0ms_replay"]]
     derived = _derived_remote(metrics, delays)
     breakeven = _breakeven(metrics, max(delays))
-    message_summary = (
-        messages.groupby(["architecture", "message_type"], as_index=False)
-        .agg(
-            messages=("messages", "sum"),
-            delivered=("delivered", "sum"),
-            dropped=("dropped", "sum"),
-            bytes_total=("bytes_total", "sum"),
-            retransmissions=("retransmissions", "sum"),
-            mean_queue_delay_ms=("mean_queue_delay_ms", "mean"),
-        )
-    )
+    message_summary, communication_summary = _message_summaries(messages)
 
     summary.to_csv(root / "paired_architecture_summary.csv", index=False)
     paired.to_csv(root / "paired_core_comparisons.csv", index=False)
@@ -281,6 +336,9 @@ def main() -> None:
     breakeven.to_csv(root / "paired_breakeven.csv", index=False)
     message_summary.to_csv(
         root / "paired_message_type_architecture_summary.csv", index=False
+    )
+    communication_summary.to_csv(
+        root / "paired_communication_architecture_summary.csv", index=False
     )
 
     expected = int(manifest["expected_cells"])
@@ -296,6 +354,21 @@ def main() -> None:
         for row in agreement.itertuples()
     )
     inside = breakeven[breakeven.inside_tested_0_to_max_delay]
+    unique_inside = inside[["topology", "vehicle_count"]].drop_duplicates()
+    family_count = paired[["central_comparator", "metric"]].drop_duplicates().shape[0]
+    family_size = int(
+        paired.groupby(["central_comparator", "metric"]).size().max()
+    )
+    significant = int(paired.holm_reject_0_05.sum())
+    minimum_adjusted = float(
+        paired.holm_adjusted_p_within_comparator_metric_20_cells.min()
+    )
+    communication_lines = "\n".join(
+        f"- {row.architecture}: messages={int(row.messages)}, "
+        f"bytes={int(row.bytes_total)}, message-weighted queue delay="
+        f"{row.message_weighted_mean_queue_delay_ms:.4f} ms."
+        for row in communication_summary.itertuples()
+    )
     audit = f"""# Evidence-CRN Paired Transport Replay — Audit
 
 ## Integrity
@@ -317,7 +390,21 @@ def main() -> None:
 - Central runs were executed once at 0 ms.
 - The configured one-way backhaul levels were derived by the exact additive rule already implemented and verified in the original campaign: {delays}.
 - Break-even points inside the tested 0–{max(delays):g} ms range: **{len(inside)}/{len(breakeven)} comparator cells**.
+- Those rows represent **{len(unique_inside)} unique topology × density conditions** repeated across the two central comparators.
 - Values outside that range are explicitly labeled model extrapolations.
+
+## Statistical boundary
+
+- Holm families: **{family_count}** comparator × metric families, each containing **{family_size}** topology × density comparisons.
+- Holm rejections: **{significant}/{len(paired)}**; the smallest adjusted p-value is **{minimum_adjusted:.7f}**.
+- With ten paired seeds, that value is the attainable boundary produced when all non-zero seed differences point in the same direction. The family remains post-hoc/supplementary and must not be relabeled confirmatory.
+
+## Communication and queue delay
+
+{communication_lines}
+
+- The message-weighted descriptive queue delay is lower for the distributed path in this replay. Interpretation must remain conditional on message mix: Central uses one evidence-message type, whereas Distributed includes evidence exchange, evidence bundles, PBFT, ledger replication and read-cache synchronization.
+- The per-seed paired ``mean_queue_delay_ms`` remains valid as a run-level outcome. The message-type table now separately reports both the unweighted cell mean and the message-count-weighted per-message mean.
 
 ## Interpretation boundary
 
