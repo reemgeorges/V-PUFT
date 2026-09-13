@@ -1,0 +1,55 @@
+{
+  "campaign": "post_hoc_evidence_crn_paired_transport_replay",
+  "source_root": "C:\\Users\\reemg\\VPUFT_density_results",
+  "output_root": "C:\\Users\\reemg\\VPUFT_density_paired_replay",
+  "sumo_rerun": false,
+  "saved_detection_traces_reused": true,
+  "topologies": [
+    "smoke",
+    "corridor",
+    "intersection",
+    "grid"
+  ],
+  "vehicle_counts": [
+    20,
+    40,
+    60,
+    80,
+    100
+  ],
+  "seeds": [
+    1001,
+    1002,
+    1003,
+    1004,
+    1005,
+    1006,
+    1007,
+    1008,
+    1009,
+    1010
+  ],
+  "expected_cells": 200,
+  "executed_cells": 200,
+  "resumed_cells": 0,
+  "architecture_runs_per_cell": 3,
+  "evidence_common_random_numbers": true,
+  "paired_scope": "loss/jitter/retry draw keyed by evidence attestation; queueing and architecture-only traffic remain architecture-specific",
+  "central_available_ablation": 1.0,
+  "central_operational_availability": 0.995,
+  "backhaul_levels_derived_after_0ms_replay": [
+    0.0,
+    20.0,
+    50.0,
+    100.0,
+    200.0
+  ],
+  "weights": {
+    "C": 0.3652673861753211,
+    "rho": 0.16195260151983162,
+    "F": 0.06370517641034751,
+    "Q": 0.40608957775126925,
+    "eta": 0.0029852581432305157
+  },
+  "analysis_family": "post_hoc_supplementary_sensitivity"
+}

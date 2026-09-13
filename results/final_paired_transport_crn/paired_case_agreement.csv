@@ -1,0 +1,3 @@
+central_comparator,shared_cases,unique_classification_changes,agreement_rate,distributed_only_revoked,central_only_revoked
+central_crn_available_0ms,70791,17,0.999759856478931,6,11
+central_crn_operational_0ms,70791,51,0.9992795694367929,40,11
