@@ -1,0 +1,47 @@
+تطبيق حملة الكثافة المضبوطة على فرع V-PUFT الحالي
+=================================================
+
+1) افتحي PowerShell داخل:
+   C:\Users\reemg\OneDrive\Desktop\master\6\v10
+
+2) تأكدي من الفرع:
+   git branch --show-current
+
+   يجب أن يظهر:
+   extension/trust-cache-byzantine-rsu
+
+3) فكّي ملف VPUFT_density_campaign_patch.zip فوق مجلد المشروع:
+   Expand-Archive `
+     -LiteralPath "$env:USERPROFILE\Downloads\VPUFT_density_campaign_patch.zip" `
+     -DestinationPath "." `
+     -Force
+
+4) أعيدي تثبيت الحزمة وشغلي الاختبارات:
+   python -m pip install -e .
+   python -m pytest -q -ra
+
+5) تحققي من SUMO:
+   vpuft doctor --config configs/full_experiment.json
+
+6) نفذي اختبار Smoke أولاً (5 كثافات × بذرة واحدة):
+   vpuft density-campaign `
+     --config configs/full_experiment.json `
+     --weights results/full_campaign_v7/sensitivity_shared_views_mixedfix/selected_weights.json `
+     --scenarios sumo/smoke `
+     --output-dir results/density_smoke_check `
+     --seeds 1001 `
+     --resume
+
+   $env:PYTHONPATH = "src"
+   python scripts/analyze_density_campaign.py `
+     --input-dir results/density_smoke_check/combined
+
+7) بعد نجاح الاختبار، شغلي الحملة الكاملة:
+   & .\scripts\run_density_architecture_campaign.ps1
+
+مهم:
+- لا تحذفي results/full_campaign_v7؛ الأوزان المختارة موجودة داخله.
+- النتائج الجديدة تذهب إلى results/density_architecture_campaign.
+- الأمر الكامل قابل للاستئناف؛ إذا توقف أعيدي الأمر نفسه.
+- لا ترفعي النتائج إلى GitHub قبل تدقيق DENSITY_RESULTS_AUDIT.md والملفات المجمعة.
+- لا تكتبي فصل النتائج النهائي قبل انتهاء الحملة وتحليل الملفات الناتجة.

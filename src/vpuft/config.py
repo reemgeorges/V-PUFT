@@ -44,6 +44,10 @@ class NetworkConfig:
     max_retries: int = 2
     retry_backoff_ms: float = 5.0
     queue_rate_bytes_per_second: float = 2_000_000.0
+    # Optional common-random-number seed used only by controlled replays.
+    # When set, sends carrying the same random_key receive the same loss and
+    # jitter draw regardless of unrelated messages sent by an architecture.
+    evidence_crn_seed: int | None = None
 
 
 @dataclass(frozen=True)
@@ -154,6 +158,21 @@ class RobustnessConfig:
 
 
 @dataclass(frozen=True)
+class DensityCampaignConfig:
+    """Controlled SUMO density sweep shared by the compared architectures."""
+
+    vehicle_counts: tuple[int, ...] = (20, 40, 60, 80, 100)
+    backhaul_extra_latency_ms: tuple[float, ...] = (0.0, 20.0, 50.0, 100.0, 200.0)
+    attack_vehicle_ratio: float = 0.35
+    departure_window_seconds: float = 20.0
+    include_robustness_variants: bool = True
+    include_topology_cache: bool = True
+    primary_cache_ttl_seconds: float = 5.0
+    v2v_range_m: float = 180.0
+    v2v_sample_period_seconds: float = 1.0
+
+
+@dataclass(frozen=True)
 class SimulationConfig:
     seeds: tuple[int, ...] = tuple(range(1000, 1010))
     cases_per_seed: int = 60
@@ -185,6 +204,7 @@ class ResearchConfig:
     distributed_extension: DistributedExtensionConfig = field(default_factory=DistributedExtensionConfig)
     trust_cache: TrustCacheConfig = field(default_factory=TrustCacheConfig)
     robustness: RobustnessConfig = field(default_factory=RobustnessConfig)
+    density_campaign: DensityCampaignConfig = field(default_factory=DensityCampaignConfig)
     simulation: SimulationConfig = field(default_factory=SimulationConfig)
 
     def validate(self) -> None:
@@ -231,6 +251,20 @@ class ResearchConfig:
             raise ValueError("Unsupported compromised-RSU evidence attack mode")
         if self.robustness.malicious_validator not in self.pbft.validators:
             raise ValueError("malicious_validator must be a configured PBFT validator")
+        if any(count < 15 for count in self.density_campaign.vehicle_counts):
+            raise ValueError("Density vehicle counts must be at least 15 so every modeled attack type can be represented")
+        if len(set(self.density_campaign.vehicle_counts)) != len(self.density_campaign.vehicle_counts):
+            raise ValueError("Density vehicle counts must be unique")
+        if any(delay < 0 for delay in self.density_campaign.backhaul_extra_latency_ms):
+            raise ValueError("Density backhaul latency levels cannot be negative")
+        if not 0 < self.density_campaign.attack_vehicle_ratio < 1:
+            raise ValueError("Density attack_vehicle_ratio must be within (0, 1)")
+        if self.density_campaign.departure_window_seconds <= 0:
+            raise ValueError("Density departure window must be positive")
+        if self.density_campaign.v2v_range_m <= 0:
+            raise ValueError("Density V2V range must be positive")
+        if self.density_campaign.v2v_sample_period_seconds <= 0:
+            raise ValueError("Density V2V sample period must be positive")
         if self.sumo.step_length_seconds <= 0 or self.sumo.end_time_seconds <= 0:
             raise ValueError("SUMO step and end time must be positive")
         if self.detector.case_window_seconds <= 0:
@@ -278,6 +312,7 @@ def load_config(path: str | Path | None = None) -> ResearchConfig:
     ext_raw = _section(raw, "distributed_extension")
     cache_raw = _section(raw, "trust_cache")
     robust_raw = _section(raw, "robustness")
+    density_raw = _section(raw, "density_campaign")
     cfg = ResearchConfig(
         weights=WeightConfig(**_section(raw, "weights")),
         policies={k: _coerce_attack_policy(v) for k, v in _section(raw, "policies").items()} or ResearchConfig().policies,
@@ -311,6 +346,34 @@ def load_config(path: str | Path | None = None) -> ResearchConfig:
             anomaly_ratio=cache_raw.get("anomaly_ratio", TrustCacheConfig().anomaly_ratio),
         ),
         robustness=RobustnessConfig(**robust_raw),
+        density_campaign=DensityCampaignConfig(
+            vehicle_counts=tuple(density_raw.get("vehicle_counts", DensityCampaignConfig().vehicle_counts)),
+            backhaul_extra_latency_ms=tuple(
+                density_raw.get(
+                    "backhaul_extra_latency_ms",
+                    DensityCampaignConfig().backhaul_extra_latency_ms,
+                )
+            ),
+            attack_vehicle_ratio=density_raw.get(
+                "attack_vehicle_ratio", DensityCampaignConfig().attack_vehicle_ratio
+            ),
+            departure_window_seconds=density_raw.get(
+                "departure_window_seconds", DensityCampaignConfig().departure_window_seconds
+            ),
+            include_robustness_variants=density_raw.get(
+                "include_robustness_variants", DensityCampaignConfig().include_robustness_variants
+            ),
+            include_topology_cache=density_raw.get(
+                "include_topology_cache", DensityCampaignConfig().include_topology_cache
+            ),
+            primary_cache_ttl_seconds=density_raw.get(
+                "primary_cache_ttl_seconds", DensityCampaignConfig().primary_cache_ttl_seconds
+            ),
+            v2v_range_m=density_raw.get("v2v_range_m", DensityCampaignConfig().v2v_range_m),
+            v2v_sample_period_seconds=density_raw.get(
+                "v2v_sample_period_seconds", DensityCampaignConfig().v2v_sample_period_seconds
+            ),
+        ),
         simulation=SimulationConfig(
             seeds=tuple(sim_raw.get("seeds", SimulationConfig().seeds)),
             cases_per_seed=sim_raw.get("cases_per_seed", SimulationConfig().cases_per_seed),

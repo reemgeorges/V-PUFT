@@ -149,6 +149,7 @@ class DistributedRSUExtendedVPUFT(Architecture):
                     case_id=case.case_id,
                     sent_at=attestation.observed_at,
                     size_bytes=704,
+                    random_key=f"evidence-attestation:{attestation.attestation_id}",
                 )
                 if message.delivered_at is not None:
                     arrivals.append(message.delivered_at)

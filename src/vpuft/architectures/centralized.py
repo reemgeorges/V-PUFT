@@ -36,6 +36,7 @@ class CentralizedVPUFT(Architecture):
                     case_id=case.case_id,
                     sent_at=att.observed_at,
                     size_bytes=704,
+                    random_key=f"evidence-attestation:{att.attestation_id}",
                 )
                 if msg.delivered_at is not None:
                     arrivals.append(msg.delivered_at)

@@ -24,6 +24,10 @@
 2. **Distributed RSU V-PUFT + PBFT + Distributed Ledger**
 3. **Ahmed-Inspired Witness V-PUFT + PBFT + Distributed Ledger**
 
+أضيفت حملة مستقلة مضبوطة لدراسة `Topology × Vehicle Count` ومقارنة
+Distributed RSU مع Centralized Remote على الأثر نفسه. بروتوكولها وحدود
+ادعاءاتها وأوامرها موثقة في `docs/DENSITY_CAMPAIGN_PROTOCOL_AR.md`.
+
 النموذج الثالث مستوحى من معمارية الشهود والعتبة وPBFT وBlockchain في Ahmed et al. (Sensors, 2022, DOI: 10.3390/s22176715). وهو ليس ادعاءً بأنه الكود الأصلي للمؤلفين، ولا ينفذ Threshold Ring Signature الخاصة بالمقالة حرفياً. يحتفظ المشروع بوضع مرجعي لعتبة الشهود داخل نتائج الـAblation، بينما القرار الرئيسي يمر دائماً عبر V-PUFT.
 
 ---

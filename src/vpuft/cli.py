@@ -6,6 +6,7 @@ from dataclasses import replace
 from pathlib import Path
 
 from .config import WeightConfig, load_config
+from .density_campaign import run_density_campaign
 from .experiments import run_experiment_grid
 from .extension_campaign import run_extension_campaign
 from .runner import run_campaign, run_trace_campaign
@@ -107,6 +108,25 @@ def _parser() -> argparse.ArgumentParser:
         default=None,
         help="Optional frozen sensor trace JSONL files; avoids rerunning SUMO",
     )
+
+    density = sub.add_parser(
+        "density-campaign",
+        help="Run paired SUMO vehicle-density tests for Distributed RSU and Centralized Remote",
+    )
+    density.add_argument("--config", default="configs/full_experiment.json")
+    density.add_argument(
+        "--weights",
+        default="results/full_campaign_v7/sensitivity_shared_views_mixedfix/selected_weights.json",
+        help="Frozen selected_weights.json; weights are never recalibrated by this campaign",
+    )
+    density.add_argument(
+        "--scenarios",
+        nargs="+",
+        default=["sumo/smoke", "sumo/corridor", "sumo/intersection", "sumo/grid"],
+    )
+    density.add_argument("--output-dir", default="results/density_architecture_campaign")
+    density.add_argument("--seeds", nargs="+", type=int, default=None)
+    density.add_argument("--resume", action="store_true", help="Reuse completed trace and architecture cells")
     return parser
 
 
@@ -204,6 +224,18 @@ def main() -> None:
             config = replace(config, weights=WeightConfig(**selected["weights"]))
             config.validate()
         print(json.dumps(run_extension_campaign(config, args.output_dir, args.traces), indent=2))
+    elif args.command == "density-campaign":
+        if args.weights:
+            selected = json.loads(Path(args.weights).read_text(encoding="utf-8"))
+            config = replace(config, weights=WeightConfig(**selected["weights"]))
+            config.validate()
+        print(json.dumps(run_density_campaign(
+            config,
+            scenario_directories=args.scenarios,
+            output_directory=args.output_dir,
+            seeds=args.seeds,
+            resume=args.resume,
+        ), indent=2))
 
 
 if __name__ == "__main__":

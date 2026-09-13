@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import itertools
+import hashlib
 import random
 from dataclasses import dataclass
 
@@ -44,6 +45,7 @@ class SimulatedTransport:
         case_id: str,
         sent_at: float,
         size_bytes: int,
+        random_key: str | None = None,
     ) -> NetworkMessage:
         if size_bytes <= 0:
             raise ValueError("Network message size must be positive")
@@ -55,8 +57,17 @@ class SimulatedTransport:
             serialization_seconds = size_bytes / max(self.config.queue_rate_bytes_per_second, 1.0)
             self._link_free_at[link] = queue_start + serialization_seconds
             queue_delay_ms = max(0.0, queue_start - requested_time) * 1000.0
-            delivered = self.rng.random() <= self.config.packet_delivery_ratio
-            propagation_ms = max(0.1, self.rng.gauss(self.config.base_latency_ms, self.config.jitter_ms))
+            draw_rng = self.rng
+            if self.config.evidence_crn_seed is not None and random_key is not None:
+                digest = hashlib.sha256(
+                    f"{self.config.evidence_crn_seed}|{random_key}|attempt={attempt}".encode("utf-8")
+                ).digest()
+                draw_rng = random.Random(int.from_bytes(digest[:8], "big"))
+            delivered = draw_rng.random() <= self.config.packet_delivery_ratio
+            propagation_ms = max(
+                0.1,
+                draw_rng.gauss(self.config.base_latency_ms, self.config.jitter_ms),
+            )
             if receiver == "central-server":
                 propagation_ms += self.config.central_backhaul_extra_latency_ms
             delivered_at = queue_start + serialization_seconds + propagation_ms / 1000.0 if delivered else None

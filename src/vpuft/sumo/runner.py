@@ -113,6 +113,8 @@ def run_sumo_trace(
     events = []
     previous_speed: dict[str, tuple[float, float]] = {}
     observed_truth_meta: dict[str, dict[str, Any]] = {}
+    observed_vehicle_ids: set[str] = set()
+    peak_concurrent_vehicles = 0
     label = f"vpuft-{seed}"
     tripinfo = output / "sumo_tripinfo.xml"
     command = [
@@ -136,6 +138,7 @@ def run_sumo_trace(
                 break
             snapshots: dict[str, MobilitySnapshot] = {}
             for vehicle_id in sorted(conn.vehicle.getIDList()):
+                observed_vehicle_ids.add(vehicle_id)
                 x, y = map(float, conn.vehicle.getPosition(vehicle_id))
                 speed = float(conn.vehicle.getSpeed(vehicle_id))
                 old_time, old_speed = previous_speed.get(vehicle_id, (now - config.sumo.step_length_seconds, speed))
@@ -156,6 +159,7 @@ def run_sumo_trace(
                 )
                 snapshots[vehicle_id] = snapshot
                 mobility_rows.append(asdict(snapshot))
+            peak_concurrent_vehicles = max(peak_concurrent_vehicles, len(snapshots))
 
             for vehicle_id, snapshot in snapshots.items():
                 messages = injector.generate(snapshot, now)
@@ -251,6 +255,8 @@ def run_sumo_trace(
             "cases": len({event.case_id for event in runtime_events}),
             "rsu_events": sum(event.source_kind.value == "rsu" for event in events),
             "witness_events": sum(event.source_kind.value == "vehicle_witness" for event in events),
+            "unique_vehicles_observed": len(observed_vehicle_ids),
+            "peak_concurrent_vehicles": peak_concurrent_vehicles,
         },
         "outputs": [
             "mobility_trace.csv",

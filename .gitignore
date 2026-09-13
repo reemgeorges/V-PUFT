@@ -11,7 +11,8 @@ Thumbs.db
 
 /result
 /FINAL_FREEZE_v7_20260809
-/.venv# Obsolete/intermediate V-PUFT experiment outputs
+/.venv
+# Obsolete/intermediate V-PUFT experiment outputs
 results/demo/
 results/demo_fix_check/
 results/demo_fix_check_small/
@@ -30,3 +31,5 @@ results/full_campaign/topology_architecture_summary.csv
 
 # Generated post-freeze extension campaigns (large, reproducible artifacts)
 results/extension_*/
+results/density_architecture_campaign/
+results/density_smoke_check/
