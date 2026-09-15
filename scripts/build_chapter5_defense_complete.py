@@ -542,15 +542,26 @@ def svg_wrap(title, inner, height=380):
     </figure>
     """
 
+def chart_actions(file_name):
+    safe_name = re.sub(r"[^A-Za-z0-9._-]+", "-", file_name).strip("-")
+    return f"""
+      <div class="prof-chart-actions" data-chart-file="{escape(safe_name)}">
+        <button type="button" onclick="downloadChartSvg(this)">تنزيل SVG</button>
+        <button type="button" onclick="downloadChartPng(this)">تنزيل PNG</button>
+        <button type="button" onclick="copyChartPng(this)">نسخ PNG</button>
+        <span class="prof-chart-status" aria-live="polite"></span>
+      </div>
+    """
+
 def line_chart(title, series, unit, note="", digits=2, y_floor=None,
-               x_labels=None, x_axis_label="عدد المركبات الاسمي"):
+               x_labels=None, x_axis_label="عدد المركبات الاسمي", file_name=None):
     """Render an accessible, self-contained SVG comparison chart.
 
     Equal D/C values are labelled once as D=C so one line never silently
     hides another.  The source arrays are printed below every figure too.
     """
     width, height = 1120, 410
-    left, right, top, bottom = 105, 35, 72, 85
+    left, right, top, bottom = 105, 35, 104, 85
     plot_w, plot_h = width-left-right, height-top-bottom
     x_labels = VEHICLES if x_labels is None else x_labels
     all_values = [v for _, values, _ in series for v in values]
@@ -574,6 +585,10 @@ def line_chart(title, series, unit, note="", digits=2, y_floor=None,
 
     palette = ["#1d4ed8", "#ea580c", "#0f766e", "#7c3aed", "#be123c", "#475569"]
     parts = [f'<rect x="0" y="0" width="{width}" height="{height}" rx="18" fill="#fff"/>']
+    parts.append(
+        f'<text x="{width/2:.1f}" y="27" text-anchor="middle" '
+        f'class="chart-title" direction="rtl">{escape(title)}</text>'
+    )
     for j in range(5):
         value = y_min + (y_max-y_min)*j/4
         y = sy(value)
@@ -594,34 +609,61 @@ def line_chart(title, series, unit, note="", digits=2, y_floor=None,
         for i, v in enumerate(values):
             x, y = sx(i), sy(v)
             parts.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="{7 if dash else 4.5}" fill="{color if not dash else "white"}" stroke="{color}" stroke-width="3"/>')
-        lx = left + (s_i % 3)*300
-        ly = 22 + (s_i // 3)*25
-        parts.append(f'<line x1="{lx}" y1="{ly}" x2="{lx+30}" y2="{ly}" stroke="{color}" stroke-width="4"{dash_attr}/>')
-        parts.append(f'<text x="{lx+38}" y="{ly+5}" class="chart-legend">{escape(label)}</text>')
+        column_w = 315
+        lx = left + 105 + (s_i % 3)*column_w
+        ly = 55 + (s_i // 3)*25
+        parts.append(
+            f'<g class="prof-chart-legend-item">'
+            f'<text x="{lx}" y="{ly+5}" text-anchor="end" direction="rtl" '
+            f'unicode-bidi="plaintext" class="prof-legend-label chart-legend">{escape(label)}</text>'
+            f'<line class="prof-legend-swatch" x1="{lx-45}" y1="{ly}" x2="{lx-12}" y2="{ly}" '
+            f'stroke="{color}" stroke-width="4"{dash_attr}/></g>'
+        )
 
     # Numeric labels are consolidated when the two principal series coincide.
+    def label_x(i):
+        if i == 0:
+            return sx(i) + 4, "start"
+        if i == len(x_labels) - 1:
+            return sx(i) - 4, "end"
+        return sx(i), "middle"
+
+    def bounded_label_y(value):
+        return min(max(value, 91), top + plot_h - 8)
+
     if len(series) == 1:
         for i, v in enumerate(series[0][1]):
-            parts.append(f'<text x="{sx(i):.1f}" y="{sy(v)-12:.1f}" text-anchor="middle" class="chart-value">{v:,.{digits}f}</text>')
+            tx, anchor = label_x(i)
+            parts.append(f'<text x="{tx:.1f}" y="{bounded_label_y(sy(v)-12):.1f}" text-anchor="{anchor}" class="chart-value">{v:,.{digits}f}</text>')
     elif len(series) == 2:
         a, b = series[0][1], series[1][1]
         for i, (va, vb) in enumerate(zip(a, b)):
-            x = sx(i)
+            x, anchor = label_x(i)
             if abs(va-vb) <= 10**(-digits):
-                parts.append(f'<text x="{x:.1f}" y="{sy(va)-12:.1f}" text-anchor="middle" class="chart-value">D=C {va:,.{digits}f}</text>')
+                parts.append(f'<text x="{x:.1f}" y="{bounded_label_y(sy(va)-12):.1f}" text-anchor="{anchor}" class="chart-value">D=C {va:,.{digits}f}</text>')
             else:
-                parts.append(f'<text x="{x:.1f}" y="{sy(va)-11:.1f}" text-anchor="middle" class="chart-value chart-d">D {va:,.{digits}f}</text>')
-                parts.append(f'<text x="{x:.1f}" y="{sy(vb)+19:.1f}" text-anchor="middle" class="chart-value chart-c">C {vb:,.{digits}f}</text>')
+                ya, yb = sy(va), sy(vb)
+                if abs(ya-yb) < 38:
+                    if ya <= yb:
+                        yda, ycb = ya-14, yb+25
+                    else:
+                        yda, ycb = ya+25, yb-14
+                else:
+                    yda, ycb = ya-12, yb-12
+                parts.append(f'<text x="{x:.1f}" y="{bounded_label_y(yda):.1f}" text-anchor="{anchor}" class="chart-value chart-d">D {va:,.{digits}f}</text>')
+                parts.append(f'<text x="{x:.1f}" y="{bounded_label_y(ycb):.1f}" text-anchor="{anchor}" class="chart-value chart-c">C {vb:,.{digits}f}</text>')
 
+    file_name = file_name or title
     return f"""
-    <figure class="prof-metric-chart">
-      <h4>{escape(title)}</h4>
+    <figure class="prof-metric-chart" data-chart-name="{escape(file_name)}">
+      {chart_actions(file_name)}
       <svg viewBox="0 0 {width} {height}" role="img" aria-label="{escape(title)}">
         <style>
           .chart-tick{{font:14px Arial;fill:#475569}}
           .chart-axis{{font:700 15px Arial;fill:#334155}}
+          .chart-title{{font:700 18px Arial;fill:#0f172a}}
           .chart-legend{{font:700 14px Arial;fill:#0f172a}}
-          .chart-value{{font:700 11px Arial;fill:#334155}}
+          .chart-value{{font:700 11px Arial;fill:#334155;paint-order:stroke;stroke:#fff;stroke-width:4px;stroke-linejoin:round}}
           .chart-d{{fill:#1d4ed8}} .chart-c{{fill:#c2410c}}
         </style>{''.join(parts)}
       </svg>
@@ -664,6 +706,25 @@ METRIC_SPECS = {
         "يظهر في الموزع بسبب PBFT. صفر المركزي قيمة بنيوية لأن هذه المرحلة غير موجودة فيه، لا زمناً مقاساً أسرع لتوافق مماثل."),
 }
 
+METRIC_SYMBOLS = {
+    "Precision": "TP حالات خبيثة أُلغيت صحيحاً؛ FP حالات سليمة أُلغيت خطأً.",
+    "Recall": "TP حالات خبيثة أُلغيت؛ FN حالات خبيثة لم تُلغَ.",
+    "FRR": "FP حالات سليمة أُلغيت خطأً؛ TN حالات سليمة أُبقيت.",
+    "F1": "P هي Precision وR هي Recall.",
+    "MCC": "TP وFP وTN وFN خانات مصفوفة الالتباس؛ الجذر يطبّع الناتج إلى المجال −1…+1.",
+    "messages": "Σ مجموع الرسائل داخل التشغيل؛ Σ القرارات عدد القرارات المكتملة؛ ثم يؤخذ متوسط نسب البذور.",
+    "bytes": "Σ البايتات مجموع أحجام الرسائل؛ Σ القرارات مقام التطبيع.",
+    "queue": "qᵢ متوسط انتظار نوع الرسالة i؛ nᵢ عدد رسائل ذلك النوع.",
+    "pdr": "N المسلّمة عدد الرسائل التي نجح نقلها؛ N المرسلة جميع محاولات الإرسال المحتسبة.",
+    "cpu": "زمن CPU هو الوقت الحسابي المستهلك، لا زمن الحائط ولا زمن شبكة حقيقية.",
+    "memory": "max تعني أعلى عينة ذاكرة مرصودة خلال التشغيل.",
+    "p50": "L قائمة أزمنة القرار؛ percentile₅₀ وسيطها.",
+    "p99": "L قائمة أزمنة القرار؛ percentile₉₉ حد يقع تحته 99% منها.",
+    "detect": "L_detection أزمنة مرحلة الكشف فقط؛ percentile₉₅ مئينها الخامس والتسعون.",
+    "qual": "L_qualification أزمنة استكمال شروط التأهيل؛ percentile₉₅ مئينها الخامس والتسعون.",
+    "cons": "L_consensus أزمنة PBFT في الموزع؛ المركزي لا ينفذ هذه المرحلة.",
+}
+
 
 def winner_text(dv, cv, higher, tolerance):
     if abs(dv-cv) <= tolerance:
@@ -686,76 +747,257 @@ def comparison_table(values_d, values_c, higher, digits, tolerance, comparable=T
     )
 
 
-def density_reading(data, label, values_d, values_c, higher, digits, tolerance, mechanism,
-                    comparable=True):
+TOPOLOGY_CONTEXT = {
+    "Smoke": (
+        "المشهد المصغّر محدود المسارات",
+        [
+            "يمثل خط الأساس قبل تراكم الحمل",
+            "بدأت فرص الرصد تتضاعف داخل مساحة صغيرة",
+            "اقترب نمو الأحداث من بداية التشبع المكاني",
+            "صار نمو الرسائل أبطأ من نمو العدد الاسمي",
+            "ظهر بوضوح تسطح الحمل: الزيادة الاسمية لم تعد تنتج زيادة مماثلة في V2X",
+        ],
+    ),
+    "Corridor": (
+        "الممر الطولي يغيّر الجوار عند انتقال المركبات بين نطاقات RSU",
+        [
+            "يمثل أقل حمل طولي",
+            "ضاعف تقريباً الحالات والرسائل على امتداد الطريق",
+            "زاد عدد اللقاءات المتتابعة مع وحدات الطريق",
+            "رفع تراكم الأدلة مع استمرار تبدّل الجوار",
+            "جمع أكبر حمل في الممر مع بقاء الاتصال موزعاً طولياً",
+        ],
+    ),
+    "Intersection": (
+        "التقاطع يجمع مركبات من اتجاهات مختلفة ويبدّل مجموعات المراقبين بسرعة",
+        [
+            "يمثل خط الأساس قبل ازدحام نقاط الالتقاء",
+            "رفع فرص الرصد المتزامن عند مداخل التقاطع",
+            "وسّع تبدّل الجوار وتعدد الملاحظات للحالة",
+            "زاد التزامن والطابور مع تقارب المسارات",
+            "أنتج أعلى حمل نهائي من أحداث الكشف في هذه الطبولوجيا",
+        ],
+    ),
+    "Grid": (
+        "شبكة الشوارع تجمع مسارات وتقاطعـات وانتقالات بين عدة نطاقات RSU",
+        [
+            "يمثل أقل تغطية شبكية في السلسلة",
+            "زاد تنوع الجوار مع دخول طرق إضافية في الأثر",
+            "رفع فرص المشاهدة عبر أكثر من مقطع طريق",
+            "وسّع انتقال المركبات بين مناطق الرصد",
+            "جمع أكبر عدد حالات ورسائل في شبكة الشوارع",
+        ],
+    ),
+}
+
+
+def signed_change(current, previous, digits):
+    delta = current - previous
+    if abs(delta) <= 10 ** (-digits):
+        return "بقي ثابتاً ضمن دقة العرض"
+    verb = "ارتفع" if delta > 0 else "انخفض"
+    return f"{verb} بمقدار {abs(delta):,.{digits}f}"
+
+
+def workload_transition(data, index):
+    work = data["workload"]
+    if index == 0:
+        return "هذه أول كثافة في السلسلة، ولذلك تُستخدم خط أساس للتغيرات اللاحقة"
+    previous = index - 1
+    case_pct = 100 * (work["cases"][index] / work["cases"][previous] - 1)
+    v2x_pct = 100 * (work["v2x"][index] / work["v2x"][previous] - 1)
+    det_pct = 100 * (work["detections"][index] / work["detections"][previous] - 1)
+    return (
+        f"مقارنةً بـ{VEHICLES[previous]} مركبة، زادت الحالات {case_pct:.1f}%، "
+        f"ورسائل V2X {v2x_pct:.1f}%، وأحداث الكشف {det_pct:.1f}%"
+    )
+
+
+def metric_specific_reason(name, vehicle_count, key, dv, cv, previous_d, previous_c,
+                           digits):
+    d_move = "قيمة البداية" if previous_d is None else signed_change(dv, previous_d, digits)
+    c_move = "قيمة البداية" if previous_c is None else signed_change(cv, previous_c, digits)
+    moves = f"الموزع: {d_move}؛ المركزي: {c_move}"
+    reasons = {
+        "Precision": "الرقم هو حصة TP من جميع قرارات الإلغاء TP+FP؛ لذلك تحرّكه يعني أن مزيج الإلغاءات الصحيحة والكاذبة تغيّر، لا أن عدد المركبات دخل المعادلة مباشرة",
+        "Recall": "الرقم هو TP من مجموع الحالات الخبيثة TP+FN؛ تحرّكه يتوافق مع تغيّر مقدار الدليل المؤهل والتغطية ومزيج النوافذ الخبيثة",
+        "FRR": "الرقم هو FP من الحالات السليمة FP+TN؛ صغره يعني أن معظم الحالات السليمة بقيت غير ملغاة، وتقلبه تحدده أخطاء الإلغاء لا حجم المرور وحده",
+        "F1": "هذه القيمة مشتقة بالكامل من Precision وRecall؛ لذا اتجاهها هنا يلخص حركتهما ولا يضيف آلية كشف مستقلة",
+        "MCC": "هذه القيمة نتجت من TP وFP وTN وFN معاً؛ لذلك قد تتحرك حتى عندما يبدو أحد المعدلات ثابتاً",
+        "messages": "البسط هو مجموع رسائل المعمارية والمقام هو القرارات؛ هبوط النسبة مع زيادة الحمل يعني أن الرسائل لم تنمُ بسرعة مقام القرارات نفسها",
+        "bytes": "البسط يجمع أحجام الرسائل لا عددها؛ الحزم الموزعة وPBFT والنسخ تفسر كيف يمكن أن ينخفض عدد الرسائل بينما يبقى الحمل الحجمي مرتفعاً",
+        "queue": "المتوسط موزون بعدد الرسائل؛ تغيره يعكس زمن الانتظار وتركيب مزيج الرسائل، وخصوصاً النوع الغالب، وليس متوسطاً متساوياً بين الأنواع",
+        "pdr": "النسبة ناتجة من delivered/sent في نموذج النقل؛ تقاربها متوقع من إعدادات loss المشتركة، أما عدم التطابق فيأتي من رسائل PBFT والنسخ غير المقترنة",
+        "cpu": "زمن CPU يجمع عمل التنفيذ البرمجي؛ نمو الحالات والأدلة يزيد العمل، ويضيف الموزع إعادة التأهيل والتوافق والنسخ",
+        "memory": "الذروة تتبع أكبر حالة تنفيذية متزامنة وتخزين الأدلة؛ هي حساسة للحمل وبيئة بايثون ولا تساوي متطلب ذاكرة جهاز إنتاجي",
+        "p50": "الوسيط يصف القرار النموذجي؛ الفرق المعماري يجمع طابور المركزي مقابل إعادة التأهيل والتوافق المحلي في الموزع",
+        "p99": "المئين 99 يتأثر بأبطأ 1% من القرارات؛ لذلك يبرز التراكم والحالات البطيئة أكثر من P50",
+        "detect": "مرحلة الكشف تسبق اختيار البنية؛ لذلك D=C هنا بنيوياً، بينما تغير القيمة مع الكثافة صادر من توقيت الأثر والكشف نفسه",
+        "qual": "زمن التأهيل ينتظر أدلة تستوفي الجذور والمصادر والمناطق والوسائط؛ زيادة أحداث الكشف لا تعني أن جميعها أدلة مستقلة مؤهلة",
+        "cons": "الموزع وحده ينفذ PBFT؛ قيمة المركزي صفر تعني غياب المرحلة، وزمن الموزع يتبع توقيت النصاب والتوافق لا مفاضلة بين تنفيذين متماثلين",
+        "p95": "المئين 95 يجمع الكشف والتأهيل والإنهاء؛ في الموزع تظهر إعادة التأهيل وPBFT، وفي المركزي يظهر الطابور ثم تضاف قيمة Backhaul زمنياً",
+    }
+    return (
+        f"في خلية {name}–{vehicle_count} حيث D={dv:,.{digits}f} و"
+        f"C={cv:,.{digits}f}، {reasons[key]}؛ واتجاهها عن الكثافة السابقة هو: {moves}."
+    )
+
+
+def architecture_reason(name, vehicle_count, key, dv, cv, tolerance, comparable):
+    delta = dv - cv
+    cell = f"في {name} عند {vehicle_count} مركبة لمعيار {key}"
+    if not comparable:
+        return f"{cell} لا يُسمّى المركزي أفضل بسبب الصفر؛ فهو لا يملك مرحلة توافق تقابل PBFT أصلاً."
+    if abs(delta) <= tolerance:
+        if key == "detect":
+            return f"التطابق {cell} متوقع لأن الكشف سبق تفرع المسار إلى مركزي وموزع."
+        return f"لم يظهر أثر معماري {cell} عند دقة العرض؛ CRN وقواعد القرار المشتركة أبقتا النتيجة متعادلة."
+    if key in {"Precision", "Recall", "FRR", "F1", "MCC"}:
+        return f"الفرق غير الصفري {cell} بقي حدّياً؛ يمكن أن ينشأ من وصول دليل المنسق محلياً وإعادة التأهيل، لكن البيانات لا تعزل واحداً منهما سبباً منفرداً."
+    if key == "messages":
+        return f"الفرق العددي {cell} يعكس تجميع أدلة الموزع في حزم مقابل رسائل الإرسال المركزي، مع بقاء رسائل PBFT والنسخ محسوبة."
+    if key == "bytes":
+        return f"اتجاه الفرق {cell} تحدده أحجام الحزم والأدلة ونسخ السجل؛ لذلك الحكم هنا حجمي وليس حكماً على عدد الرسائل."
+    if key == "queue":
+        return f"{cell} يمر المركزي عبر خادم بأربعة عمال وطابور، بينما للموزع خليط رسائل مختلف؛ لذا المقارنة وصفية بين مسارين كاملين."
+    if key == "pdr":
+        return f"الفرق الصغير {cell} لا يناقض CRN: الاقتران يخص EvidenceAttestation ولا يوحّد الرسائل الخاصة بكل معمارية."
+    if key == "cpu":
+        return f"زيادة الموزع {cell} المتوقعة وصفياً تأتي من عمل المدققين والتوافق والنسخ، ضمن الجهاز والتنفيذ البرمجي نفسيهما."
+    if key == "memory":
+        return f"الفارق {cell} ذروة تنفيذ وصفية؛ لا يجوز تحويله إلى ادعاء أن RSU حقيقية ستستهلك المقدار نفسه."
+    if key in {"p50", "p99", "qual", "p95"}:
+        return f"الفارق {cell} يقارن المسار الموزع الكامل بالمسار المركزي عند 0 ms؛ لا يتضمن ادعاء قياس شبكة بعيدة حقيقية."
+    return f"الفرق {cell} يصف مخرجي المسارين ولا يعزل الكثافة سبباً وحيداً."
+
+
+def density_reading(name, data, key, label, values_d, values_c, higher, digits,
+                    tolerance, comparable=True):
     paragraphs = []
     for i, n in enumerate(VEHICLES):
         dv, cv = values_d[i], values_c[i]
         workload = data["workload"]
         verdict = (winner_text(dv, cv, higher, tolerance) if comparable else
                    "لا مفاضلة مباشرة لأن المركزي لا ينفذ هذه المرحلة")
-        transition = "هذه نقطة البداية للمقارنة." if i == 0 else (
-            f"مقارنةً بـ{VEHICLES[i-1]} مركبة، تغيّر الموزع "
-            f"{dv-values_d[i-1]:+,.{digits}f} والمركزي {cv-values_c[i-1]:+,.{digits}f}."
+        _context, density_notes = TOPOLOGY_CONTEXT[name]
+        direct_reason = metric_specific_reason(
+            name, n, key, dv, cv,
+            None if i == 0 else values_d[i-1],
+            None if i == 0 else values_c[i-1],
+            digits,
         )
+        arch_reason = architecture_reason(name, n, key, dv, cv, tolerance, comparable)
         paragraphs.append(
-            f"<li><strong>{n} مركبة:</strong> D={dv:,.{digits}f}، "
+            f'<li data-explanation-key="{name}-{key}-{n}"><strong>{n} مركبة:</strong> D={dv:,.{digits}f}، '
             f"C={cv:,.{digits}f}، والفرق D−C={dv-cv:+,.{digits}f}؛ "
-            f"<strong>{verdict}</strong>. رافق هذه الخلية متوسط "
+            f"<strong>{verdict}</strong>. {workload_transition(data, i)}. "
+            f"في {name}، وضمن تفسير {label} تحديداً، {density_notes[i]}؛ ورافق الخلية فعلياً "
             f"{workload['cases'][i]:,.1f} حالة و{workload['v2x'][i]:,.1f} رسالة V2X "
-            f"و{workload['detections'][i]:,.1f} حدث كشف. {transition} "
-            f"<strong>العامل المباشر:</strong> {mechanism}</li>"
+            f"و{workload['detections'][i]:,.1f} حدث كشف. {direct_reason} "
+            f"<strong>لماذا اختلفت البنيتان؟</strong> {arch_reason} "
+            f"لذلك تبقى قراءة {label} في خلية {name}–{n} تفسيراً آلياً محافظاً "
+            f"للمتوسط عبر عشر بذور، وليست برهاناً على أن شكل الطبولوجيا وحده يفسر النتيجة.</li>"
         )
     return f"""
       <ol class="prof-density-reading">{''.join(paragraphs)}</ol>
-      <div class="prof-analysis"><strong>ما الذي يفسر النمط؟</strong> {mechanism}
-      القيم متوسطات وصفية عبر عشر بذور داخل الخلية؛ حجم العمل يفسر السياق الحسابي،
-      لكنه لا يعزل الكثافة سبباً وحيداً لأن التغطية والتزامن ومزيج الأدلة تتغير معها.</div>
+      <div class="prof-analysis"><strong>حد الاستدلال:</strong>
+      الأرقام متوسطات وصفية عبر عشر بذور داخل الخلية. يشرح النص طريقة تكوّن
+      المقياس والآليات المتسقة مع اتجاهه، لكنه لا ينسب كل منزلة عشرية إلى عامل
+      منفرد من دون Ablation خاص بتلك الخلية.</div>
     """
 
 
-def metric_block(data, key, values_d, values_c, digits=4, tolerance=None):
+def committee_statement(name, key, title, values_d, values_c, higher, digits,
+                        tolerance, comparable=True):
+    if not comparable:
+        return (
+            f"في {name} تراوح {title} للموزع بين {min(values_d):,.{digits}f} و"
+            f"{max(values_d):,.{digits}f}، بينما صفر المركزي يعني غياب المرحلة؛ "
+            "لذلك أصف كلفة PBFT ولا أعلن فوز المركزي."
+        )
+    d_wins = sum(
+        abs(d-c) > tolerance and ((d > c) == higher)
+        for d, c in zip(values_d, values_c)
+    )
+    c_wins = sum(
+        abs(d-c) > tolerance and ((c > d) == higher)
+        for d, c in zip(values_d, values_c)
+    )
+    ties = 5 - d_wins - c_wins
+    mean_delta = sum(d-c for d, c in zip(values_d, values_c)) / 5
+    return (
+        f"في {name}، وبالقراءة العددية الخاصة بـ{title}، فاز الموزع في {d_wins}/5 "
+        f"خلايا والمركزي في {c_wins}/5 وتعادلا في {ties}/5، وكان متوسط D−C "
+        f"{mean_delta:+,.{digits}f}. هذا حكم وصفي داخل المعيار، لا تفوق مطلق أو سببي."
+    )
+
+
+def metric_block(name, data, key, values_d, values_c, digits=4, tolerance=None):
     title, formula, unit, higher, mechanism = METRIC_SPECS[key]
     tolerance = tolerance if tolerance is not None else 10**(-digits)
     chart = line_chart(
-        f"{title}: الموزع مقابل المركزي حسب عدد المركبات",
+        f"مقارنة الموزع والمركزي حسب عدد المركبات — {title}",
         [("الموزع D", values_d, False), ("المركزي C", values_c, True)],
         unit,
         "الحلقة البرتقالية المتقطعة تمثل المركزي؛ عند التطابق تُكتب D=C كي لا يخفي خط خطاً آخر. المحور الرأسي مضبوط على مدى البيانات لقراءة الفروق، والحكم العددي في الجدول.",
         digits,
         0 if key in {"FRR", "messages", "bytes", "queue", "cpu", "memory", "cons"} else None,
+        file_name=f"{name}-{key}",
     )
     return f"""
     <article class="prof-metric-block">
       <h4>{title}</h4>
+      <p><strong>التعريف:</strong> {mechanism}</p>
       <div class="prof-equation">{formula}</div>
+      <p class="prof-symbols"><strong>شرح الرموز:</strong> {METRIC_SYMBOLS[key]}</p>
       <p><strong>الوحدة واتجاه الأفضلية:</strong> {unit}؛ {'الأعلى أفضل' if higher else 'الأدنى أفضل'} في حدود هذا المعيار فقط.</p>
       {chart}
       {comparison_table(values_d, values_c, higher, digits, tolerance, key != 'cons')}
       <h5>قراءة 20 و40 و60 و80 و100 مركبة</h5>
-      {density_reading(data, title, values_d, values_c, higher, digits, tolerance, mechanism, key != 'cons')}
+      {density_reading(name, data, key, title, values_d, values_c, higher, digits, tolerance, key != 'cons')}
+      <div class="prof-ok"><strong>صياغة جاهزة للجنة:</strong> {committee_statement(name, key, title, values_d, values_c, higher, digits, tolerance, key != 'cons')}</div>
     </article>"""
 
 
-def workload_block(data, key, title, unit, digits=1):
+def workload_block(name, data, key, title, unit, digits=1):
     values = data["workload"][key]
     chart = line_chart(
         f"{title} حسب عدد المركبات",
         [(title, values, False)], unit,
         "يمثل كل رقم متوسط البذور العشر؛ العدد الاسمي للمركبات ليس هو مقام المقياس.",
-        digits, 0,
+        digits, 0, file_name=f"{name}-workload-{key}",
     )
     readings = []
     for i, n in enumerate(VEHICLES):
         change = "نقطة الأساس." if i == 0 else f"التغير عن {VEHICLES[i-1]} = {values[i]-values[i-1]:+,.1f}."
-        readings.append(f"<li><strong>{n} مركبة:</strong> {values[i]:,.1f} {unit}. {change}</li>")
-    return f"""<article class="prof-metric-block"><h4>{title}</h4>{chart}
+        if i == 0:
+            why = f"هذه قيمة الأساس المحسوبة من البذور العشر في {name}."
+        else:
+            pct = 100 * (values[i] / values[i-1] - 1) if values[i-1] else 0
+            why = (
+                f"التغير النسبي عن {VEHICLES[i-1]} بلغ {pct:+.1f}%؛ ولا يساوي "
+                f"زيادة المركبات الاسمية لأن البقاء والتغطية والجوار تختلف داخل الأثر."
+            )
+        readings.append(f"<li><strong>{n} مركبة:</strong> {values[i]:,.1f} {unit}. {change} {why}</li>")
+    definitions = {
+        "cases": ("متوسط عدد حالات الثقة الفعلية المكتملة عبر البذور العشر.", "Σ حالات البذور / 10", "Σ مجموع الحالات المكتملة."),
+        "v2x": ("متوسط رسائل CAM/DENM/Flood الفعلية المولدة في الأثر.", "Σ رسائل V2X للبذور / 10", "Σ مجموع الرسائل المولدة، و10 عدد البذور."),
+        "detections": ("متوسط أحداث الكشف الصادرة من المراقبين قبل التأهيل النهائي.", "Σ أحداث الكشف للبذور / 10", "الحدث ملاحظة كاشف، وليس قراراً نهائياً أو شاهداً مستقلاً بالضرورة."),
+    }
+    definition, formula, symbols = definitions[key]
+    return f"""<article class="prof-metric-block"><h4>{title}</h4>
+      <p><strong>التعريف:</strong> {definition}</p>
+      <div class="prof-equation">{formula}</div>
+      <p class="prof-symbols"><strong>شرح الرموز:</strong> {symbols}</p>
+      {chart}
       <ol class="prof-density-reading">{''.join(readings)}</ol>
       <p class="prof-limit">الزيادة ليست مضاعفة خطية لازمة؛ مدة البقاء والتغطية والجوار وتوزيع الهجمات تغير عدد الأحداث الفعلي.</p>
+      <div class="prof-ok"><strong>صياغة جاهزة للجنة:</strong> في {name} ارتفع {title} من {values[0]:,.1f} إلى {values[-1]:,.1f} عبر مجال 20–100 مركبة، لكنني أستخدم الحمل الفعلي لتفسير النتائج ولا أفترض تناسباً خطياً مع العدد الاسمي.</div>
     </article>"""
 
 
-def bar_chart(title, labels, values, unit, digits=3, lows=None, highs=None, note=""):
+def bar_chart(title, labels, values, unit, digits=3, lows=None, highs=None, note="",
+              file_name=None):
     width, height = 1040, 410
     left, right, top, bottom = 90, 30, 55, 95
     plot_w, plot_h = width-left-right, height-top-bottom
@@ -763,7 +1005,11 @@ def bar_chart(title, labels, values, unit, digits=3, lows=None, highs=None, note
     y_max = max(maxima)*1.18 if max(maxima) else 1
     bar_slot = plot_w/len(values)
     bar_w = min(90, bar_slot*.55)
-    parts = []
+    parts = [
+        f'<rect x="0" y="0" width="{width}" height="{height}" rx="18" fill="#fff"/>',
+        f'<text x="{width/2:.1f}" y="27" text-anchor="middle" class="chart-title" '
+        f'direction="rtl">{escape(title)}</text>',
+    ]
     for j in range(5):
         v = y_max*j/4
         y = top+plot_h-v*plot_h/y_max
@@ -784,9 +1030,11 @@ def bar_chart(title, labels, values, unit, digits=3, lows=None, highs=None, note
             parts.append(f'<line x1="{cx:.1f}" y1="{yhi:.1f}" x2="{cx:.1f}" y2="{ylo:.1f}" stroke="#0f172a" stroke-width="3"/>')
             parts.append(f'<line x1="{cx-10:.1f}" y1="{yhi:.1f}" x2="{cx+10:.1f}" y2="{yhi:.1f}" stroke="#0f172a" stroke-width="3"/>')
             parts.append(f'<line x1="{cx-10:.1f}" y1="{ylo:.1f}" x2="{cx+10:.1f}" y2="{ylo:.1f}" stroke="#0f172a" stroke-width="3"/>')
-    return f"""<figure class="prof-metric-chart"><h4>{escape(title)}</h4>
+    file_name = file_name or title
+    return f"""<figure class="prof-metric-chart" data-chart-name="{escape(file_name)}">
+      {chart_actions(file_name)}
       <svg viewBox="0 0 {width} {height}" role="img" aria-label="{escape(title)}">
-      <style>.chart-tick{{font:14px Arial;fill:#475569}}.chart-value{{font:700 12px Arial;fill:#0f172a}}</style>
+      <style>.chart-tick{{font:14px Arial;fill:#475569}}.chart-title{{font:700 18px Arial;fill:#0f172a}}.chart-value{{font:700 12px Arial;fill:#0f172a;paint-order:stroke;stroke:#fff;stroke-width:4px;stroke-linejoin:round}}</style>
       <text x="25" y="{top+plot_h/2}" text-anchor="middle" class="chart-tick" transform="rotate(-90 25 {top+plot_h/2})">{escape(unit)}</text>
       {''.join(parts)}</svg><figcaption>{escape(note)}</figcaption></figure>"""
 
@@ -1014,6 +1262,7 @@ def p95_remote_block(name, data):
         levels, "ميلي ثانية",
         "خطوط Backhaul اشتقاقات زمنية من تشغيل المركزي 0 ms؛ ليست تشغيلات تصنيف مستقلة.",
         2,
+        file_name=f"{name}-p95-backhaul",
     )
     body = []
     readings = []
@@ -1026,22 +1275,35 @@ def p95_remote_block(name, data):
         at200 = d[i]-c200[i]
         winner0 = "المركزي" if at0 > 0 else "الموزع"
         winner200 = "المركزي" if at200 > 0 else "الموزع"
+        _context, density_notes = TOPOLOGY_CONTEXT[name]
+        reason = metric_specific_reason(
+            name, n, "p95", d[i], c0[i],
+            None if i == 0 else d[i-1],
+            None if i == 0 else c0[i-1],
+            2,
+        )
+        arch = architecture_reason(name, n, "p95", d[i], c0[i], 0.01, True)
         readings.append(
-            f"<li><strong>{n} مركبة:</strong> P95 الموزع {d[i]:,.2f} ms، "
+            f'<li data-explanation-key="{name}-p95-{n}"><strong>{n} مركبة:</strong> P95 الموزع {d[i]:,.2f} ms، '
             f"والمركزي 0 ms يساوي {c0[i]:,.2f} ms، لذلك {winner0} أسرع عند الصفر "
             f"بـ{abs(at0):,.2f} ms. عند +200 ms يصبح المركزي {c200[i]:,.2f} ms، "
             f"فيكون {winner200} أسرع بـ{abs(at200):,.2f} ms. نقطة التعادل "
-            f"{data['breakeven'][i]:,.2f} ms ({'مختبرة داخل 0–200' if data['inside'][i] else 'استقراء نموذجي'}).</li>"
+            f"{data['breakeven'][i]:,.2f} ms ({'مختبرة داخل 0–200' if data['inside'][i] else 'استقراء نموذجي'}). "
+            f"{workload_transition(data, i)}؛ وفي {name} {density_notes[i]}. {reason} {arch} "
+            f"ولا تُنسب قيمة P95 في {name}–{n} إلى شكل الطبولوجيا وحده.</li>"
         )
     return f"""
     <article class="prof-metric-block">
       <h4>P95 latency ونقطة التعادل</h4>
+      <p><strong>التعريف:</strong> الزمن الذي يقع تحته 95% من القرارات؛ وهو مقياس ذيل لا متوسطاً حسابياً.</p>
       <div class="prof-equation">P95<sub>C,bh</sub> = P95<sub>C,0</sub> + bh</div>
+      <p class="prof-symbols"><strong>شرح الرموز:</strong> C,0 تشغيل المركزي الفعلي عند Backhaul صفري؛ bh التأخير المضاف؛ C,bh القيمة المشتقة. قيمة D مقاسة في تشغيل الموزع ولا تضاف إليها bh.</p>
       <p>الأدنى أسرع. الإضافة تقع على الزمن بعد النقل؛ Detection لا يتغير لأنه يسبق Backhaul.</p>
       {chart}
       {table(["المركبات","D","C+0","C+20","C+50","C+100","C+200","التعادل","التصنيف"], body)}
       <h5>قراءة كل كثافة</h5><ol class="prof-density-reading">{''.join(readings)}</ol>
       <p class="prof-limit">فقط Smoke–20 وSmoke–80 وSmoke–100 تعبر داخل المجال المختبر. أي قيمة فوق 200 ms استقراء خطي مشروط، وليست قياساً ميدانياً.</p>
+      <div class="prof-ok"><strong>صياغة جاهزة للجنة:</strong> في {name} لا أستخدم عتبة عامة؛ أبلغ نقطة التعادل لكل كثافة، وأسمّيها نتيجة داخل المجال فقط عندما تقع بين 0 و200 ms، وإلا فهي استقراء نموذجي.</div>
     </article>"""
 
 
@@ -1052,29 +1314,29 @@ def topology_analysis(name, data):
     lat = LATENCY[name]
 
     workload_sections = "".join([
-        workload_block(data, "cases", "الحالات الفعلية", "حالة"),
-        workload_block(data, "v2x", "رسائل V2X", "رسالة"),
-        workload_block(data, "detections", "أحداث الكشف", "حدث"),
+        workload_block(name, data, "cases", "الحالات الفعلية", "حالة"),
+        workload_block(name, data, "v2x", "رسائل V2X", "رسالة"),
+        workload_block(name, data, "detections", "أحداث الكشف", "حدث"),
     ])
     classification_sections = "".join(
-        metric_block(data, metric, d[metric], c[metric], 4, 0.0001)
+        metric_block(name, data, metric, d[metric], c[metric], 4, 0.0001)
         for metric in ("Precision", "Recall", "FRR", "F1", "MCC")
     )
     latency_sections = "".join([
-        metric_block(data, "p50", lat["p50_d"], lat["p50_c"], 2, 0.01),
+        metric_block(name, data, "p50", lat["p50_d"], lat["p50_c"], 2, 0.01),
         p95_remote_block(name, data),
-        metric_block(data, "p99", lat["p99_d"], lat["p99_c"], 2, 0.01),
-        metric_block(data, "detect", lat["detect_d"], lat["detect_c"], 2, 0.01),
-        metric_block(data, "qual", lat["qual_d"], lat["qual_c"], 2, 0.01),
-        metric_block(data, "cons", lat["cons_d"], lat["cons_c"], 2, 0.01),
+        metric_block(name, data, "p99", lat["p99_d"], lat["p99_c"], 2, 0.01),
+        metric_block(name, data, "detect", lat["detect_d"], lat["detect_c"], 2, 0.01),
+        metric_block(name, data, "qual", lat["qual_d"], lat["qual_c"], 2, 0.01),
+        metric_block(name, data, "cons", lat["cons_d"], lat["cons_c"], 2, 0.01),
     ])
     operations_sections = "".join([
-        metric_block(data, "messages", od["messages"], oc["messages"], 2, 0.01),
-        metric_block(data, "bytes", od["bytes"], oc["bytes"], 2, 0.01),
-        metric_block(data, "queue", od["queue"], oc["queue"], 2, 0.01),
-        metric_block(data, "pdr", od["pdr"], oc["pdr"], 5, 0.0005),
-        metric_block(data, "cpu", od["cpu"], oc["cpu"], 3, 0.001),
-        metric_block(data, "memory", od["memory"], oc["memory"], 1, 0.1),
+        metric_block(name, data, "messages", od["messages"], oc["messages"], 2, 0.01),
+        metric_block(name, data, "bytes", od["bytes"], oc["bytes"], 2, 0.01),
+        metric_block(name, data, "queue", od["queue"], oc["queue"], 2, 0.01),
+        metric_block(name, data, "pdr", od["pdr"], oc["pdr"], 5, 0.0005),
+        metric_block(name, data, "cpu", od["cpu"], oc["cpu"], 3, 0.001),
+        metric_block(name, data, "memory", od["memory"], oc["memory"], 1, 0.1),
     ])
 
     return f"""
@@ -1197,9 +1459,12 @@ CSS = r"""
 .prof-metric-block>h4{font-size:1.35rem;color:#0f4c5c;margin:0 0 12px;border-bottom:2px solid #ccfbf1;padding-bottom:8px}
 .prof-metric-block h5{font-size:1.08rem;color:#1e3a8a;margin:22px 0 8px}
 .prof-metric-chart{margin:22px 0;padding:14px;background:#fff;border:1px solid #cbd5e1;border-radius:16px;overflow:auto}
-.prof-metric-chart h4{text-align:center;margin:4px 0 8px;color:#0f172a}
 .prof-metric-chart svg{display:block;width:100%;min-width:820px;height:auto}
 .prof-metric-chart figcaption{text-align:center;color:#475569;font-size:.92rem;margin-top:8px}
+.prof-chart-actions{display:flex;direction:rtl;align-items:center;gap:8px;flex-wrap:wrap;margin:0 0 8px}
+.prof-chart-actions button{border:1px solid #0f766e;border-radius:8px;background:#f0fdfa;color:#115e59;padding:6px 11px;font:700 .82rem "Segoe UI",Tahoma,Arial,sans-serif;cursor:pointer}
+.prof-chart-actions button:hover{background:#ccfbf1}
+.prof-chart-status{color:#0f766e;font-size:.82rem;min-height:1.2em}
 .prof-density-reading{padding-right:24px}
 .prof-density-reading li{margin:10px 0;padding:10px 12px;background:#fff;border-right:4px solid #38bdf8;border-radius:8px}
 .prof-symbols{font-size:.95rem}
@@ -1225,8 +1490,116 @@ CSS = r"""
   .prof-section,.prof-topology{box-shadow:none;break-inside:avoid-page}
   .prof-old-report{display:none!important}
   .prof-metric-block{break-inside:avoid-page}
+  .prof-chart-actions{display:none!important}
 }
 </style>
+"""
+
+EXPORT_JS = r"""
+<script id="prof-chart-export">
+function chartContext(button) {
+  const figure = button.closest('.prof-metric-chart');
+  const svg = figure ? figure.querySelector('svg') : null;
+  if (!figure || !svg) throw new Error('Chart SVG not found');
+  const tools = figure.querySelector('.prof-chart-actions');
+  const base = (tools?.dataset.chartFile || figure.dataset.chartName || 'vpuft-chart')
+    .replace(/[^A-Za-z0-9._-]+/g, '-').replace(/^-+|-+$/g, '') || 'vpuft-chart';
+  return {figure, svg, tools, base};
+}
+
+function chartSvgBlob(svg) {
+  const clone = svg.cloneNode(true);
+  clone.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+  clone.setAttribute('xmlns:xlink', 'http://www.w3.org/1999/xlink');
+  const source = '<?xml version="1.0" encoding="UTF-8"?>\n' +
+    new XMLSerializer().serializeToString(clone);
+  return new Blob([source], {type: 'image/svg+xml;charset=utf-8'});
+}
+
+function saveBlob(blob, fileName) {
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = fileName;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+function setChartStatus(button, message) {
+  const status = button.closest('.prof-chart-actions')?.querySelector('.prof-chart-status');
+  if (!status) return;
+  status.textContent = message;
+  setTimeout(() => { if (status.textContent === message) status.textContent = ''; }, 3500);
+}
+
+function downloadChartSvg(button) {
+  try {
+    const {svg, base} = chartContext(button);
+    saveBlob(chartSvgBlob(svg), base + '.svg');
+    setChartStatus(button, 'تم تنزيل SVG');
+  } catch (error) {
+    setChartStatus(button, 'تعذر تنزيل الرسم');
+  }
+}
+
+async function chartPngBlob(svg, scale = 3) {
+  const blob = chartSvgBlob(svg);
+  const url = URL.createObjectURL(blob);
+  try {
+    const image = new Image();
+    await new Promise((resolve, reject) => {
+      image.onload = resolve;
+      image.onerror = reject;
+      image.src = url;
+    });
+    const box = svg.viewBox.baseVal;
+    const width = box && box.width ? box.width : svg.clientWidth;
+    const height = box && box.height ? box.height : svg.clientHeight;
+    const canvas = document.createElement('canvas');
+    canvas.width = Math.round(width * scale);
+    canvas.height = Math.round(height * scale);
+    const ctx = canvas.getContext('2d');
+    ctx.scale(scale, scale);
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, width, height);
+    ctx.drawImage(image, 0, 0, width, height);
+    return await new Promise((resolve, reject) =>
+      canvas.toBlob(value => value ? resolve(value) : reject(new Error('PNG failed')), 'image/png')
+    );
+  } finally {
+    URL.revokeObjectURL(url);
+  }
+}
+
+async function downloadChartPng(button) {
+  try {
+    const {svg, base} = chartContext(button);
+    saveBlob(await chartPngBlob(svg), base + '.png');
+    setChartStatus(button, 'تم تنزيل PNG عالي الدقة');
+  } catch (error) {
+    setChartStatus(button, 'تعذر تحويل الرسم إلى PNG');
+  }
+}
+
+async function copyChartPng(button) {
+  try {
+    const {svg} = chartContext(button);
+    const blob = await chartPngBlob(svg);
+    if (!navigator.clipboard || typeof ClipboardItem === 'undefined') {
+      await downloadChartPng(button);
+      setChartStatus(button, 'المتصفح منع النسخ؛ نُزّل PNG بدلاً منه');
+      return;
+    }
+    await navigator.clipboard.write([new ClipboardItem({'image/png': blob})]);
+    setChartStatus(button, 'تم نسخ الرسم');
+  } catch (error) {
+    await downloadChartPng(button);
+    setChartStatus(button, 'تعذر النسخ من ملف محلي؛ نُزّل PNG بدلاً منه');
+  }
+}
+</script>
 """
 
 grid_svg = svg_wrap(
@@ -1528,7 +1901,8 @@ weights_ci_chart = bar_chart(
     3,
     [WEIGHT_STABILITY[k][1] for k in weight_labels],
     [WEIGHT_STABILITY[k][2] for k in weight_labels],
-    "الأعمدة هي الأوزان المجمدة، والخطوط السوداء CI95 من 200 إعادة اختيار موجودة سلفاً."
+    "الأعمدة هي الأوزان المجمدة، والخطوط السوداء CI95 من 200 إعادة اختيار موجودة سلفاً.",
+    file_name="VPUFT-weights-bootstrap-CI95",
 )
 weights_cv_chart = bar_chart(
     "معامل التغاير: أي وزن أقل استقراراً؟",
@@ -1536,7 +1910,8 @@ weights_cv_chart = bar_chart(
     [WEIGHT_STABILITY[k][3] for k in weight_labels],
     "CV = الانحراف المعياري / المتوسط",
     3,
-    note="الأدنى أصلب نسبياً؛ η هو الأعلى تغايراً (0.216)، ولا يعني وزنه الصغير أنه غير مهم."
+    note="الأدنى أصلب نسبياً؛ η هو الأعلى تغايراً (0.216)، ولا يعني وزنه الصغير أنه غير مهم.",
+    file_name="VPUFT-weights-coefficient-of-variation",
 )
 ablation_html = table(
     ["التكوين", "Recall", "FRR", "F1", "MCC"],
@@ -1549,7 +1924,8 @@ queue_method_chart = bar_chart(
     ["غير موزون تقريباً", "الموزع موزون", "المركزي موزون"],
     [808.67, 5295.26, 6308.74],
     "ميلي ثانية", 2,
-    note="المتوسط غير الموزون يساوي بين أنواع رسائل متفاوتة التكرار؛ الرقم التشغيلي المعتمد موزون بعدد الرسائل."
+    note="المتوسط غير الموزون يساوي بين أنواع رسائل متفاوتة التكرار؛ الرقم التشغيلي المعتمد موزون بعدد الرسائل.",
+    file_name="VPUFT-queue-weighted-vs-unweighted",
 )
 
 cache_hit_stale_chart = line_chart(
@@ -1557,21 +1933,21 @@ cache_hit_stale_chart = line_chart(
     [("Cache hit %", [r[1] for r in CACHE_RESULTS], False),
      ("Stale acceptance %", [r[2] for r in CACHE_RESULTS], True)],
     "نقطة مئوية", "كلما طال TTL ارتفعت المنفعة وخطر القدم معاً؛ TTL=0 صفر تعريفي.", 3, 0,
-    [0,1,2,5,10,30], "TTL بالثواني"
+    [0,1,2,5,10,30], "TTL بالثواني", file_name="VPUFT-cache-hit-vs-stale-by-TTL"
 )
 
 cache_latency_chart = line_chart(
     "TTL ومتوسط زمن التفويض",
     [("Authorization latency", [r[3] for r in CACHE_RESULTS], False)],
     "ميلي ثانية", "انخفاض الزمن سببه زيادة Cache Hit المحلي؛ لا يحدد قيمة TTL مثلى عالمية.", 3, 0,
-    [0,1,2,5,10,30], "TTL بالثواني"
+    [0,1,2,5,10,30], "TTL بالثواني", file_name="VPUFT-authorization-latency-by-TTL"
 )
 
 cache_bytes_chart = line_chart(
     "TTL والبايتات لكل تفاعل",
     [("Bytes/interaction", [r[4] for r in CACHE_RESULTS], False)],
     "بايت/تفاعل", "ينخفض الحمل مع إعادة استخدام الرمز؛ يقابله ارتفاع stale acceptance.", 2, 0,
-    [0,1,2,5,10,30], "TTL بالثواني"
+    [0,1,2,5,10,30], "TTL بالثواني", file_name="VPUFT-bytes-per-interaction-by-TTL"
 )
 
 topology_cards = "".join(
@@ -2235,6 +2611,7 @@ deep_html = f"""
 </section>
 
 </main>
+{EXPORT_JS}
 </div>
 """
 
@@ -2352,6 +2729,30 @@ if '<details class="prof-old-report" open>' in new_html:
 
 if new_svgs < 90:
     raise SystemExit(f"Expected at least 90 explanatory SVG charts/flows, found {new_svgs}")
+
+density_keys = re.findall(r'data-explanation-key="([^"]+)"', deep_html)
+if len(density_keys) != 340 or len(set(density_keys)) != 340:
+    raise SystemExit(
+        "Expected 340 unique topology × metric × density explanations, "
+        f"found {len(density_keys)} rows and {len(set(density_keys))} unique keys"
+    )
+
+chart_count = len(re.findall(r'<figure class="prof-metric-chart"', deep_html))
+for label, needle in (
+    ("SVG download", ">تنزيل SVG</button>"),
+    ("PNG download", ">تنزيل PNG</button>"),
+    ("PNG copy", ">نسخ PNG</button>"),
+):
+    count = deep_html.count(needle)
+    if count != chart_count:
+        raise SystemExit(f"{label} controls incomplete: {count}/{chart_count}")
+
+if 'class="prof-legend-swatch"' not in deep_html:
+    raise SystemExit("Chart legends must place a visible line symbol beside each label.")
+
+for function_name in ("downloadChartSvg", "downloadChartPng", "copyChartPng"):
+    if f"function {function_name}" not in deep_html:
+        raise SystemExit(f"Missing chart export function: {function_name}")
 
 NEW.write_text(new_html, encoding="utf-8")
 
