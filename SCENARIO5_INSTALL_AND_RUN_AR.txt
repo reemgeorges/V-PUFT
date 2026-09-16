@@ -1,0 +1,61 @@
+تحديث السيناريو الخامس V-PUFT - تعليمات Windows PowerShell
+==========================================================
+
+1) أغلق أي تشغيل Python أو SUMO للمشروع.
+
+2) فك ضغط الحزمة فوق جذر مشروع v10 نفسه.
+   يجب أن تصبح الملفات مثلاً:
+
+   v10\configs\urban_roundabout_campaign.json
+   v10\sumo\urban_roundabout\urban_roundabout.sumocfg
+   v10\scripts\run_urban_roundabout_campaign.ps1
+
+   لا تحذف أي مجلد قديم. وافق فقط على دمج المجلدات واستبدال الملف التالي:
+
+   scripts\analyze_density_campaign.py
+
+3) افتح PowerShell عند جذر v10 كما في الصورة، ثم نفذ هذه الأوامر بالترتيب:
+
+$env:SUMO_HOME = "C:\Program Files (x86)\Eclipse\Sumo"
+$env:PATH = "$env:SUMO_HOME\bin;$env:PATH"
+$env:PYTHONPATH = "$env:SUMO_HOME\tools;$env:PYTHONPATH"
+
+.\.venv\Scripts\Activate.ps1
+python -m pip install -e ".[all]"
+vpuft doctor --config configs\urban_roundabout_campaign.json
+
+4) يجب أن تكون قيمة ready_for_sumo هي true. لا تبدأ الحملة إذا كانت false.
+
+5) اختبار سريع للشبكة قبل الحملة الكاملة:
+
+vpuft prepare-sumo --config configs\urban_roundabout_campaign.json --scenario-dir sumo\urban_roundabout --force
+python scripts\capture_urban_roundabout_snapshot.py --output results\urban_roundabout_campaign\scenario_5_sumo_reference_style_60_seed_1001.png --vehicles 60 --seed 1001 --time 25
+
+6) افتح الصورة التالية وتأكد أن الشكل صحيح:
+
+results\urban_roundabout_campaign\scenario_5_sumo_reference_style_60_seed_1001.png
+
+7) شغّل الحملة الكاملة. الأمر يدعم الاستئناف ولا يعيد الخلايا المكتملة:
+
+powershell -ExecutionPolicy Bypass -File scripts\run_urban_roundabout_campaign.ps1
+
+8) عند النهاية يجب أن يظهر:
+
+Completed SUMO traces    : 50/50
+Architecture evaluations : 150/150
+Vehicle counts match     : True
+Architectures match      : True
+INTEGRITY STATUS         : PASS
+
+9) أرسل محتوى الملف التالي كاملاً قبل إنشاء أي HTML:
+
+results\urban_roundabout_campaign\terminal_summary.txt
+
+ملاحظات ثابتة
+-------------
+
+- لا تشغل السيناريوهات الأربعة القديمة.
+- لا تحذف results القديمة.
+- لا تغير الأوزان أو البذور أو أعداد المركبات.
+- لا تنشئ تقرير HTML قبل مراجعة terminal_summary.txt.
+- الصورة تستخدم 60 مركبة، seed=1001، واللحظة 25 ثانية.

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes>
+    <vType id="passenger" accel="2.6" decel="4.5" sigma="0.3" length="5" minGap="2.5" maxSpeed="16.67" guiShape="passenger"/>
+
+    <!-- Opposing through movements via the central roundabout. -->
+    <route id="north_south" edges="nw_n n_rn rn_rne rne_re re_rse rse_rs rs_s s_se"/>
+    <route id="south_north" edges="se_s s_rs rs_rsw rsw_rw rw_rnw rnw_rn rn_n n_nw"/>
+    <route id="east_west" edges="ne_e e_re re_rse rse_rs rs_rsw rsw_rw rw_w w_sw"/>
+    <route id="west_east" edges="sw_w w_rw rw_rnw rnw_rn rn_rne rne_re re_e e_ne"/>
+
+    <!-- Quarter- and three-quarter-turn movements. -->
+    <route id="north_east" edges="nw_n n_rn rn_rne rne_re re_e e_se"/>
+    <route id="east_south" edges="ne_e e_re re_rse rse_rs rs_s s_sw"/>
+    <route id="south_west" edges="se_s s_rs rs_rsw rsw_rw rw_w w_nw"/>
+    <route id="west_north" edges="sw_w w_rw rw_rnw rnw_rn rn_n n_ne"/>
+    <route id="north_west" edges="ne_n n_rn rn_rne rne_re re_rse rse_rs rs_rsw rsw_rw rw_w w_sw"/>
+    <route id="east_north" edges="se_e e_re re_rse rse_rs rs_rsw rsw_rw rw_rnw rnw_rn rn_n n_nw"/>
+    <route id="south_east" edges="sw_s s_rs rs_rsw rsw_rw rw_rnw rnw_rn rn_rne rne_re re_e e_ne"/>
+    <route id="west_south" edges="nw_w w_rw rw_rnw rnw_rn rn_rne rne_re re_rse rse_rs rs_s s_se"/>
+
+    <!-- Perimeter-only controls keep the topology effect interpretable. -->
+    <route id="perimeter_clockwise" edges="nw_n n_ne ne_e e_se se_s s_sw sw_w w_nw"/>
+    <route id="perimeter_counterclockwise" edges="ne_n n_nw nw_w w_sw sw_s s_se se_e e_ne"/>
+    <route id="perimeter_north_east_south" edges="nw_n n_ne ne_e e_se se_s"/>
+    <route id="perimeter_south_west_north" edges="se_s s_sw sw_w w_nw nw_n"/>
+</routes>
