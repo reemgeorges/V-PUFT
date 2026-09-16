@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nodes>
+    <!-- Bidirectional rectangular perimeter. -->
+    <node id="nw" x="-500" y="500" type="priority"/>
+    <node id="n" x="0" y="500" type="priority"/>
+    <node id="ne" x="500" y="500" type="priority"/>
+    <node id="e" x="500" y="0" type="priority"/>
+    <node id="se" x="500" y="-500" type="priority"/>
+    <node id="s" x="0" y="-500" type="priority"/>
+    <node id="sw" x="-500" y="-500" type="priority"/>
+    <node id="w" x="-500" y="0" type="priority"/>
+
+    <!-- Eight-node one-way roundabout; the four cardinal entries are signalised. -->
+    <node id="rn" x="0" y="90" type="traffic_light" tl="tls_n"/>
+    <node id="rne" x="63.64" y="63.64" type="priority"/>
+    <node id="re" x="90" y="0" type="traffic_light" tl="tls_e"/>
+    <node id="rse" x="63.64" y="-63.64" type="priority"/>
+    <node id="rs" x="0" y="-90" type="traffic_light" tl="tls_s"/>
+    <node id="rsw" x="-63.64" y="-63.64" type="priority"/>
+    <node id="rw" x="-90" y="0" type="traffic_light" tl="tls_w"/>
+    <node id="rnw" x="-63.64" y="63.64" type="priority"/>
+</nodes>

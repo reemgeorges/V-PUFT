@@ -1,0 +1,6 @@
+topology,vehicle_count,distributed_p95_mean_ms,breakeven_one_way_extra_latency_ms,model_implied_breakeven_one_way_extra_latency_ms,status,interpolation_lower_ms,interpolation_upper_ms
+urban_roundabout,20,14168.130520791578,,113.97574343207452,outside_sweep,,
+urban_roundabout,40,14096.363618608582,16.405923276797694,16.405923276797694,linearly_interpolated,0.0,100.0
+urban_roundabout,60,14197.951871664889,96.05306308791835,96.0530630879166,linearly_interpolated,0.0,100.0
+urban_roundabout,80,14379.4622655071,,252.1471412588471,outside_sweep,,
+urban_roundabout,100,14557.503414700284,,401.90337284647285,outside_sweep,,

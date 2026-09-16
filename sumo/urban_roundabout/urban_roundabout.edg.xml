@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<edges>
+    <!-- Perimeter and radial roads: 50 km/h, one lane per direction. -->
+    <edge id="nw_n" from="nw" to="n" priority="2" numLanes="1" speed="13.89"/>
+    <edge id="n_nw" from="n" to="nw" priority="2" numLanes="1" speed="13.89"/>
+    <edge id="n_ne" from="n" to="ne" priority="2" numLanes="1" speed="13.89"/>
+    <edge id="ne_n" from="ne" to="n" priority="2" numLanes="1" speed="13.89"/>
+    <edge id="ne_e" from="ne" to="e" priority="2" numLanes="1" speed="13.89"/>
+    <edge id="e_ne" from="e" to="ne" priority="2" numLanes="1" speed="13.89"/>
+    <edge id="e_se" from="e" to="se" priority="2" numLanes="1" speed="13.89"/>
+    <edge id="se_e" from="se" to="e" priority="2" numLanes="1" speed="13.89"/>
+    <edge id="se_s" from="se" to="s" priority="2" numLanes="1" speed="13.89"/>
+    <edge id="s_se" from="s" to="se" priority="2" numLanes="1" speed="13.89"/>
+    <edge id="s_sw" from="s" to="sw" priority="2" numLanes="1" speed="13.89"/>
+    <edge id="sw_s" from="sw" to="s" priority="2" numLanes="1" speed="13.89"/>
+    <edge id="sw_w" from="sw" to="w" priority="2" numLanes="1" speed="13.89"/>
+    <edge id="w_sw" from="w" to="sw" priority="2" numLanes="1" speed="13.89"/>
+    <edge id="w_nw" from="w" to="nw" priority="2" numLanes="1" speed="13.89"/>
+    <edge id="nw_w" from="nw" to="w" priority="2" numLanes="1" speed="13.89"/>
+
+    <edge id="n_rn" from="n" to="rn" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="rn_n" from="rn" to="n" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="e_re" from="e" to="re" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="re_e" from="re" to="e" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="s_rs" from="s" to="rs" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="rs_s" from="rs" to="s" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="w_rw" from="w" to="rw" priority="1" numLanes="1" speed="13.89"/>
+    <edge id="rw_w" from="rw" to="w" priority="1" numLanes="1" speed="13.89"/>
+
+    <!-- Clockwise one-way roundabout: 30 km/h. -->
+    <edge id="rn_rne" from="rn" to="rne" priority="3" numLanes="1" speed="8.33" shape="0,90 34.44,83.15 63.64,63.64"/>
+    <edge id="rne_re" from="rne" to="re" priority="3" numLanes="1" speed="8.33" shape="63.64,63.64 83.15,34.44 90,0"/>
+    <edge id="re_rse" from="re" to="rse" priority="3" numLanes="1" speed="8.33" shape="90,0 83.15,-34.44 63.64,-63.64"/>
+    <edge id="rse_rs" from="rse" to="rs" priority="3" numLanes="1" speed="8.33" shape="63.64,-63.64 34.44,-83.15 0,-90"/>
+    <edge id="rs_rsw" from="rs" to="rsw" priority="3" numLanes="1" speed="8.33" shape="0,-90 -34.44,-83.15 -63.64,-63.64"/>
+    <edge id="rsw_rw" from="rsw" to="rw" priority="3" numLanes="1" speed="8.33" shape="-63.64,-63.64 -83.15,-34.44 -90,0"/>
+    <edge id="rw_rnw" from="rw" to="rnw" priority="3" numLanes="1" speed="8.33" shape="-90,0 -83.15,34.44 -63.64,63.64"/>
+    <edge id="rnw_rn" from="rnw" to="rn" priority="3" numLanes="1" speed="8.33" shape="-63.64,63.64 -34.44,83.15 0,90"/>
+</edges>
