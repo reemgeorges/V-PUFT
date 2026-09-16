@@ -473,6 +473,13 @@ def main() -> None:
         (trace_audit["vehicle_count"] == trace_audit["observed_vehicle_count"]).all()
     )
     repeated_flips = int(agreement["classification_changes"].sum()) if not agreement.empty else 0
+    backhaul_level_count = int(agreement["backhaul_extra_latency_ms"].nunique()) if not agreement.empty else 0
+    holm_cells_per_metric = int(paired.groupby("metric").size().max()) if not paired.empty else 0
+    holm_cells_per_metric_backhaul = (
+        int(paired.groupby(["metric", "backhaul_extra_latency_ms"]).size().max())
+        if not paired.empty
+        else 0
+    )
     zero_level = agreement[agreement["backhaul_extra_latency_ms"] == 0.0]
     unique_flips = int(zero_level["classification_changes"].sum()) if not zero_level.empty else 0
     unique_shared_cases = int(zero_level["shared_cases"].sum()) if not zero_level.empty else 0
@@ -488,7 +495,7 @@ def main() -> None:
 - Frozen v7 modified: **{manifest['frozen_v7_modified']}**
 - Unique Distributed vs Centralized classification changes: **{unique_flips}/{unique_shared_cases}**
 - Unique agreement rate: **{unique_agreement:.6%}**
-- Repeated total across all five backhaul levels: **{repeated_flips}**
+- Repeated total across all {backhaul_level_count} backhaul levels: **{repeated_flips}**
   (the same classification comparison is repeated at every latency level)
 
 ## Outputs
@@ -496,8 +503,9 @@ def main() -> None:
 - `density_architecture_summary.csv`: every metric by topology, vehicle count and architecture.
 - `density_paired_comparisons.csv`: seed-paired Distributed minus Remote differences.
   It includes a paired bootstrap CI, Wilcoxon p-value, rank-biserial effect and
-  both the original 100-cell Holm adjustment and a 20-cell adjustment within
-  each metric/backhaul stratum. Both remain supplementary/exploratory.
+  a {holm_cells_per_metric}-cell Holm adjustment within each metric and a
+  {holm_cells_per_metric_backhaul}-cell adjustment within each metric/backhaul
+  stratum. Both remain supplementary/exploratory.
 - `density_step_changes.csv`: exact absolute and relative 20→40→60→80→100 changes.
 - `density_breakeven_by_topology_vehicle_count.csv`: density-specific parametric break-even points.
 - `density_case_agreement.csv`: decision agreement audit at every backhaul level.
