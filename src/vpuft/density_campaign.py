@@ -10,10 +10,11 @@ from typing import Iterable
 import pandas as pd
 
 from .architectures import CentralizedVPUFT, DistributedRSUExtendedVPUFT
-from .config import ResearchConfig
+from .config import ResearchConfig, save_config
 from .crypto import KeyRegistry
 from .domain import ArchitectureRunResult, EvidenceCase
 from .metrics import decision_metrics
+from .network import audit_link_order
 from .robustness import inject_compromised_rsu_evidence
 from .sumo.density import build_density_scenario
 from .sumo.runner import run_sumo_trace
@@ -111,6 +112,50 @@ def _consensus_rows(result: ArchitectureRunResult, context: dict) -> list[dict]:
     return [{**context, **asdict(outcome)} for outcome in result.consensus]
 
 
+
+def _transport_audit_rows(
+    result: ArchitectureRunResult,
+    context: dict,
+    *,
+    queue_rate_bytes_per_second: float,
+) -> list[dict]:
+    rows: list[dict] = []
+    expired = sum(int(decision.metadata.get("expired_evidence", 0) or 0) for decision in result.decisions)
+    groups: list[tuple[str, list]] = [("__all__", list(result.messages))]
+    message_types = sorted({message.message_type for message in result.messages})
+    groups.extend(
+        (message_type, [m for m in result.messages if m.message_type == message_type])
+        for message_type in message_types
+    )
+    for scope, messages in groups:
+        audit = audit_link_order(messages, queue_rate_bytes_per_second)
+        rows.append({
+            **context,
+            "scope": scope,
+            "messages": len(messages),
+            "temporal_inversions": int(audit["temporal_inversions"]),
+            "serialization_overlaps": int(audit["serialization_overlaps"]),
+            "mean_queue_delay_ms": float(audit["mean_queue_delay_ms"]),
+            "max_queue_delay_ms": float(audit["max_queue_delay_ms"]),
+            "expired_evidence": expired if scope == "__all__" else None,
+            "causality_violations": 0,
+        })
+    return rows
+
+
+def _assert_transport_causality(
+    result: ArchitectureRunResult,
+    *,
+    queue_rate_bytes_per_second: float,
+) -> None:
+    audit = audit_link_order(result.messages, queue_rate_bytes_per_second)
+    if audit["temporal_inversions"] or audit["serialization_overlaps"]:
+        raise RuntimeError(
+            f"Transport causality audit failed for {result.architecture}: "
+            f"inversions={audit['temporal_inversions']} "
+            f"overlaps={audit['serialization_overlaps']}"
+        )
+
 def _write_cell_frames(cell_dir: Path, frames: dict[str, pd.DataFrame]) -> None:
     cell_dir.mkdir(parents=True, exist_ok=True)
     for filename, frame in frames.items():
@@ -127,6 +172,8 @@ def _read_completed_cell(cell_dir: Path) -> dict[str, pd.DataFrame] | None:
         return None
     try:
         data = json.loads(marker.read_text(encoding="utf-8"))
+        if "transport_audit.csv" not in data.get("files", []):
+            return None
         frames = {}
         for filename in data["files"]:
             path = cell_dir / filename
@@ -164,6 +211,7 @@ def run_density_campaign(
 
     output = Path(output_directory).resolve()
     output.mkdir(parents=True, exist_ok=True)
+    save_config(config, output / "effective_config.json")
     seed_values = tuple(dict.fromkeys(int(seed) for seed in (seeds or config.simulation.seeds)))
     if not seed_values:
         raise ValueError("At least one density-campaign seed is required")
@@ -177,6 +225,7 @@ def run_density_campaign(
     all_messages: list[pd.DataFrame] = []
     all_consensus: list[pd.DataFrame] = []
     all_cache: list[pd.DataFrame] = []
+    all_transport_audit: list[pd.DataFrame] = []
     trace_rows: list[dict] = []
     resumed_cells = executed_cells = 0
 
@@ -243,6 +292,7 @@ def run_density_campaign(
                     _append_frame(all_messages, cached_frames.get("message_summary.csv"))
                     _append_frame(all_consensus, cached_frames.get("consensus_outcomes.csv"))
                     _append_frame(all_cache, cached_frames.get("topology_v2v_cache.csv"))
+                    _append_frame(all_transport_audit, cached_frames.get("transport_audit.csv"))
                     print("[resume] architecture/cache cell", flush=True)
                     continue
 
@@ -266,6 +316,7 @@ def run_density_campaign(
                 message_rows: list[dict] = []
                 consensus_rows: list[dict] = []
                 cache_rows: list[dict] = []
+                transport_audit_rows: list[dict] = []
 
                 distributed_config = replace(
                     config,
@@ -370,6 +421,20 @@ def run_density_campaign(
                         runs.append((result, cpu, peak, None, variant_cases))
 
                 for result, cpu, peak, delay, result_cases in runs:
+                    _assert_transport_causality(
+                        result,
+                        queue_rate_bytes_per_second=config.network.queue_rate_bytes_per_second,
+                    )
+                    audit_context = {
+                        **base_context,
+                        "architecture": result.architecture,
+                        "backhaul_extra_latency_ms": delay,
+                    }
+                    transport_audit_rows.extend(_transport_audit_rows(
+                        result,
+                        audit_context,
+                        queue_rate_bytes_per_second=config.network.queue_rate_bytes_per_second,
+                    ))
                     metrics = decision_metrics(result, truth, opened)
                     metrics.update(
                         {
@@ -417,6 +482,7 @@ def run_density_campaign(
                     "message_summary.csv": pd.DataFrame(message_rows),
                     "consensus_outcomes.csv": pd.DataFrame(consensus_rows),
                     "topology_v2v_cache.csv": pd.DataFrame(cache_rows),
+                    "transport_audit.csv": pd.DataFrame(transport_audit_rows),
                 }
                 _write_cell_frames(cell_dir, frames)
                 executed_cells += 1
@@ -425,6 +491,7 @@ def run_density_campaign(
                 _append_frame(all_messages, frames["message_summary.csv"])
                 _append_frame(all_consensus, frames["consensus_outcomes.csv"])
                 _append_frame(all_cache, frames["topology_v2v_cache.csv"])
+                _append_frame(all_transport_audit, frames["transport_audit.csv"])
 
     combined = output / "combined"
     combined.mkdir(parents=True, exist_ok=True)
@@ -434,12 +501,14 @@ def run_density_campaign(
     consensus_frame = pd.concat(all_consensus, ignore_index=True) if all_consensus else pd.DataFrame()
     cache_frame = pd.concat(all_cache, ignore_index=True) if all_cache else pd.DataFrame()
     trace_frame = pd.DataFrame(trace_rows)
+    transport_audit_frame = pd.concat(all_transport_audit, ignore_index=True) if all_transport_audit else pd.DataFrame()
     metrics_frame.to_csv(combined / "density_metrics_by_seed.csv", index=False)
     decisions_frame.to_csv(combined / "density_decisions.csv", index=False)
     messages_frame.to_csv(combined / "density_message_type_summary.csv", index=False)
     consensus_frame.to_csv(combined / "density_consensus_outcomes.csv", index=False)
     cache_frame.to_csv(combined / "density_topology_v2v_cache.csv", index=False)
     trace_frame.to_csv(combined / "density_trace_audit.csv", index=False)
+    transport_audit_frame.to_csv(combined / "density_transport_audit.csv", index=False)
 
     manifest = {
         "campaign": "controlled_topology_vehicle_density_extension",
@@ -452,6 +521,10 @@ def run_density_campaign(
             config.density_campaign.backhaul_extra_latency_ms
         ),
         "weights": asdict(config.weights),
+        "attack_policies": {name: asdict(policy) for name, policy in config.policies.items()},
+        "event_time_scheduler": True,
+        "transport_causality_required": True,
+        "effective_config": "../effective_config.json",
         "attack_vehicle_ratio": config.density_campaign.attack_vehicle_ratio,
         "include_robustness_variants": config.density_campaign.include_robustness_variants,
         "include_topology_cache": config.density_campaign.include_topology_cache,
