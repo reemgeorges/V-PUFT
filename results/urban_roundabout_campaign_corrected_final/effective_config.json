@@ -1,0 +1,246 @@
+{
+  "weights": {
+    "C": 0.3652673861753211,
+    "rho": 0.16195260151983162,
+    "F": 0.06370517641034751,
+    "Q": 0.40608957775126925,
+    "eta": 0.0029852581432305157
+  },
+  "policies": {
+    "position_offset": {
+      "required_roots": 2,
+      "required_sources": 2,
+      "required_zones": 2,
+      "required_modalities": 1,
+      "margin_threshold": 0.45,
+      "opposition_lambda": 1.0,
+      "cryptographic_decisive": false,
+      "freshness_window_seconds": 15.0,
+      "min_representative_weight": 0.05
+    },
+    "speed_offset": {
+      "required_roots": 2,
+      "required_sources": 2,
+      "required_zones": 1,
+      "required_modalities": 1,
+      "margin_threshold": 0.45,
+      "opposition_lambda": 1.0,
+      "cryptographic_decisive": false,
+      "freshness_window_seconds": 15.0,
+      "min_representative_weight": 0.05
+    },
+    "replay": {
+      "required_roots": 1,
+      "required_sources": 1,
+      "required_zones": 1,
+      "required_modalities": 1,
+      "margin_threshold": 0.35,
+      "opposition_lambda": 1.0,
+      "cryptographic_decisive": true,
+      "freshness_window_seconds": 15.0,
+      "min_representative_weight": 0.05
+    },
+    "certificate_tamper": {
+      "required_roots": 1,
+      "required_sources": 1,
+      "required_zones": 1,
+      "required_modalities": 1,
+      "margin_threshold": 0.25,
+      "opposition_lambda": 1.0,
+      "cryptographic_decisive": true,
+      "freshness_window_seconds": 15.0,
+      "min_representative_weight": 0.05
+    },
+    "flood": {
+      "required_roots": 2,
+      "required_sources": 2,
+      "required_zones": 1,
+      "required_modalities": 1,
+      "margin_threshold": 0.5,
+      "opposition_lambda": 1.0,
+      "cryptographic_decisive": false,
+      "freshness_window_seconds": 15.0,
+      "min_representative_weight": 0.05
+    },
+    "false_denm": {
+      "required_roots": 2,
+      "required_sources": 2,
+      "required_zones": 2,
+      "required_modalities": 1,
+      "margin_threshold": 0.5,
+      "opposition_lambda": 1.0,
+      "cryptographic_decisive": false,
+      "freshness_window_seconds": 15.0,
+      "min_representative_weight": 0.05
+    },
+    "mixed": {
+      "required_roots": 2,
+      "required_sources": 2,
+      "required_zones": 2,
+      "required_modalities": 1,
+      "margin_threshold": 0.55,
+      "opposition_lambda": 1.0,
+      "cryptographic_decisive": false,
+      "freshness_window_seconds": 15.0,
+      "min_representative_weight": 0.05
+    },
+    "benign": {
+      "required_roots": 2,
+      "required_sources": 2,
+      "required_zones": 1,
+      "required_modalities": 1,
+      "margin_threshold": 0.5,
+      "opposition_lambda": 1.0,
+      "cryptographic_decisive": false,
+      "freshness_window_seconds": 15.0,
+      "min_representative_weight": 0.05
+    }
+  },
+  "network": {
+    "base_latency_ms": 8.0,
+    "jitter_ms": 3.0,
+    "central_backhaul_extra_latency_ms": 0.0,
+    "packet_delivery_ratio": 0.98,
+    "max_retries": 2,
+    "retry_backoff_ms": 5.0,
+    "queue_rate_bytes_per_second": 2000000.0,
+    "evidence_crn_seed": null
+  },
+  "pbft": {
+    "validators": [
+      "rsu-1",
+      "rsu-2",
+      "rsu-3",
+      "rsu-4"
+    ],
+    "max_byzantine": 1,
+    "timeout_ms": 120.0,
+    "max_views": 4,
+    "validator_behaviors": {},
+    "state_recovery_enabled": true
+  },
+  "central": {
+    "workers": 4,
+    "service_time_ms": 12.0,
+    "queue_capacity": 1000,
+    "availability": 0.995,
+    "compromised": false,
+    "compromise_mode": "false_revocation",
+    "audit_replica_enabled": true
+  },
+  "detector": {
+    "rsu_range_m": 450.0,
+    "witness_range_m": 180.0,
+    "position_error_threshold_m": 20.0,
+    "speed_error_threshold_mps": 5.0,
+    "replay_max_age_seconds": 2.5,
+    "flood_messages_per_second": 3,
+    "false_denm_deceleration_threshold_mps2": -3.0,
+    "benign_clean_confidence": 0.78,
+    "freshness_tau_seconds": 12.0,
+    "case_window_seconds": 15.0,
+    "rsu_position_sigma_m": 3.0,
+    "witness_position_sigma_m": 5.0,
+    "rsu_speed_sigma_mps": 0.6,
+    "witness_speed_sigma_mps": 1.0,
+    "rsu_acceleration_sigma_mps2": 0.4,
+    "witness_acceleration_sigma_mps2": 0.8
+  },
+  "sumo": {
+    "step_length_seconds": 1.0,
+    "end_time_seconds": 95.0,
+    "use_gui": false,
+    "sumo_binary": null,
+    "netconvert_binary": null,
+    "scenario_directory": "sumo/urban_roundabout",
+    "rsu_file": "rsus.json",
+    "attack_file": "attacks.json",
+    "deterministic_seed": 1001,
+    "keep_sumo_output": true
+  },
+  "security": {
+    "deterministic_master_seed": "vpuft-thesis-reproducible-keys-v1",
+    "compromised_rsus": [],
+    "compromised_witness_ratio": 0.1
+  },
+  "distributed_extension": {
+    "coordinator_strategy": "first_observer_then_hash",
+    "validator_requalification": true,
+    "evidence_bundle_base_bytes": 384,
+    "evidence_bundle_bytes_per_attestation": 704,
+    "leave_one_source_out_guard": false,
+    "evidence_source_fault_budget": 1,
+    "guard_on_directional_conflict_only": true,
+    "replicate_read_cache_to_all_rsus": true
+  },
+  "trust_cache": {
+    "ttl_seconds": [
+      0.0,
+      1.0,
+      2.0,
+      5.0,
+      10.0,
+      30.0
+    ],
+    "vehicle_counts": [
+      20,
+      40,
+      60,
+      80,
+      100
+    ],
+    "interactions_per_vehicle": 12,
+    "interaction_interval_seconds": 0.25,
+    "local_verification_ms": 0.25,
+    "query_bytes": 256,
+    "token_response_bytes": 1152,
+    "revocation_ratio": 0.1,
+    "anomaly_ratio": 0.02
+  },
+  "robustness": {
+    "compromised_evidence_rsu": "rsu-6",
+    "evidence_attack_mode": "false_accusation",
+    "correlated_forgery_copies": 4,
+    "malicious_validator": "rsu-1",
+    "malicious_validator_behavior": "propose_invalid"
+  },
+  "density_campaign": {
+    "vehicle_counts": [
+      20,
+      40,
+      60,
+      80,
+      100
+    ],
+    "backhaul_extra_latency_ms": [
+      0.0,
+      100.0
+    ],
+    "attack_vehicle_ratio": 0.35,
+    "departure_window_seconds": 20.0,
+    "include_robustness_variants": false,
+    "include_topology_cache": true,
+    "primary_cache_ttl_seconds": 5.0,
+    "v2v_range_m": 180.0,
+    "v2v_sample_period_seconds": 1.0
+  },
+  "simulation": {
+    "seeds": [
+      1001,
+      1002,
+      1003,
+      1004,
+      1005,
+      1006,
+      1007,
+      1008,
+      1009,
+      1010
+    ],
+    "cases_per_seed": 60,
+    "malicious_ratio": 0.3,
+    "witness_count_mean": 4.0,
+    "rsu_count": 6,
+    "source": "sumo"
+  }
+}
