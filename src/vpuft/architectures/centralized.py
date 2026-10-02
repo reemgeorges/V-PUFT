@@ -43,6 +43,35 @@ class CentralizedVPUFT(Architecture):
             delivered_case = self.subset_case(clean, ctx["delivered_attestations"])
             evidence_rows.extend(self.evidence_row(case, att, seed) for att in delivered_case.attestations)
 
+            # REVOKED is an irreversible terminal state. Later evidence windows are
+            # retained for auditability, but they must not create a second
+            # revocation, ledger append, or additional central service decision.
+            record = self.state_machine.get(case.vehicle_id)
+            if record.state == TrustState.REVOKED:
+                decisions.append(TrustDecision(
+                    case_id=case.case_id,
+                    vehicle_id=case.vehicle_id,
+                    architecture=self.name,
+                    previous_state=TrustState.REVOKED,
+                    new_state=TrustState.REVOKED,
+                    detected_at=ctx["detected_at"],
+                    qualified_at=None,
+                    finalized_at=None,
+                    ledger_available_at=None,
+                    decision_margin=record.last_margin,
+                    committed=False,
+                    reason="already_revoked_terminal_state",
+                    metadata={
+                        "terminal_state_noop": True,
+                        "excluded_post_revocation": True,
+                        "attempted_attestations": len(clean.attestations),
+                        "arrived_attestations": len(delivered_case.attestations),
+                        "dropped_attestations": len(clean.attestations) - len(delivered_case.attestations),
+                        "expired_evidence": 0,
+                    },
+                ))
+                return
+
             if not availability[case.case_id] or not delivered_case.attestations:
                 result = self.engine.qualify(delivered_case, now)
                 previous, _ = self.state_machine.pre_finalize(case.vehicle_id, result)

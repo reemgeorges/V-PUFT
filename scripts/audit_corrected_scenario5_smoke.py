@@ -36,6 +36,17 @@ def _result_row(result, truth, opened, density, seed):
         for o in result.consensus
         if o.committed and o.committed_at is not None
     ]
+    seen_revoked = set()
+    repeated_commits = 0
+    terminal_noops = 0
+    for decision in result.decisions:
+        if decision.reason == "already_revoked_terminal_state":
+            terminal_noops += 1
+        if decision.committed and decision.new_state.value == "revoked":
+            if decision.vehicle_id in seen_revoked:
+                repeated_commits += 1
+            else:
+                seen_revoked.add(decision.vehicle_id)
     return {
         "density": density,
         "seed": seed,
@@ -57,10 +68,18 @@ def _result_row(result, truth, opened, density, seed):
         "FP": metrics["FP"],
         "TN": metrics["TN"],
         "FN": metrics["FN"],
+        "security_cases_evaluated": metrics["security_cases_evaluated"],
+        "excluded_post_revocation_cases": metrics["excluded_post_revocation_cases"],
+        "all_window_TP": metrics["all_window_TP"],
+        "all_window_FP": metrics["all_window_FP"],
+        "all_window_TN": metrics["all_window_TN"],
+        "all_window_FN": metrics["all_window_FN"],
         "recall": metrics["malicious_revocation_recall"],
         "frr": metrics["false_revocation_rate"],
         "mcc": metrics["mcc"],
         "ledger_consistent": metrics["ledger_consistent"],
+        "terminal_state_noops": terminal_noops,
+        "repeated_committed_revocations": repeated_commits,
     }
 
 
@@ -121,6 +140,11 @@ def main() -> None:
             print(json.dumps(row, sort_keys=True))
             if row["temporal_inversions"] or row["serialization_overlaps"]:
                 raise RuntimeError(f"Transport audit failed for {label} density={density}")
+            if row["repeated_committed_revocations"]:
+                raise RuntimeError(
+                    f"Terminal-state guard failed for {label} density={density}: "
+                    f"repeated_committed_revocations={row['repeated_committed_revocations']}"
+                )
 
         distributed, c0, c100 = results
         d_by = {d.case_id: d for d in distributed.decisions}

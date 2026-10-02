@@ -8,6 +8,7 @@ from vpuft.des import Scheduler
 from vpuft.domain import AttackType, EvidenceAttestation, EvidenceCase, EvidenceDirection
 from vpuft.evidence import sign_attestation
 from vpuft.network import SimulatedTransport, audit_link_order
+from vpuft.metrics import decision_metrics
 
 
 FROZEN = WeightConfig(
@@ -245,3 +246,74 @@ def test_pbft_phases_are_causally_ordered_and_run_is_deterministic():
     assert [asdict(m) for m in first.messages] == [asdict(m) for m in second.messages]
     assert [asdict(d) for d in first.decisions] == [asdict(d) for d in second.decisions]
     assert [asdict(o) for o in first.consensus] == [asdict(o) for o in second.consensus]
+
+
+def _window_case(keys, vehicle, window, start):
+    case_id = f"case-demo-1-{vehicle}-w{window:04d}"
+    case = EvidenceCase(
+        case_id=case_id,
+        vehicle_id=vehicle,
+        pseudonym=vehicle,
+        attack_type=AttackType.SPEED_OFFSET,
+        opened_at=float(start),
+        ground_truth_malicious=True,
+    )
+    for index, (offset, rsu) in enumerate(((0.0, "rsu-1"), (2.0, "rsu-2"))):
+        case.add(_attestation(
+            keys,
+            case_id,
+            f"root-{vehicle}-{window}-{index}",
+            rsu,
+            float(start) + offset,
+            0.95,
+        ))
+    return case
+
+
+def test_terminal_revocation_guard_prevents_repeated_consensus_and_ledger_append():
+    keys = KeyRegistry()
+    cases = [
+        _window_case(keys, "veh-terminal", 0, 0.0),
+        _window_case(keys, "veh-terminal", 1, 15.0),
+    ]
+
+    centralized = CentralizedVPUFT(_config(), keys).run(cases, 1001)
+    distributed = DistributedRSUExtendedVPUFT(_config(), keys).run(cases, 1001)
+
+    for result in (centralized, distributed):
+        first, second = result.decisions
+        assert first.committed is True
+        assert first.new_state.value == "revoked"
+        assert second.committed is False
+        assert second.previous_state.value == "revoked"
+        assert second.new_state.value == "revoked"
+        assert second.reason == "already_revoked_terminal_state"
+        assert second.metadata["terminal_state_noop"] is True
+        assert second.metadata["excluded_post_revocation"] is True
+        assert result.ledger_blocks == 1
+
+    assert len(distributed.consensus) == 1
+    assert distributed.consensus[0].case_id == cases[0].case_id
+
+
+def test_security_metrics_exclude_terminal_state_noops_from_confusion_matrix():
+    keys = KeyRegistry()
+    cases = [
+        _window_case(keys, "veh-metric", 0, 0.0),
+        _window_case(keys, "veh-metric", 1, 15.0),
+    ]
+    result = CentralizedVPUFT(_config(), keys).run(cases, 1001)
+    truth = {case.case_id: case.ground_truth_malicious for case in cases}
+    opened = {case.case_id: case.opened_at for case in cases}
+
+    metrics = decision_metrics(result, truth, opened)
+
+    assert metrics["TP"] == 1
+    assert metrics["FN"] == 0
+    assert metrics["security_cases_evaluated"] == 1
+    assert metrics["excluded_post_revocation_cases"] == 1
+
+    # Diagnostic all-window counts intentionally show why the terminal no-op
+    # must not be interpreted as a false negative in the primary security metrics.
+    assert metrics["all_window_TP"] == 1
+    assert metrics["all_window_FN"] == 1

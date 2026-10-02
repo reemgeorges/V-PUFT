@@ -95,6 +95,7 @@ def _decision_rows(result: ArchitectureRunResult, cases: list[EvidenceCase], con
                     decision.committed and decision.new_state.value == "revoked"
                 ),
                 "committed": int(decision.committed),
+                "previous_state": decision.previous_state.value,
                 "new_state": decision.new_state.value,
                 "reason": decision.reason,
                 "detected_at": decision.detected_at,
@@ -524,6 +525,7 @@ def run_density_campaign(
         "attack_policies": {name: asdict(policy) for name, policy in config.policies.items()},
         "event_time_scheduler": True,
         "transport_causality_required": True,
+        "terminal_revocation_guard": True,
         "effective_config": "../effective_config.json",
         "attack_vehicle_ratio": config.density_campaign.attack_vehicle_ratio,
         "include_robustness_variants": config.density_campaign.include_robustness_variants,

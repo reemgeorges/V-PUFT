@@ -26,19 +26,36 @@ def decision_metrics(
     ledger_latencies: list[float] = []
     false_revocations_from_compromise = 0
 
+    excluded_post_revocation_cases = 0
+    raw_tp = raw_fp = raw_tn = raw_fn = 0
+
     for decision in result.decisions:
         actual = bool(truth[decision.case_id])
         predicted = decision.new_state == TrustState.REVOKED and decision.committed
+
         if actual and predicted:
-            tp += 1
+            raw_tp += 1
         elif not actual and predicted:
-            fp += 1
-            if "compromise" in decision.reason:
-                false_revocations_from_compromise += 1
+            raw_fp += 1
         elif not actual and not predicted:
-            tn += 1
+            raw_tn += 1
         else:
-            fn += 1
+            raw_fn += 1
+
+        terminal_noop = decision.reason == "already_revoked_terminal_state"
+        if terminal_noop:
+            excluded_post_revocation_cases += 1
+        else:
+            if actual and predicted:
+                tp += 1
+            elif not actual and predicted:
+                fp += 1
+                if "compromise" in decision.reason:
+                    false_revocations_from_compromise += 1
+            elif not actual and not predicted:
+                tn += 1
+            else:
+                fn += 1
         opened = opened_at[decision.case_id]
         if decision.detected_at is not None:
             detection_latencies.append(max(0.0, decision.detected_at - opened))
@@ -73,6 +90,12 @@ def decision_metrics(
         "FP": fp,
         "TN": tn,
         "FN": fn,
+        "security_cases_evaluated": tp + fp + tn + fn,
+        "excluded_post_revocation_cases": excluded_post_revocation_cases,
+        "all_window_TP": raw_tp,
+        "all_window_FP": raw_fp,
+        "all_window_TN": raw_tn,
+        "all_window_FN": raw_fn,
         "trust_precision": precision,
         "malicious_revocation_recall": recall,
         "false_revocation_rate": frr,

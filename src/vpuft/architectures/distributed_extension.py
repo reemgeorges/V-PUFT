@@ -8,7 +8,7 @@ from .base import Architecture
 from ..consensus import PBFTConsensus
 from ..crypto import digest_hex
 from ..des import Scheduler
-from ..domain import ArchitectureRunResult, EvidenceCase, TrustDecision
+from ..domain import ArchitectureRunResult, EvidenceCase, TrustDecision, TrustState
 from ..ledger import Ledger
 from ..network import SimulatedTransport, audit_link_order
 
@@ -391,6 +391,40 @@ class DistributedRSUExtendedVPUFT(Architecture):
             ctx["delivered_case"] = delivered_case
             ctx["qualified_at"] = scheduler.now
             evidence_rows.extend(self.evidence_row(case, att, seed) for att in delivered_case.attestations)
+
+            # REVOKED is terminal. Keep the later evidence window in the audit
+            # trail, but do not launch another validator bundle/PBFT round or
+            # append another logical block for the same vehicle state.
+            record = self.state_machine.get(case.vehicle_id)
+            if record.state == TrustState.REVOKED:
+                decisions.append(TrustDecision(
+                    case_id=case.case_id,
+                    vehicle_id=case.vehicle_id,
+                    architecture=self.name,
+                    previous_state=TrustState.REVOKED,
+                    new_state=TrustState.REVOKED,
+                    detected_at=ctx["detected_at"],
+                    qualified_at=None,
+                    finalized_at=None,
+                    ledger_available_at=None,
+                    decision_margin=record.last_margin,
+                    committed=False,
+                    reason="already_revoked_terminal_state",
+                    metadata={
+                        "evidence_coordinator": ctx["coordinator"],
+                        "terminal_state_noop": True,
+                        "excluded_post_revocation": True,
+                        "expired_evidence": 0,
+                        "attempted_attestations": len(clean.attestations),
+                        "arrived_attestations": len(delivered_case.attestations),
+                        "validator_requalification": False,
+                        "evidence_source_guard_enabled": self.config.distributed_extension.leave_one_source_out_guard,
+                        "evidence_source_guard_checks": 0,
+                        "evidence_source_guard_stable": True,
+                    },
+                ))
+                return
+
             result = self.engine.qualify(delivered_case, ctx["qualified_at"])
             result, guard_checks, guard_stable = self._apply_evidence_source_guard(
                 delivered_case, result, ctx["qualified_at"]
