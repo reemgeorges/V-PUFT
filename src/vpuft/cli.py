@@ -227,8 +227,28 @@ def main() -> None:
     elif args.command == "density-campaign":
         if args.weights:
             selected = json.loads(Path(args.weights).read_text(encoding="utf-8"))
-            config = replace(config, weights=WeightConfig(**selected["weights"]))
+
+            effective_policies = dict(config.policies)
+            for name, overrides in selected.get("attack_policies", {}).items():
+                if name not in effective_policies:
+                    raise KeyError(f"Unknown frozen attack policy: {name}")
+                effective_policies[name] = replace(
+                    effective_policies[name],
+                    **overrides,
+                )
+
+            config = replace(
+                config,
+                weights=WeightConfig(**selected["weights"]),
+                policies=effective_policies,
+            )
             config.validate()
+
+            if config.policies["mixed"].required_modalities != 1:
+                raise RuntimeError(
+                    "Frozen Scenario 5 contract requires mixed.required_modalities == 1"
+                )
+
         print(json.dumps(run_density_campaign(
             config,
             scenario_directories=args.scenarios,

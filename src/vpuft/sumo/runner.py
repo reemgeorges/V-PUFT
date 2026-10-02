@@ -4,6 +4,7 @@ import importlib
 import json
 import os
 import sys
+import xml.etree.ElementTree as ET
 from dataclasses import asdict, replace
 from hashlib import sha256
 from pathlib import Path
@@ -39,18 +40,33 @@ def _load_traci():
         )
 
 
-def _load_rsus(path: Path) -> list[RSU]:
+def _load_rsus(
+    path: Path,
+    *,
+    offset_x: float = 0.0,
+    offset_y: float = 0.0,
+) -> list[RSU]:
     raw = json.loads(path.read_text(encoding="utf-8"))
     return [
         RSU(
             rsu_id=item["id"],
-            x=float(item["x"]),
-            y=float(item["y"]),
+            x=float(item["x"]) + offset_x,
+            y=float(item["y"]) + offset_y,
             domain=item.get("domain", "domain-1"),
             reliability=float(item.get("reliability", 0.9)),
         )
         for item in raw
     ]
+
+
+def _network_location_offset(network_path: Path) -> tuple[float, float]:
+    root = ET.parse(network_path).getroot()
+    location = root.find("location")
+    if location is None:
+        return 0.0, 0.0
+    raw = location.attrib.get("netOffset", "0.0,0.0")
+    x, y = raw.split(",", 1)
+    return float(x), float(y)
 
 
 def _message_row(message: V2XMessage) -> dict[str, Any]:
@@ -104,7 +120,12 @@ def run_sumo_trace(
     if not sumocfg.exists() or not rsu_path.exists() or not attack_path.exists():
         raise FileNotFoundError("The SUMO scenario is incomplete: sumocfg, RSU JSON, or attack JSON is missing")
 
-    rsus = _load_rsus(rsu_path)
+    offset_x, offset_y = _network_location_offset(network_path)
+    rsus = _load_rsus(
+        rsu_path,
+        offset_x=offset_x,
+        offset_y=offset_y,
+    )
     schedules = load_attack_schedules(attack_path)
     injector = AttackInjector(seed, schedules, scenario_id=prefix)
     detector = DetectionEngine(config.detector, config.security, seed)
