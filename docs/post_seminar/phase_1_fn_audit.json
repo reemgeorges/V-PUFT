@@ -1,0 +1,528 @@
+{
+  "at_risk_by_density_attack": [
+    {
+      "attack_type": "false_denm",
+      "count": 12,
+      "vehicle_count": 20
+    },
+    {
+      "attack_type": "flood",
+      "count": 10,
+      "vehicle_count": 20
+    },
+    {
+      "attack_type": "mixed",
+      "count": 20,
+      "vehicle_count": 20
+    },
+    {
+      "attack_type": "position_offset",
+      "count": 10,
+      "vehicle_count": 20
+    },
+    {
+      "attack_type": "speed_offset",
+      "count": 20,
+      "vehicle_count": 20
+    },
+    {
+      "attack_type": "false_denm",
+      "count": 18,
+      "vehicle_count": 40
+    },
+    {
+      "attack_type": "flood",
+      "count": 9,
+      "vehicle_count": 40
+    },
+    {
+      "attack_type": "mixed",
+      "count": 42,
+      "vehicle_count": 40
+    },
+    {
+      "attack_type": "position_offset",
+      "count": 26,
+      "vehicle_count": 40
+    },
+    {
+      "attack_type": "speed_offset",
+      "count": 21,
+      "vehicle_count": 40
+    },
+    {
+      "attack_type": "false_denm",
+      "count": 49,
+      "vehicle_count": 60
+    },
+    {
+      "attack_type": "flood",
+      "count": 35,
+      "vehicle_count": 60
+    },
+    {
+      "attack_type": "mixed",
+      "count": 48,
+      "vehicle_count": 60
+    },
+    {
+      "attack_type": "position_offset",
+      "count": 40,
+      "vehicle_count": 60
+    },
+    {
+      "attack_type": "speed_offset",
+      "count": 35,
+      "vehicle_count": 60
+    },
+    {
+      "attack_type": "false_denm",
+      "count": 62,
+      "vehicle_count": 80
+    },
+    {
+      "attack_type": "flood",
+      "count": 42,
+      "vehicle_count": 80
+    },
+    {
+      "attack_type": "mixed",
+      "count": 66,
+      "vehicle_count": 80
+    },
+    {
+      "attack_type": "position_offset",
+      "count": 36,
+      "vehicle_count": 80
+    },
+    {
+      "attack_type": "speed_offset",
+      "count": 49,
+      "vehicle_count": 80
+    },
+    {
+      "attack_type": "false_denm",
+      "count": 62,
+      "vehicle_count": 100
+    },
+    {
+      "attack_type": "flood",
+      "count": 67,
+      "vehicle_count": 100
+    },
+    {
+      "attack_type": "mixed",
+      "count": 78,
+      "vehicle_count": 100
+    },
+    {
+      "attack_type": "position_offset",
+      "count": 44,
+      "vehicle_count": 100
+    },
+    {
+      "attack_type": "speed_offset",
+      "count": 60,
+      "vehicle_count": 100
+    }
+  ],
+  "at_risk_false_negative_windows": 961,
+  "by_density_attack_cause": [
+    {
+      "attack_type": "certificate_tamper",
+      "count": 7,
+      "fn_cause": "post_revocation_terminal_window",
+      "vehicle_count": 20
+    },
+    {
+      "attack_type": "false_denm",
+      "count": 12,
+      "fn_cause": "source_zone_or_modality_diversity_unresolved",
+      "vehicle_count": 20
+    },
+    {
+      "attack_type": "flood",
+      "count": 10,
+      "fn_cause": "source_zone_or_modality_diversity_unresolved",
+      "vehicle_count": 20
+    },
+    {
+      "attack_type": "mixed",
+      "count": 20,
+      "fn_cause": "source_zone_or_modality_diversity_unresolved",
+      "vehicle_count": 20
+    },
+    {
+      "attack_type": "position_offset",
+      "count": 10,
+      "fn_cause": "source_zone_or_modality_diversity_unresolved",
+      "vehicle_count": 20
+    },
+    {
+      "attack_type": "replay",
+      "count": 10,
+      "fn_cause": "post_revocation_terminal_window",
+      "vehicle_count": 20
+    },
+    {
+      "attack_type": "speed_offset",
+      "count": 20,
+      "fn_cause": "source_zone_or_modality_diversity_unresolved",
+      "vehicle_count": 20
+    },
+    {
+      "attack_type": "certificate_tamper",
+      "count": 29,
+      "fn_cause": "post_revocation_terminal_window",
+      "vehicle_count": 40
+    },
+    {
+      "attack_type": "false_denm",
+      "count": 2,
+      "fn_cause": "insufficient_independent_roots",
+      "vehicle_count": 40
+    },
+    {
+      "attack_type": "false_denm",
+      "count": 14,
+      "fn_cause": "post_revocation_terminal_window",
+      "vehicle_count": 40
+    },
+    {
+      "attack_type": "false_denm",
+      "count": 16,
+      "fn_cause": "source_zone_or_modality_diversity_unresolved",
+      "vehicle_count": 40
+    },
+    {
+      "attack_type": "flood",
+      "count": 9,
+      "fn_cause": "post_revocation_terminal_window",
+      "vehicle_count": 40
+    },
+    {
+      "attack_type": "flood",
+      "count": 9,
+      "fn_cause": "source_zone_or_modality_diversity_unresolved",
+      "vehicle_count": 40
+    },
+    {
+      "attack_type": "mixed",
+      "count": 2,
+      "fn_cause": "insufficient_independent_roots",
+      "vehicle_count": 40
+    },
+    {
+      "attack_type": "mixed",
+      "count": 3,
+      "fn_cause": "post_revocation_terminal_window",
+      "vehicle_count": 40
+    },
+    {
+      "attack_type": "mixed",
+      "count": 40,
+      "fn_cause": "source_zone_or_modality_diversity_unresolved",
+      "vehicle_count": 40
+    },
+    {
+      "attack_type": "position_offset",
+      "count": 5,
+      "fn_cause": "insufficient_independent_roots",
+      "vehicle_count": 40
+    },
+    {
+      "attack_type": "position_offset",
+      "count": 21,
+      "fn_cause": "source_zone_or_modality_diversity_unresolved",
+      "vehicle_count": 40
+    },
+    {
+      "attack_type": "replay",
+      "count": 29,
+      "fn_cause": "post_revocation_terminal_window",
+      "vehicle_count": 40
+    },
+    {
+      "attack_type": "speed_offset",
+      "count": 3,
+      "fn_cause": "insufficient_independent_roots",
+      "vehicle_count": 40
+    },
+    {
+      "attack_type": "speed_offset",
+      "count": 18,
+      "fn_cause": "source_zone_or_modality_diversity_unresolved",
+      "vehicle_count": 40
+    },
+    {
+      "attack_type": "certificate_tamper",
+      "count": 29,
+      "fn_cause": "post_revocation_terminal_window",
+      "vehicle_count": 60
+    },
+    {
+      "attack_type": "false_denm",
+      "count": 26,
+      "fn_cause": "insufficient_independent_roots",
+      "vehicle_count": 60
+    },
+    {
+      "attack_type": "false_denm",
+      "count": 8,
+      "fn_cause": "post_revocation_terminal_window",
+      "vehicle_count": 60
+    },
+    {
+      "attack_type": "false_denm",
+      "count": 23,
+      "fn_cause": "source_zone_or_modality_diversity_unresolved",
+      "vehicle_count": 60
+    },
+    {
+      "attack_type": "flood",
+      "count": 9,
+      "fn_cause": "post_revocation_terminal_window",
+      "vehicle_count": 60
+    },
+    {
+      "attack_type": "flood",
+      "count": 35,
+      "fn_cause": "source_zone_or_modality_diversity_unresolved",
+      "vehicle_count": 60
+    },
+    {
+      "attack_type": "mixed",
+      "count": 11,
+      "fn_cause": "post_revocation_terminal_window",
+      "vehicle_count": 60
+    },
+    {
+      "attack_type": "mixed",
+      "count": 48,
+      "fn_cause": "source_zone_or_modality_diversity_unresolved",
+      "vehicle_count": 60
+    },
+    {
+      "attack_type": "position_offset",
+      "count": 1,
+      "fn_cause": "insufficient_independent_roots",
+      "vehicle_count": 60
+    },
+    {
+      "attack_type": "position_offset",
+      "count": 39,
+      "fn_cause": "source_zone_or_modality_diversity_unresolved",
+      "vehicle_count": 60
+    },
+    {
+      "attack_type": "replay",
+      "count": 40,
+      "fn_cause": "post_revocation_terminal_window",
+      "vehicle_count": 60
+    },
+    {
+      "attack_type": "speed_offset",
+      "count": 1,
+      "fn_cause": "insufficient_independent_roots",
+      "vehicle_count": 60
+    },
+    {
+      "attack_type": "speed_offset",
+      "count": 34,
+      "fn_cause": "source_zone_or_modality_diversity_unresolved",
+      "vehicle_count": 60
+    },
+    {
+      "attack_type": "certificate_tamper",
+      "count": 48,
+      "fn_cause": "post_revocation_terminal_window",
+      "vehicle_count": 80
+    },
+    {
+      "attack_type": "false_denm",
+      "count": 20,
+      "fn_cause": "insufficient_independent_roots",
+      "vehicle_count": 80
+    },
+    {
+      "attack_type": "false_denm",
+      "count": 8,
+      "fn_cause": "post_revocation_terminal_window",
+      "vehicle_count": 80
+    },
+    {
+      "attack_type": "false_denm",
+      "count": 42,
+      "fn_cause": "source_zone_or_modality_diversity_unresolved",
+      "vehicle_count": 80
+    },
+    {
+      "attack_type": "flood",
+      "count": 8,
+      "fn_cause": "margin_threshold",
+      "vehicle_count": 80
+    },
+    {
+      "attack_type": "flood",
+      "count": 13,
+      "fn_cause": "post_revocation_terminal_window",
+      "vehicle_count": 80
+    },
+    {
+      "attack_type": "flood",
+      "count": 34,
+      "fn_cause": "source_zone_or_modality_diversity_unresolved",
+      "vehicle_count": 80
+    },
+    {
+      "attack_type": "mixed",
+      "count": 6,
+      "fn_cause": "insufficient_independent_roots",
+      "vehicle_count": 80
+    },
+    {
+      "attack_type": "mixed",
+      "count": 11,
+      "fn_cause": "post_revocation_terminal_window",
+      "vehicle_count": 80
+    },
+    {
+      "attack_type": "mixed",
+      "count": 60,
+      "fn_cause": "source_zone_or_modality_diversity_unresolved",
+      "vehicle_count": 80
+    },
+    {
+      "attack_type": "position_offset",
+      "count": 16,
+      "fn_cause": "post_revocation_terminal_window",
+      "vehicle_count": 80
+    },
+    {
+      "attack_type": "position_offset",
+      "count": 36,
+      "fn_cause": "source_zone_or_modality_diversity_unresolved",
+      "vehicle_count": 80
+    },
+    {
+      "attack_type": "replay",
+      "count": 30,
+      "fn_cause": "post_revocation_terminal_window",
+      "vehicle_count": 80
+    },
+    {
+      "attack_type": "speed_offset",
+      "count": 49,
+      "fn_cause": "source_zone_or_modality_diversity_unresolved",
+      "vehicle_count": 80
+    },
+    {
+      "attack_type": "certificate_tamper",
+      "count": 38,
+      "fn_cause": "post_revocation_terminal_window",
+      "vehicle_count": 100
+    },
+    {
+      "attack_type": "false_denm",
+      "count": 22,
+      "fn_cause": "insufficient_independent_roots",
+      "vehicle_count": 100
+    },
+    {
+      "attack_type": "false_denm",
+      "count": 8,
+      "fn_cause": "post_revocation_terminal_window",
+      "vehicle_count": 100
+    },
+    {
+      "attack_type": "false_denm",
+      "count": 40,
+      "fn_cause": "source_zone_or_modality_diversity_unresolved",
+      "vehicle_count": 100
+    },
+    {
+      "attack_type": "flood",
+      "count": 1,
+      "fn_cause": "insufficient_independent_roots",
+      "vehicle_count": 100
+    },
+    {
+      "attack_type": "flood",
+      "count": 9,
+      "fn_cause": "margin_threshold",
+      "vehicle_count": 100
+    },
+    {
+      "attack_type": "flood",
+      "count": 8,
+      "fn_cause": "post_revocation_terminal_window",
+      "vehicle_count": 100
+    },
+    {
+      "attack_type": "flood",
+      "count": 57,
+      "fn_cause": "source_zone_or_modality_diversity_unresolved",
+      "vehicle_count": 100
+    },
+    {
+      "attack_type": "mixed",
+      "count": 7,
+      "fn_cause": "insufficient_independent_roots",
+      "vehicle_count": 100
+    },
+    {
+      "attack_type": "mixed",
+      "count": 14,
+      "fn_cause": "post_revocation_terminal_window",
+      "vehicle_count": 100
+    },
+    {
+      "attack_type": "mixed",
+      "count": 71,
+      "fn_cause": "source_zone_or_modality_diversity_unresolved",
+      "vehicle_count": 100
+    },
+    {
+      "attack_type": "position_offset",
+      "count": 1,
+      "fn_cause": "margin_threshold",
+      "vehicle_count": 100
+    },
+    {
+      "attack_type": "position_offset",
+      "count": 18,
+      "fn_cause": "post_revocation_terminal_window",
+      "vehicle_count": 100
+    },
+    {
+      "attack_type": "position_offset",
+      "count": 43,
+      "fn_cause": "source_zone_or_modality_diversity_unresolved",
+      "vehicle_count": 100
+    },
+    {
+      "attack_type": "replay",
+      "count": 39,
+      "fn_cause": "post_revocation_terminal_window",
+      "vehicle_count": 100
+    },
+    {
+      "attack_type": "speed_offset",
+      "count": 60,
+      "fn_cause": "source_zone_or_modality_diversity_unresolved",
+      "vehicle_count": 100
+    }
+  ],
+  "cause_totals": {
+    "insufficient_independent_roots": 96,
+    "margin_threshold": 18,
+    "source_zone_or_modality_diversity_unresolved": 847
+  },
+  "fn_vehicles_eventually_revoked": 597,
+  "malicious_vehicles": 1050,
+  "post_revocation_terminal_windows": 449,
+  "vehicles_eventually_revoked": 650,
+  "vehicles_never_revoked": 400,
+  "vehicles_with_at_least_one_fn_window": 997,
+  "window_level_non_revoked_malicious_rows": 1410
+}
