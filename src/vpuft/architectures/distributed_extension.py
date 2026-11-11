@@ -96,6 +96,29 @@ class DistributedRSUExtendedVPUFT(Architecture):
         ordered_cases = sorted(cases, key=lambda item: (item.opened_at, item.case_id))
         case_order = {case.case_id: index for index, case in enumerate(ordered_cases)}
 
+        def qualification_metadata(ctx: dict, result) -> dict:
+            return {
+                "independent_roots": result.independent_roots,
+                "required_roots": result.required_roots,
+                "distinct_sources": result.distinct_sources,
+                "required_sources": result.required_sources,
+                "distinct_zones": result.distinct_zones,
+                "required_zones": result.required_zones,
+                "distinct_modalities": result.distinct_modalities,
+                "required_modalities": result.required_modalities,
+                "supporting_strength": result.supporting_strength,
+                "opposing_strength": result.opposing_strength,
+                "qualification_margin": result.decision_margin,
+                "required_margin": result.required_margin,
+                "failed_constraints": list(result.failed_constraints),
+                "qualification_outcome": bool(result.qualified),
+                "qualification_reason": result.reason,
+                "evidence_observed_at": list(result.evidence_observed_at),
+                "evidence_arrival_times": sorted(ctx.get("evidence_arrival_times", [])),
+                "evidence_ages_seconds": list(result.evidence_ages_seconds),
+                "excluded_duplicate_roots": result.excluded_duplicate_roots,
+            }
+
         def append_decision_after_ledger(
             *,
             ctx: dict,
@@ -125,8 +148,8 @@ class DistributedRSUExtendedVPUFT(Architecture):
                 committed=outcome.committed,
                 reason=outcome.reason,
                 metadata={
+                    **qualification_metadata(ctx, result),
                     "evidence_coordinator": ctx["coordinator"],
-                    "independent_roots": result.independent_roots,
                     "correlated_suppressed": result.correlated_suppressed,
                     "expired_evidence": result.expired_evidence,
                     "attempted_attestations": len(ctx["clean"].attestations),
@@ -332,8 +355,20 @@ class DistributedRSUExtendedVPUFT(Architecture):
             remote = [validator for validator in validators if validator != coordinator]
             pending = {"count": len(remote)}
 
+            verified_case = (
+                self.sanitize_case(delivered_case)
+                if ext.cache_verified_evidence_bundle
+                else None
+            )
+
+            def validator_case():
+                # The delivered case and its signed attestations are immutable.
+                # Reuse only the signature-verified bundle; every validator
+                # still independently executes the qualification computation.
+                return verified_case if verified_case is not None else self.sanitize_case(delivered_case)
+
             # Coordinator requalification is local and immediate.
-            local_case = self.sanitize_case(delivered_case)
+            local_case = validator_case()
             local_result = self.engine.qualify(local_case, ctx["qualified_at"])
             checks[coordinator] = digest_hex(asdict(local_result)) == expected
 
@@ -358,8 +393,8 @@ class DistributedRSUExtendedVPUFT(Architecture):
                     if message.delivered_at is None:
                         checks[validator] = False
                     else:
-                        validator_case = self.sanitize_case(delivered_case)
-                        reproduced = self.engine.qualify(validator_case, ctx["qualified_at"])
+                        checked_case = validator_case()
+                        reproduced = self.engine.qualify(checked_case, ctx["qualified_at"])
                         checks[validator] = digest_hex(asdict(reproduced)) == expected
                     pending["count"] -= 1
                     if pending["count"] == 0:
@@ -450,8 +485,8 @@ class DistributedRSUExtendedVPUFT(Architecture):
                     committed=False,
                     reason=result.reason,
                     metadata={
+                        **qualification_metadata(ctx, result),
                         "evidence_coordinator": ctx["coordinator"],
-                        "independent_roots": result.independent_roots,
                         "correlated_suppressed": result.correlated_suppressed,
                         "expired_evidence": result.expired_evidence,
                         "attempted_attestations": len(clean.attestations),
@@ -487,6 +522,7 @@ class DistributedRSUExtendedVPUFT(Architecture):
                 "detected_at": min((att.observed_at for att in clean.attestations), default=case.opened_at),
                 "pending": len(clean.attestations),
                 "delivered_attestations": [],
+                "evidence_arrival_times": [],
             }
 
             if not clean.attestations:
@@ -499,55 +535,73 @@ class DistributedRSUExtendedVPUFT(Architecture):
                 )
                 continue
 
-            for attestation in clean.attestations:
-                if attestation.validator_rsu_id == coordinator:
-                    def local_complete(*, ctx=ctx, attestation=attestation) -> None:
-                        ctx["delivered_attestations"].append(attestation)
-                        ctx["pending"] -= 1
-                        if ctx["pending"] == 0:
-                            scheduler.schedule(
-                                scheduler.now,
-                                lambda ctx=ctx: case_ready(ctx),
-                                phase_rank=30,
-                                case_order_index=ctx["index"],
-                                key=f"distributed-ready:{ctx['case'].case_id}",
-                            )
-
+            def finish_attestation(ctx: dict, attestation, arrival_time: float | None) -> None:
+                if arrival_time is not None:
+                    ctx["delivered_attestations"].append(attestation)
+                    ctx["evidence_arrival_times"].append(float(arrival_time))
+                ctx["pending"] -= 1
+                if ctx["pending"] == 0:
                     scheduler.schedule(
-                        attestation.observed_at,
-                        local_complete,
+                        scheduler.now,
+                        lambda ctx=ctx: case_ready(ctx),
+                        phase_rank=30,
+                        case_order_index=ctx["index"],
+                        key=f"distributed-ready:{ctx['case'].case_id}",
+                    )
+
+            def forward_from_validator(ctx: dict, attestation, sent_at: float) -> None:
+                if attestation.validator_rsu_id == ctx["coordinator"]:
+                    scheduler.schedule(
+                        sent_at,
+                        lambda ctx=ctx, attestation=attestation: finish_attestation(
+                            ctx, attestation, scheduler.now
+                        ),
                         phase_rank=15,
-                        case_order_index=index,
+                        case_order_index=ctx["index"],
                         key=f"local-evidence:{attestation.attestation_id}",
                     )
-                    continue
+                    return
 
                 def evidence_complete(message, _resolved_at, *, ctx=ctx, attestation=attestation) -> None:
-                    if message.delivered_at is not None:
-                        ctx["delivered_attestations"].append(attestation)
-                    ctx["pending"] -= 1
-                    if ctx["pending"] == 0:
-                        scheduler.schedule(
-                            scheduler.now,
-                            lambda ctx=ctx: case_ready(ctx),
-                            phase_rank=30,
-                            case_order_index=ctx["index"],
-                            key=f"distributed-ready:{ctx['case'].case_id}",
-                        )
+                    finish_attestation(ctx, attestation, message.delivered_at)
 
                 transport.send_async(
                     message_type="RSU_EVIDENCE_EXCHANGE",
                     sender=attestation.validator_rsu_id,
-                    receiver=coordinator,
-                    case_id=case.case_id,
-                    sent_at=attestation.observed_at,
+                    receiver=ctx["coordinator"],
+                    case_id=ctx["case"].case_id,
+                    sent_at=sent_at,
                     size_bytes=704,
                     random_key=f"evidence-attestation:{attestation.attestation_id}",
                     random_stream_seed=seed,
                     on_complete=evidence_complete,
-                    case_order_index=index,
+                    case_order_index=ctx["index"],
                     phase_rank=10,
                 )
+
+            for attestation in clean.attestations:
+                if attestation.source_kind == "vehicle_witness":
+                    def uplink_complete(message, _resolved_at, *, ctx=ctx, attestation=attestation) -> None:
+                        if message.delivered_at is None:
+                            finish_attestation(ctx, attestation, None)
+                        else:
+                            forward_from_validator(ctx, attestation, message.delivered_at)
+
+                    transport.send_async(
+                        message_type="WITNESS_EVIDENCE_UPLINK",
+                        sender=attestation.source_id,
+                        receiver=attestation.validator_rsu_id,
+                        case_id=case.case_id,
+                        sent_at=attestation.observed_at,
+                        size_bytes=512,
+                        random_key=f"witness-uplink:{attestation.attestation_id}",
+                        random_stream_seed=seed,
+                        on_complete=uplink_complete,
+                        case_order_index=index,
+                        phase_rank=8,
+                    )
+                    continue
+                forward_from_validator(ctx, attestation, attestation.observed_at)
 
         scheduler.run()
         decisions.sort(key=lambda decision: case_order.get(decision.case_id, 10**9))

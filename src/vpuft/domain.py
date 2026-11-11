@@ -175,6 +175,15 @@ class QualificationResult:
     expired_evidence: int
     reason: str
     cryptographic_decisive: bool = False
+    required_roots: int = 0
+    required_sources: int = 0
+    required_zones: int = 0
+    required_modalities: int = 0
+    required_margin: float = 0.0
+    failed_constraints: tuple[str, ...] = ()
+    evidence_observed_at: tuple[float, ...] = ()
+    evidence_ages_seconds: tuple[float, ...] = ()
+    excluded_duplicate_roots: int = 0
 
 
 @dataclass(frozen=True, slots=True)

@@ -296,6 +296,25 @@ def test_terminal_revocation_guard_prevents_repeated_consensus_and_ledger_append
     assert distributed.consensus[0].case_id == cases[0].case_id
 
 
+def test_provenance_safe_variant_keeps_revocation_terminal_and_single_append():
+    keys = KeyRegistry()
+    cases = [
+        _window_case(keys, "veh-terminal-b8", 0, 0.0),
+        _window_case(keys, "veh-terminal-b8", 1, 15.0),
+    ]
+    config = _config()
+    config = replace(config, distributed_extension=replace(
+        config.distributed_extension, provenance_safe_observer_diversity=True
+    ))
+    result = DistributedRSUExtendedVPUFT(config, keys).run(cases, 1001)
+    first, second = result.decisions
+    assert first.committed and first.new_state.value == "revoked"
+    assert not second.committed
+    assert second.reason == "already_revoked_terminal_state"
+    assert len(result.consensus) == 1
+    assert result.ledger_blocks == 1
+
+
 def test_security_metrics_exclude_terminal_state_noops_from_confusion_matrix():
     keys = KeyRegistry()
     cases = [

@@ -129,6 +129,9 @@ class DistributedExtensionConfig:
     evidence_source_fault_budget: int = 1
     guard_on_directional_conflict_only: bool = True
     replicate_read_cache_to_all_rsus: bool = True
+    cache_verified_evidence_bundle: bool = False
+    diversity_aware_root_assignment: bool = False
+    provenance_safe_observer_diversity: bool = False
 
 
 @dataclass(frozen=True)
