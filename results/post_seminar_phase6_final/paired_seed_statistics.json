@@ -1,0 +1,175 @@
+{
+  "n_seeds": 4,
+  "n_cells": 20,
+  "ci_method": "two-sided Student t interval on four seed-level paired mean differences; descriptive, underpowered",
+  "metrics": {
+    "opportunity_recall": {
+      "seed_mean_delta": 0.04238698877839344,
+      "seed_ci95": [
+        0.029561367456019838,
+        0.05521261010076704
+      ],
+      "seed_median_delta": 0.043973026640799925,
+      "cohens_dz": 5.258782886198576,
+      "improved_seeds": 4,
+      "unchanged_seeds": 0,
+      "worsened_seeds": 0
+    },
+    "fixed_protected_fraction": {
+      "seed_mean_delta": 0.05337943213653665,
+      "seed_ci95": [
+        0.04463717943249118,
+        0.062121684840582114
+      ],
+      "seed_median_delta": 0.05482081006641657,
+      "cohens_dz": 9.715869715278453,
+      "improved_seeds": 4,
+      "unchanged_seeds": 0,
+      "worsened_seeds": 0
+    },
+    "TP": {
+      "seed_mean_delta": 1.1,
+      "seed_ci95": [
+        0.6891479486478242,
+        1.510852051352176
+      ],
+      "seed_median_delta": 1.1,
+      "cohens_dz": 4.260281680828159,
+      "improved_seeds": 4,
+      "unchanged_seeds": 0,
+      "worsened_seeds": 0
+    },
+    "FP": {
+      "seed_mean_delta": -0.05,
+      "seed_ci95": [
+        -0.20912231526421315,
+        0.10912231526421316
+      ],
+      "seed_median_delta": 0.0,
+      "cohens_dz": -0.5,
+      "improved_seeds": 0,
+      "unchanged_seeds": 3,
+      "worsened_seeds": 1
+    },
+    "FN": {
+      "seed_mean_delta": -1.2999999999999998,
+      "seed_ci95": [
+        -1.6182446305284262,
+        -0.9817553694715736
+      ],
+      "seed_median_delta": -1.4,
+      "cohens_dz": -6.500000000000001,
+      "improved_seeds": 0,
+      "unchanged_seeds": 0,
+      "worsened_seeds": 4
+    },
+    "frr": {
+      "seed_mean_delta": -0.0002832739601229849,
+      "seed_ci95": [
+        -0.0011882479758635474,
+        0.0006217000556175776
+      ],
+      "seed_median_delta": 0.0,
+      "cohens_dz": -0.49808290188249876,
+      "improved_seeds": 1,
+      "unchanged_seeds": 2,
+      "worsened_seeds": 1
+    },
+    "cpu": {
+      "seed_mean_delta": -0.0078124999999999445,
+      "seed_ci95": [
+        -2.0333429157370517,
+        2.0177179157370517
+      ],
+      "seed_median_delta": 0.034375,
+      "cohens_dz": -0.0061373706281734625,
+      "improved_seeds": 2,
+      "unchanged_seeds": 0,
+      "worsened_seeds": 2
+    },
+    "e2e_ms": {
+      "seed_mean_delta": 11.60819447191525,
+      "seed_ci95": [
+        8.842633767247376,
+        14.373755176583122
+      ],
+      "seed_median_delta": 11.669007965533273,
+      "cohens_dz": 6.679017304847852,
+      "improved_seeds": 4,
+      "unchanged_seeds": 0,
+      "worsened_seeds": 0
+    },
+    "messages_per_case": {
+      "seed_mean_delta": 1.8826239766828512,
+      "seed_ci95": [
+        1.7569874950938873,
+        2.008260458271815
+      ],
+      "seed_median_delta": 1.8862416342058281,
+      "cohens_dz": 23.843988796325043,
+      "improved_seeds": 4,
+      "unchanged_seeds": 0,
+      "worsened_seeds": 0
+    },
+    "pdr": {
+      "seed_mean_delta": 5.109046722980846e-05,
+      "seed_ci95": [
+        -0.0006508416375293289,
+        0.0007530225719889459
+      ],
+      "seed_median_delta": -4.7213002774193496e-05,
+      "cohens_dz": 0.11581794561636632,
+      "improved_seeds": 2,
+      "unchanged_seeds": 0,
+      "worsened_seeds": 2
+    },
+    "ledger_delay_ms": {
+      "seed_mean_delta": 0.04549094756835288,
+      "seed_ci95": [
+        -0.7464565140178314,
+        0.8374384091545373
+      ],
+      "seed_median_delta": 0.0580738596392841,
+      "cohens_dz": 0.09140284238225932,
+      "improved_seeds": 2,
+      "unchanged_seeds": 0,
+      "worsened_seeds": 2
+    },
+    "observed_opportunities": {
+      "seed_mean_delta": 0.25,
+      "seed_ci95": [
+        -0.05469603616581564,
+        0.5546960361658156
+      ],
+      "seed_median_delta": 0.30000000000000004,
+      "cohens_dz": 1.3055824196677337,
+      "improved_seeds": 3,
+      "unchanged_seeds": 1,
+      "worsened_seeds": 0
+    },
+    "multi_observer_messages": {
+      "seed_mean_delta": 26.699999999999996,
+      "seed_ci95": [
+        22.628624080799145,
+        30.771375919200846
+      ],
+      "seed_median_delta": 27.4,
+      "cohens_dz": 10.435208887290417,
+      "improved_seeds": 4,
+      "unchanged_seeds": 0,
+      "worsened_seeds": 0
+    },
+    "multicell_messages": {
+      "seed_mean_delta": 26.699999999999996,
+      "seed_ci95": [
+        22.628624080799145,
+        30.771375919200846
+      ],
+      "seed_median_delta": 27.4,
+      "cohens_dz": 10.435208887290417,
+      "improved_seeds": 4,
+      "unchanged_seeds": 0,
+      "worsened_seeds": 0
+    }
+  }
+}
