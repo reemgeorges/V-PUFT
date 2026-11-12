@@ -1,6 +1,9 @@
 from __future__ import annotations
 
 from collections import defaultdict
+from dataclasses import replace
+from threading import RLock
+import unicodedata
 from typing import Callable
 
 from .des import Scheduler
@@ -9,6 +12,90 @@ from .config import PBFTConfig
 from .crypto import KeyRegistry, digest_hex
 from .domain import ConsensusOutcome
 from .network import SimulatedTransport
+
+
+def canonical_case_identity(case_id: str) -> str:
+    """Return the stable case key used by opt-in simulator safeguards."""
+    if not isinstance(case_id, str):
+        raise ValueError("case_id must be a string")
+    canonical = unicodedata.normalize("NFC", case_id).strip()
+    if not canonical or any(ord(char) < 32 or ord(char) == 127 for char in canonical):
+        raise ValueError("case_id must be non-empty and contain no control characters")
+    return canonical
+
+
+class SimulatorFinalizationGuard:
+    """Atomic application-level final outcome gate shared by simulator contexts.
+
+    This is not a PBFT safety mechanism. It applies only after an individual
+    PBFT-style instance has produced a commit certificate. Failed attempts do
+    not reserve a case. A committed result is terminal for one simulation run;
+    a conflict is recorded and rejected, and recovery requires an explicit new
+    simulation run after the conflict is investigated.
+    """
+
+    def __init__(self) -> None:
+        self._lock = RLock()
+        self._finals: dict[str, tuple[str, ConsensusOutcome]] = {}
+        self._conflicts: list[dict[str, str]] = []
+
+    @property
+    def conflicts(self) -> tuple[dict[str, str], ...]:
+        with self._lock:
+            return tuple(dict(item) for item in self._conflicts)
+
+    def accepted_digest(self, case_id: str) -> str | None:
+        canonical = canonical_case_identity(case_id)
+        with self._lock:
+            entry = self._finals.get(canonical)
+            return entry[0] if entry else None
+
+    def apply(self, outcome: ConsensusOutcome, payload: dict) -> ConsensusOutcome:
+        if not outcome.committed:
+            return outcome
+        case_id = canonical_case_identity(outcome.case_id)
+        payload_case_id = payload.get("case_id")
+        if payload_case_id is not None and canonical_case_identity(payload_case_id) != case_id:
+            with self._lock:
+                self._conflicts.append({
+                    "case_id": case_id,
+                    "accepted_digest": "",
+                    "rejected_digest": digest_hex(payload),
+                    "reason": "case_identity_mismatch",
+                })
+            return replace(
+                outcome,
+                committed=False,
+                committed_at=None,
+                reason="simulator_case_identity_mismatch_rejected",
+            )
+        canonical_payload = dict(payload)
+        if payload_case_id is not None:
+            canonical_payload["case_id"] = case_id
+        request_digest = digest_hex(canonical_payload)
+        with self._lock:
+            accepted = self._finals.get(case_id)
+            if accepted is None:
+                self._finals[case_id] = (request_digest, outcome)
+                return outcome
+            accepted_digest, accepted_outcome = accepted
+            if accepted_digest == request_digest:
+                return replace(
+                    outcome,
+                    committed_at=accepted_outcome.committed_at,
+                    reason="idempotent_same_digest_retry",
+                )
+            self._conflicts.append({
+                "case_id": case_id,
+                "accepted_digest": accepted_digest,
+                "rejected_digest": request_digest,
+            })
+            return replace(
+                outcome,
+                committed=False,
+                committed_at=None,
+                reason="simulator_conflicting_final_outcome_rejected",
+            )
 
 
 class PBFTConsensus:
@@ -25,11 +112,13 @@ class PBFTConsensus:
         transport: SimulatedTransport,
         keys: KeyRegistry,
         online: Callable[[str, float], bool] | None = None,
+        finalization_guard: SimulatorFinalizationGuard | None = None,
     ) -> None:
         self.config = config
         self.transport = transport
         self.keys = keys
         self.online = online or (lambda _validator, _time: True)
+        self.finalization_guard = finalization_guard
         self._vote_locks: dict[tuple[str, int, str, str], str] = {}
         for validator in config.validators:
             self.keys.ensure_identity(validator)
@@ -189,7 +278,7 @@ class PBFTConsensus:
             )
             if last_commit >= self.quorum:
                 relevant = self.transport.messages[total_message_start:]
-                return ConsensusOutcome(
+                outcome = ConsensusOutcome(
                     case_id=case_id,
                     committed=True,
                     view=view,
@@ -209,6 +298,7 @@ class PBFTConsensus:
                     validator_recheck_failures=sum(not accepted for accepted in rechecks.values()),
                     invalid_proposal_attempted=invalid_proposal_attempted,
                 )
+                return self._apply_finalization_guard(outcome, payload)
             view_changes += 1
 
         relevant = self.transport.messages[total_message_start:]
@@ -232,6 +322,11 @@ class PBFTConsensus:
             validator_recheck_failures=sum(not accepted for accepted in rechecks.values()),
             invalid_proposal_attempted=invalid_proposal_attempted,
         )
+
+    def _apply_finalization_guard(self, outcome: ConsensusOutcome, payload: dict) -> ConsensusOutcome:
+        if self.finalization_guard is None:
+            return outcome
+        return self.finalization_guard.apply(outcome, payload)
 
     def finalize_async(
         self,
@@ -295,7 +390,7 @@ class PBFTConsensus:
                 validator_recheck_failures=sum(not accepted for accepted in rechecks.values()),
                 invalid_proposal_attempted=state["invalid_proposal_attempted"],
             )
-            on_complete(outcome, scheduler.now)
+            on_complete(self._apply_finalization_guard(outcome, payload), scheduler.now)
 
         def schedule_view(view: int, earliest: float) -> None:
             if view >= self.config.max_views:
@@ -448,7 +543,7 @@ class PBFTConsensus:
                         validator_recheck_failures=sum(not accepted for accepted in rechecks.values()),
                         invalid_proposal_attempted=state["invalid_proposal_attempted"],
                     )
-                    on_complete(outcome, scheduler.now)
+                    on_complete(self._apply_finalization_guard(outcome, payload), scheduler.now)
                     return
                 state["view_changes"] += 1
                 schedule_view(view + 1, scheduler.now)

@@ -122,6 +122,8 @@ class DistributedExtensionConfig:
     """Opt-in controls for the post-freeze distributed architecture extension."""
 
     coordinator_strategy: str = "first_observer_then_hash"
+    membership_epoch: str = "phase6-fixed-membership-v1"
+    simulator_finalization_guard_enabled: bool = False
     validator_requalification: bool = True
     evidence_bundle_base_bytes: int = 384
     evidence_bundle_bytes_per_attestation: int = 704
@@ -230,8 +232,19 @@ class ResearchConfig:
             raise ValueError("malicious_ratio must be within [0, 1]")
         if not 0 <= self.security.compromised_witness_ratio <= 1:
             raise ValueError("compromised_witness_ratio must be within [0, 1]")
-        if self.distributed_extension.coordinator_strategy not in {"first_observer_then_hash", "case_hash"}:
+        if self.distributed_extension.coordinator_strategy not in {
+            "first_observer_then_hash", "case_hash", "canonical_case_epoch_hash"
+        }:
             raise ValueError("Unsupported distributed coordinator strategy")
+        if not isinstance(self.distributed_extension.membership_epoch, str) or not self.distributed_extension.membership_epoch.strip():
+            raise ValueError("membership_epoch must be a non-empty string")
+        if self.distributed_extension.coordinator_strategy == "canonical_case_epoch_hash":
+            from unicodedata import normalize
+            if any(not isinstance(validator, str) for validator in self.pbft.validators):
+                raise ValueError("Canonical coordinator validator identities must be strings")
+            canonical_validators = [normalize("NFC", validator).strip() for validator in self.pbft.validators]
+            if any(not validator for validator in canonical_validators) or len(set(canonical_validators)) != len(canonical_validators):
+                raise ValueError("Canonical coordinator mapping requires unique non-empty validator identities")
         if self.distributed_extension.evidence_bundle_base_bytes <= 0:
             raise ValueError("Evidence bundle base size must be positive")
         if self.distributed_extension.evidence_bundle_bytes_per_attestation <= 0:

@@ -3,9 +3,11 @@ from __future__ import annotations
 import time
 from dataclasses import asdict, replace
 from hashlib import sha256
+import json
+import unicodedata
 
 from .base import Architecture
-from ..consensus import PBFTConsensus
+from ..consensus import PBFTConsensus, SimulatorFinalizationGuard, canonical_case_identity
 from ..crypto import digest_hex
 from ..des import Scheduler
 from ..domain import ArchitectureRunResult, EvidenceCase, TrustDecision, TrustState
@@ -25,6 +27,28 @@ class DistributedRSUExtendedVPUFT(Architecture):
             local = [att for att in case.attestations if att.validator_rsu_id in validators]
             if local:
                 return min(local, key=lambda att: (att.observed_at, att.attestation_id)).validator_rsu_id
+        if strategy == "canonical_case_epoch_hash":
+            case_key = canonical_case_identity(case.case_id)
+            raw_epoch = self.config.distributed_extension.membership_epoch
+            if not isinstance(raw_epoch, str):
+                raise ValueError("membership_epoch must be a string")
+            epoch = unicodedata.normalize("NFC", raw_epoch).strip()
+            if not epoch:
+                raise ValueError("membership_epoch must be non-empty")
+            if any(not isinstance(validator, str) for validator in validators):
+                raise ValueError("Canonical coordinator validator identities must be strings")
+            canonical_validators = sorted(
+                unicodedata.normalize("NFC", validator).strip() for validator in validators
+            )
+            if not canonical_validators or any(not validator for validator in canonical_validators):
+                raise ValueError("Canonical coordinator mapping requires non-empty validators")
+            if len(set(canonical_validators)) != len(canonical_validators):
+                raise ValueError("Canonical coordinator mapping requires unique validators")
+            encoded = json.dumps(
+                [epoch, case_key, canonical_validators], ensure_ascii=False, separators=(",", ":")
+            ).encode("utf-8")
+            offset = int.from_bytes(sha256(encoded).digest(), "big") % len(canonical_validators)
+            return canonical_validators[offset]
         offset = int(sha256(case.case_id.encode("utf-8")).hexdigest(), 16) % len(validators)
         return validators[offset]
 
@@ -75,7 +99,12 @@ class DistributedRSUExtendedVPUFT(Architecture):
         scheduler = Scheduler()
         transport = SimulatedTransport(self.config.network, seed + 31, scheduler=scheduler)
         cache_transport = SimulatedTransport(self.config.network, seed + 31031, scheduler=scheduler)
-        pbft = PBFTConsensus(self.config.pbft, transport, self.keys)
+        finalization_guard = (
+            SimulatorFinalizationGuard()
+            if self.config.distributed_extension.simulator_finalization_guard_enabled
+            else None
+        )
+        pbft = PBFTConsensus(self.config.pbft, transport, self.keys, finalization_guard=finalization_guard)
         validators = tuple(self.config.pbft.validators)
         rsu_nodes = tuple(f"rsu-{index}" for index in range(1, self.config.simulation.rsu_count + 1))
         replica_nodes = tuple(dict.fromkeys((*validators, *rsu_nodes)))
@@ -307,6 +336,20 @@ class DistributedRSUExtendedVPUFT(Architecture):
             def pbft_complete(outcome, completed_at: float) -> None:
                 outcomes.append(outcome)
                 _, final_state = self.state_machine.finalize(case.vehicle_id, outcome.committed)
+                if outcome.committed and outcome.reason == "idempotent_same_digest_retry":
+                    append_decision_after_ledger(
+                        ctx=ctx,
+                        result=result,
+                        guard_checks=guard_checks,
+                        guard_stable=guard_stable,
+                        checks=checks,
+                        bundle_bytes=bundle_bytes,
+                        outcome=outcome,
+                        previous=previous,
+                        final_state=final_state,
+                        ledger_time=outcome.committed_at,
+                    )
+                    return
                 if outcome.committed and outcome.committed_at is not None:
                     begin_replication(
                         ctx=ctx,
