@@ -58,6 +58,7 @@ class Architecture(ABC):
         return {
             "architecture": self.name,
             "case_id": case.case_id,
+            "attestation_id": attestation.attestation_id,
             "observation_root_id": attestation.observation_root_id,
             "seed": seed,
             "attack_type": case.attack_type.value,

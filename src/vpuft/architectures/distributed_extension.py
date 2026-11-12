@@ -113,6 +113,7 @@ class DistributedRSUExtendedVPUFT(Architecture):
                 "failed_constraints": list(result.failed_constraints),
                 "qualification_outcome": bool(result.qualified),
                 "qualification_reason": result.reason,
+                "qualification_evaluated_at": ctx.get("qualified_at"),
                 "evidence_observed_at": list(result.evidence_observed_at),
                 "evidence_arrival_times": sorted(ctx.get("evidence_arrival_times", [])),
                 "evidence_ages_seconds": list(result.evidence_ages_seconds),
@@ -425,7 +426,11 @@ class DistributedRSUExtendedVPUFT(Architecture):
             delivered_case = self.subset_case(clean, ctx["delivered_attestations"])
             ctx["delivered_case"] = delivered_case
             ctx["qualified_at"] = scheduler.now
-            evidence_rows.extend(self.evidence_row(case, att, seed) for att in delivered_case.attestations)
+            arrival_by_attestation = ctx.get("arrival_by_attestation", {})
+            for attestation in delivered_case.attestations:
+                row = self.evidence_row(case, attestation, seed)
+                row["evidence_arrived_at"] = arrival_by_attestation.get(attestation.attestation_id)
+                evidence_rows.append(row)
 
             # REVOKED is terminal. Keep the later evidence window in the audit
             # trail, but do not launch another validator bundle/PBFT round or
@@ -523,6 +528,7 @@ class DistributedRSUExtendedVPUFT(Architecture):
                 "pending": len(clean.attestations),
                 "delivered_attestations": [],
                 "evidence_arrival_times": [],
+                "arrival_by_attestation": {},
             }
 
             if not clean.attestations:
@@ -539,6 +545,7 @@ class DistributedRSUExtendedVPUFT(Architecture):
                 if arrival_time is not None:
                     ctx["delivered_attestations"].append(attestation)
                     ctx["evidence_arrival_times"].append(float(arrival_time))
+                    ctx["arrival_by_attestation"][attestation.attestation_id] = float(arrival_time)
                 ctx["pending"] -= 1
                 if ctx["pending"] == 0:
                     scheduler.schedule(

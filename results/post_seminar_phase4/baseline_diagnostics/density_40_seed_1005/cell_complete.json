@@ -1,0 +1,14 @@
+{
+  "density": 40,
+  "seed": 1005,
+  "trace_sha256": "42f74202004cc9a354681d1cd5516fcecd0cc8a91da138648645ba50b909e480",
+  "trace_count_match_to_frozen": 1,
+  "trace_bytes": 43486236,
+  "cases": 240,
+  "TP": 8,
+  "FP": 0,
+  "TN": 181,
+  "FN": 15,
+  "excluded_post_revocation_cases": 36,
+  "diagnosed_at_risk_malicious_fns": 15
+}

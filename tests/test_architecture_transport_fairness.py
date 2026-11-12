@@ -3,6 +3,7 @@ from dataclasses import replace
 from vpuft.architectures.ahmed_witness import AhmedInspiredWitnessVPUFT
 from vpuft.architectures.centralized import CentralizedVPUFT
 from vpuft.architectures.distributed_rsu import DistributedRSUVPUFT
+from vpuft.architectures.distributed_extension import DistributedRSUExtendedVPUFT
 from vpuft.config import ResearchConfig
 from vpuft.crypto import KeyRegistry
 from vpuft.domain import AttackType, EvidenceAttestation, EvidenceCase, EvidenceDirection
@@ -80,6 +81,16 @@ def test_distributed_exchanges_remote_rsu_evidence_before_qualification():
     assert dropped.decisions[0].committed is False
     assert len(delivered.evidence_rows) == 2
     assert len(dropped.evidence_rows) == 1  # coordinator-local evidence remains available
+
+
+def test_extended_evidence_rows_preserve_attestation_identity_and_arrival_time():
+    keys = KeyRegistry()
+    result = DistributedRSUExtendedVPUFT(_config(1.0), keys).run([_rsu_case(keys)], 1001)
+    expected = {"att-1", "att-2"}
+    assert {row["attestation_id"] for row in result.evidence_rows} == expected
+    assert all(row["evidence_arrived_at"] is not None for row in result.evidence_rows)
+    evaluated_at = result.decisions[0].metadata["qualification_evaluated_at"]
+    assert max(row["evidence_arrived_at"] for row in result.evidence_rows) <= evaluated_at
 
 
 def test_ahmed_witness_requires_delivered_reports_and_forwards_remote_evidence():

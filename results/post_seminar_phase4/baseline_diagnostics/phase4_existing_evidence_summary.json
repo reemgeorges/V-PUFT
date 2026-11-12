@@ -1,0 +1,38 @@
+{
+  "cases": 961,
+  "classes": {
+    "current_eligible_evidence_shortfall": 905,
+    "algorithmic_representative_selection": 37,
+    "margin_or_contradiction": 19
+  },
+  "operational_categories": {
+    "requires_additional_sensing_for_current_window": 876,
+    "algorithmic_representative_selection": 37,
+    "multiple_observers_but_no_second_eligible_support": 29,
+    "margin_or_contradiction": 19
+  },
+  "detected_rsu_counts": {
+    "1": 876,
+    "2": 84,
+    "3": 1
+  },
+  "in_range_rsu_counts": {
+    "1": 876,
+    "2": 84,
+    "3": 1
+  },
+  "current_shortfall_with_multiple_detected_rsus": 29,
+  "current_shortfall_with_multiple_in_range_rsus": 29,
+  "metrics_totals": {
+    "TP": 641,
+    "FP": 9,
+    "TN": 12974,
+    "FN": 961
+  },
+  "all_50_trace_hashes_checkpoints_verified": true,
+  "stage_report_counts": {
+    "available_before_transport": 24408,
+    "delivered": 24408,
+    "fresh_valid_used_by_qe": 24408
+  }
+}
