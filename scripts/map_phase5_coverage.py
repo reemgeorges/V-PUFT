@@ -1,5 +1,6 @@
 """Plot the registered RSU layouts against label-free training trajectories."""
 import json
+import sys
 from pathlib import Path
 
 import matplotlib.pyplot as plt
@@ -7,7 +8,7 @@ import pandas as pd
 from matplotlib.patches import Circle
 
 ROOT = Path(__file__).resolve().parents[1]
-OUT = ROOT / "results/post_seminar_phase5"
+OUT = ROOT / (sys.argv[1] if len(sys.argv) > 1 else "results/post_seminar_phase5")
 plan = json.loads((OUT / "placement_preregistered.json").read_text())
 path = ROOT / "results/post_seminar_phase2/baseline_regenerated/traces/urban_roundabout/vehicles_100/seed_1001/mobility_trace.csv"
 mobility = pd.read_csv(path, usecols=["vehicle_id", "simulation_time", "x", "y"])

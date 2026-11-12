@@ -1,0 +1,118 @@
+{
+  "selection": "best multi-cell coverage among training-gate passing pairs",
+  "training_seeds": [
+    1001,
+    1002,
+    1003,
+    1004,
+    1005,
+    1006
+  ],
+  "heldout_seeds": [
+    1007,
+    1008,
+    1009,
+    1010
+  ],
+  "training_coverage_gate": "each density >= baseline - 0.01; each road section >= baseline - 0.05",
+  "training_score": {
+    "site_5_x": -150.0,
+    "site_5_y": 500.0,
+    "site_6_x": 200.0,
+    "site_6_y": -500.0,
+    "coverage_20": 0.8776493256262042,
+    "coverage_60": 0.876930580393432,
+    "coverage_100": 0.8848888888888888,
+    "multi_cell_fraction": 0.5996981482556452,
+    "worst_road_coverage_delta": 0.0,
+    "passes_coverage_gate": 1.0
+  },
+  "original_rsus": [
+    {
+      "id": "rsu-1",
+      "x": 0,
+      "y": 145,
+      "domain": "domain-1",
+      "reliability": 0.96
+    },
+    {
+      "id": "rsu-2",
+      "x": 145,
+      "y": 0,
+      "domain": "domain-1",
+      "reliability": 0.948
+    },
+    {
+      "id": "rsu-3",
+      "x": 0,
+      "y": -145,
+      "domain": "domain-2",
+      "reliability": 0.936
+    },
+    {
+      "id": "rsu-4",
+      "x": -145,
+      "y": 0,
+      "domain": "domain-2",
+      "reliability": 0.924
+    },
+    {
+      "id": "rsu-5",
+      "x": -375,
+      "y": 500,
+      "domain": "domain-3",
+      "reliability": 0.912
+    },
+    {
+      "id": "rsu-6",
+      "x": 375,
+      "y": -500,
+      "domain": "domain-3",
+      "reliability": 0.9
+    }
+  ],
+  "candidate_rsus": [
+    {
+      "id": "rsu-1",
+      "x": 0,
+      "y": 145,
+      "domain": "domain-1",
+      "reliability": 0.96
+    },
+    {
+      "id": "rsu-2",
+      "x": 145,
+      "y": 0,
+      "domain": "domain-1",
+      "reliability": 0.948
+    },
+    {
+      "id": "rsu-3",
+      "x": 0,
+      "y": -145,
+      "domain": "domain-2",
+      "reliability": 0.936
+    },
+    {
+      "id": "rsu-4",
+      "x": -145,
+      "y": 0,
+      "domain": "domain-2",
+      "reliability": 0.924
+    },
+    {
+      "id": "rsu-5",
+      "x": -150.0,
+      "y": 500.0,
+      "domain": "domain-3",
+      "reliability": 0.912
+    },
+    {
+      "id": "rsu-6",
+      "x": 200.0,
+      "y": -500.0,
+      "domain": "domain-3",
+      "reliability": 0.9
+    }
+  ]
+}
