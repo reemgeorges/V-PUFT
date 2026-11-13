@@ -8,7 +8,7 @@ import xml.etree.ElementTree as ET
 from dataclasses import asdict, replace
 from hashlib import sha256
 from pathlib import Path
-from typing import Any
+from typing import Any, Iterable
 
 import pandas as pd
 
@@ -69,6 +69,24 @@ def _network_location_offset(network_path: Path) -> tuple[float, float]:
     return float(x), float(y)
 
 
+def witness_rsu_pool(rsus: list[RSU], witness_rsu_ids: Iterable[str] | None = None) -> list[RSU]:
+    """Return RSUs eligible to route vehicle-witness attestations.
+
+    None preserves historical nearest-RSU behavior over every configured RSU.
+    An explicit pool keeps witness routing controlled in sensing-only studies.
+    """
+    if witness_rsu_ids is None:
+        return list(rsus)
+    requested = tuple(witness_rsu_ids)
+    if not requested or len(set(requested)) != len(requested):
+        raise ValueError("witness_rsu_ids must be a non-empty sequence of unique RSU IDs")
+    by_id = {rsu.rsu_id: rsu for rsu in rsus}
+    unknown = set(requested) - set(by_id)
+    if unknown:
+        raise ValueError(f"Unknown witness routing RSU IDs: {sorted(unknown)}")
+    return [by_id[rsu_id] for rsu_id in requested]
+
+
 def _message_row(message: V2XMessage) -> dict[str, Any]:
     row = asdict(message)
     row["attack_type"] = message.attack_type.value
@@ -99,6 +117,7 @@ def run_sumo_trace(
     output_directory: str | Path,
     seed: int | None = None,
     force_prepare: bool = False,
+    witness_rsu_ids: Iterable[str] | None = None,
 ) -> dict[str, Any]:
     seed = int(config.sumo.deterministic_seed if seed is None else seed)
     scenario = Path(scenario_directory).resolve()
@@ -126,6 +145,7 @@ def run_sumo_trace(
         offset_x=offset_x,
         offset_y=offset_y,
     )
+    witness_rsus = witness_rsu_pool(rsus, witness_rsu_ids)
     schedules = load_attack_schedules(attack_path)
     injector = AttackInjector(seed, schedules, scenario_id=prefix)
     detector = DetectionEngine(config.detector, config.security, seed)
@@ -214,7 +234,7 @@ def run_sumo_trace(
                     ]
                     witnesses.sort(key=lambda item: (distance(snapshot.x, snapshot.y, item.x, item.y), item.vehicle_id))
                     for witness in witnesses[:8]:
-                        validator = nearest_rsu(witness.x, witness.y, rsus)
+                        validator = nearest_rsu(witness.x, witness.y, witness_rsus)
                         local_event = detector.observe_witness(message, snapshot, witness, validator, now)
                         events.append(_attach_evaluation_truth(local_event, message))
     finally:
@@ -257,6 +277,7 @@ def run_sumo_trace(
         "mode": "sumo_traci",
         "seed": seed,
         "sumo_binary": sumo_binary,
+        "witness_rsu_ids": [rsu.rsu_id for rsu in witness_rsus],
         "scenario_directory": str(scenario),
         "scenario_files": {
             path.name: _hash_file(path)

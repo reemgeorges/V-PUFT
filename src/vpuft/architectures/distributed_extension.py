@@ -15,6 +15,26 @@ from ..ledger import Ledger
 from ..network import SimulatedTransport, audit_link_order
 
 
+def replica_membership(
+    validators: tuple[str, ...],
+    rsu_count: int,
+    sensing_only_rsu_ids: tuple[str, ...] = (),
+) -> tuple[str, ...]:
+    """Resolve ledger replicas while keeping sensing-only RSUs out of consensus state."""
+    rsu_nodes = tuple(f"rsu-{index}" for index in range(1, rsu_count + 1))
+    if len(set(validators)) != len(validators):
+        raise ValueError("Validator membership must contain unique identities")
+    if len(set(sensing_only_rsu_ids)) != len(sensing_only_rsu_ids):
+        raise ValueError("Sensing-only RSU identities must be unique")
+    unknown = set(sensing_only_rsu_ids) - set(rsu_nodes)
+    if unknown:
+        raise ValueError(f"Unknown sensing-only RSU IDs: {sorted(unknown)}")
+    overlap = set(sensing_only_rsu_ids) & set(validators)
+    if overlap:
+        raise ValueError(f"PBFT validators cannot be sensing-only: {sorted(overlap)}")
+    return tuple(dict.fromkeys((*validators, *(node for node in rsu_nodes if node not in sensing_only_rsu_ids))))
+
+
 class DistributedRSUExtendedVPUFT(Architecture):
     """Post-freeze distributed architecture with causal event-time scheduling."""
 
@@ -106,8 +126,11 @@ class DistributedRSUExtendedVPUFT(Architecture):
         )
         pbft = PBFTConsensus(self.config.pbft, transport, self.keys, finalization_guard=finalization_guard)
         validators = tuple(self.config.pbft.validators)
-        rsu_nodes = tuple(f"rsu-{index}" for index in range(1, self.config.simulation.rsu_count + 1))
-        replica_nodes = tuple(dict.fromkeys((*validators, *rsu_nodes)))
+        replica_nodes = replica_membership(
+            validators,
+            self.config.simulation.rsu_count,
+            self.config.distributed_extension.sensing_only_rsu_ids,
+        )
         ledgers = {node: Ledger() for node in replica_nodes}
         canonical_ledger = Ledger()
 

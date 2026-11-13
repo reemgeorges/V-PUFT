@@ -1,0 +1,45 @@
+{
+  "frozen_before_heldout_results": true,
+  "cells": [
+    {
+      "density": 20,
+      "seed": 2101
+    },
+    {
+      "density": 20,
+      "seed": 2102
+    },
+    {
+      "density": 60,
+      "seed": 2101
+    },
+    {
+      "density": 60,
+      "seed": 2102
+    },
+    {
+      "density": 100,
+      "seed": 2101
+    },
+    {
+      "density": 100,
+      "seed": 2102
+    }
+  ],
+  "security_acceptance": {
+    "introduced_false_positive_cases": 0,
+    "candidate_frr_must_not_exceed_c1": true,
+    "candidate_precision_drop_max_absolute": 0.005,
+    "candidate_observed_attack_opportunities_must_not_fall_in_any_pair": true,
+    "fixed_universe_protected_fraction_gain_aggregate_min_absolute": 0.05,
+    "each_density_mean_fixed_protected_fraction_must_not_regress": true,
+    "minimum_cells_with_positive_fixed_protected_fraction_gain": 4,
+    "eligible_independent_roots_sources_and_cells_must_increase": true
+  },
+  "resource_review_caps": {
+    "cpu_overhead_max_fraction": 0.25,
+    "messages_per_case_overhead_max_fraction": 0.2,
+    "p95_e2e_overhead_max_fraction": 0.05
+  },
+  "interpretation": "Pilot only; two held-out seeds are not a powered significance test. Failure of any security gate is NO-GO; resource caps are deployment review limits."
+}

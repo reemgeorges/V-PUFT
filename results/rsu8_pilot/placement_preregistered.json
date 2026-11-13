@@ -1,0 +1,180 @@
+{
+  "selection": "training-only mobility and road-geometry multi-cell coverage; no attack labels read",
+  "training_seeds": [
+    2001,
+    2002,
+    2003,
+    2004,
+    2005,
+    2006
+  ],
+  "heldout_seeds": [
+    2101,
+    2102
+  ],
+  "densities": [
+    20,
+    60,
+    100
+  ],
+  "radius_m": 450.0,
+  "fixed_validators": [
+    "rsu-1",
+    "rsu-2",
+    "rsu-3",
+    "rsu-4"
+  ],
+  "witness_routing_pool": [
+    "rsu-1",
+    "rsu-2",
+    "rsu-3",
+    "rsu-4",
+    "rsu-5",
+    "rsu-6"
+  ],
+  "coordinate_frame": "road-file coordinates; SUMO netOffset (+500,+500) is applied by runner",
+  "training_mobility_sha256": {
+    "20/2001": "213855e3af3a826198c4835dba3bf0571cff9dd874468a8634dfff64939a7031",
+    "20/2002": "bc5cf558d473bd43570b3a2f636017efc77a6863d9bd825092396fc31870079f",
+    "20/2003": "ab20a063e5789f56491f4466d88635efb3452579b2b181d81750b1c4daa5bbec",
+    "20/2004": "908338da53697224bc985147e7866edece7432913da49b715b135e8cc630c089",
+    "20/2005": "c08d6e13d400483e04496391f65c5a91266b38416cd3cbb2208875df1e509f0e",
+    "20/2006": "b8a67ba1a1df7d63118a258e0f10c9530018bfe4f4b3e1cedb1f6305270451e9",
+    "60/2001": "0bd385b4ebbc41d126aafeb34a32848038c292d8c94c420dfc408fa6a0aa4f0c",
+    "60/2002": "3e5aa4e4605666cf77cc8c034965d24ec1185a403c03eda8c06bf48e990e15d7",
+    "60/2003": "0e2ce25b4f5b3d0859e0f25aea2bd8583f3af9cb5111e5d39bc9950ac631c5a1",
+    "60/2004": "3656542cdca79524fa3165ad02eb9f1e1a25a98a06d1be78f43bda0ef984ff23",
+    "60/2005": "0fe9c17875d1cbacd463078b3d502572f9a653be61b958e11b03426d546900f4",
+    "60/2006": "766f518750530b04f82b44bb5f8ad85fca37795926eb1ca06fdab1778c757256",
+    "100/2001": "5eaed365027bcdfa73c29f302dc708192c5b85425c54f36edcd6feef4f12e2fd",
+    "100/2002": "9b96af7558d3fdd080acb89c1539f828ea1244f17e5bcb5b6a5a18c6f93805d3",
+    "100/2003": "304f28eaf2f670236c3cf1e15aeca26eb4cac9f45a3443bee70cfc29b9f1ac6c",
+    "100/2004": "492549688b59b70bfe3ebf3a5fdb8e95fd15ee055cc7f800098e089eaedee453",
+    "100/2005": "dc1a4188261b0c1e0da4f777c4b87849f40b915fbc17a9eb78161c3abfab698e",
+    "100/2006": "4a8e5a5aafa0eb771af4964af11bc49090612db8f855a910b6d1a9c1495dfa79"
+  },
+  "training_samples": 27000,
+  "road_candidate_count": 160,
+  "selection_criteria_lexicographic": [
+    "maximize worst-density multi-cell coverage fraction",
+    "maximize mean density multi-cell coverage fraction",
+    "maximize road-geometry multi-cell fraction",
+    "maximize overall road coverage fraction",
+    "minimize worst nearest-sensor road distance"
+  ],
+  "score": {
+    "min_density_multi_cell_fraction": 0.868,
+    "mean_density_multi_cell_fraction": 0.8724074074074074,
+    "multi_cell_fraction_by_density": {
+      "20": 0.868,
+      "60": 0.8712222222222222,
+      "100": 0.878
+    },
+    "road_multicell_fraction": 0.8875,
+    "road_coverage_fraction": 0.90625,
+    "worst_road_point_nearest_rsu_m": 613.2087735836792
+  },
+  "reliability_and_domain_assumption": "Both new sensing-only RSUs use reliability 0.900 (the existing minimum) and existing domain-3; no favorable new reliability/domain is invented.",
+  "baseline_rsus": [
+    {
+      "id": "rsu-1",
+      "x": 0,
+      "y": 145,
+      "domain": "domain-1",
+      "reliability": 0.96
+    },
+    {
+      "id": "rsu-2",
+      "x": 145,
+      "y": 0,
+      "domain": "domain-1",
+      "reliability": 0.948
+    },
+    {
+      "id": "rsu-3",
+      "x": 0,
+      "y": -145,
+      "domain": "domain-2",
+      "reliability": 0.936
+    },
+    {
+      "id": "rsu-4",
+      "x": -145,
+      "y": 0,
+      "domain": "domain-2",
+      "reliability": 0.924
+    },
+    {
+      "id": "rsu-5",
+      "x": -150.0,
+      "y": 500.0,
+      "domain": "domain-3",
+      "reliability": 0.912
+    },
+    {
+      "id": "rsu-6",
+      "x": 200.0,
+      "y": -500.0,
+      "domain": "domain-3",
+      "reliability": 0.9
+    }
+  ],
+  "candidate_rsus": [
+    {
+      "id": "rsu-1",
+      "x": 0,
+      "y": 145,
+      "domain": "domain-1",
+      "reliability": 0.96
+    },
+    {
+      "id": "rsu-2",
+      "x": 145,
+      "y": 0,
+      "domain": "domain-1",
+      "reliability": 0.948
+    },
+    {
+      "id": "rsu-3",
+      "x": 0,
+      "y": -145,
+      "domain": "domain-2",
+      "reliability": 0.936
+    },
+    {
+      "id": "rsu-4",
+      "x": -145,
+      "y": 0,
+      "domain": "domain-2",
+      "reliability": 0.924
+    },
+    {
+      "id": "rsu-5",
+      "x": -150.0,
+      "y": 500.0,
+      "domain": "domain-3",
+      "reliability": 0.912
+    },
+    {
+      "id": "rsu-6",
+      "x": 200.0,
+      "y": -500.0,
+      "domain": "domain-3",
+      "reliability": 0.9
+    },
+    {
+      "id": "rsu-7",
+      "x": -500.0,
+      "y": 150.0,
+      "domain": "domain-3",
+      "reliability": 0.9
+    },
+    {
+      "id": "rsu-8",
+      "x": 500.0,
+      "y": -150.0,
+      "domain": "domain-3",
+      "reliability": 0.9
+    }
+  ]
+}

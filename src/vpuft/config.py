@@ -134,6 +134,8 @@ class DistributedExtensionConfig:
     cache_verified_evidence_bundle: bool = False
     diversity_aware_root_assignment: bool = False
     provenance_safe_observer_diversity: bool = False
+    # Optional sensing-only RSUs excluded from validator and ledger replica roles.
+    sensing_only_rsu_ids: tuple[str, ...] = ()
 
 
 @dataclass(frozen=True)
