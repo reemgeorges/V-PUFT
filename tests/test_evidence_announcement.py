@@ -10,6 +10,7 @@ from vpuft.evidence import sign_attestation
 from vpuft.evidence_announcement import (
     EvidenceAvailabilityCertificate,
     create_announcement_receipt,
+    evidence_bundle_digest,
     reconcile_announced_evidence,
     verify_announcement_certificate,
 )
@@ -106,3 +107,23 @@ def test_reconciliation_rejects_conflicting_reuse_of_an_attestation_id():
 
     assert not result.accepted
     assert result.reason == "attestation_id_equivocation"
+
+
+def test_consensus_bundle_digest_binds_attestations_receipts_case_and_membership_epoch():
+    config = load_config(ROOT / "configs/extension_v5_coordinator_security.json")
+    keys = KeyRegistry(config.security.deterministic_master_seed)
+    support = make_attestation(keys, "digest-support", "root-s", "rsu-1", EvidenceDirection.SUPPORTS)
+    opposition = make_attestation(keys, "digest-opposition", "root-o", "rsu-2", EvidenceDirection.OPPOSES)
+    certs = (certificate(support, config, keys), certificate(opposition, config, keys))
+
+    full = evidence_bundle_digest("case-evidence", [support, opposition], certs, config.pbft)
+    reversed_full = evidence_bundle_digest("case-evidence", [opposition, support], tuple(reversed(certs)), config.pbft)
+    omitted = evidence_bundle_digest("case-evidence", [support], certs[:1], config.pbft)
+    changed_epoch = evidence_bundle_digest(
+        "case-evidence", [support, opposition], certs,
+        replace(config.pbft, membership_epoch="next-epoch"),
+    )
+
+    assert full == reversed_full
+    assert full != omitted
+    assert full != changed_epoch

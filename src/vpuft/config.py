@@ -188,6 +188,12 @@ class DistributedExtensionConfig:
     cache_verified_evidence_bundle: bool = False
     diversity_aware_root_assignment: bool = False
     provenance_safe_observer_diversity: bool = False
+    # Opt-in V5 evidence availability protocol. Historical profiles stay unchanged.
+    evidence_availability_enabled: bool = False
+    # Adversarial coordinator fault injection used only by focused tests.
+    coordinator_omit_opposing_evidence: bool = False
+    coordinator_equivocate_evidence_bundle: bool = False
+    duplicate_evidence_announcements: bool = False
     # Optional sensing-only RSUs excluded from validator and ledger replica roles.
     sensing_only_rsu_ids: tuple[str, ...] = ()
 
@@ -289,6 +295,12 @@ class ResearchConfig:
             raise ValueError("Unsupported distributed coordinator strategy")
         if not isinstance(self.distributed_extension.membership_epoch, str) or not self.distributed_extension.membership_epoch.strip():
             raise ValueError("membership_epoch must be a non-empty string")
+        if self.distributed_extension.evidence_availability_enabled and (
+            len(self.pbft.validators) != 5
+            or self.pbft.max_byzantine != 1
+            or self.pbft.resolved_quorum != 4
+        ):
+            raise ValueError("The evidence-availability profile is defined only for V5 with f=1 and q=4/5")
         sensing_only = tuple(self.distributed_extension.sensing_only_rsu_ids)
         if len(set(sensing_only)) != len(sensing_only):
             raise ValueError("Sensing-only RSU identities must be unique")

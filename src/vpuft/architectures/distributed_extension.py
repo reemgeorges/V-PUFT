@@ -10,7 +10,17 @@ from .base import Architecture
 from ..consensus import PBFTConsensus, SimulatorFinalizationGuard, canonical_case_identity
 from ..crypto import digest_hex
 from ..des import Scheduler
-from ..domain import ArchitectureRunResult, EvidenceCase, TrustDecision, TrustState
+from ..domain import ArchitectureRunResult, EvidenceCase, EvidenceDirection, TrustDecision, TrustState
+from ..evidence import verify_attestation
+from ..evidence_announcement import (
+    EvidenceAvailabilityCertificate,
+    ValidatorEvidenceInventory,
+    create_announcement_receipt,
+    evidence_bundle_digest,
+    reconcile_announced_evidence,
+    verify_announcement_receipt,
+    verify_announcement_certificate,
+)
 from ..ledger import Ledger
 from ..network import SimulatedTransport, audit_link_order
 
@@ -175,6 +185,12 @@ class DistributedRSUExtendedVPUFT(Architecture):
                 "evidence_arrival_times": sorted(ctx.get("evidence_arrival_times", [])),
                 "evidence_ages_seconds": list(result.evidence_ages_seconds),
                 "excluded_duplicate_roots": result.excluded_duplicate_roots,
+                "evidence_availability_enabled": self.config.distributed_extension.evidence_availability_enabled,
+                "evidence_availability_certificates": ctx.get("availability_certificate_count", 0),
+                "evidence_reconciliation_rejections": ctx.get("reconciliation_rejections", 0),
+                "evidence_incomplete_attestations": ctx.get("incomplete_attestations", 0),
+                "invalid_evidence_receipts": ctx.get("invalid_evidence_receipts", 0),
+                "evidence_inventory_entries": sum(len(inventory.attestations_for(ctx["case"].case_id)) for inventory in ctx.get("evidence_inventories", {}).values()),
             }
 
         def append_decision_after_ledger(
@@ -423,6 +439,8 @@ class DistributedRSUExtendedVPUFT(Architecture):
             expected = digest_hex(asdict(result))
             ext = self.config.distributed_extension
             bundle_bytes = ext.evidence_bundle_base_bytes + ext.evidence_bundle_bytes_per_attestation * len(delivered_case.attestations)
+            if ext.evidence_availability_enabled:
+                bundle_bytes += 256 * sum(len(cert.receipts) for cert in ctx.get("bundle_certificates", ()))
             checks: dict[str, bool] = {}
             remote = [validator for validator in validators if validator != coordinator]
             pending = {"count": len(remote)}
@@ -439,13 +457,99 @@ class DistributedRSUExtendedVPUFT(Architecture):
                 # still independently executes the qualification computation.
                 return verified_case if verified_case is not None else self.sanitize_case(delivered_case)
 
+            def proposal_items_for(validator: str):
+                items = list(delivered_case.attestations)
+                if ext.coordinator_equivocate_evidence_bundle and validator != coordinator:
+                    remote_index = remote.index(validator) if validator in remote else 0
+                    if remote_index % 2 == 0:
+                        items = [item for item in items if item.direction != EvidenceDirection.OPPOSES]
+                return items
+
+            def reconcile_and_qualify(validator: str, proposed_items):
+                if not ext.evidence_availability_enabled:
+                    checked_case = self.subset_case(ctx["clean"], proposed_items)
+                    safe_case = self.sanitize_case(checked_case)
+                    return self.engine.qualify(safe_case, ctx["qualified_at"]), True
+
+                inventory = ctx["evidence_inventories"][validator]
+                proposed_ids = {item.attestation_id for item in proposed_items}
+                bundled_certificates = tuple(
+                    cert for cert in ctx.get("bundle_certificates", ())
+                    if cert.attestation.attestation_id in proposed_ids
+                )
+                cert_by_id = {
+                    cert.attestation.attestation_id: cert
+                    for cert in bundled_certificates
+                    if verify_announcement_certificate(cert, pbft_config, self.keys)
+                }
+                for item in proposed_items:
+                    cert = cert_by_id.get(item.attestation_id)
+                    if cert is None or digest_hex(asdict(cert.attestation)) != digest_hex(asdict(item)):
+                        return None, False
+                try:
+                    proposed_bundle_digest = evidence_bundle_digest(case.case_id, proposed_items, bundled_certificates, pbft_config)
+                except ValueError:
+                    return None, False
+                if proposed_bundle_digest != ctx.get("bundle_digest"):
+                    return None, False
+                reconciliation = reconcile_announced_evidence(
+                    proposed_items,
+                    inventory.certificates_for(case.case_id),
+                    pbft_config,
+                    self.keys,
+                    locally_observed=inventory.attestations_for(case.case_id),
+                )
+                if not reconciliation.accepted:
+                    ctx["reconciliation_rejections"] += 1
+                    return None, False
+                proposed_case = self.subset_case(ctx["clean"], proposed_items)
+                safe_case = self.sanitize_case(proposed_case)
+                return self.engine.qualify(safe_case, ctx["qualified_at"]), True
+
             # Coordinator requalification is local and immediate.
-            local_case = validator_case()
-            local_result = self.engine.qualify(local_case, ctx["qualified_at"])
-            checks[coordinator] = digest_hex(asdict(local_result)) == expected
+            local_items = proposal_items_for(coordinator)
+            if ext.evidence_availability_enabled:
+                local_result, reconciled = reconcile_and_qualify(coordinator, local_items)
+                if self.config.pbft.validator_behaviors.get(coordinator) == "accept_invalid":
+                    # The Byzantine coordinator may sign its own incomplete
+                    # proposal; honest validators still reconcile independently.
+                    checks[coordinator] = True
+                else:
+                    checks[coordinator] = bool(reconciled and local_result is not None and digest_hex(asdict(local_result)) == expected)
+            else:
+                local_case = validator_case()
+                local_result = self.engine.qualify(local_case, ctx["qualified_at"])
+                checks[coordinator] = digest_hex(asdict(local_result)) == expected
 
             def bundles_done() -> None:
                 counters["recheck_failures"] += sum(not value for value in checks.values())
+                if ext.evidence_availability_enabled and sum(checks.values()) < self.config.pbft.resolved_quorum:
+                    _, final_state = self.state_machine.finalize(case.vehicle_id, False)
+                    decisions.append(TrustDecision(
+                        case_id=case.case_id,
+                        vehicle_id=case.vehicle_id,
+                        architecture=self.name,
+                        previous_state=previous,
+                        new_state=final_state,
+                        detected_at=ctx["detected_at"],
+                        qualified_at=ctx["qualified_at"],
+                        finalized_at=None,
+                        ledger_available_at=None,
+                        decision_margin=result.decision_margin,
+                        committed=False,
+                        reason="evidence_bundle_reconciliation_failed",
+                        metadata={
+                            **qualification_metadata(ctx, result),
+                            "evidence_coordinator": coordinator,
+                            "arrived_attestations": len(delivered_case.attestations),
+                            "validator_requalification": True,
+                            "validator_checks_passed": sum(checks.values()),
+                            "validator_checks_total": len(checks),
+                            "evidence_bundle_bytes": bundle_bytes,
+                            "evidence_bundle_reconciliation_failed": True,
+                        },
+                    ))
+                    return
                 start_pbft(
                     ctx=ctx,
                     result=result,
@@ -461,13 +565,23 @@ class DistributedRSUExtendedVPUFT(Architecture):
                 return
 
             for validator in remote:
-                def bundle_complete(message, _resolved_at, *, validator=validator) -> None:
-                    if message.delivered_at is None:
+                proposed_items = proposal_items_for(validator)
+                proposal_size = bundle_bytes
+                if ext.evidence_availability_enabled:
+                    proposal_size = ext.evidence_bundle_base_bytes + ext.evidence_bundle_bytes_per_attestation * len(proposed_items)
+                    proposal_size += 256 * sum(len(cert.receipts) for cert in ctx.get("bundle_certificates", ()))
+
+                def bundle_complete(message, _resolved_at, *, validator=validator, proposed_items=proposed_items) -> None:
+                    if message.delivered_at is None or self.config.pbft.validator_behaviors.get(validator) == "offline":
                         checks[validator] = False
                     else:
-                        checked_case = validator_case()
-                        reproduced = self.engine.qualify(checked_case, ctx["qualified_at"])
-                        checks[validator] = digest_hex(asdict(reproduced)) == expected
+                        if ext.evidence_availability_enabled:
+                            reproduced, reconciled = reconcile_and_qualify(validator, proposed_items)
+                            checks[validator] = bool(reconciled and reproduced is not None and digest_hex(asdict(reproduced)) == expected)
+                        else:
+                            checked_case = validator_case()
+                            reproduced = self.engine.qualify(checked_case, ctx["qualified_at"])
+                            checks[validator] = digest_hex(asdict(reproduced)) == expected
                     pending["count"] -= 1
                     if pending["count"] == 0:
                         scheduler.schedule(
@@ -484,7 +598,7 @@ class DistributedRSUExtendedVPUFT(Architecture):
                     receiver=validator,
                     case_id=case.case_id,
                     sent_at=ctx["qualified_at"],
-                    size_bytes=bundle_bytes,
+                    size_bytes=proposal_size,
                     random_key=f"bundle:{case.case_id}:{coordinator}->{validator}",
                     on_complete=bundle_complete,
                     case_order_index=index,
@@ -494,7 +608,27 @@ class DistributedRSUExtendedVPUFT(Architecture):
         def case_ready(ctx: dict) -> None:
             case = ctx["case"]
             clean = ctx["clean"]
-            delivered_case = self.subset_case(clean, ctx["delivered_attestations"])
+            ext = self.config.distributed_extension
+            if ext.evidence_availability_enabled:
+                coordinator_inventory = ctx["evidence_inventories"][ctx["coordinator"]]
+                certificates = coordinator_inventory.certificates_for(case.case_id)
+                ctx["availability_certificate_count"] = len(certificates)
+                certified_items = [certificate.attestation for certificate in certificates]
+                if ext.coordinator_omit_opposing_evidence:
+                    certified_items = [item for item in certified_items if item.direction != EvidenceDirection.OPPOSES]
+                included_ids = {item.attestation_id for item in certified_items}
+                ctx["bundle_certificates"] = tuple(
+                    certificate for certificate in certificates
+                    if certificate.attestation.attestation_id in included_ids
+                )
+                delivered_case = self.subset_case(clean, certified_items)
+                ctx["bundle_digest"] = evidence_bundle_digest(
+                    case.case_id, delivered_case.attestations, ctx["bundle_certificates"], pbft_config
+                )
+                ctx["delivered_attestations"] = list(delivered_case.attestations)
+                ctx["incomplete_attestations"] = max(0, len(clean.attestations) - len(certificates))
+            else:
+                delivered_case = self.subset_case(clean, ctx["delivered_attestations"])
             ctx["delivered_case"] = delivered_case
             ctx["qualified_at"] = scheduler.now
             arrival_by_attestation = ctx.get("arrival_by_attestation", {})
@@ -583,7 +717,252 @@ class DistributedRSUExtendedVPUFT(Architecture):
                 "qualification": asdict(result),
                 "coordinator": ctx["coordinator"],
             }
+            if ext.evidence_availability_enabled:
+                ctx["payload"]["evidence_bundle_digest"] = ctx["bundle_digest"]
             begin_validator_checks(ctx, result, guard_checks, guard_stable, previous)
+
+        def schedule_availability_ready(ctx: dict) -> None:
+            if (
+                ctx.get("availability_started")
+                and ctx.get("availability_pending", 0) == 0
+                and not ctx.get("availability_ready_scheduled")
+            ):
+                ctx["availability_ready_scheduled"] = True
+                scheduler.schedule(
+                    scheduler.now,
+                    lambda ctx=ctx: case_ready(ctx),
+                    phase_rank=30,
+                    case_order_index=ctx["index"],
+                    key=f"evidence-availability-closed:{ctx['case'].case_id}",
+                )
+
+        def send_availability_message(
+            ctx: dict,
+            *,
+            message_type: str,
+            sender: str,
+            receiver: str,
+            case_id: str,
+            sent_at: float,
+            size_bytes: int,
+            random_key: str,
+            phase_rank: int,
+            on_complete,
+        ) -> None:
+            ctx["availability_pending"] += 1
+
+            def complete(message, resolved_at):
+                try:
+                    on_complete(message, resolved_at)
+                finally:
+                    ctx["availability_pending"] -= 1
+                    schedule_availability_ready(ctx)
+
+            transport.send_async(
+                message_type=message_type,
+                sender=sender,
+                receiver=receiver,
+                case_id=case_id,
+                sent_at=sent_at,
+                size_bytes=size_bytes,
+                random_key=random_key,
+                random_stream_seed=seed,
+                on_complete=complete,
+                case_order_index=ctx["index"],
+                phase_rank=phase_rank,
+            )
+
+        def receive_evidence_payload(ctx: dict, validator: str, attestation, received_at: float) -> None:
+            if self.config.pbft.validator_behaviors.get(validator) == "offline":
+                return
+            inventory = ctx["evidence_inventories"][validator]
+            try:
+                accepted = inventory.store_payload(attestation)
+            except ValueError:
+                ctx["availability_conflict"] = True
+                return
+            if not accepted:
+                ctx["availability_conflict"] = True
+                return
+            ctx["arrival_by_validator_attestation"][(validator, attestation.attestation_id)] = float(received_at)
+            if validator == ctx["coordinator"]:
+                ctx["arrival_by_attestation"][attestation.attestation_id] = float(received_at)
+                ctx["evidence_arrival_times"].append(float(received_at))
+
+            key = (canonical_case_identity(attestation.case_id), attestation.attestation_id)
+            pending = ctx["pending_receipts"].get(validator, {}).pop(key, {})
+            for receipt in pending.values():
+                if not inventory.store_receipt(receipt):
+                    ctx["invalid_evidence_receipts"] += 1
+
+            behavior = self.config.pbft.validator_behaviors.get(validator)
+            if behavior == "withhold_evidence":
+                return
+            sent_key = (validator, attestation.attestation_id)
+            if sent_key in ctx["receipts_sent"]:
+                return
+            receipt = create_announcement_receipt(attestation, validator, pbft_config, self.keys)
+            ctx["receipts_sent"].add(sent_key)
+            inventory.store_receipt(receipt)
+            receipt_to_broadcast = receipt
+            if behavior == "forge_evidence_receipt":
+                receipt_to_broadcast = replace(receipt, signature="invalid-signature")
+            for recipient in validators:
+                if recipient == validator:
+                    continue
+
+                def receipt_complete(message, resolved_at, *, recipient=recipient, receipt=receipt_to_broadcast,
+                                     attestation=attestation) -> None:
+                    if message.delivered_at is None or self.config.pbft.validator_behaviors.get(recipient) == "offline":
+                        return
+                    if not verify_announcement_receipt(attestation, receipt, pbft_config, self.keys):
+                        ctx["invalid_evidence_receipts"] += 1
+                        return
+                    receive_announcement_receipt(ctx, recipient, receipt, attestation, resolved_at)
+
+                send_availability_message(
+                    ctx,
+                    message_type="EVIDENCE_ANNOUNCEMENT_RECEIPT",
+                    sender=validator,
+                    receiver=recipient,
+                    case_id=attestation.case_id,
+                    sent_at=received_at,
+                    size_bytes=256,
+                    random_key=f"evidence-receipt:{pbft_config.membership_digest}:{attestation.case_id}:{attestation.attestation_id}:{validator}->{recipient}",
+                    phase_rank=18,
+                    on_complete=receipt_complete,
+                )
+
+        def request_evidence_payload(ctx: dict, requester: str, receipt: object, sent_at: float) -> None:
+            source = receipt.validator_id
+            key = (requester, receipt.attestation_id, source)
+            if key in ctx["retrieval_requests"]:
+                return
+            ctx["retrieval_requests"].add(key)
+
+            def request_complete(message, resolved_at) -> None:
+                if message.delivered_at is None or self.config.pbft.validator_behaviors.get(source) in {"offline", "withhold_evidence"}:
+                    return
+                source_inventory = ctx["evidence_inventories"][source]
+                payload = source_inventory.get(receipt.case_id, receipt.attestation_id)
+                if payload is None or digest_hex(asdict(payload)) != receipt.attestation_digest:
+                    return
+
+                def response_complete(response, response_at) -> None:
+                    if response.delivered_at is None or self.config.pbft.validator_behaviors.get(requester) == "offline":
+                        return
+                    if (
+                        digest_hex(asdict(payload)) != receipt.attestation_digest
+                        or not verify_attestation(payload, self.keys)
+                    ):
+                        return
+                    receive_evidence_payload(ctx, requester, payload, response_at)
+
+                send_availability_message(
+                    ctx,
+                    message_type="EVIDENCE_RETRIEVAL_RESPONSE",
+                    sender=source,
+                    receiver=requester,
+                    case_id=receipt.case_id,
+                    sent_at=resolved_at,
+                    size_bytes=704,
+                    random_key=f"evidence-retrieval-response:{receipt.membership_digest}:{receipt.case_id}:{receipt.attestation_id}:{source}->{requester}",
+                    phase_rank=28,
+                    on_complete=response_complete,
+                )
+
+            send_availability_message(
+                ctx,
+                message_type="EVIDENCE_RETRIEVAL_REQUEST",
+                sender=requester,
+                receiver=source,
+                case_id=receipt.case_id,
+                sent_at=sent_at,
+                size_bytes=160,
+                random_key=f"evidence-retrieval-request:{receipt.membership_digest}:{receipt.case_id}:{receipt.attestation_id}:{requester}->{source}",
+                phase_rank=23,
+                on_complete=request_complete,
+            )
+
+        def request_pending_payloads(ctx: dict, validator: str, case_id: str, attestation_id: str, sent_at: float) -> None:
+            inventory = ctx["evidence_inventories"][validator]
+            if inventory.get(case_id, attestation_id) is not None:
+                return
+            key = (canonical_case_identity(case_id), attestation_id)
+            pending = ctx["pending_receipts"].get(validator, {}).get(key, {})
+            for receipt in tuple(pending.values()):
+                request_evidence_payload(ctx, validator, receipt, sent_at)
+
+        def receive_announcement_receipt(
+            ctx: dict,
+            validator: str,
+            receipt,
+            attestation,
+            received_at: float,
+        ) -> None:
+            inventory = ctx["evidence_inventories"][validator]
+            if inventory.get(receipt.case_id, receipt.attestation_id) is None:
+                key = (canonical_case_identity(receipt.case_id), receipt.attestation_id)
+                ctx["pending_receipts"].setdefault(validator, {}).setdefault(key, {})[receipt.validator_id] = receipt
+                if ctx["announcement_inflight"].get((validator, receipt.attestation_id), 0) == 0:
+                    request_pending_payloads(ctx, validator, receipt.case_id, receipt.attestation_id, received_at)
+                return
+            if not inventory.store_receipt(receipt):
+                ctx["invalid_evidence_receipts"] += 1
+                ctx["availability_conflict"] = True
+
+        def announce_evidence(ctx: dict, attestation, sender: str, sent_at: float) -> None:
+            for validator in validators:
+                if validator == sender:
+                    scheduler.schedule(
+                        sent_at,
+                        lambda ctx=ctx, validator=validator, attestation=attestation: receive_evidence_payload(
+                            ctx, validator, attestation, scheduler.now
+                        ),
+                        phase_rank=15,
+                        case_order_index=ctx["index"],
+                        key=f"local-evidence-announcement:{ctx['case'].case_id}:{attestation.attestation_id}:{validator}",
+                    )
+                    continue
+
+                def announcement_complete(message, resolved_at, *, validator=validator, attestation=attestation) -> None:
+                    inflight_key = (validator, attestation.attestation_id)
+                    ctx["announcement_inflight"][inflight_key] -= 1
+                    if ctx["announcement_inflight"][inflight_key] <= 0:
+                        ctx["announcement_inflight"].pop(inflight_key, None)
+                    if message.delivered_at is not None:
+                        receive_evidence_payload(ctx, validator, attestation, resolved_at)
+                    elif inflight_key not in ctx["announcement_inflight"]:
+                        request_pending_payloads(ctx, validator, attestation.case_id, attestation.attestation_id, resolved_at)
+
+                inflight_key = (validator, attestation.attestation_id)
+                ctx["announcement_inflight"][inflight_key] = ctx["announcement_inflight"].get(inflight_key, 0) + 1
+                send_availability_message(
+                    ctx,
+                    message_type="EVIDENCE_ANNOUNCEMENT",
+                    sender=sender,
+                    receiver=validator,
+                    case_id=attestation.case_id,
+                    sent_at=sent_at,
+                    size_bytes=704,
+                    random_key=f"evidence-announcement:{pbft_config.membership_digest}:{attestation.case_id}:{attestation.attestation_id}:{sender}->{validator}",
+                    phase_rank=8,
+                    on_complete=announcement_complete,
+                )
+                if self.config.distributed_extension.duplicate_evidence_announcements:
+                    ctx["announcement_inflight"][inflight_key] = ctx["announcement_inflight"].get(inflight_key, 0) + 1
+                    send_availability_message(
+                        ctx,
+                        message_type="EVIDENCE_ANNOUNCEMENT",
+                        sender=sender,
+                        receiver=validator,
+                        case_id=attestation.case_id,
+                        sent_at=sent_at,
+                        size_bytes=704,
+                        random_key=f"evidence-announcement-duplicate:{pbft_config.membership_digest}:{attestation.case_id}:{attestation.attestation_id}:{sender}->{validator}",
+                        phase_rank=9,
+                        on_complete=announcement_complete,
+                    )
 
         for case in ordered_cases:
             index = case_order[case.case_id]
@@ -640,6 +1019,24 @@ class DistributedRSUExtendedVPUFT(Architecture):
                 "delivered_attestations": [],
                 "evidence_arrival_times": [],
                 "arrival_by_attestation": {},
+                "availability_enabled": self.config.distributed_extension.evidence_availability_enabled,
+                "availability_pending": 0,
+                "availability_started": False,
+                "availability_ready_scheduled": False,
+                "availability_conflict": False,
+                "evidence_inventories": {
+                    validator: ValidatorEvidenceInventory(validator, pbft_config, self.keys)
+                    for validator in validators
+                } if self.config.distributed_extension.evidence_availability_enabled else {},
+                "pending_receipts": {validator: {} for validator in validators},
+                "announcement_inflight": {},
+                "receipts_sent": set(),
+                "retrieval_requests": set(),
+                "arrival_by_validator_attestation": {},
+                "reconciliation_rejections": 0,
+                "incomplete_attestations": 0,
+                "invalid_evidence_receipts": 0,
+                "availability_certificate_count": 0,
             }
 
             if not clean.attestations:
@@ -650,6 +1047,31 @@ class DistributedRSUExtendedVPUFT(Architecture):
                     case_order_index=index,
                     key=f"distributed-ready:{case.case_id}",
                 )
+                continue
+
+            if self.config.distributed_extension.evidence_availability_enabled:
+                for attestation in clean.attestations:
+                    if attestation.source_kind == "vehicle_witness":
+                        def witness_uplink_complete(message, _resolved_at, *, attestation=attestation) -> None:
+                            if message.delivered_at is not None:
+                                announce_evidence(ctx, attestation, attestation.validator_rsu_id, message.delivered_at)
+
+                        send_availability_message(
+                            ctx,
+                            message_type="WITNESS_EVIDENCE_UPLINK",
+                            sender=attestation.source_id,
+                            receiver=attestation.validator_rsu_id,
+                            case_id=case.case_id,
+                            sent_at=attestation.observed_at,
+                            size_bytes=512,
+                            random_key=f"witness-uplink:{attestation.attestation_id}",
+                            phase_rank=6,
+                            on_complete=witness_uplink_complete,
+                        )
+                    else:
+                        announce_evidence(ctx, attestation, attestation.validator_rsu_id, attestation.observed_at)
+                ctx["availability_started"] = True
+                schedule_availability_ready(ctx)
                 continue
 
             def finish_attestation(ctx: dict, attestation, arrival_time: float | None) -> None:
@@ -753,6 +1175,10 @@ class DistributedRSUExtendedVPUFT(Architecture):
             extension_metrics={
                 "coordinator_counts": coordinator_counts,
                 "validator_recheck_failures": counters["recheck_failures"],
+                "evidence_availability_enabled": self.config.distributed_extension.evidence_availability_enabled,
+                "evidence_announcement_messages": sum(message.message_type == "EVIDENCE_ANNOUNCEMENT" for message in combined_messages),
+                "evidence_receipt_messages": sum(message.message_type == "EVIDENCE_ANNOUNCEMENT_RECEIPT" for message in combined_messages),
+                "evidence_retrieval_messages": sum(message.message_type.startswith("EVIDENCE_RETRIEVAL_") for message in combined_messages),
                 "evidence_guard_checks": counters["evidence_guard_checks"],
                 "evidence_guard_rejections": counters["evidence_guard_rejections"],
                 "writable_validator_replicas": len(validators),
