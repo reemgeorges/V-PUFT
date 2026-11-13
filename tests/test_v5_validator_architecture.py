@@ -122,12 +122,14 @@ def test_v5_config_has_exact_voter_and_sensing_only_roles_and_replica_separation
 
 
 def test_v5_domain_mapping_does_not_imply_domain_level_f_one():
-    import json
     from collections import Counter
-    from pathlib import Path
-
-    placement = json.loads((REPO_ROOT / "results/rsu8_pilot/placement_preregistered.json").read_text(encoding="utf-8"))
-    domains = {item["id"]: item["domain"] for item in placement["candidate_rsus"]}
+    # Source-derived from the frozen eight-RSU placement manifest. Keep the
+    # audit independent of that untracked raw results directory.
+    domains = {
+        "rsu-1": "domain-1", "rsu-2": "domain-1",
+        "rsu-3": "domain-2", "rsu-4": "domain-2",
+        "rsu-5": "domain-3",
+    }
     counts = Counter(domains[validator] for validator in V5)
     assert counts == {"domain-1": 2, "domain-2": 2, "domain-3": 1}
     assert max(counts.values()) > 1

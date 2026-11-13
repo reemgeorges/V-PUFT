@@ -590,6 +590,46 @@ class DistributedRSUExtendedVPUFT(Architecture):
             clean = self.sanitize_case(case)
             coordinator = self._select_coordinator(clean)
             coordinator_counts[coordinator] += 1
+
+            # The deterministic security profile has no safe coordinator
+            # takeover certificate yet. If its assigned coordinator is known
+            # offline before this case starts, fail closed instead of allowing
+            # an unrelated PBFT view leader to act as an implicit replacement.
+            if (
+                self.config.distributed_extension.coordinator_strategy == "canonical_case_epoch_hash"
+                and self.config.pbft.validator_behaviors.get(coordinator) == "offline"
+            ):
+                current = self.state_machine.get(case.vehicle_id)
+                terminal = current.state == TrustState.REVOKED
+                decisions.append(TrustDecision(
+                    case_id=case.case_id,
+                    vehicle_id=case.vehicle_id,
+                    architecture=self.name,
+                    previous_state=current.state,
+                    new_state=current.state,
+                    detected_at=min((att.observed_at for att in clean.attestations), default=case.opened_at),
+                    qualified_at=None,
+                    finalized_at=None,
+                    ledger_available_at=None,
+                    decision_margin=current.last_margin,
+                    committed=False,
+                    reason=(
+                        "already_revoked_terminal_state"
+                        if terminal
+                        else "evidence_coordinator_unavailable_no_safe_takeover"
+                    ),
+                    metadata={
+                        "evidence_coordinator": coordinator,
+                        "coordinator_takeover_attempted": False,
+                        "attempted_attestations": len(clean.attestations),
+                        "arrived_attestations": 0,
+                        "validator_requalification": False,
+                        "terminal_state_noop": terminal,
+                        "excluded_post_revocation": terminal,
+                    },
+                ))
+                continue
+
             ctx = {
                 "case": case,
                 "clean": clean,
