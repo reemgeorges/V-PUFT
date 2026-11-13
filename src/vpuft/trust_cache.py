@@ -24,6 +24,7 @@ class QuorumTrustToken:
     ledger_height: int
     checkpoint_hash: str
     decision_id: str
+    membership_digest: str
     signatures: Mapping[str, str] = field(default_factory=dict)
 
 
@@ -41,7 +42,13 @@ class QuorumTrustTokenService:
 
     @property
     def quorum(self) -> int:
-        return 2 * self.config.pbft.max_byzantine + 1
+        return self.config.pbft.resolved_quorum
+
+    @property
+    def membership_digest(self) -> str:
+        return self.config.pbft.membership_digest_for_epoch(
+            self.config.distributed_extension.membership_epoch
+        )
 
     def issue(
         self,
@@ -62,6 +69,7 @@ class QuorumTrustTokenService:
             ledger_height=ledger_height,
             checkpoint_hash=checkpoint_hash,
             decision_id=decision_id,
+            membership_digest=self.membership_digest,
         )
         payload = token_payload(unsigned)
         signatures = {
@@ -71,7 +79,11 @@ class QuorumTrustTokenService:
         return QuorumTrustToken(**{**payload, "trust_state": state, "signatures": signatures})
 
     def verify(self, token: QuorumTrustToken, *, now: float, minimum_ledger_height: int) -> bool:
-        if now > token.expires_at or token.ledger_height < minimum_ledger_height:
+        if (
+            now > token.expires_at
+            or token.ledger_height < minimum_ledger_height
+            or token.membership_digest != self.membership_digest
+        ):
             return False
         payload = token_payload(token)
         valid_signers = {

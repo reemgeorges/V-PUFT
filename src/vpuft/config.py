@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import json
+from hashlib import sha256
+import unicodedata
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
 from typing import Any
@@ -58,6 +60,57 @@ class PBFTConfig:
     max_views: int = 4
     validator_behaviors: dict[str, str] = field(default_factory=dict)
     state_recovery_enabled: bool = True
+    quorum_size: int | None = None
+    membership_epoch: str = "phase6-fixed-membership-v1"
+
+    @property
+    def resolved_quorum(self) -> int:
+        return int(self.quorum_size) if self.quorum_size is not None else 2 * self.max_byzantine + 1
+
+    def membership_digest_for_epoch(self, epoch: str | None = None) -> str:
+        raw_epoch = self.membership_epoch if epoch is None else epoch
+        if not isinstance(raw_epoch, str) or not unicodedata.normalize("NFC", raw_epoch).strip():
+            raise ValueError("PBFT membership epoch must be a non-empty string")
+        identities = [unicodedata.normalize("NFC", item).strip() for item in self.validators]
+        material = {
+            "epoch": unicodedata.normalize("NFC", raw_epoch).strip(),
+            "validators": sorted(identities),
+            "max_byzantine": int(self.max_byzantine),
+            "quorum": self.resolved_quorum,
+        }
+        encoded = json.dumps(material, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
+        return sha256(encoded).hexdigest()
+
+    @property
+    def membership_digest(self) -> str:
+        return self.membership_digest_for_epoch()
+
+    def validate(self) -> None:
+        n = len(self.validators)
+        f = self.max_byzantine
+        if isinstance(f, bool) or not isinstance(f, int) or f < 0:
+            raise ValueError("max_byzantine must be a non-negative integer")
+        if n < 3 * f + 1:
+            raise ValueError(f"PBFT requires n >= 3f+1; got n={n}, f={f}")
+        if any(not isinstance(item, str) or not unicodedata.normalize("NFC", item).strip() for item in self.validators):
+            raise ValueError("PBFT validator identities must be non-empty strings")
+        canonical = [unicodedata.normalize("NFC", item).strip() for item in self.validators]
+        if len(set(canonical)) != n:
+            raise ValueError("PBFT validator identities must be unique after canonicalization")
+        if self.quorum_size is not None and (
+            isinstance(self.quorum_size, bool) or not isinstance(self.quorum_size, int)
+        ):
+            raise ValueError("quorum_size must be an integer when specified")
+        q = self.resolved_quorum
+        if q <= 0 or 2 * q - n <= f:
+            raise ValueError(
+                f"PBFT quorum fails Byzantine-safe certificate intersection: n={n}, f={f}, q={q}"
+            )
+        if q > n - f:
+            raise ValueError(
+                f"PBFT quorum exceeds availability with f unavailable validators: n={n}, f={f}, q={q}"
+            )
+        self.membership_digest_for_epoch()
 
 
 @dataclass(frozen=True)
@@ -122,6 +175,7 @@ class DistributedExtensionConfig:
     """Opt-in controls for the post-freeze distributed architecture extension."""
 
     coordinator_strategy: str = "first_observer_then_hash"
+    coordinator_pool: tuple[str, ...] = ()
     membership_epoch: str = "phase6-fixed-membership-v1"
     simulator_finalization_guard_enabled: bool = False
     validator_requalification: bool = True
@@ -216,12 +270,7 @@ class ResearchConfig:
 
     def validate(self) -> None:
         self.weights.validate()
-        n = len(self.pbft.validators)
-        f = self.pbft.max_byzantine
-        if n < 3 * f + 1:
-            raise ValueError(f"PBFT requires n >= 3f+1; got n={n}, f={f}")
-        if len(set(self.pbft.validators)) != n:
-            raise ValueError("PBFT validator identities must be unique")
+        self.pbft.validate()
         if not 0 < self.network.packet_delivery_ratio <= 1:
             raise ValueError("PDR must be in (0, 1]")
         if self.network.central_backhaul_extra_latency_ms < 0:
@@ -240,6 +289,22 @@ class ResearchConfig:
             raise ValueError("Unsupported distributed coordinator strategy")
         if not isinstance(self.distributed_extension.membership_epoch, str) or not self.distributed_extension.membership_epoch.strip():
             raise ValueError("membership_epoch must be a non-empty string")
+        sensing_only = tuple(self.distributed_extension.sensing_only_rsu_ids)
+        if len(set(sensing_only)) != len(sensing_only):
+            raise ValueError("Sensing-only RSU identities must be unique")
+        rsu_ids = {f"rsu-{index}" for index in range(1, self.simulation.rsu_count + 1)}
+        unknown_sensing = set(sensing_only) - rsu_ids
+        if unknown_sensing:
+            raise ValueError(f"Unknown sensing-only RSU IDs: {sorted(unknown_sensing)}")
+        overlap = set(sensing_only) & set(self.pbft.validators)
+        if overlap:
+            raise ValueError(f"PBFT validators cannot be sensing-only: {sorted(overlap)}")
+        coordinator_pool = tuple(self.distributed_extension.coordinator_pool)
+        if coordinator_pool:
+            if len(set(coordinator_pool)) != len(coordinator_pool):
+                raise ValueError("Coordinator pool identities must be unique")
+            if set(coordinator_pool) - set(self.pbft.validators):
+                raise ValueError("Coordinator pool must be a subset of PBFT validators")
         if self.distributed_extension.coordinator_strategy == "canonical_case_epoch_hash":
             from unicodedata import normalize
             if any(not isinstance(validator, str) for validator in self.pbft.validators):
@@ -342,6 +407,8 @@ def load_config(path: str | Path | None = None) -> ResearchConfig:
             max_views=pbft_raw.get("max_views", PBFTConfig().max_views),
             validator_behaviors=pbft_raw.get("validator_behaviors", {}),
             state_recovery_enabled=pbft_raw.get("state_recovery_enabled", True),
+            quorum_size=pbft_raw.get("quorum_size"),
+            membership_epoch=pbft_raw.get("membership_epoch", PBFTConfig().membership_epoch),
         ),
         central=CentralServerConfig(**_section(raw, "central")),
         detector=DetectorConfig(**_section(raw, "detector")),
@@ -351,7 +418,13 @@ def load_config(path: str | Path | None = None) -> ResearchConfig:
             compromised_rsus=tuple(sec_raw.get("compromised_rsus", [])),
             compromised_witness_ratio=sec_raw.get("compromised_witness_ratio", SecurityConfig().compromised_witness_ratio),
         ),
-        distributed_extension=DistributedExtensionConfig(**ext_raw),
+        distributed_extension=DistributedExtensionConfig(
+            **{
+                **ext_raw,
+                "coordinator_pool": tuple(ext_raw.get("coordinator_pool", ())),
+                "sensing_only_rsu_ids": tuple(ext_raw.get("sensing_only_rsu_ids", ())),
+            }
+        ),
         trust_cache=TrustCacheConfig(
             ttl_seconds=tuple(cache_raw.get("ttl_seconds", TrustCacheConfig().ttl_seconds)),
             vehicle_counts=tuple(cache_raw.get("vehicle_counts", TrustCacheConfig().vehicle_counts)),

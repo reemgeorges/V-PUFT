@@ -14,6 +14,23 @@ from .domain import ConsensusOutcome
 from .network import SimulatedTransport
 
 
+def consensus_vote_payload(
+    config: PBFTConfig,
+    *,
+    case_id: str,
+    view: int,
+    phase: str,
+    digest: str,
+) -> dict[str, str | int]:
+    return {
+        "membership_digest": config.membership_digest,
+        "case_id": case_id,
+        "view": int(view),
+        "phase": phase,
+        "digest": digest,
+    }
+
+
 def canonical_case_identity(case_id: str) -> str:
     """Return the stable case key used by opt-in simulator safeguards."""
     if not isinstance(case_id, str):
@@ -114,6 +131,7 @@ class PBFTConsensus:
         online: Callable[[str, float], bool] | None = None,
         finalization_guard: SimulatorFinalizationGuard | None = None,
     ) -> None:
+        config.validate()
         self.config = config
         self.transport = transport
         self.keys = keys
@@ -125,7 +143,7 @@ class PBFTConsensus:
 
     @property
     def quorum(self) -> int:
-        return 2 * self.config.max_byzantine + 1
+        return self.config.resolved_quorum
 
     def _behavior(self, validator: str) -> str:
         return self.config.validator_behaviors.get(validator, "honest")
@@ -164,7 +182,9 @@ class PBFTConsensus:
         for voter in voters:
             if not self._lock_vote(voter, view, phase, case_id, digest):
                 continue
-            vote = {"case_id": case_id, "view": view, "phase": phase, "digest": digest}
+            vote = consensus_vote_payload(
+                self.config, case_id=case_id, view=view, phase=phase, digest=digest
+            )
             signature = self.keys.sign(voter, vote)
             if not self.keys.verify(voter, vote, signature):
                 continue
@@ -215,7 +235,13 @@ class PBFTConsensus:
                 view_changes += 1
                 continue
 
-            proposal = {"case_id": case_id, "view": view, "leader": leader, "payload_digest": payload_digest}
+            proposal = {
+                "membership_digest": self.config.membership_digest,
+                "case_id": case_id,
+                "view": view,
+                "leader": leader,
+                "payload_digest": payload_digest,
+            }
             proposal_signature = self.keys.sign(leader, proposal)
             leader_semantic_valid = semantic_proposal_valid and leader_behavior != "propose_invalid"
             if leader_behavior == "propose_invalid":
@@ -422,7 +448,13 @@ class PBFTConsensus:
                 schedule_view(view + 1, scheduler.now)
                 return
 
-            proposal = {"case_id": case_id, "view": view, "leader": leader, "payload_digest": payload_digest}
+            proposal = {
+                "membership_digest": self.config.membership_digest,
+                "case_id": case_id,
+                "view": view,
+                "leader": leader,
+                "payload_digest": payload_digest,
+            }
             proposal_signature = self.keys.sign(leader, proposal)
             leader_semantic_valid = semantic_proposal_valid and leader_behavior != "propose_invalid"
             state["last_semantic_valid"] = leader_semantic_valid
@@ -498,7 +530,9 @@ class PBFTConsensus:
             for voter in voters:
                 if not self._lock_vote(voter, view, phase, case_id, payload_digest):
                     continue
-                vote = {"case_id": case_id, "view": view, "phase": phase, "digest": payload_digest}
+                vote = consensus_vote_payload(
+                    self.config, case_id=case_id, view=view, phase=phase, digest=payload_digest
+                )
                 signature = self.keys.sign(voter, vote)
                 if not self.keys.verify(voter, vote, signature):
                     continue

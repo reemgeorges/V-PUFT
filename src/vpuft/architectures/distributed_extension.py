@@ -42,9 +42,10 @@ class DistributedRSUExtendedVPUFT(Architecture):
 
     def _select_coordinator(self, case: EvidenceCase) -> str:
         validators = tuple(self.config.pbft.validators)
+        coordinator_pool = tuple(self.config.distributed_extension.coordinator_pool) or validators
         strategy = self.config.distributed_extension.coordinator_strategy
         if strategy == "first_observer_then_hash":
-            local = [att for att in case.attestations if att.validator_rsu_id in validators]
+            local = [att for att in case.attestations if att.validator_rsu_id in coordinator_pool]
             if local:
                 return min(local, key=lambda att: (att.observed_at, att.attestation_id)).validator_rsu_id
         if strategy == "canonical_case_epoch_hash":
@@ -55,10 +56,10 @@ class DistributedRSUExtendedVPUFT(Architecture):
             epoch = unicodedata.normalize("NFC", raw_epoch).strip()
             if not epoch:
                 raise ValueError("membership_epoch must be non-empty")
-            if any(not isinstance(validator, str) for validator in validators):
+            if any(not isinstance(validator, str) for validator in coordinator_pool):
                 raise ValueError("Canonical coordinator validator identities must be strings")
             canonical_validators = sorted(
-                unicodedata.normalize("NFC", validator).strip() for validator in validators
+                unicodedata.normalize("NFC", validator).strip() for validator in coordinator_pool
             )
             if not canonical_validators or any(not validator for validator in canonical_validators):
                 raise ValueError("Canonical coordinator mapping requires non-empty validators")
@@ -69,8 +70,8 @@ class DistributedRSUExtendedVPUFT(Architecture):
             ).encode("utf-8")
             offset = int.from_bytes(sha256(encoded).digest(), "big") % len(canonical_validators)
             return canonical_validators[offset]
-        offset = int(sha256(case.case_id.encode("utf-8")).hexdigest(), 16) % len(validators)
-        return validators[offset]
+        offset = int(sha256(case.case_id.encode("utf-8")).hexdigest(), 16) % len(coordinator_pool)
+        return coordinator_pool[offset]
 
     def _apply_evidence_source_guard(self, case: EvidenceCase, result, now: float):
         ext = self.config.distributed_extension
@@ -124,7 +125,11 @@ class DistributedRSUExtendedVPUFT(Architecture):
             if self.config.distributed_extension.simulator_finalization_guard_enabled
             else None
         )
-        pbft = PBFTConsensus(self.config.pbft, transport, self.keys, finalization_guard=finalization_guard)
+        pbft_config = replace(
+            self.config.pbft,
+            membership_epoch=self.config.distributed_extension.membership_epoch,
+        )
+        pbft = PBFTConsensus(pbft_config, transport, self.keys, finalization_guard=finalization_guard)
         validators = tuple(self.config.pbft.validators)
         replica_nodes = replica_membership(
             validators,
