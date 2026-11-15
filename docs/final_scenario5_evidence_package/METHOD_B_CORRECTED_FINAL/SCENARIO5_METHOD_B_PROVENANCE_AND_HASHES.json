@@ -1,0 +1,525 @@
+{
+  "dataset": "Dataset B corrected_final Method B",
+  "source_commit": "0c0c10b3d6cbb2075e430a299e3c18cdf382320a",
+  "source_ref": "main at exact commit",
+  "current_worktree_branch": "research/vpuft-post-seminar-optimization",
+  "current_worktree_head": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+  "manifest": {
+    "campaign": "controlled_topology_vehicle_density_extension",
+    "frozen_v7_modified": false,
+    "shared_trace_pairing": true,
+    "topologies": [
+      "urban_roundabout"
+    ],
+    "vehicle_counts": [
+      20,
+      40,
+      60,
+      80,
+      100
+    ],
+    "seeds": [
+      1001,
+      1002,
+      1003,
+      1004,
+      1005,
+      1006,
+      1007,
+      1008,
+      1009,
+      1010
+    ],
+    "backhaul_extra_latency_ms": [
+      0.0,
+      100.0
+    ],
+    "weights": {
+      "C": 0.3652673861753211,
+      "rho": 0.16195260151983162,
+      "F": 0.06370517641034751,
+      "Q": 0.40608957775126925,
+      "eta": 0.0029852581432305157
+    },
+    "attack_policies": {
+      "position_offset": {
+        "required_roots": 2,
+        "required_sources": 2,
+        "required_zones": 2,
+        "required_modalities": 1,
+        "margin_threshold": 0.45,
+        "opposition_lambda": 1.0,
+        "cryptographic_decisive": false,
+        "freshness_window_seconds": 15.0,
+        "min_representative_weight": 0.05
+      },
+      "speed_offset": {
+        "required_roots": 2,
+        "required_sources": 2,
+        "required_zones": 1,
+        "required_modalities": 1,
+        "margin_threshold": 0.45,
+        "opposition_lambda": 1.0,
+        "cryptographic_decisive": false,
+        "freshness_window_seconds": 15.0,
+        "min_representative_weight": 0.05
+      },
+      "replay": {
+        "required_roots": 1,
+        "required_sources": 1,
+        "required_zones": 1,
+        "required_modalities": 1,
+        "margin_threshold": 0.35,
+        "opposition_lambda": 1.0,
+        "cryptographic_decisive": true,
+        "freshness_window_seconds": 15.0,
+        "min_representative_weight": 0.05
+      },
+      "certificate_tamper": {
+        "required_roots": 1,
+        "required_sources": 1,
+        "required_zones": 1,
+        "required_modalities": 1,
+        "margin_threshold": 0.25,
+        "opposition_lambda": 1.0,
+        "cryptographic_decisive": true,
+        "freshness_window_seconds": 15.0,
+        "min_representative_weight": 0.05
+      },
+      "flood": {
+        "required_roots": 2,
+        "required_sources": 2,
+        "required_zones": 1,
+        "required_modalities": 1,
+        "margin_threshold": 0.5,
+        "opposition_lambda": 1.0,
+        "cryptographic_decisive": false,
+        "freshness_window_seconds": 15.0,
+        "min_representative_weight": 0.05
+      },
+      "false_denm": {
+        "required_roots": 2,
+        "required_sources": 2,
+        "required_zones": 2,
+        "required_modalities": 1,
+        "margin_threshold": 0.5,
+        "opposition_lambda": 1.0,
+        "cryptographic_decisive": false,
+        "freshness_window_seconds": 15.0,
+        "min_representative_weight": 0.05
+      },
+      "mixed": {
+        "required_roots": 2,
+        "required_sources": 2,
+        "required_zones": 2,
+        "required_modalities": 1,
+        "margin_threshold": 0.55,
+        "opposition_lambda": 1.0,
+        "cryptographic_decisive": false,
+        "freshness_window_seconds": 15.0,
+        "min_representative_weight": 0.05
+      },
+      "benign": {
+        "required_roots": 2,
+        "required_sources": 2,
+        "required_zones": 1,
+        "required_modalities": 1,
+        "margin_threshold": 0.5,
+        "opposition_lambda": 1.0,
+        "cryptographic_decisive": false,
+        "freshness_window_seconds": 15.0,
+        "min_representative_weight": 0.05
+      }
+    },
+    "event_time_scheduler": true,
+    "transport_causality_required": true,
+    "terminal_revocation_guard": true,
+    "effective_config": "../effective_config.json",
+    "attack_vehicle_ratio": 0.35,
+    "include_robustness_variants": false,
+    "include_topology_cache": true,
+    "expected_shared_traces": 50,
+    "architecture_evaluations_per_trace": 3,
+    "resume": {
+      "enabled": false,
+      "resumed_cells": 0,
+      "executed_cells": 50
+    },
+    "claim_boundary": "Vehicle density is a controlled SUMO demand factor. Timing, loss, cache and resource measurements remain simulation/model outputs, not field measurements."
+  },
+  "effective_config": {
+    "weights": {
+      "C": 0.3652673861753211,
+      "rho": 0.16195260151983162,
+      "F": 0.06370517641034751,
+      "Q": 0.40608957775126925,
+      "eta": 0.0029852581432305157
+    },
+    "policies": {
+      "position_offset": {
+        "required_roots": 2,
+        "required_sources": 2,
+        "required_zones": 2,
+        "required_modalities": 1,
+        "margin_threshold": 0.45,
+        "opposition_lambda": 1.0,
+        "cryptographic_decisive": false,
+        "freshness_window_seconds": 15.0,
+        "min_representative_weight": 0.05
+      },
+      "speed_offset": {
+        "required_roots": 2,
+        "required_sources": 2,
+        "required_zones": 1,
+        "required_modalities": 1,
+        "margin_threshold": 0.45,
+        "opposition_lambda": 1.0,
+        "cryptographic_decisive": false,
+        "freshness_window_seconds": 15.0,
+        "min_representative_weight": 0.05
+      },
+      "replay": {
+        "required_roots": 1,
+        "required_sources": 1,
+        "required_zones": 1,
+        "required_modalities": 1,
+        "margin_threshold": 0.35,
+        "opposition_lambda": 1.0,
+        "cryptographic_decisive": true,
+        "freshness_window_seconds": 15.0,
+        "min_representative_weight": 0.05
+      },
+      "certificate_tamper": {
+        "required_roots": 1,
+        "required_sources": 1,
+        "required_zones": 1,
+        "required_modalities": 1,
+        "margin_threshold": 0.25,
+        "opposition_lambda": 1.0,
+        "cryptographic_decisive": true,
+        "freshness_window_seconds": 15.0,
+        "min_representative_weight": 0.05
+      },
+      "flood": {
+        "required_roots": 2,
+        "required_sources": 2,
+        "required_zones": 1,
+        "required_modalities": 1,
+        "margin_threshold": 0.5,
+        "opposition_lambda": 1.0,
+        "cryptographic_decisive": false,
+        "freshness_window_seconds": 15.0,
+        "min_representative_weight": 0.05
+      },
+      "false_denm": {
+        "required_roots": 2,
+        "required_sources": 2,
+        "required_zones": 2,
+        "required_modalities": 1,
+        "margin_threshold": 0.5,
+        "opposition_lambda": 1.0,
+        "cryptographic_decisive": false,
+        "freshness_window_seconds": 15.0,
+        "min_representative_weight": 0.05
+      },
+      "mixed": {
+        "required_roots": 2,
+        "required_sources": 2,
+        "required_zones": 2,
+        "required_modalities": 1,
+        "margin_threshold": 0.55,
+        "opposition_lambda": 1.0,
+        "cryptographic_decisive": false,
+        "freshness_window_seconds": 15.0,
+        "min_representative_weight": 0.05
+      },
+      "benign": {
+        "required_roots": 2,
+        "required_sources": 2,
+        "required_zones": 1,
+        "required_modalities": 1,
+        "margin_threshold": 0.5,
+        "opposition_lambda": 1.0,
+        "cryptographic_decisive": false,
+        "freshness_window_seconds": 15.0,
+        "min_representative_weight": 0.05
+      }
+    },
+    "network": {
+      "base_latency_ms": 8.0,
+      "jitter_ms": 3.0,
+      "central_backhaul_extra_latency_ms": 0.0,
+      "packet_delivery_ratio": 0.98,
+      "max_retries": 2,
+      "retry_backoff_ms": 5.0,
+      "queue_rate_bytes_per_second": 2000000.0,
+      "evidence_crn_seed": null
+    },
+    "pbft": {
+      "validators": [
+        "rsu-1",
+        "rsu-2",
+        "rsu-3",
+        "rsu-4"
+      ],
+      "max_byzantine": 1,
+      "timeout_ms": 120.0,
+      "max_views": 4,
+      "validator_behaviors": {},
+      "state_recovery_enabled": true
+    },
+    "central": {
+      "workers": 4,
+      "service_time_ms": 12.0,
+      "queue_capacity": 1000,
+      "availability": 0.995,
+      "compromised": false,
+      "compromise_mode": "false_revocation",
+      "audit_replica_enabled": true
+    },
+    "detector": {
+      "rsu_range_m": 450.0,
+      "witness_range_m": 180.0,
+      "position_error_threshold_m": 20.0,
+      "speed_error_threshold_mps": 5.0,
+      "replay_max_age_seconds": 2.5,
+      "flood_messages_per_second": 3,
+      "false_denm_deceleration_threshold_mps2": -3.0,
+      "benign_clean_confidence": 0.78,
+      "freshness_tau_seconds": 12.0,
+      "case_window_seconds": 15.0,
+      "rsu_position_sigma_m": 3.0,
+      "witness_position_sigma_m": 5.0,
+      "rsu_speed_sigma_mps": 0.6,
+      "witness_speed_sigma_mps": 1.0,
+      "rsu_acceleration_sigma_mps2": 0.4,
+      "witness_acceleration_sigma_mps2": 0.8
+    },
+    "sumo": {
+      "step_length_seconds": 1.0,
+      "end_time_seconds": 95.0,
+      "use_gui": false,
+      "sumo_binary": null,
+      "netconvert_binary": null,
+      "scenario_directory": "sumo/urban_roundabout",
+      "rsu_file": "rsus.json",
+      "attack_file": "attacks.json",
+      "deterministic_seed": 1001,
+      "keep_sumo_output": true
+    },
+    "security": {
+      "deterministic_master_seed": "vpuft-thesis-reproducible-keys-v1",
+      "compromised_rsus": [],
+      "compromised_witness_ratio": 0.1
+    },
+    "distributed_extension": {
+      "coordinator_strategy": "first_observer_then_hash",
+      "validator_requalification": true,
+      "evidence_bundle_base_bytes": 384,
+      "evidence_bundle_bytes_per_attestation": 704,
+      "leave_one_source_out_guard": false,
+      "evidence_source_fault_budget": 1,
+      "guard_on_directional_conflict_only": true,
+      "replicate_read_cache_to_all_rsus": true
+    },
+    "trust_cache": {
+      "ttl_seconds": [
+        0.0,
+        1.0,
+        2.0,
+        5.0,
+        10.0,
+        30.0
+      ],
+      "vehicle_counts": [
+        20,
+        40,
+        60,
+        80,
+        100
+      ],
+      "interactions_per_vehicle": 12,
+      "interaction_interval_seconds": 0.25,
+      "local_verification_ms": 0.25,
+      "query_bytes": 256,
+      "token_response_bytes": 1152,
+      "revocation_ratio": 0.1,
+      "anomaly_ratio": 0.02
+    },
+    "robustness": {
+      "compromised_evidence_rsu": "rsu-6",
+      "evidence_attack_mode": "false_accusation",
+      "correlated_forgery_copies": 4,
+      "malicious_validator": "rsu-1",
+      "malicious_validator_behavior": "propose_invalid"
+    },
+    "density_campaign": {
+      "vehicle_counts": [
+        20,
+        40,
+        60,
+        80,
+        100
+      ],
+      "backhaul_extra_latency_ms": [
+        0.0,
+        100.0
+      ],
+      "attack_vehicle_ratio": 0.35,
+      "departure_window_seconds": 20.0,
+      "include_robustness_variants": false,
+      "include_topology_cache": true,
+      "primary_cache_ttl_seconds": 5.0,
+      "v2v_range_m": 180.0,
+      "v2v_sample_period_seconds": 1.0
+    },
+    "simulation": {
+      "seeds": [
+        1001,
+        1002,
+        1003,
+        1004,
+        1005,
+        1006,
+        1007,
+        1008,
+        1009,
+        1010
+      ],
+      "cases_per_seed": 60,
+      "malicious_ratio": 0.3,
+      "witness_count_mean": 4.0,
+      "rsu_count": 6,
+      "source": "sumo"
+    }
+  },
+  "source_hashes": [
+    {
+      "path": "results/urban_roundabout_campaign_corrected_final/combined/density_decisions.csv",
+      "local_sha256": "bc3bc7050cff575ecfee38171ad3c1cdb2a2442e4fae799c7dce13c6a6d22e3e",
+      "local_bytes": 26733285,
+      "git_blob_sha256": "792f54b1b342adf725f17f9cc9077efc81bc72e4e188a8c9ba0308e92de088e8",
+      "git_blob_object": "cda996ad68391df8ee9a593f6d5ffcf8f0dd354d",
+      "git_blob_bytes": 26681030,
+      "normalized_lf_matches_git_blob": true
+    },
+    {
+      "path": "results/urban_roundabout_campaign_corrected_final/combined/density_metrics_by_seed.csv",
+      "local_sha256": "3090141874e1a2ab71b0c044e428ebe972eab4a01789f1151b709bedc78f8b41",
+      "local_bytes": 67561,
+      "git_blob_sha256": "7f5592f04edb562afa69bca8d9059b92c2443e52d2fc16fdefdd973fd6ca4c16",
+      "git_blob_object": "8c660d190e557f3b625370fb500be57e0ba6d987",
+      "git_blob_bytes": 67410,
+      "normalized_lf_matches_git_blob": true
+    },
+    {
+      "path": "results/urban_roundabout_campaign_corrected_final/combined/density_campaign_manifest.json",
+      "local_sha256": "c2e6c1c3999d2037d6a853596dafcde55edd6e843583a140d3b71ed841faee37",
+      "local_bytes": 3958,
+      "git_blob_sha256": "4d5a0e45ace6dd406689c15bab5cb0a27b9afcc3bf08cbce008ae74088fbd372",
+      "git_blob_object": "3e0eccc5cc355c3bf06c98832c79ab8dc5ac7947",
+      "git_blob_bytes": 3816,
+      "normalized_lf_matches_git_blob": true
+    },
+    {
+      "path": "results/urban_roundabout_campaign_corrected_final/effective_config.json",
+      "local_sha256": "2969b2f8ddfb13bfffe20cf203bfddf251d62a761dc577e9d88d0e07f750cead",
+      "local_bytes": 6638,
+      "git_blob_sha256": "bb04e38f840029694fbd6a13d0797f81427748f775d9fd14e42bf30bd9a92824",
+      "git_blob_object": "aae07b8d8387d1df7b690b083bedc29d0c909d88",
+      "git_blob_bytes": 6393,
+      "normalized_lf_matches_git_blob": true
+    },
+    {
+      "path": "results/urban_roundabout_campaign_corrected_final/combined/density_trace_audit.csv",
+      "local_sha256": "0897cfdc2697623b2acf860712865111953d82fdbdc45d891eb65af4bd00b543",
+      "local_bytes": 11439,
+      "git_blob_sha256": "a150b32c3a34ccbbd6bf93ef1b170e15928a635bc729fa4b3c179ad575d0cfa3",
+      "git_blob_object": "49ee9dce97fc580b4fcf0412db6790c98523ab7e",
+      "git_blob_bytes": 11388,
+      "normalized_lf_matches_git_blob": true
+    },
+    {
+      "path": "results/urban_roundabout_campaign_corrected_final/combined/density_transport_audit.csv",
+      "local_sha256": "2850ec95a2d9afdf209aad7bf4c2c1036d7e23358cc6c55eb838efaef28a248b",
+      "local_bytes": 69797,
+      "git_blob_sha256": "4e2164f81167139708c3220dc4cd189892cb4338a7568dcafdf59165b9f16f28",
+      "git_blob_object": "2e92f1db41af6705e61909a010926d35da3e0a11",
+      "git_blob_bytes": 69196,
+      "normalized_lf_matches_git_blob": true
+    },
+    {
+      "path": "results/urban_roundabout_campaign_corrected_final/combined/density_message_type_summary.csv",
+      "local_sha256": "f33d89e06a5c953590f8b5aacc574a8f0e418eb3e1446a5489b6d84fc521666b",
+      "local_bytes": 48940,
+      "git_blob_sha256": "7e09e10b8491fb4bd2e7ee5ff1fc36aaf18a322e818547a92a88d6f8e3bd90d0",
+      "git_blob_object": "802e2f449cb279c3d49dc5a3ee0ae5d2f598997b",
+      "git_blob_bytes": 48489,
+      "normalized_lf_matches_git_blob": true
+    },
+    {
+      "path": "results/urban_roundabout_campaign_corrected_final/combined/density_consensus_outcomes.csv",
+      "local_sha256": "598a7b06a72adaf04d18091fff2e1ea2062d3da97e3e0b109f004df00822ccc2",
+      "local_bytes": 128552,
+      "git_blob_sha256": "9f2b6074cad1197de43586833308ea37dbb70ffea9c56c04ee9fa664e69ac6ff",
+      "git_blob_object": "b24566508856ed7bcf5755f6e43b8aff5490be99",
+      "git_blob_bytes": 127901,
+      "normalized_lf_matches_git_blob": true
+    },
+    {
+      "path": "configs/urban_roundabout_campaign.json",
+      "local_sha256": "abbfea6d03c25909bc2ab1c09d17ba8ce0a86f8cb86039a0c6352589bec55b91",
+      "local_bytes": 2247,
+      "git_blob_sha256": "f2cccb6023c340105d7cf68397ce58d9e299fc92bd923ef75e48aa864a3dca2d",
+      "git_blob_object": "5da3f643172814343bad75f7f48c8216314bac62",
+      "git_blob_bytes": 2166,
+      "normalized_lf_matches_git_blob": true
+    },
+    {
+      "path": "sumo/urban_roundabout/attacks.json",
+      "local_sha256": "a5338d955b09046ec0b16f3a9625b7955c763aae07dc722e474e6078745f932f",
+      "local_bytes": 4,
+      "git_blob_sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "git_blob_object": "fe51488c7066f6687ef680d6bfaa4f7768ef205c",
+      "git_blob_bytes": 3,
+      "normalized_lf_matches_git_blob": true
+    },
+    {
+      "path": "src/vpuft/metrics.py",
+      "local_sha256": "8b80c8e64fddba2c849bfe538fd13cd5a9cd738e718aca446f1f4d6697e48a77",
+      "local_bytes": 7413,
+      "git_blob_sha256": "8b80c8e64fddba2c849bfe538fd13cd5a9cd738e718aca446f1f4d6697e48a77",
+      "git_blob_object": "a41d380f01435edeb73e64facfeafd32ae440ca1",
+      "git_blob_bytes": 7413,
+      "normalized_lf_matches_git_blob": true
+    }
+  ],
+  "audit": {
+    "decision_rows_all_architectures": 52254,
+    "seed_groups_recomputed": 100,
+    "metric_mismatches": 0,
+    "prediction_mismatches": 0,
+    "terminal_contract_mismatches": 0,
+    "paired_intersection": 17418,
+    "unmatched_c100": 0,
+    "unmatched_distributed": 0,
+    "decision_changes": 2,
+    "terminal_eligibility_differences": 8,
+    "fp_count_c100": 9,
+    "fp_count_distributed": 9,
+    "fp_id_symmetric_difference": 0
+  },
+  "limitations": {
+    "raw_mobility_attack_traces_available": false,
+    "cpu_independently_recomputed": false,
+    "e2e_p95_independently_recomputed": false,
+    "fixed_opportunity_metrics_available": false,
+    "dataset_a_used": false,
+    "old_untraceable_recall_used": false
+  },
+  "notes": [
+    "Local text files are CRLF; LF-normalized hashes match Git blobs where present.",
+    "Manifest and effective_config describe executed configuration; static config file is not treated as run-effective settings.",
+    "No historical outputs changed."
+  ]
+}
