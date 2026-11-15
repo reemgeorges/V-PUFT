@@ -7,6 +7,7 @@ from vpuft.crypto import KeyRegistry
 from vpuft.consensus import PBFTConsensus
 from vpuft.network import SimulatedTransport
 from vpuft.config import NetworkConfig
+from vpuft.domain import EvidenceDirection
 
 from test_security_audit_phase6 import att, case
 
@@ -147,3 +148,233 @@ def test_v5_single_view_mode_async_timeout_does_not_advance_view():
     assert not outcomes[0].committed
     assert outcomes[0].view == 0
     assert outcomes[0].reason == "single_view_safety_mode_no_verified_transition"
+
+
+def test_v5_offline_pbft_leader_guarded_failure_contrasts_with_legacy_local_rotation():
+    config = _coordinator_config()
+    network = NetworkConfig(packet_delivery_ratio=1.0, base_latency_ms=1.0, jitter_ms=0.0)
+    guarded = PBFTConsensus(
+        replace(config.pbft, single_view_safety_mode=True, validator_behaviors={"rsu-1": "offline"}),
+        SimulatedTransport(network, 986), KeyRegistry(config.security.deterministic_master_seed),
+    ).finalize(case_id="leader-offline", payload={"decision": "revoke"}, started_at=0.0,
+               preferred_leader="rsu-1")
+    legacy = PBFTConsensus(
+        replace(config.pbft, single_view_safety_mode=False, validator_behaviors={"rsu-1": "offline"}),
+        SimulatedTransport(network, 986), KeyRegistry(config.security.deterministic_master_seed),
+    ).finalize(case_id="leader-offline", payload={"decision": "revoke"}, started_at=0.0,
+               preferred_leader="rsu-1")
+
+    assert not guarded.committed and guarded.view == 0
+    assert guarded.reason == "single_view_safety_mode_no_verified_transition"
+    assert legacy.committed and legacy.view == 1
+
+
+def _v5_signed_case(case_id="integrated-fault-case", opposing=False):
+    config = _coordinator_config()
+    keys = KeyRegistry(config.security.deterministic_master_seed)
+    reports = [
+        att(keys, case_id, f"support-root-{index}", f"rsu-{index}", f"cell-{index}", at=1 + index / 10)
+        for index in range(1, 6)
+    ]
+    if opposing:
+        reports.extend(
+            att(keys, case_id, f"oppose-root-{index}", f"rsu-{index}", f"cell-{index}",
+                direction=EvidenceDirection.OPPOSES, at=1.05 + index / 10)
+            for index in range(1, 6)
+        )
+    return config, keys, case(case_id, reports)
+
+
+def test_v5_architecture_keeps_four_of_five_available_validators_live_in_single_view():
+    config, keys, target = _v5_signed_case()
+    selector = DistributedRSUExtendedVPUFT(config, keys)
+    leader = selector._select_coordinator(target)
+    offline = next(validator for validator in config.pbft.validators if validator != leader)
+    configured = replace(
+        config,
+        network=replace(config.network, packet_delivery_ratio=1.0, jitter_ms=0.0),
+        pbft=replace(config.pbft, single_view_safety_mode=True, validator_behaviors={offline: "offline"}),
+    )
+
+    result = DistributedRSUExtendedVPUFT(configured, keys).run([target], seed=2101)
+
+    assert len(result.consensus) == 1
+    assert result.consensus[0].committed
+    assert result.consensus[0].view == 0
+    assert result.consensus[0].prepare_votes == result.consensus[0].commit_votes == 4
+    assert result.decisions[0].committed
+
+
+def test_v5_architecture_fails_closed_below_four_of_five_without_advancing_view():
+    config, keys, target = _v5_signed_case()
+    selector = DistributedRSUExtendedVPUFT(config, keys)
+    leader = selector._select_coordinator(target)
+    offline = [validator for validator in config.pbft.validators if validator != leader][:2]
+    configured = replace(
+        config,
+        network=replace(config.network, packet_delivery_ratio=1.0, jitter_ms=0.0),
+        pbft=replace(config.pbft, single_view_safety_mode=True,
+                     validator_behaviors={validator: "offline" for validator in offline}),
+    )
+
+    result = DistributedRSUExtendedVPUFT(configured, keys).run([target], seed=2101)
+
+    assert len(result.consensus) == 1
+    outcome = result.consensus[0]
+    assert not outcome.committed
+    assert outcome.prepare_votes == 3
+    assert outcome.commit_votes == 0
+    assert outcome.view == 0
+    assert outcome.view_changes == 1
+    assert outcome.reason == "single_view_safety_mode_no_verified_transition"
+    assert result.decisions[0].new_state.value != "revoked"
+    assert result.decisions[0].finalized_at is None
+    assert result.ledger_blocks == 0
+
+
+def test_v5_architecture_guard_blocks_invalid_leader_proposal_but_legacy_advances():
+    config, keys, target = _v5_signed_case()
+    leader = DistributedRSUExtendedVPUFT(config, keys)._select_coordinator(target)
+    network = replace(config.network, packet_delivery_ratio=1.0, jitter_ms=0.0)
+
+    guarded_config = replace(
+        config, network=network,
+        pbft=replace(config.pbft, single_view_safety_mode=True,
+                     validator_behaviors={leader: "propose_invalid"}),
+    )
+    legacy_config = replace(
+        config, network=network,
+        pbft=replace(config.pbft, single_view_safety_mode=False,
+                     validator_behaviors={leader: "propose_invalid"}),
+    )
+    guarded = DistributedRSUExtendedVPUFT(guarded_config, keys).run([target], seed=2101)
+    legacy = DistributedRSUExtendedVPUFT(legacy_config, keys).run([target], seed=2101)
+
+    assert len(guarded.consensus) == len(legacy.consensus) == 1
+    assert not guarded.consensus[0].committed
+    assert guarded.consensus[0].view == 0
+    assert guarded.consensus[0].invalid_proposal_attempted
+    assert guarded.consensus[0].reason == "single_view_safety_mode_no_verified_transition"
+    assert legacy.consensus[0].committed and legacy.consensus[0].view == 1
+    assert guarded.decisions[0].new_state.value != "revoked"
+    assert legacy.decisions[0].new_state.value == "revoked"
+
+
+def test_v5_coordinator_withholding_known_opposing_evidence_is_not_detected_by_default_profile():
+    config, keys, target = _v5_signed_case(opposing=True)
+    network = replace(config.network, packet_delivery_ratio=1.0, jitter_ms=0.0)
+
+    class WithholdingCoordinatorArchitecture(DistributedRSUExtendedVPUFT):
+        known_by_coordinator = ()
+        complete_delivered_case = None
+
+        def subset_case(self, source, attestations):
+            received = list(attestations)
+            if source.case_id == target.case_id:
+                self.known_by_coordinator = tuple(received)
+                self.complete_delivered_case = super().subset_case(source, received)
+                received = [item for item in received if item.direction != EvidenceDirection.OPPOSES]
+            return super().subset_case(source, received)
+
+    configured = replace(config, network=network,
+                         pbft=replace(config.pbft, single_view_safety_mode=True))
+    architecture = WithholdingCoordinatorArchitecture(configured, keys)
+    result = architecture.run([target], seed=2101)
+
+    assert any(item.direction == EvidenceDirection.OPPOSES for item in architecture.known_by_coordinator)
+    assert result.decisions[0].metadata["arrived_attestations"] == 5
+    assert result.decisions[0].metadata["attempted_attestations"] == 10
+    evidence_transfers = [message for message in result.messages
+                          if message.message_type == "RSU_EVIDENCE_EXCHANGE"]
+    assert len(evidence_transfers) == 8
+    assert all(message.delivered_at is not None for message in evidence_transfers)
+    assert not architecture.engine.qualify(
+        architecture.complete_delivered_case,
+        result.decisions[0].metadata["qualification_evaluated_at"],
+    ).qualified
+    assert result.decisions[0].committed
+    assert result.consensus[0].committed and result.consensus[0].commit_votes == 5
+    assert not any(message.message_type in {"EVIDENCE_ANNOUNCEMENT", "EVIDENCE_RECONCILIATION"}
+                   for message in result.messages)
+
+
+def test_v5_architecture_offline_evidence_coordinator_fails_before_pbft_and_has_no_takeover():
+    config, keys, target = _v5_signed_case()
+    leader = DistributedRSUExtendedVPUFT(config, keys)._select_coordinator(target)
+    configured = replace(
+        config,
+        pbft=replace(config.pbft, single_view_safety_mode=True,
+                     validator_behaviors={leader: "offline"}),
+    )
+
+    result = DistributedRSUExtendedVPUFT(configured, keys).run([target], seed=2101)
+
+    assert result.consensus == []
+    assert len(result.decisions) == 1
+    assert not result.decisions[0].committed
+    assert result.decisions[0].reason == "evidence_coordinator_unavailable_no_safe_takeover"
+    assert result.decisions[0].metadata["coordinator_takeover_attempted"] is False
+
+
+def test_v5_single_view_rejects_concurrent_conflicting_proposals_from_one_byzantine_leader():
+    from vpuft.des import Scheduler
+    from vpuft.crypto import digest_hex
+
+    config = _coordinator_config()
+    config = replace(
+        config,
+        pbft=replace(config.pbft, single_view_safety_mode=True,
+                     validator_behaviors={"rsu-1": "equivocate"}),
+    )
+    scheduler = Scheduler()
+    consensus = PBFTConsensus(
+        config.pbft,
+        SimulatedTransport(replace(config.network, packet_delivery_ratio=1.0, jitter_ms=0.0),
+                           984, scheduler=scheduler),
+        KeyRegistry(config.security.deterministic_master_seed),
+    )
+    outcomes = []
+    proposals = ({"decision": "revoke"}, {"decision": "retain"})
+    assert digest_hex(proposals[0]) != digest_hex(proposals[1])
+    for index, value in enumerate(proposals):
+        consensus.finalize_async(
+            scheduler=scheduler,
+            case_id="integrated-overlap",
+            payload=value,
+            started_at=0.0,
+            preferred_leader="rsu-1",
+            case_order_index=index,
+            on_complete=lambda outcome, _at, digest=digest_hex(value): outcomes.append((digest, outcome)),
+        )
+    scheduler.run()
+
+    assert len(outcomes) == 2
+    assert sum(outcome.committed for _digest, outcome in outcomes) == 1
+    assert [digest for digest, outcome in outcomes if outcome.committed] == [digest_hex(proposals[0])]
+    assert all(outcome.view == 0 for _digest, outcome in outcomes)
+    assert all(outcome.reason != "committed" or outcome.commit_votes >= 4
+               for _digest, outcome in outcomes)
+
+
+def test_v5_one_equivocating_validator_cannot_supply_a_second_four_of_five_certificate():
+    config = _coordinator_config()
+    pbft = replace(
+        config.pbft,
+        single_view_safety_mode=True,
+        validator_behaviors={"rsu-5": "equivocate"},
+    )
+    consensus = PBFTConsensus(
+        pbft,
+        SimulatedTransport(NetworkConfig(packet_delivery_ratio=1.0, jitter_ms=0.0), 985),
+        KeyRegistry(config.security.deterministic_master_seed),
+    )
+
+    first = consensus.finalize(case_id="equivocation-case", payload={"decision": "revoke"}, started_at=0.0)
+    second = consensus.finalize(case_id="equivocation-case", payload={"decision": "retain"}, started_at=0.1)
+
+    assert first.committed and first.commit_votes == 5 and first.view == 0
+    assert not second.committed and second.view == 0
+    assert second.prepare_votes == 1
+    assert second.reason == "single_view_safety_mode_no_verified_transition"
+    assert consensus._vote_locks[("rsu-5", 0, "PREPARE", "equivocation-case")] != \
+        consensus._vote_locks[("rsu-1", 0, "PREPARE", "equivocation-case")]
