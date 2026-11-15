@@ -1,0 +1,280 @@
+{
+  "package": "V-PUFT Final Scenario 5 Evidence Freeze",
+  "generated_at": "2026-11-15",
+  "read_only_analysis": true,
+  "scenario5_source_of_truth_status": "UNRESOLVED BETWEEN REPORT-LINKED DATASET A AND METHOD-B DATASET B",
+  "dataset_a_report_linked": {
+    "branch": "review/scenario5-defense-report-v4",
+    "commit": "638a6d7909aefa192d532932ab1095111475021c",
+    "canonical_cases_per_architecture": 5921,
+    "confusion_totals_distributed": {
+      "TP": 396,
+      "FP": 63,
+      "TN": 5182,
+      "FN": 280
+    },
+    "central_vs_distributed_identity_agreement": "5921/5921",
+    "metrics_semantics": "historical case-record counts; no explicit terminal-state exclusion"
+  },
+  "dataset_b_method_b": {
+    "branch": "main",
+    "commit": "0c0c10b3d6cbb2075e430a299e3c18cdf382320a",
+    "canonical_case_rows_per_architecture": 17418,
+    "central_c100_evaluated": 14593,
+    "central_c100_excluded_terminal": 2825,
+    "distributed_evaluated": 14585,
+    "distributed_excluded_terminal": 2833,
+    "confusion_totals_c100": {
+      "TP": 639,
+      "FP": 9,
+      "TN": 12981,
+      "FN": 964
+    },
+    "confusion_totals_distributed": {
+      "TP": 641,
+      "FP": 9,
+      "TN": 12974,
+      "FN": 961
+    },
+    "central_vs_distributed_identity_agreement": "17416/17418",
+    "metrics_semantics": "metrics.py excludes already_revoked_terminal_state rows"
+  },
+  "dataset_a_vs_b_identity_comparison": {
+    "canonical_key": "(topology, vehicle_count, seed, case_id)",
+    "shared": 5095,
+    "A_only": 826,
+    "B_only": 12323,
+    "shared_ground_truth_mismatches": 0,
+    "shared_attack_type_mismatches": 0,
+    "shared_decision_mismatches_between_revisions": 300
+  },
+  "core_current_branch": {
+    "branch": "research/vpuft-post-seminar-optimization",
+    "commit": "fdca82f6a3fd5273df454bee709a2800f97f941a"
+  },
+  "v7_supplement": {
+    "campaign_units": 40,
+    "topologies": [
+      "corridor",
+      "grid",
+      "intersection",
+      "smoke"
+    ],
+    "seeds_per_topology": 10,
+    "recall_80_9_percent_scenario5_use": false
+  },
+  "artifact_status": {
+    "historical_sources_modified": false,
+    "simulations_run": false,
+    "existing_worktree_dirty_before_package": true,
+    "preexisting_untracked_and_deleted_artifacts_preserved": true,
+    "raw_scenario5_traces_in_git": false,
+    "trace_audit_uses_machine_local_absolute_paths": true
+  },
+  "files": [
+    {
+      "path": "results/urban_roundabout_campaign/combined/density_campaign_manifest.json",
+      "ref": "review/scenario5-defense-report-v4@638a6d7909aefa192d532932ab1095111475021c",
+      "sha256": "2ad936f713b70e7fd436b8fa987e0e770ced79f3a8e0e281cb5398edacd66ed6",
+      "status": "frozen report-linked Dataset A source",
+      "role": "supports the published Scenario 5 defense report; not Method B"
+    },
+    {
+      "path": "results/urban_roundabout_campaign/combined/DENSITY_RESULTS_AUDIT.md",
+      "ref": "review/scenario5-defense-report-v4@638a6d7909aefa192d532932ab1095111475021c",
+      "sha256": "1aa468362cbd6cc16d05d52adb0182b69fc5d7343ef34402392f8c8e90199c58",
+      "status": "frozen report-linked Dataset A source",
+      "role": "supports the published Scenario 5 defense report; not Method B"
+    },
+    {
+      "path": "results/urban_roundabout_campaign/combined/density_architecture_summary.csv",
+      "ref": "review/scenario5-defense-report-v4@638a6d7909aefa192d532932ab1095111475021c",
+      "sha256": "bb03922e304e190ac44b50a379b40300098b1d975983c8ebff448094ddd8bbe5",
+      "status": "frozen report-linked Dataset A source",
+      "role": "supports the published Scenario 5 defense report; not Method B"
+    },
+    {
+      "path": "results/urban_roundabout_campaign/combined/density_metrics_by_seed.csv",
+      "ref": "review/scenario5-defense-report-v4@638a6d7909aefa192d532932ab1095111475021c",
+      "sha256": "0d208da0018df16e7a4e300d65d39556bc9712337021be44b8ec8fb15fad1797",
+      "status": "frozen report-linked Dataset A source",
+      "role": "supports the published Scenario 5 defense report; not Method B"
+    },
+    {
+      "path": "results/urban_roundabout_campaign/combined/density_decisions.csv",
+      "ref": "review/scenario5-defense-report-v4@638a6d7909aefa192d532932ab1095111475021c",
+      "sha256": "97955b407f88b7353c7f1b5b6c39a5381e4c1242f5ad337d6c410176ae1953ce",
+      "status": "frozen report-linked Dataset A source",
+      "role": "supports the published Scenario 5 defense report; not Method B"
+    },
+    {
+      "path": "results/urban_roundabout_campaign/combined/density_attack_metrics_by_seed.csv",
+      "ref": "review/scenario5-defense-report-v4@638a6d7909aefa192d532932ab1095111475021c",
+      "sha256": "59301b4defcc60b2d35639d7f21b516b2c5007330ce2f40dde2414c371e5bb7e",
+      "status": "frozen report-linked Dataset A source",
+      "role": "supports the published Scenario 5 defense report; not Method B"
+    },
+    {
+      "path": "results/urban_roundabout_campaign/combined/density_case_agreement.csv",
+      "ref": "review/scenario5-defense-report-v4@638a6d7909aefa192d532932ab1095111475021c",
+      "sha256": "f01ca43ab994659c4d45a283d88d257d71951770633154b9b7f6ce35554c9fad",
+      "status": "frozen report-linked Dataset A source",
+      "role": "supports the published Scenario 5 defense report; not Method B"
+    },
+    {
+      "path": "results/urban_roundabout_campaign/combined/density_consensus_outcomes.csv",
+      "ref": "review/scenario5-defense-report-v4@638a6d7909aefa192d532932ab1095111475021c",
+      "sha256": "e427d6acebe74d39d080a3faf932a8ccf4ac78fdfb62bdb507aad3383db8d74b",
+      "status": "frozen report-linked Dataset A source",
+      "role": "supports the published Scenario 5 defense report; not Method B"
+    },
+    {
+      "path": "results/urban_roundabout_campaign/combined/density_message_type_architecture_summary.csv",
+      "ref": "review/scenario5-defense-report-v4@638a6d7909aefa192d532932ab1095111475021c",
+      "sha256": "bb1efa51ea83e64e1c02e3af92b2787980e59a0cb6e99c785928fa6905b25603",
+      "status": "frozen report-linked Dataset A source",
+      "role": "supports the published Scenario 5 defense report; not Method B"
+    },
+    {
+      "path": "results/urban_roundabout_campaign/combined/density_trace_audit.csv",
+      "ref": "review/scenario5-defense-report-v4@638a6d7909aefa192d532932ab1095111475021c",
+      "sha256": "076a8aae1e5e56e22627dfe90f9a1c868af5f8068b9a22a65268e0c380ae90b3",
+      "status": "frozen report-linked Dataset A source",
+      "role": "supports the published Scenario 5 defense report; not Method B"
+    },
+    {
+      "path": "docs/final_chapter5/VPUFT_Scenario5_Defense_Report_Final.html",
+      "ref": "main@0c0c10b3d6cbb2075e430a299e3c18cdf382320a",
+      "sha256": "c808991d7cc3812cbb461621edcfc2b8ad0b5c6ce6bdd76bb98d64e594070c1e",
+      "status": "frozen report",
+      "role": "Scenario 5 report HTML; its linked Dataset A aggregate path is on review branch, not this main tree"
+    },
+    {
+      "path": "results/full_campaign_v7/statistical_inference/SUMMARY.md",
+      "ref": "main@0c0c10b3d6cbb2075e430a299e3c18cdf382320a",
+      "sha256": "2fc70c3ac52a2b9db50214689b9f0bba0e12407410c08d129e7117bcd2001196",
+      "status": "frozen supplementary validation",
+      "role": "v7 broader campaign; not Scenario 5 results"
+    },
+    {
+      "path": "results/full_campaign_v7/statistical_inference/inference_manifest.json",
+      "ref": "main@0c0c10b3d6cbb2075e430a299e3c18cdf382320a",
+      "sha256": "c2b7157ef52934c48fcc79a5e2316054f59852090731403bd16a4063099957d1",
+      "status": "frozen supplementary validation",
+      "role": "v7 broader campaign; not Scenario 5 results"
+    },
+    {
+      "path": "results/full_campaign_v7/case_agreement/SUMMARY.md",
+      "ref": "main@0c0c10b3d6cbb2075e430a299e3c18cdf382320a",
+      "sha256": "788300d57c8c2dfe7dcd673636964cbd7e6900fbcd0cbf7aa92986fcb2ad9e3e",
+      "status": "frozen supplementary validation",
+      "role": "v7 broader campaign; not Scenario 5 results"
+    },
+    {
+      "path": "docs/post_seminar/PHASE_6_FINAL_HELDOUT_RESULTS.md",
+      "ref": "research/vpuft-post-seminar-optimization@fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "sha256": "4c2de9b28631bfc7085b7915b1c27432d45cf5fea4f00a8b9ce714b0b9b2f855",
+      "status": "experimental/post-seminar",
+      "role": "separate opportunity/state-aware diagnostics; not primary Scenario 5 campaign"
+    },
+    {
+      "path": "docs/post_seminar/PHASE_6_COVERAGE_FEASIBILITY.md",
+      "ref": "research/vpuft-post-seminar-optimization@fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "sha256": "9d9a6c39329713a82110c84c19760634afeb03ee2bcf3f5c2a21cd06dd88f19c",
+      "status": "experimental/post-seminar",
+      "role": "separate opportunity/state-aware diagnostics; not primary Scenario 5 campaign"
+    },
+    {
+      "path": "docs/post_seminar/PHASE_4_EVIDENCE_LIFECYCLE_AUDIT.md",
+      "ref": "research/vpuft-post-seminar-optimization@fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "sha256": "6e0a5a913a7bcaaeeaa24d36d4f1e0f75683353fbc39d205334bac5d7150b5f2",
+      "status": "experimental/post-seminar",
+      "role": "separate opportunity/state-aware diagnostics; not primary Scenario 5 campaign"
+    },
+    {
+      "path": "results/urban_roundabout_campaign_corrected_final/combined/density_campaign_manifest.json",
+      "ref": "main@0c0c10b3d6cbb2075e430a299e3c18cdf382320a",
+      "sha256": "4d5a0e45ace6dd406689c15bab5cb0a27b9afcc3bf08cbce008ae74088fbd372",
+      "status": "frozen corrected-final Dataset B",
+      "role": "Method B state-aware Scenario 5 revision; separate from report-linked Dataset A"
+    },
+    {
+      "path": "results/urban_roundabout_campaign_corrected_final/combined/density_metrics_by_seed.csv",
+      "ref": "main@0c0c10b3d6cbb2075e430a299e3c18cdf382320a",
+      "sha256": "7f5592f04edb562afa69bca8d9059b92c2443e52d2fc16fdefdd973fd6ca4c16",
+      "status": "frozen corrected-final Dataset B",
+      "role": "Method B state-aware Scenario 5 revision; separate from report-linked Dataset A"
+    },
+    {
+      "path": "results/urban_roundabout_campaign_corrected_final/combined/density_decisions.csv",
+      "ref": "main@0c0c10b3d6cbb2075e430a299e3c18cdf382320a",
+      "sha256": "792f54b1b342adf725f17f9cc9077efc81bc72e4e188a8c9ba0308e92de088e8",
+      "status": "frozen corrected-final Dataset B",
+      "role": "Method B state-aware Scenario 5 revision; separate from report-linked Dataset A"
+    },
+    {
+      "path": "results/urban_roundabout_campaign_corrected_final/combined/density_trace_audit.csv",
+      "ref": "main@0c0c10b3d6cbb2075e430a299e3c18cdf382320a",
+      "sha256": "a150b32c3a34ccbbd6bf93ef1b170e15928a635bc729fa4b3c179ad575d0cfa3",
+      "status": "frozen corrected-final Dataset B",
+      "role": "Method B state-aware Scenario 5 revision; separate from report-linked Dataset A"
+    },
+    {
+      "path": "results/urban_roundabout_campaign_corrected_final/effective_config.json",
+      "ref": "main@0c0c10b3d6cbb2075e430a299e3c18cdf382320a",
+      "sha256": "bb04e38f840029694fbd6a13d0797f81427748f775d9fd14e42bf30bd9a92824",
+      "status": "frozen corrected-final Dataset B",
+      "role": "Method B state-aware Scenario 5 revision; separate from report-linked Dataset A"
+    },
+    {
+      "path": "docs/post_seminar/PHASE_6_8RSU_PILOT_AR.md",
+      "ref": "research/recall-70-feasibility@96a7e903438c7316c25ed5e4b2e2cad433229224",
+      "sha256": "d1bdec0e7524c3712c90551cc62de37f8adcc114f0ae35f1f4fc807fbfe01ec1",
+      "status": "rejected pilot",
+      "role": "8-RSU sensing extension; resource gates failed"
+    },
+    {
+      "path": "docs/post_seminar/V5_VALIDATOR_ARCHITECTURE.md",
+      "ref": "research/vpuft-v5-validator-prototype@4687266bae35d680d77730b1dd4d929a6ea57900",
+      "sha256": "d015e80188c7595827cd37b1e9f8499d995fafbf11ae26130813b893108ac10f",
+      "status": "experimental",
+      "role": "V5 committee/quorum exploratory architecture"
+    },
+    {
+      "path": "docs/post_seminar/COORDINATOR_ASSUMPTIONS.md",
+      "ref": "security/coordinator-evidence-v5@abe80d00a7a9b2bbc8d722c449f4c401827bab8f",
+      "sha256": "919c7e9a48ffc57fc38a5b415417b9f5387cf24488c478bee59aa872262da3c1",
+      "status": "experimental",
+      "role": "deterministic coordinator extension"
+    },
+    {
+      "path": "docs/post_seminar/EVIDENCE_AVAILABILITY_V5.md",
+      "ref": "security/v5-evidence-availability@2df02a0f17dc4782b833b882edbc3ec30c1e8e8d",
+      "sha256": "bdeca249daa5fe1be5b67f408ecf33755f8b8f537147f15428aa50fc264cdbaf",
+      "status": "security reference; rejected performance profile",
+      "role": "evidence availability prototype; resource gate failed"
+    },
+    {
+      "path": "docs/post_seminar/EVIDENCE_AVAILABILITY_OPTIMIZATION_NO_GO_AR.md",
+      "ref": "security/v5-evidence-availability-optimization@944d65b15711c8a79b94b4355c27211148b30ac5",
+      "sha256": "cc7eed71d6dfaee6ddf6c79f18eba7adc71eb7b0232d0f912d06bd10722a9103",
+      "status": "rejected",
+      "role": "time-delaying batch optimization; lost a TP / gate failures"
+    },
+    {
+      "path": "docs/post_seminar/V5_SINGLE_VIEW_SAFETY_BOUNDARY.md",
+      "ref": "security/v5-cross-view-safety@5c344e0a9a0590c8dbb055208c8a18e86e4ab7f7",
+      "sha256": "f53194bea3eef27e1301e37948120be00a1065b740aa0f026f1336273720a1f2",
+      "status": "experimental safeguard",
+      "role": "opt-in single-view fail-closed boundary; not full PBFT"
+    },
+    {
+      "path": "docs/post_seminar/V5_EVIDENCE_OMISSION_FEASIBILITY_GATE_AR.md",
+      "ref": "security/evidence-omission-feasibility@d6fa44df28788f3497a0e7e209c28d7b354c7a94",
+      "sha256": "9cb241dbe8fb8c3e31029f6f57f8fabbbe9b869485bba4b5f1bfcef526efe1bd",
+      "status": "unresolved security limitation",
+      "role": "demonstrated coordinator omission counterexample"
+    }
+  ],
+  "hash_note": "SHA-256 values are computed over the exact Git blob bytes shown by each ref/path. Missing cited paths are explicitly marked rather than inferred."
+}
