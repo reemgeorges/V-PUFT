@@ -142,6 +142,11 @@ class PBFTConsensus:
             self.keys.ensure_identity(validator)
 
     @property
+    def _effective_view_limit(self) -> int:
+        """The opt-in boundary disables unverified local view transitions."""
+        return 1 if self.config.single_view_safety_mode else self.config.max_views
+
+    @property
     def quorum(self) -> int:
         return self.config.resolved_quorum
 
@@ -226,7 +231,7 @@ class PBFTConsensus:
         invalid_proposal_attempted = False
         rechecks = validator_checks or {}
 
-        for view in range(self.config.max_views):
+        for view in range(self._effective_view_limit):
             leader = validators[view % len(validators)]
             view_start = started_at + view * self.config.timeout_ms / 1000.0
             leader_behavior = self._behavior(leader)
@@ -331,14 +336,15 @@ class PBFTConsensus:
         return ConsensusOutcome(
             case_id=case_id,
             committed=False,
-            view=max(0, self.config.max_views - 1),
+            view=max(0, self._effective_view_limit - 1),
             leader=None,
             prepare_votes=last_prepare,
             commit_votes=last_commit,
             started_at=started_at,
             committed_at=None,
             view_changes=view_changes,
-            reason="liveness_failure_after_max_views",
+            reason=("single_view_safety_mode_no_verified_transition"
+                    if self.config.single_view_safety_mode else "liveness_failure_after_max_views"),
             message_count=len(relevant),
             bytes_sent=sum(m.size_bytes for m in relevant),
             safety_violation=False,
@@ -399,14 +405,15 @@ class PBFTConsensus:
             outcome = ConsensusOutcome(
                 case_id=case_id,
                 committed=False,
-                view=max(0, self.config.max_views - 1),
+                view=max(0, self._effective_view_limit - 1),
                 leader=None,
                 prepare_votes=state["last_prepare"],
                 commit_votes=state["last_commit"],
                 started_at=started_at,
                 committed_at=None,
                 view_changes=state["view_changes"],
-                reason="liveness_failure_after_max_views",
+                reason=("single_view_safety_mode_no_verified_transition"
+                        if self.config.single_view_safety_mode else "liveness_failure_after_max_views"),
                 message_count=count,
                 bytes_sent=bytes_sent,
                 safety_violation=False,
@@ -419,7 +426,7 @@ class PBFTConsensus:
             on_complete(self._apply_finalization_guard(outcome, payload), scheduler.now)
 
         def schedule_view(view: int, earliest: float) -> None:
-            if view >= self.config.max_views:
+            if view >= self._effective_view_limit:
                 scheduler.schedule(
                     earliest,
                     finish_failure,

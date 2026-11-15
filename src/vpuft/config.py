@@ -62,6 +62,8 @@ class PBFTConfig:
     state_recovery_enabled: bool = True
     quorum_size: int | None = None
     membership_epoch: str = "phase6-fixed-membership-v1"
+    # Interim guard: one view only. This is not a VIEW-CHANGE protocol.
+    single_view_safety_mode: bool = False
 
     @property
     def resolved_quorum(self) -> int:

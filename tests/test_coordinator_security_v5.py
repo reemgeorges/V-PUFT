@@ -95,3 +95,55 @@ def test_v5_four_of_five_does_not_repair_cross_view_certificate_safety():
 
     assert revoke.committed and revoke.view == 0 and revoke.commit_votes >= 4
     assert retain.committed and retain.view == 1 and retain.commit_votes >= 4
+    assert config.pbft.validators == ("rsu-1", "rsu-2", "rsu-3", "rsu-4", "rsu-5")
+    assert config.pbft.max_byzantine == 1 and config.pbft.resolved_quorum == 4
+    assert config.pbft.membership_epoch == "v5-coordinator-security-fixed-epoch-v1"
+    assert consensus._vote_locks[("rsu-1", 0, "PREPARE", "same-v5-case")] != consensus._vote_locks[("rsu-1", 1, "PREPARE", "same-v5-case")]
+
+
+def test_v5_single_view_mode_commits_normally_then_rejects_conflicting_retry():
+    config = _coordinator_config()
+    pbft = replace(config.pbft, single_view_safety_mode=True)
+    consensus = PBFTConsensus(pbft, SimulatedTransport(NetworkConfig(packet_delivery_ratio=1.0), 981),
+                              KeyRegistry(config.security.deterministic_master_seed))
+    first = consensus.finalize(case_id="safe-one-view", payload={"decision": "revoke"}, started_at=0.0)
+    retry = consensus.finalize(case_id="safe-one-view", payload={"decision": "retain"}, started_at=0.1)
+    assert first.committed and first.view == 0 and first.prepare_votes >= 4 and first.commit_votes >= 4
+    assert not retry.committed and retry.reason == "single_view_safety_mode_no_verified_transition"
+    assert retry.view == 0 and retry.commit_votes < 4
+
+
+def test_v5_single_view_mode_fails_closed_when_initial_coordinator_is_offline():
+    config = _coordinator_config()
+    behaviors = {config.pbft.validators[0]: "offline"}
+    pbft = replace(config.pbft, single_view_safety_mode=True, validator_behaviors=behaviors)
+    consensus = PBFTConsensus(pbft, SimulatedTransport(NetworkConfig(packet_delivery_ratio=1.0), 982),
+                              KeyRegistry(config.security.deterministic_master_seed))
+    outcome = consensus.finalize(case_id="offline-one-view", payload={"decision": "revoke"},
+                                 started_at=0.0, preferred_leader=config.pbft.validators[0])
+    assert not outcome.committed
+    assert outcome.reason == "single_view_safety_mode_no_verified_transition"
+    assert outcome.view == 0
+
+
+def test_v5_single_view_mode_async_timeout_does_not_advance_view():
+    from vpuft.des import Scheduler
+
+    config = _coordinator_config()
+    behaviors = {config.pbft.validators[0]: "offline"}
+    pbft = replace(config.pbft, single_view_safety_mode=True, validator_behaviors=behaviors)
+    scheduler = Scheduler()
+    consensus = PBFTConsensus(pbft, SimulatedTransport(NetworkConfig(packet_delivery_ratio=1.0), 983,
+                                                        scheduler=scheduler),
+                              KeyRegistry(config.security.deterministic_master_seed))
+    outcomes = []
+    consensus.finalize_async(
+        scheduler=scheduler, case_id="async-offline-one-view", payload={"decision": "revoke"},
+        started_at=0.0, preferred_leader=config.pbft.validators[0],
+        on_complete=lambda outcome, _time: outcomes.append(outcome),
+    )
+    scheduler.run()
+    assert len(outcomes) == 1
+    assert not outcomes[0].committed
+    assert outcomes[0].view == 0
+    assert outcomes[0].reason == "single_view_safety_mode_no_verified_transition"

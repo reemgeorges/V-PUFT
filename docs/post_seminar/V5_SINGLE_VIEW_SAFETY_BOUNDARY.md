@@ -1,0 +1,9 @@
+# V5 single-view safety boundary
+
+The legacy V5 implementation reproduces cross-view conflicting commits on one `PBFTConsensus` instance: with five validators, `f=1`, and `q=4`, two calls for the same case commit different digests in views 0 and 1. Vote locks are scoped by `(validator, view, phase, case_id)`, so the next view authorizes new phase votes without transferring a prepared certificate.
+
+`PBFTConfig.single_view_safety_mode` is an opt-in interim guard. When enabled, both `finalize` and `finalize_async` permit only view 0. If its leader is unavailable, a certificate cannot form, or the instance is retried with a conflicting digest, it returns `single_view_safety_mode_no_verified_transition`; it does not start another view. Normal view-0 V5 finalization still requires the configured 4/5 prepare and commit certificates. The option defaults to false to preserve historical experiments.
+
+Votes and proposals in the current implementation already include the membership digest, canonical case identifier, view, phase, and request digest in their signed payloads. This mode does not add VIEW-CHANGE or NEW-VIEW messages and does not validate externally received certificates: the simulator's voting and certificate delivery remain modeled internally. Consequently, this is a bounded simulator safety boundary, not distributed PBFT safety, crash-durable validator state, coordinator recovery, or end-to-end Byzantine fault tolerance. Failure of the assigned coordinator is fail-closed; no takeover is attempted.
+
+Tests cover the V5 cross-view counterexample in legacy mode, single-view commit, conflicting retry, and offline initial leader in synchronous and asynchronous entry points. The full project regression suite also passes using the read-only historical test artifacts. No saved traces, QE policy, historical output, or SUMO campaign was changed.
