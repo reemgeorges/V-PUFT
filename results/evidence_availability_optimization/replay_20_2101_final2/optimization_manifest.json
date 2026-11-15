@@ -1,0 +1,89 @@
+{
+  "config_sha256": "43b8750dd5e30f77e9039a163ce532254f01afc179b5cdd38baba45cf66b8c07",
+  "trace_path": "C:\\Users\\reemg\\OneDrive\\Desktop\\master\\6\\v10-recall-70-feasibility\\results\\rsu8_pilot\\pilot\\C3\\vehicles_20\\seed_2101\\shared_detection_trace.jsonl",
+  "trace_sha256": "25d11c53c23d7ae71d745661d8837a70739b1b64f9759f789035cff37e02364b",
+  "density": 20,
+  "seed": 2101,
+  "sumo_rerun": false,
+  "saved_trace_only": true,
+  "variants": [
+    {
+      "variant": "C1_deterministic_V5_baseline",
+      "repeats": 1,
+      "cpu_samples_seconds": [
+        1.5625
+      ],
+      "case_count": 121,
+      "trace_sha256": "25d11c53c23d7ae71d745661d8837a70739b1b64f9759f789035cff37e02364b",
+      "attack_opportunities": 19,
+      "opportunity_ids_match_C1": true,
+      "case_universe_matches_C1": true
+    },
+    {
+      "variant": "reference_full_evidence_availability",
+      "repeats": 1,
+      "cpu_samples_seconds": [
+        218.28125
+      ],
+      "case_count": 121,
+      "trace_sha256": "25d11c53c23d7ae71d745661d8837a70739b1b64f9759f789035cff37e02364b",
+      "attack_opportunities": 19,
+      "opportunity_ids_match_C1": true,
+      "case_universe_matches_C1": true
+    },
+    {
+      "variant": "C_receipts_to_coordinator",
+      "repeats": 1,
+      "cpu_samples_seconds": [
+        65.890625
+      ],
+      "case_count": 121,
+      "trace_sha256": "25d11c53c23d7ae71d745661d8837a70739b1b64f9759f789035cff37e02364b",
+      "attack_opportunities": 19,
+      "opportunity_ids_match_C1": true,
+      "case_universe_matches_C1": true
+    },
+    {
+      "variant": "D_validator_local_verification_cache",
+      "repeats": 1,
+      "cpu_samples_seconds": [
+        81.15625
+      ],
+      "case_count": 121,
+      "trace_sha256": "25d11c53c23d7ae71d745661d8837a70739b1b64f9759f789035cff37e02364b",
+      "attack_opportunities": 19,
+      "opportunity_ids_match_C1": true,
+      "case_universe_matches_C1": true
+    },
+    {
+      "variant": "A_full_payload_case_batches",
+      "repeats": 1,
+      "cpu_samples_seconds": [
+        64.453125
+      ],
+      "case_count": 121,
+      "trace_sha256": "25d11c53c23d7ae71d745661d8837a70739b1b64f9759f789035cff37e02364b",
+      "attack_opportunities": 19,
+      "opportunity_ids_match_C1": true,
+      "case_universe_matches_C1": true
+    },
+    {
+      "variant": "A_C_D_batches_coordinator_receipts_cache",
+      "repeats": 1,
+      "cpu_samples_seconds": [
+        7.859375
+      ],
+      "case_count": 121,
+      "trace_sha256": "25d11c53c23d7ae71d745661d8837a70739b1b64f9759f789035cff37e02364b",
+      "attack_opportunities": 19,
+      "opportunity_ids_match_C1": true,
+      "case_universe_matches_C1": true
+    }
+  ],
+  "acceptance_gates": {
+    "cpu_overhead_max_percent": 25,
+    "messages_per_case_overhead_max_percent": 20,
+    "p95_e2e_overhead_max_percent": 5,
+    "new_false_positives": 0
+  }
+}

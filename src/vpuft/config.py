@@ -190,6 +190,9 @@ class DistributedExtensionConfig:
     provenance_safe_observer_diversity: bool = False
     # Opt-in V5 evidence availability protocol. Historical profiles stay unchanged.
     evidence_availability_enabled: bool = False
+    evidence_announcement_batching: bool = False
+    evidence_receipt_dissemination: str = "all_to_all"
+    evidence_verification_cache_enabled: bool = False
     # Adversarial coordinator fault injection used only by focused tests.
     coordinator_omit_opposing_evidence: bool = False
     coordinator_equivocate_evidence_bundle: bool = False
@@ -301,6 +304,13 @@ class ResearchConfig:
             or self.pbft.resolved_quorum != 4
         ):
             raise ValueError("The evidence-availability profile is defined only for V5 with f=1 and q=4/5")
+        if self.distributed_extension.evidence_receipt_dissemination not in {"all_to_all", "coordinator_only"}:
+            raise ValueError("Unsupported evidence receipt dissemination strategy")
+        if (self.distributed_extension.evidence_announcement_batching
+                or self.distributed_extension.evidence_receipt_dissemination == "coordinator_only"
+                or self.distributed_extension.evidence_verification_cache_enabled):
+            if not self.distributed_extension.evidence_availability_enabled:
+                raise ValueError("Evidence availability optimizations require the V5 availability protocol")
         sensing_only = tuple(self.distributed_extension.sensing_only_rsu_ids)
         if len(set(sensing_only)) != len(sensing_only):
             raise ValueError("Sensing-only RSU identities must be unique")

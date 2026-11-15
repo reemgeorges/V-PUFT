@@ -87,6 +87,31 @@ def test_full_payload_receipts_are_gossiped_and_do_not_inflate_independent_roots
     assert result.extension_metrics["evidence_retrieval_messages"] == 0
 
 
+def test_coordinator_only_receipts_reduce_gossip_without_changing_certification():
+    base = replace(_config(), network=replace(_config().network, packet_delivery_ratio=1.0))
+    optimized = replace(
+        base,
+        distributed_extension=replace(
+            base.distributed_extension,
+            evidence_receipt_dissemination="coordinator_only",
+        ),
+    )
+    keys = KeyRegistry(base.security.deterministic_master_seed)
+    reports = [
+        att(keys, "coordinator-receipts", "root-a", "rsu-1", "cell-a", at=1.0),
+        att(keys, "coordinator-receipts", "root-b", "rsu-2", "cell-b", at=1.0),
+    ]
+    target = case("coordinator-receipts", reports)
+    reference = DistributedRSUExtendedVPUFT(base, KeyRegistry(base.security.deterministic_master_seed)).run([target], 7118)
+    candidate = DistributedRSUExtendedVPUFT(optimized, KeyRegistry(base.security.deterministic_master_seed)).run([target], 7118)
+
+    assert candidate.decisions[0].committed == reference.decisions[0].committed
+    assert candidate.decisions[0].reason == reference.decisions[0].reason
+    assert candidate.decisions[0].metadata["evidence_availability_certificates"] == 2
+    assert reference.extension_metrics["evidence_receipt_messages"] == 40
+    assert candidate.extension_metrics["evidence_receipt_messages"] == 8
+
+
 def test_independent_bundle_equivocation_is_rejected_by_local_inventories():
     config = _config()
     config = replace(
@@ -262,3 +287,114 @@ def test_never_announced_observer_evidence_is_not_detectable_by_runtime():
 
     assert all(row["attestation_id"] != withheld.attestation_id for row in result.evidence_rows)
     assert result.decisions[0].metadata["evidence_availability_certificates"] == 2
+
+
+def test_batched_coordinator_receipts_preserve_qualification_and_opposition_checks():
+    base = replace(_config(), network=replace(_config().network, packet_delivery_ratio=1.0))
+    optimized = replace(
+        base,
+        distributed_extension=replace(
+            base.distributed_extension,
+            evidence_announcement_batching=True,
+            evidence_receipt_dissemination="coordinator_only",
+        ),
+    )
+    keys = KeyRegistry(base.security.deterministic_master_seed)
+    reports = [
+        att(keys, "batched-case", f"root-a-{index}", "rsu-1", f"cell-a-{index}", at=1.0 + index)
+        for index in range(6)
+    ] + [
+        att(keys, "batched-case", f"root-b-{index}", "rsu-2", f"cell-b-{index}", at=1.0 + index)
+        for index in range(6)
+    ] + [
+        att(keys, "batched-case", "root-opposing", "rsu-3", "cell-o",
+            direction=EvidenceDirection.OPPOSES, at=7.0),
+    ]
+    target = case("batched-case", reports)
+    reference = DistributedRSUExtendedVPUFT(base, KeyRegistry(base.security.deterministic_master_seed)).run([target], 7120)
+    candidate = DistributedRSUExtendedVPUFT(optimized, KeyRegistry(base.security.deterministic_master_seed)).run([target], 7120)
+
+    assert (reference.decisions[0].committed, reference.decisions[0].reason,
+            reference.decisions[0].metadata["independent_roots"]) == (
+        candidate.decisions[0].committed, candidate.decisions[0].reason,
+        candidate.decisions[0].metadata["independent_roots"],
+    )
+    assert candidate.decisions[0].metadata["evidence_availability_certificates"] == len(reports)
+    assert candidate.decisions[0].metadata["evidence_batch_certificate_count"] == 3
+    assert candidate.extension_metrics["evidence_announcement_batch_messages"] == 12
+    assert candidate.extension_metrics["evidence_batch_receipt_messages"] == 12
+    assert candidate.extension_metrics["evidence_receipt_messages"] == 0
+
+
+def test_batched_opposing_report_cannot_be_removed_by_coordinator():
+    base = replace(_config(), network=replace(_config().network, packet_delivery_ratio=1.0))
+    coordinator = DistributedRSUExtendedVPUFT(base, KeyRegistry(base.security.deterministic_master_seed))._select_coordinator(
+        case("batched-omission", ())
+    )
+    config = replace(
+        base,
+        distributed_extension=replace(
+            base.distributed_extension,
+            evidence_announcement_batching=True,
+            evidence_receipt_dissemination="coordinator_only",
+            coordinator_omit_opposing_evidence=True,
+        ),
+        pbft=replace(base.pbft, validator_behaviors={coordinator: "accept_invalid"}),
+    )
+    keys = KeyRegistry(config.security.deterministic_master_seed)
+    reports = [
+        att(keys, "batched-omission", "root-support-a", "rsu-1", "cell-a", at=1.0),
+        att(keys, "batched-omission", "root-support-b", "rsu-2", "cell-b", at=2.0),
+        att(keys, "batched-omission", "root-opposing", "rsu-3", "cell-o",
+            direction=EvidenceDirection.OPPOSES, at=3.0),
+    ]
+
+    result = DistributedRSUExtendedVPUFT(config, keys).run([case("batched-omission", reports)], 7121)
+
+    assert not any(outcome.committed for outcome in result.consensus)
+    assert result.decisions[0].reason == "evidence_bundle_reconciliation_failed"
+
+
+def test_batch_closure_excludes_late_observation_without_looking_ahead_or_crashing():
+    config = replace(
+        _config(),
+        network=replace(_config().network, packet_delivery_ratio=1.0),
+    )
+    config = replace(
+        config,
+        distributed_extension=replace(
+            config.distributed_extension,
+            evidence_announcement_batching=True,
+            evidence_receipt_dissemination="coordinator_only",
+        ),
+    )
+    keys = KeyRegistry(config.security.deterministic_master_seed)
+    timely = att(keys, "batch-late", "root-timely", "rsu-1", "cell-a", at=10.0)
+    late = att(keys, "batch-late", "root-late", "rsu-2", "cell-b", at=16.0)
+
+    result = DistributedRSUExtendedVPUFT(config, keys).run([case("batch-late", [timely, late])], 7122)
+
+    assert result.decisions[0].metadata["attempted_attestations"] == 2
+    assert {row["attestation_id"] for row in result.evidence_rows} == {"att-root-timely-rsu-1"}
+    assert result.decisions[0].metadata["evidence_incomplete_attestations"] == 1
+
+
+def test_batch_closure_keeps_case_collectors_isolated_across_cases():
+    config = _config()
+    config = replace(
+        config,
+        network=replace(config.network, packet_delivery_ratio=1.0),
+        distributed_extension=replace(
+            config.distributed_extension,
+            evidence_announcement_batching=True,
+            evidence_receipt_dissemination="coordinator_only",
+        ),
+    )
+    keys = KeyRegistry(config.security.deterministic_master_seed)
+    first = case("batch-case-one", [att(keys, "batch-case-one", "root-one", "rsu-1", "cell-one", at=1.0)])
+    second = case("batch-case-two", [att(keys, "batch-case-two", "root-two", "rsu-2", "cell-two", at=2.0)])
+
+    result = DistributedRSUExtendedVPUFT(config, keys).run([first, second], 7123)
+
+    assert len(result.decisions) == 2
+    assert {row["case_id"] for row in result.evidence_rows} == {"batch-case-one", "batch-case-two"}
