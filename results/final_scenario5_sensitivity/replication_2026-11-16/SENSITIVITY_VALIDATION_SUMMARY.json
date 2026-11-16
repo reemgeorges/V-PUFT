@@ -1,0 +1,133 @@
+{
+  "status": {
+    "status": "paused_wall_cap",
+    "completed_runs": 103,
+    "expected_architecture_runs": 120,
+    "active_elapsed_seconds": 3651.8129999999946
+  },
+  "actual_completed_runs": 103,
+  "planned_runs": 120,
+  "missing_cells": [
+    [
+      "baseline",
+      100,
+      7008,
+      "C100"
+    ],
+    [
+      "baseline",
+      100,
+      7008,
+      "Distributed"
+    ],
+    [
+      "freshness_12s",
+      100,
+      7007,
+      "C100"
+    ],
+    [
+      "freshness_12s",
+      100,
+      7008,
+      "C100"
+    ],
+    [
+      "freshness_12s",
+      100,
+      7008,
+      "Distributed"
+    ],
+    [
+      "freshness_30s",
+      100,
+      7007,
+      "C100"
+    ],
+    [
+      "freshness_30s",
+      100,
+      7007,
+      "Distributed"
+    ],
+    [
+      "freshness_30s",
+      100,
+      7008,
+      "C100"
+    ],
+    [
+      "freshness_30s",
+      100,
+      7008,
+      "Distributed"
+    ],
+    [
+      "position_sources_1",
+      100,
+      7007,
+      "C100"
+    ],
+    [
+      "position_sources_1",
+      100,
+      7007,
+      "Distributed"
+    ],
+    [
+      "position_sources_1",
+      100,
+      7008,
+      "C100"
+    ],
+    [
+      "position_sources_1",
+      100,
+      7008,
+      "Distributed"
+    ],
+    [
+      "position_sources_3",
+      100,
+      7007,
+      "C100"
+    ],
+    [
+      "position_sources_3",
+      100,
+      7007,
+      "Distributed"
+    ],
+    [
+      "position_sources_3",
+      100,
+      7008,
+      "C100"
+    ],
+    [
+      "position_sources_3",
+      100,
+      7008,
+      "Distributed"
+    ]
+  ],
+  "failed_cells": [],
+  "trace_count": 12,
+  "figures": [
+    "figures/RECALL_SENSITIVITY_300dpi.png",
+    "figures/RESOURCE_SENSITIVITY_300dpi.png"
+  ],
+  "independent_method_b_recomputed_cells": 103,
+  "opportunity_metrics_recomputed_cells": 103,
+  "fixed_opportunity_definition": "One unique emitted malicious V2X message identity; opportunity denominator is fixed within each density-seed trace.",
+  "detected_opportunity_definition": "Observed malicious message mapped to a 15-second case with a committed REVOKED decision.",
+  "protected_opportunity_definition": "First committed vehicle revocation finalized strictly before the message's actual emission/transmission time.",
+  "statistical_unit": "seed-level paired difference",
+  "confidence_interval": "two-sided 95% Student-t interval; descriptive only at n=4 or n=6",
+  "resource_gates": {
+    "runtime_seconds_registered": 3600,
+    "runtime_seconds_observed": 3651.8129999999946,
+    "raw_output_bytes_registered": 3000000000,
+    "raw_output_bytes_observed": 2007798978
+  }
+}

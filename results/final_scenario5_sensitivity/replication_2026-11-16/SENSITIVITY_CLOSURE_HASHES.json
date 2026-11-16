@@ -1,0 +1,53 @@
+{
+  "baseline_commit": "19fafe5ae71dc570c0809dabbdfc7483863d9cc7",
+  "analysis_scripts": {
+    "scripts/sensitivity_replication_analysis.py": "3991bc26d01e1d931d34069d75a18bd27311b84d5ef2ab308e800d154812086f",
+    "scripts/build_sensitivity_closure_package.py": "db3286d9673555d591debd895346d506a4cd463bbb44bb34fe4e39647c21f3b4"
+  },
+  "source_artifacts": {
+    "C:\\Users\\reemg\\OneDrive\\Desktop\\master\\6\\v10-final-scenario5\\results\\final_scenario5_sensitivity\\pilot_2026-11-16\\SENSITIVITY_METRICS_BY_SEED.csv": "61d7d9c8c50fbf4c9de0da73ac37e2f62a1eea427f707aa9b0cb980514419ea7",
+    "C:\\Users\\reemg\\OneDrive\\Desktop\\master\\6\\v10-final-scenario5\\results\\final_scenario5_sensitivity\\pilot_2026-11-16\\SENSITIVITY_FIXED_OPPORTUNITIES_CORRECTED.csv": "26f7df195af596c1808763a8d4494b48485ce7f1d5502914c8a19cf215715e7e",
+    "C:\\Users\\reemg\\OneDrive\\Desktop\\master\\6\\v10-final-scenario5\\results\\final_scenario5_sensitivity\\replication_2026-11-16\\SENSITIVITY_METRICS_BY_SEED.csv": "d3a937f34691e4f8c23bb96463db54375770797602dec9524730229610900b5b",
+    "C:\\Users\\reemg\\OneDrive\\Desktop\\master\\6\\v10-final-scenario5\\results\\final_scenario5_sensitivity\\replication_2026-11-16\\SENSITIVITY_FIXED_OPPORTUNITIES.csv": "5762bbc686cf4ec544958b5502a0a60392952736b5ff0eab76a409439965fe72",
+    "C:\\Users\\reemg\\OneDrive\\Desktop\\master\\6\\v10-final-scenario5\\results\\final_scenario5_sensitivity\\replication_2026-11-16\\SENSITIVITY_RUN_CONTEXT.json": "848e3907ac601645d8324a4c436379e5b46d5f19d5a92fc4d415234593bb7bde",
+    "C:\\Users\\reemg\\OneDrive\\Desktop\\master\\6\\v10-final-scenario5\\results\\final_scenario5_sensitivity\\replication_2026-11-16\\SENSITIVITY_TRACE_MANIFEST.json": "fedd9164214863fa118ae82d5590a5038be52e6cbd0030e5a869f10d1dbda883",
+    "C:\\Users\\reemg\\OneDrive\\Desktop\\master\\6\\v10-final-scenario5\\results\\final_scenario5_sensitivity\\replication_2026-11-16\\SENSITIVITY_EFFECTIVE_CONFIGS.json": "4d6694fbaf178d730cd122fa56568d7e8ecdd4adb2febd66b451742b4e7d5a6b",
+    "C:\\Users\\reemg\\OneDrive\\Desktop\\master\\6\\v10-final-scenario5\\results\\final_scenario5_sensitivity\\replication_2026-11-16\\SENSITIVITY_VALIDATION_SUMMARY.json": "87ce25f0931d39defa0bce310f0ed16b84347f92223d52c349fa09e1d783c5e5"
+  },
+  "output_artifacts": {
+    "results/final_scenario5_sensitivity/replication_2026-11-16/SENSITIVITY_PILOT_VS_REPLICATION.csv": "26bc6667c5cc88541146d983b046a0fd96aba7e0a7ed02ffd77a50f265f00fdf",
+    "results/final_scenario5_sensitivity/replication_2026-11-16/SENSITIVITY_OUTPUT_HASHES.json": "3b0be5e233f968c757947d8d3f989ef01ce3ca9c1f485018771c2788434f6937",
+    "results/final_scenario5_sensitivity/replication_2026-11-16/SENSITIVITY_AGGREGATED_RESULTS.csv": "e09acad97ecb7143590c1ef608e72adc3656b10d334cd36025b183a9ec0bd1e8",
+    "results/final_scenario5_sensitivity/replication_2026-11-16/SENSITIVITY_ARCHITECTURE_PAIRED.csv": "f5da6e018bab64cc3599769753204b6cc69aae3b3b0c42493005461c12c87dd3",
+    "results/final_scenario5_sensitivity/replication_2026-11-16/SENSITIVITY_ARCHITECTURE_CASE_DIFFERENCES.csv": "62c4e49fb8bebaba1aab1285f07b7fdeb2888e6bdb229f461115e3eb44a6ccbc",
+    "results/final_scenario5_sensitivity/replication_2026-11-16/SENSITIVITY_CASE_DIFFERENCES.csv": "18b40553f8c4a69f3a7878a168a02510f3e1484ce655b3d0f7b508c7381e31d7",
+    "results/final_scenario5_sensitivity/replication_2026-11-16/SENSITIVITY_EFFECTIVE_CONFIGS.json": "4d6694fbaf178d730cd122fa56568d7e8ecdd4adb2febd66b451742b4e7d5a6b",
+    "results/final_scenario5_sensitivity/replication_2026-11-16/SENSITIVITY_FIXED_OPPORTUNITIES.csv": "5762bbc686cf4ec544958b5502a0a60392952736b5ff0eab76a409439965fe72",
+    "results/final_scenario5_sensitivity/replication_2026-11-16/SENSITIVITY_METRICS_BY_SEED.csv": "d3a937f34691e4f8c23bb96463db54375770797602dec9524730229610900b5b",
+    "results/final_scenario5_sensitivity/replication_2026-11-16/SENSITIVITY_RUN_CONTEXT.json": "848e3907ac601645d8324a4c436379e5b46d5f19d5a92fc4d415234593bb7bde",
+    "results/final_scenario5_sensitivity/replication_2026-11-16/SENSITIVITY_RUN_MANIFEST.csv": "363e848a233539a3f7496ab0b33879e5f6c1ca68a4f4999d7d8513d33ef4fee6",
+    "results/final_scenario5_sensitivity/replication_2026-11-16/SENSITIVITY_STATISTICAL_ANALYSIS.md": "4fa1cc8590185a1119f7ee6c873641d9e83e4022c8511ba08619f3d4503aa4ae",
+    "results/final_scenario5_sensitivity/replication_2026-11-16/SENSITIVITY_TRACE_MANIFEST.json": "fedd9164214863fa118ae82d5590a5038be52e6cbd0030e5a869f10d1dbda883",
+    "results/final_scenario5_sensitivity/replication_2026-11-16/SENSITIVITY_VALIDATION_SUMMARY.json": "87ce25f0931d39defa0bce310f0ed16b84347f92223d52c349fa09e1d783c5e5",
+    "results/final_scenario5_sensitivity/replication_2026-11-16/figures/RECALL_SENSITIVITY_300dpi.png": "267dffbb3ba1e1006ed6c6acfc5bc7d7e1f5034b76b72b8d44ddc1f2a98df16d",
+    "results/final_scenario5_sensitivity/replication_2026-11-16/figures/RESOURCE_SENSITIVITY_300dpi.png": "07f35358e1a4dcfdb8a537e5e439b55a07701763fe07f7f51de43b03a4bda436",
+    "results/final_scenario5_sensitivity/replication_2026-11-16/figures/SENSITIVITY_PILOT_VS_REPLICATION_300dpi.png": "edf3f819469825147b2e5e72ca2014cd2a94747a88d9263bd2f9c734c0211b82",
+    "docs/final_scenario5_sensitivity/SENSITIVITY_EXPERIMENT_PLAN.md": "fab9d1b805985d3ae78e45c3a15cea33a2173bcaad1d8f95c9382c4bbccbccb7",
+    "docs/final_scenario5_sensitivity/SENSITIVITY_STATISTICAL_ANALYSIS.md": "4fa1cc8590185a1119f7ee6c873641d9e83e4022c8511ba08619f3d4503aa4ae",
+    "docs/final_scenario5_sensitivity/SENSITIVITY_FINDINGS_AR.md": "dc55e0f4fda6515c63e851537807138c1edf741e393bdc6849e7cc67591a9804",
+    "docs/final_scenario5_sensitivity/SENSITIVITY_LIMITATIONS_AR.md": "16b3bbd27558a584638f8d68e3369f813a1c18480dc0a4619dbfdf40c7c2d2f7"
+  },
+  "pilot_trace_manifest_sha256": "e54cce51cf0901f205a331b9409db2c20258993020192f88a66774ef953001b5",
+  "replication_trace_manifest_sha256": "fedd9164214863fa118ae82d5590a5038be52e6cbd0030e5a869f10d1dbda883",
+  "raw_replication_location": "C:/Users/reemg/AppData/Local/VPUFT-Preservation-2026-11-15/sensitivity_replication_2026-11-16",
+  "raw_replication_is_local_uncommitted_data": true,
+  "completed_architecture_runs": 103,
+  "planned_architecture_runs": 120,
+  "not_run_cells": 17,
+  "failed_cells": 0,
+  "runtime_cap_seconds": 3600,
+  "runtime_seconds_observed": 3651.813,
+  "raw_size_cap_bytes": 3000000000,
+  "raw_size_bytes_observed": 2007798978,
+  "committed_raw_traces": false
+}

@@ -1,0 +1,60 @@
+{
+  "traces": [
+    {
+      "density": 20,
+      "seed": 7001,
+      "trace_sha256": "455bb12d9ee8b02aa6d62625e9509057db528b00a2948b439739a2a25b700343",
+      "generated_messages_sha256": "465246d12007704649cbbb4751342c169617e37f43b799ffcdec083bcdfca723",
+      "attack_ground_truth_sha256": "b7b444f613994b87070fa37e403acaca522b03401cc7ca570735383cba8d89e6",
+      "mobility_trace_sha256": "d3a1c0b5dc6de81a0d7eeba3e7bddc21e5e24bbaaefa4721176c705acf6599cb",
+      "scenario_manifest_sha256": "2c2c7d419f865fef7fd81a08098ee982963b467ba6694fe411cf20a040fbf388",
+      "unique_vehicles": 20,
+      "cases_in_raw_detection_trace": 132,
+      "v2x_messages": 1904,
+      "detection_events": 10095,
+      "trace_wall_seconds": 5.23499999998603
+    },
+    {
+      "density": 20,
+      "seed": 7002,
+      "trace_sha256": "74ae661b0bd5eda2444c591f19c6e14c95a78af947f20204c5adc9b9857c6b76",
+      "generated_messages_sha256": "f7fcc5ef6a2e58c95a436c87382bbc01b6945b164fbfeb7102757192408cfa52",
+      "attack_ground_truth_sha256": "4c2f1b33889f82b4dc119f250e6f34d052811c31bb87f52c9ed886be4c9b7d2f",
+      "mobility_trace_sha256": "5d6ec9c097d87aa8a2395009de7227cebc4f4c2ea1c1b36ffa9c438f374b6b1e",
+      "scenario_manifest_sha256": "c0c14c0e6da83605d418bb86d0e601f2678d219f0d1ce33b4b1ebece5d0c6a68",
+      "unique_vehicles": 20,
+      "cases_in_raw_detection_trace": 132,
+      "v2x_messages": 1904,
+      "detection_events": 10031,
+      "trace_wall_seconds": 6.062999999994645
+    },
+    {
+      "density": 100,
+      "seed": 7001,
+      "trace_sha256": "b6e0296bcf7b000188e99b96ea87f5279766667d47e00887beac0fa989ecbf74",
+      "generated_messages_sha256": "35d5158404f4b6813ac9c1ff4cd67ed01c9315f9090ffa40dc75da92cd37561d",
+      "attack_ground_truth_sha256": "dbe0382218dd89d6de5e72cc0167989bb2e28f65709723e0c351eedd56deaece",
+      "mobility_trace_sha256": "c40677d2d7f356231014252d6169053d352dc40b5558919102f9925970e63388",
+      "scenario_manifest_sha256": "5af735f60ac1958d25219a703d45215505bba7d5723e8d9cd8e958e345e4d556",
+      "unique_vehicles": 100,
+      "cases_in_raw_detection_trace": 630,
+      "v2x_messages": 8833,
+      "detection_events": 81580,
+      "trace_wall_seconds": 50.953999999997905
+    },
+    {
+      "density": 100,
+      "seed": 7002,
+      "trace_sha256": "1c8ab3c7583bde16f46cfce7be6d5a0e710b08d872fe7d8552e8c9fb43dd7935",
+      "generated_messages_sha256": "08601db0e14f3cc817339a3ea735d03650a82413a055f4c8a5240852c7b16e02",
+      "attack_ground_truth_sha256": "6b6e30c775f918674403300f8e27dd4aa5f9d6632652c315901c44488989bb25",
+      "mobility_trace_sha256": "29ed05f3cf27d53a2cd5c9c8fc245132351c2f9a829c3cbf998ad41f7e2a110f",
+      "scenario_manifest_sha256": "b0ca7bb77bcad5f5ff221e5934e9ecd182f1191f774a8a53efaabc79ab60a1f7",
+      "unique_vehicles": 100,
+      "cases_in_raw_detection_trace": 631,
+      "v2x_messages": 8874,
+      "detection_events": 81907,
+      "trace_wall_seconds": 43.07799999997951
+    }
+  ]
+}

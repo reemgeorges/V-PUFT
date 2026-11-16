@@ -21,6 +21,8 @@ from scripts.run_final_scenario5_sensitivity_replication import (
     completed_cell_index,
     validate_cell_checkpoint,
 )
+from scripts.sensitivity_replication_analysis import expected_cell_keys, paired_t_summary
+from scripts.build_sensitivity_closure_package import metric_row
 from vpuft.state_aware_evaluation import state_aware_first_revocation_metrics
 
 
@@ -206,3 +208,47 @@ def test_resume_accepts_only_a_complete_matching_cell_checkpoint():
                                  [{**opportunity[0], "trace_sha256": "other"}], decisions)
     with pytest.raises(RuntimeError, match="decision count"):
         validate_cell_checkpoint(key, 2, manifest, metric, opportunity, decisions[:1])
+
+
+def test_registered_design_contains_exactly_120_unique_architecture_cells():
+    cells = expected_cell_keys()
+    assert len(cells) == 120
+    assert len(set(cells)) == 120
+    assert ("baseline", 20, 7003, "C100") in cells
+    assert ("position_sources_1", 100, 7008, "Distributed") in cells
+
+
+def test_paired_t_interval_uses_seed_level_sample_and_reports_small_n():
+    result = paired_t_summary([1.0, 2.0, 3.0])
+    assert result["n"] == 3
+    assert result["mean"] == 2.0
+    assert result["ci95_low"] == pytest.approx(-0.4841, abs=0.002)
+    assert result["ci95_high"] == pytest.approx(4.4841, abs=0.002)
+    one = paired_t_summary([0.25])
+    assert one["n"] == 1
+    assert math.isnan(one["ci95_low"])
+
+
+def test_closure_table_uses_pooled_confusion_and_fixed_opportunity_denominators():
+    metrics = [{
+        "variant_id": "baseline", "density": "20", "architecture": "C100", "seed": "7001",
+        "TP": "1", "FP": "1", "TN": "9", "FN": "3", "excluded_post_revocation_cases": "2",
+        "malicious_revocation_recall": "0.25", "trust_precision": "0.5",
+        "false_revocation_rate": "0.1", "trust_f1": "0.333333", "mcc": "0.25",
+        "cpu_time_seconds": "1.5", "latency_p95_ms": "100", "messages_per_decision": "20",
+        "bytes_per_decision": "500", "packet_delivery_ratio": "0.98",
+        "ledger_consistency_delay_p95_ms": "3",
+    }]
+    opportunities = [{
+        "variant_id": "baseline", "density": "20", "architecture": "C100", "seed": "7001",
+        "attack_message_opportunities": "10", "observed_attack_messages": "8",
+        "unobserved_attack_messages": "2", "successfully_detected_attack_messages": "4",
+        "protected_attack_messages": "3",
+    }]
+    row = metric_row("pilot", 20, "baseline", "C100", metrics, opportunities)
+    assert (row["TP"], row["FP"], row["TN"], row["FN"]) == (1, 1, 9, 3)
+    assert row["pooled_precision"] == pytest.approx(0.5)
+    assert row["pooled_state_aware_recall"] == pytest.approx(0.25)
+    assert row["pooled_FRR"] == pytest.approx(0.1)
+    assert row["fixed_denominator_opportunity_recall"] == pytest.approx(0.4)
+    assert row["fixed_denominator_protected_fraction"] == pytest.approx(0.3)
