@@ -1,0 +1,16 @@
+{
+  "accepted_commit": "c1878e8d6bef7a44830d8b44d5f55d47d5810f3c",
+  "branch": "research/final-scenario5",
+  "sha256": {
+    "results/urban_roundabout_campaign_corrected_final/effective_config.json": "2969b2f8ddfb13bfffe20cf203bfddf251d62a761dc577e9d88d0e07f750cead",
+    "results/urban_roundabout_campaign_corrected_final/combined/density_metrics_by_seed.csv": "3090141874e1a2ab71b0c044e428ebe972eab4a01789f1151b709bedc78f8b41",
+    "results/urban_roundabout_campaign_corrected_final/combined/density_decisions.csv": "bc3bc7050cff575ecfee38171ad3c1cdb2a2442e4fae799c7dce13c6a6d22e3e",
+    "docs/final_scenario5_evidence_package/METHOD_B_CORRECTED_FINAL/SCENARIO5_METHOD_B_VERIFIED_METRICS.csv": "71ba5bb86fbdc9a433e26606baefe5f630146ecf3e0d76d1b944fecfbfd83bf0",
+    "sumo/urban_roundabout/rsus.json": "1e255ee33493ccfcafd9114c43c3da7b53360558bd024a17c1e72a6145a82da2",
+    "sumo/urban_roundabout/attacks.json": "a5338d955b09046ec0b16f3a9625b7955c763aae07dc722e474e6078745f932f",
+    "sumo/urban_roundabout/urban_roundabout.sumocfg": "93eeb5bf485e84eb71f36c729c331a3cf14545060d9760ae2df7edce2a188923",
+    "sumo/urban_roundabout/urban_roundabout.nod.xml": "52b7255863a2a9e8b6842d796432a7547d7e285c1a4cdce4cda92f7077392f77",
+    "sumo/urban_roundabout/urban_roundabout.edg.xml": "59299885274bd66b7151f264d2b3394998d36fa4d7224ce2bff6ae6f48b9075c",
+    "sumo/urban_roundabout/urban_roundabout.rou.xml": "f09cf148f9b152077cf2a55db1b146aaf922bafcdb0729159c78d74098536c9a"
+  }
+}
