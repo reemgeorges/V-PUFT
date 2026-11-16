@@ -9,7 +9,10 @@ import numpy as np
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "src"))
+from scripts.sensitivity_opportunities import build_base_emission_times, evaluate_attack_opportunities
+
 PILOT = ROOT / "results/final_scenario5_sensitivity/pilot_2026-11-16"
 RESULTS = ROOT / "results/final_scenario5_sensitivity"
 DOCS = ROOT / "docs/final_scenario5_sensitivity"
@@ -75,56 +78,21 @@ def main():
         density, seed = int(tr["density"]), int(tr["seed"])
         td = PILOT / "shared_inputs/traces" / f"density_{density}" / f"seed_{seed}"
         generated = pd.read_csv(td / "generated_messages.csv")
-        mobility = pd.read_csv(td / "mobility_trace.csv")
-        base_emission_time = {}
-        for vehicle, frames in mobility.groupby("vehicle_id"):
-            for index, frame in enumerate(frames.sort_values("simulation_time").itertuples(index=False)):
-                base_emission_time[f"cam-{seed}-{vehicle}-{index:06d}"] = float(frame.simulation_time)
         attacks = generated[generated.ground_truth_malicious.astype(str).str.lower().isin(["true","1"])]
-        if attacks.message_id.duplicated().any():
-            raise RuntimeError(f"Emitted message IDs are not unique: {density}/{seed}")
+        mobility = pd.read_csv(td / "mobility_trace.csv")
+        base_emission_time = build_base_emission_times(
+            mobility.to_dict("records"), seed=seed)
         events = pd.read_json(td / "shared_detection_trace.jsonl", lines=True)
-        srcs, msgcases = {}, {}
-        for e in events.to_dict("records"):
-            mid = str(e["message_id"])
-            srcs.setdefault(mid,set()).add(str(e["source_kind"]).lower())
-            msgcases.setdefault(mid,set()).add(str(e["case_id"]))
         dm = d[(d.density==density)&(d.seed==seed)]
         for (variant,arch), g in dm.groupby(["variant_id","architecture"]):
-            bycase = {str(x["case_id"]):x for x in g.to_dict("records")}
-            revoked = {}
-            for x in g.to_dict("records"):
-                if int(x["committed"]) and str(x["new_state"]).lower()=="revoked" and pd.notna(x["finalized_at"]):
-                    v=str(x["vehicle_id"]); revoked[v]=min(float(x["finalized_at"]),revoked.get(v,float("inf")))
-            obs=rsuobs=det=prot=0
-            for x in attacks.to_dict("records"):
-                mid=str(x["message_id"]); t=float(x["generated_at"]); v=str(x["sender_vehicle_id"])
-                if mid.startswith("replay-"):
-                    base_id=mid[len("replay-"):]
-                    if base_id not in base_emission_time: raise RuntimeError(f"Cannot recover replay emission time: {mid}")
-                    t=base_emission_time[base_id]
-                wi=int(math.floor(max(0.0,t)/WINDOW))
-                cid=f"case-urban_roundabout-{seed}-{v}-w{wi:04d}"
-                sources=srcs.get(mid,set())
-                if sources:
-                    obs += 1
-                    if "rsu" in sources: rsuobs += 1
-                    if msgcases.get(mid) != {cid}:
-                        raise RuntimeError(f"Observed message case mismatch: {mid}")
-                dec=bycase.get(cid)
-                if sources and dec is not None and int(dec["committed"]) and str(dec["new_state"]).lower()=="revoked":
-                    det += 1
-                if v in revoked and revoked[v] < t:
-                    prot += 1
-            n=len(attacks)
+            summary = evaluate_attack_opportunities(
+                attacks.to_dict("records"), events.to_dict("records"),
+                g.to_dict("records"), base_emission_time, seed=seed,
+                window_seconds=WINDOW)
             opportunities.append({
                 "variant_id":variant,"factor":str(g.iloc[0].factor),"level":str(g.iloc[0].level),
                 "density":density,"seed":seed,"architecture":arch,
-                "attack_message_opportunities":n,"observed_attack_messages":obs,
-                "rsu_observed_attack_messages":rsuobs,"unobserved_attack_messages":n-obs,
-                "successfully_detected_attack_messages":det,"missed_attack_messages":n-det,
-                "opportunity_detection_recall":div(det,n),"protected_attack_messages":prot,
-                "protected_opportunity_fraction":div(prot,n),"trace_sha256":tr["trace_sha256"],
+                **summary,"trace_sha256":tr["trace_sha256"],
                 "definition":"Unique emitted malicious V2X message ID; observed if any detection event contains the ID; detected if observed and its mapped 15-second case commits revocation; protected if first vehicle revocation finalized strictly before message emission."
             })
     op=pd.DataFrame(opportunities)
