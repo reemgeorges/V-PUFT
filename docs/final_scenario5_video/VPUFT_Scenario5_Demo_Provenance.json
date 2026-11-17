@@ -1,0 +1,230 @@
+{
+  "artifact": "V-PUFT Scenario 5 defense demonstration",
+  "created_utc": "2026-11-17T15:26:03.165442+00:00",
+  "branch": "research/final-scenario5",
+  "repository_head_at_render": "26c0de2ec0fd2c3e63a20da9fe585ba34b2c11e5",
+  "visualization": "trace-based; not native SUMO-GUI capture",
+  "execution_scope": "No SUMO rerun or V-PUFT algorithm re-execution; saved mobility and case records are synchronized for display.",
+  "campaign": {
+    "name": "sensitivity replication trace reused by ablation baseline",
+    "frozen_corrected_final_dataset_b": false,
+    "density": 20,
+    "seed": 7003,
+    "trace_sha256": "cb43f7bbb9d3594a6d006ce5525c86f293ea6c2d0d5b7ba8409181a8d9547bc7",
+    "case_id": "case-urban_roundabout-7003-veh_000-w0001",
+    "vehicle_id": "veh_000",
+    "attack_type": "position_offset",
+    "unique_vehicles": 20
+  },
+  "baseline": {
+    "variant": "baseline",
+    "architecture": "Distributed",
+    "execution_kind": "reused_saved_baseline",
+    "execution_commit": "19fafe5ae71dc570c0809dabbdfc7483863d9cc7",
+    "execution_branch": "research/final-scenario5",
+    "adapter": "production_engine_no_adapter",
+    "effective_config_sha256": "a0e7128f0a9f84210686e00415094da465a0bc1f18acc555b0998b748ae98aa8",
+    "rsu_range_m": 450.0,
+    "case_record": {
+      "opened_at": "15.0",
+      "detected_at": "15.0",
+      "qualified_at": "29.00745334906199",
+      "finalized_at": "29.06812080245889",
+      "ledger_available_at": "29.08291556023317",
+      "committed": "1",
+      "predicted_revoked": "1",
+      "new_state": "revoked",
+      "reason": "committed"
+    }
+  },
+  "attack_event": {
+    "message_id": "cam-7003-veh_000-000014",
+    "generated_at_sumo_seconds": 15.0,
+    "trajectory_position_m": [
+      195.11376087959525,
+      998.4
+    ],
+    "reported_position_m": [
+      260.11376087959525,
+      1014.65
+    ],
+    "ground_truth_source": "attack_ground_truth.csv; offline evaluation record"
+  },
+  "rsu_geometry": {
+    "configured_range_m": 450.0,
+    "net_offset": [
+      500.0,
+      500.0
+    ],
+    "positions_in_network_frame": [
+      {
+        "id": "rsu-1",
+        "config_xy": [
+          0,
+          145
+        ],
+        "network_xy": [
+          500.0,
+          645.0
+        ],
+        "domain": "domain-1"
+      },
+      {
+        "id": "rsu-2",
+        "config_xy": [
+          145,
+          0
+        ],
+        "network_xy": [
+          645.0,
+          500.0
+        ],
+        "domain": "domain-1"
+      },
+      {
+        "id": "rsu-3",
+        "config_xy": [
+          0,
+          -145
+        ],
+        "network_xy": [
+          500.0,
+          355.0
+        ],
+        "domain": "domain-2"
+      },
+      {
+        "id": "rsu-4",
+        "config_xy": [
+          -145,
+          0
+        ],
+        "network_xy": [
+          355.0,
+          500.0
+        ],
+        "domain": "domain-2"
+      },
+      {
+        "id": "rsu-5",
+        "config_xy": [
+          -375,
+          500
+        ],
+        "network_xy": [
+          125.0,
+          1000.0
+        ],
+        "domain": "domain-3"
+      },
+      {
+        "id": "rsu-6",
+        "config_xy": [
+          375,
+          -500
+        ],
+        "network_xy": [
+          875.0,
+          0.0
+        ],
+        "domain": "domain-3"
+      }
+    ],
+    "markers_are_native_sumo_entities": false,
+    "rings_show": "configured range, not actual detection"
+  },
+  "evidence_trace": {
+    "rows_for_case": 58,
+    "unique_roots": 45,
+    "source_ids": [
+      "rsu-1",
+      "rsu-5",
+      "veh_004",
+      "veh_012"
+    ],
+    "geographic_cells": [
+      "cell-0-3",
+      "cell-0-4",
+      "cell-1-3",
+      "cell-2-2"
+    ],
+    "final_bundle_membership_available": false
+  },
+  "source_files_sha256": {
+    "scenario_manifest.json": "52f13140d5bf5b54036a5821565c766c6de484d2eacbb50a21b43d4dd994a9b0",
+    "mobility_trace.csv": "1869b72bb07dd71fc0acd3a3e8ac8af04bb50ce4c7cc7c1106767ece1ce61db1",
+    "generated_messages.csv": "821b1ff27976bf00c066a3273541cae7363be1920e566f6bdfda833060299e25",
+    "attack_ground_truth.csv": "d418555d135a93be533ad0189b608a33b312d06a54241b625cef2e1d8758278b",
+    "evidence_campaign.csv": "110f371b53a061b58fb2e5fd441636fe3478e45520bf7c3c8eed76e168c35852",
+    "shared_detection_trace.jsonl": "cb43f7bbb9d3594a6d006ce5525c86f293ea6c2d0d5b7ba8409181a8d9547bc7",
+    "local_detections.csv": "57befc9833b0a42299d3fa5d3e0479b06dda5a7b51ee7a7d00e6f51d2068a2d9",
+    "sumo_tripinfo.xml": "e4874850d187014bfe9d92ea6410126db1600845637aabef60b2aad57598ed68",
+    "urban_roundabout.net.xml": "a6ddda38fa346172e39fce7932c13819774a4d3b2c76828bca890114264e0d32",
+    "urban_roundabout.rou.xml": "187c8e22c0bd6b3317dff5a63a7fd1fa40ca6f67e669201cded35ecf52394660",
+    "urban_roundabout.sumocfg": "93eeb5bf485e84eb71f36c729c331a3cf14545060d9760ae2df7edce2a188923",
+    "rsus.json": "1e255ee33493ccfcafd9114c43c3da7b53360558bd024a17c1e72a6145a82da2",
+    "ABLATION_CASE_DECISIONS.csv": "b03538cc4891079812918d39c7b7d3db60ddf7fdca87298f7a0eeb2af8723d6b",
+    "ABLATION_RUN_MANIFEST.csv": "7632753d2885b28fb444221a2e3a69ec0eba6a983a49c4e58727d578e6680fa3",
+    "ABLATION_EFFECTIVE_CONFIGS.json": "e6252e3a0bed1eca58640d3c8a79c30e06c1b5f281a20ebddfea8e97b6eef7fb"
+  },
+  "trace_manifest_sha256": "591e3dd50a3480134f218c869b9e196e0b57fea09620e18b614af0e55a2fc5a7",
+  "matched_trace_manifest_entry": {
+    "attack_ground_truth_sha256": "d418555d135a93be533ad0189b608a33b312d06a54241b625cef2e1d8758278b",
+    "case_count_in_raw_trace": 132,
+    "density": 20,
+    "detection_events": 10010,
+    "generated_messages_sha256": "821b1ff27976bf00c066a3273541cae7363be1920e566f6bdfda833060299e25",
+    "mobility_trace_sha256": "1869b72bb07dd71fc0acd3a3e8ac8af04bb50ce4c7cc7c1106767ece1ce61db1",
+    "scenario_manifest_sha256": "52f13140d5bf5b54036a5821565c766c6de484d2eacbb50a21b43d4dd994a9b0",
+    "seed": 7003,
+    "source_trace_directory": "C:\\Users\\reemg\\AppData\\Local\\VPUFT-Preservation-2026-11-15\\sensitivity_replication_2026-11-16\\shared_inputs\\traces\\density_20\\seed_7003_attempt01",
+    "trace_sha256": "cb43f7bbb9d3594a6d006ce5525c86f293ea6c2d0d5b7ba8409181a8d9547bc7",
+    "unique_vehicles": 20,
+    "v2x_messages": 1904,
+    "verified_file_hashes": {
+      "attack_ground_truth.csv": "d418555d135a93be533ad0189b608a33b312d06a54241b625cef2e1d8758278b",
+      "generated_messages.csv": "821b1ff27976bf00c066a3273541cae7363be1920e566f6bdfda833060299e25",
+      "mobility_trace.csv": "1869b72bb07dd71fc0acd3a3e8ac8af04bb50ce4c7cc7c1106767ece1ce61db1",
+      "scenario_manifest.json": "52f13140d5bf5b54036a5821565c766c6de484d2eacbb50a21b43d4dd994a9b0",
+      "shared_detection_trace.jsonl": "cb43f7bbb9d3594a6d006ce5525c86f293ea6c2d0d5b7ba8409181a8d9547bc7"
+    }
+  },
+  "renderer_sha256": "0fceeeffbf59620789e9a3a777b5e3c1a9a30e420cb30a5b4bce3d5dded68f16",
+  "video": {
+    "file": "C:\\Users\\reemg\\OneDrive\\Desktop\\master\\6\\v10-final-scenario5\\results\\final_scenario5_video\\VPUFT_Scenario5_Defense_Demo.mp4",
+    "sha256": "ec44e59352c3dff4e274a3432723406704df738a8da10d0c6d5673909eba22d8",
+    "bytes": 1644941,
+    "duration_seconds": 132.0,
+    "width": 1920,
+    "height": 1080,
+    "fps": 24,
+    "codec": "H.264 / libx264",
+    "pixel_format": "yuv420p",
+    "audio": "none"
+  },
+  "preview_frames": [
+    {
+      "file": "C:\\Users\\reemg\\OneDrive\\Desktop\\master\\6\\v10-final-scenario5\\results\\final_scenario5_video\\preview_01_infrastructure.png",
+      "video_time_seconds": 18.0,
+      "sha256": "066a6fceb898164d02c74d2b3f068eb15d4ea9fc759eff8941cf81157f81eb43"
+    },
+    {
+      "file": "C:\\Users\\reemg\\OneDrive\\Desktop\\master\\6\\v10-final-scenario5\\results\\final_scenario5_video\\preview_02_attack_evidence.png",
+      "video_time_seconds": 54.0,
+      "sha256": "6f38d3fc833bdd508bc9b8c8e40beabd91c4764d16999b525aa3e5c4151d72f1"
+    },
+    {
+      "file": "C:\\Users\\reemg\\OneDrive\\Desktop\\master\\6\\v10-final-scenario5\\results\\final_scenario5_video\\preview_03_committed_decision.png",
+      "video_time_seconds": 100.0,
+      "sha256": "fd6523859b5671dbaa7e6a0feaa87456dc30cebbef5a71f047a4a8cea480b8e3"
+    }
+  ],
+  "limitations": [
+    "Trace-based visualization, not native SUMO-GUI capture.",
+    "QE/PBFT are not executed inside SUMO during rendering.",
+    "Exact final evidence-bundle membership is not logged.",
+    "No vote-level PBFT transcript is shown.",
+    "No full Byzantine fault-tolerance or safe coordinator-recovery claim.",
+    "Not frozen corrected-final Dataset B."
+  ]
+}
