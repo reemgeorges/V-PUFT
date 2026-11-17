@@ -1,0 +1,172 @@
+{
+  "traces": [
+    {
+      "attack_ground_truth_sha256": "d418555d135a93be533ad0189b608a33b312d06a54241b625cef2e1d8758278b",
+      "case_count_in_raw_trace": 132,
+      "density": 20,
+      "detection_events": 10010,
+      "generated_messages_sha256": "821b1ff27976bf00c066a3273541cae7363be1920e566f6bdfda833060299e25",
+      "mobility_trace_sha256": "1869b72bb07dd71fc0acd3a3e8ac8af04bb50ce4c7cc7c1106767ece1ce61db1",
+      "scenario_manifest_sha256": "52f13140d5bf5b54036a5821565c766c6de484d2eacbb50a21b43d4dd994a9b0",
+      "seed": 7003,
+      "source_trace_directory": "C:\\Users\\reemg\\AppData\\Local\\VPUFT-Preservation-2026-11-15\\sensitivity_replication_2026-11-16\\shared_inputs\\traces\\density_20\\seed_7003_attempt01",
+      "trace_sha256": "cb43f7bbb9d3594a6d006ce5525c86f293ea6c2d0d5b7ba8409181a8d9547bc7",
+      "unique_vehicles": 20,
+      "v2x_messages": 1904,
+      "verified_file_hashes": {
+        "attack_ground_truth.csv": "d418555d135a93be533ad0189b608a33b312d06a54241b625cef2e1d8758278b",
+        "generated_messages.csv": "821b1ff27976bf00c066a3273541cae7363be1920e566f6bdfda833060299e25",
+        "mobility_trace.csv": "1869b72bb07dd71fc0acd3a3e8ac8af04bb50ce4c7cc7c1106767ece1ce61db1",
+        "scenario_manifest.json": "52f13140d5bf5b54036a5821565c766c6de484d2eacbb50a21b43d4dd994a9b0",
+        "shared_detection_trace.jsonl": "cb43f7bbb9d3594a6d006ce5525c86f293ea6c2d0d5b7ba8409181a8d9547bc7"
+      }
+    },
+    {
+      "attack_ground_truth_sha256": "ce3062632df993acf2e366eeadf56c682baa9673d757884948935b7a08753ab4",
+      "case_count_in_raw_trace": 131,
+      "density": 20,
+      "detection_events": 9601,
+      "generated_messages_sha256": "948a244a3e05e5ae693ccd3c45061a44274bd01a2ff551dc6d9b2b88547ee9d4",
+      "mobility_trace_sha256": "79a85319dce0e1fc7ecc6cb1ca0a091da4517616fa8ecb60c52714eea8207834",
+      "scenario_manifest_sha256": "ff62e1aabdef3843f52bb025f8bf1105288aab62ac6005931940bff3867bba22",
+      "seed": 7004,
+      "source_trace_directory": "C:\\Users\\reemg\\AppData\\Local\\VPUFT-Preservation-2026-11-15\\sensitivity_replication_2026-11-16\\shared_inputs\\traces\\density_20\\seed_7004_attempt01",
+      "trace_sha256": "74abaf1ab0851e0d9b965e4223441fa5d3d7d10b5f602757c0b03f896b341adb",
+      "unique_vehicles": 20,
+      "v2x_messages": 1904,
+      "verified_file_hashes": {
+        "attack_ground_truth.csv": "ce3062632df993acf2e366eeadf56c682baa9673d757884948935b7a08753ab4",
+        "generated_messages.csv": "948a244a3e05e5ae693ccd3c45061a44274bd01a2ff551dc6d9b2b88547ee9d4",
+        "mobility_trace.csv": "79a85319dce0e1fc7ecc6cb1ca0a091da4517616fa8ecb60c52714eea8207834",
+        "scenario_manifest.json": "ff62e1aabdef3843f52bb025f8bf1105288aab62ac6005931940bff3867bba22",
+        "shared_detection_trace.jsonl": "74abaf1ab0851e0d9b965e4223441fa5d3d7d10b5f602757c0b03f896b341adb"
+      }
+    },
+    {
+      "attack_ground_truth_sha256": "4f181838acf203381755a34242515f339a8876196aeff3ad31e17a9506d0b6f1",
+      "case_count_in_raw_trace": 131,
+      "density": 20,
+      "detection_events": 10014,
+      "generated_messages_sha256": "2ef10b94bc5c09fe81bb6232c93ff88abed80286305c9256ceb3ab78f74935aa",
+      "mobility_trace_sha256": "af31964c395458efe75715b0d82e40e5e36e5e0ac43222249eb19ffeecd78c5f",
+      "scenario_manifest_sha256": "404de6aadaefafeec2d238a94f33f7a71e306e15554a292e42cb39326f3efc99",
+      "seed": 7005,
+      "source_trace_directory": "C:\\Users\\reemg\\AppData\\Local\\VPUFT-Preservation-2026-11-15\\sensitivity_replication_2026-11-16\\shared_inputs\\traces\\density_20\\seed_7005_attempt01",
+      "trace_sha256": "2158b642333a05a250381fe26a040a4249b7efd36b22dd88f7e46c3c06769694",
+      "unique_vehicles": 20,
+      "v2x_messages": 1904,
+      "verified_file_hashes": {
+        "attack_ground_truth.csv": "4f181838acf203381755a34242515f339a8876196aeff3ad31e17a9506d0b6f1",
+        "generated_messages.csv": "2ef10b94bc5c09fe81bb6232c93ff88abed80286305c9256ceb3ab78f74935aa",
+        "mobility_trace.csv": "af31964c395458efe75715b0d82e40e5e36e5e0ac43222249eb19ffeecd78c5f",
+        "scenario_manifest.json": "404de6aadaefafeec2d238a94f33f7a71e306e15554a292e42cb39326f3efc99",
+        "shared_detection_trace.jsonl": "2158b642333a05a250381fe26a040a4249b7efd36b22dd88f7e46c3c06769694"
+      }
+    },
+    {
+      "attack_ground_truth_sha256": "ccb90085b3cd191d52ef252abee9b8e825fcc1ce99b66700c1346e89b1b3e5dc",
+      "case_count_in_raw_trace": 131,
+      "density": 20,
+      "detection_events": 9987,
+      "generated_messages_sha256": "5506c75d70b3bc999ac7b3776475f9cadb4955e6b0cf932f046c77f5cab6dfd4",
+      "mobility_trace_sha256": "874f786b1b14a4848461f10a3f91e1043f28a7a2a8cf4a96fdfd4be73c8bcdec",
+      "scenario_manifest_sha256": "6be929e109a7f12ca576b7ffefc047e7fbbce93724d25352e36890b34c428ae2",
+      "seed": 7006,
+      "source_trace_directory": "C:\\Users\\reemg\\AppData\\Local\\VPUFT-Preservation-2026-11-15\\sensitivity_replication_2026-11-16\\shared_inputs\\traces\\density_20\\seed_7006_attempt01",
+      "trace_sha256": "00597f4b2e27cf0ea4e748b8a7121fa252da5065b3b9df6a5d30a732ea785c0c",
+      "unique_vehicles": 20,
+      "v2x_messages": 1904,
+      "verified_file_hashes": {
+        "attack_ground_truth.csv": "ccb90085b3cd191d52ef252abee9b8e825fcc1ce99b66700c1346e89b1b3e5dc",
+        "generated_messages.csv": "5506c75d70b3bc999ac7b3776475f9cadb4955e6b0cf932f046c77f5cab6dfd4",
+        "mobility_trace.csv": "874f786b1b14a4848461f10a3f91e1043f28a7a2a8cf4a96fdfd4be73c8bcdec",
+        "scenario_manifest.json": "6be929e109a7f12ca576b7ffefc047e7fbbce93724d25352e36890b34c428ae2",
+        "shared_detection_trace.jsonl": "00597f4b2e27cf0ea4e748b8a7121fa252da5065b3b9df6a5d30a732ea785c0c"
+      }
+    },
+    {
+      "attack_ground_truth_sha256": "4ca72dbad8e8d39159d07302843c7d4b99f0ce8c039aa0d5a9fa1ccf4d336761",
+      "case_count_in_raw_trace": 629,
+      "density": 100,
+      "detection_events": 81429,
+      "generated_messages_sha256": "a47d916141ab248563478b40f01bc94075da413077b75e35addee98eac7126c4",
+      "mobility_trace_sha256": "a339453905ebe4757c0dc8149fd256470f6c03fb969139d7661a5bb2bdcc2e00",
+      "scenario_manifest_sha256": "2f75c9d631a7756be2881f1e0453b5fea23b02cc0509b5685df14ec97cacbda3",
+      "seed": 7003,
+      "source_trace_directory": "C:\\Users\\reemg\\AppData\\Local\\VPUFT-Preservation-2026-11-15\\sensitivity_replication_2026-11-16\\shared_inputs\\traces\\density_100\\seed_7003_attempt01",
+      "trace_sha256": "412dfd3acd4ec14386ddde2dd27835df19c963797e5bbc3b780f4b1852e41db0",
+      "unique_vehicles": 100,
+      "v2x_messages": 8822,
+      "verified_file_hashes": {
+        "attack_ground_truth.csv": "4ca72dbad8e8d39159d07302843c7d4b99f0ce8c039aa0d5a9fa1ccf4d336761",
+        "generated_messages.csv": "a47d916141ab248563478b40f01bc94075da413077b75e35addee98eac7126c4",
+        "mobility_trace.csv": "a339453905ebe4757c0dc8149fd256470f6c03fb969139d7661a5bb2bdcc2e00",
+        "scenario_manifest.json": "2f75c9d631a7756be2881f1e0453b5fea23b02cc0509b5685df14ec97cacbda3",
+        "shared_detection_trace.jsonl": "412dfd3acd4ec14386ddde2dd27835df19c963797e5bbc3b780f4b1852e41db0"
+      }
+    },
+    {
+      "attack_ground_truth_sha256": "dbfa928335b650ad2f79416e335a3acf3c0b5e3204ee69c4261f7b3c75be526d",
+      "case_count_in_raw_trace": 632,
+      "density": 100,
+      "detection_events": 82383,
+      "generated_messages_sha256": "3a35148846e69b87d9ea718ef437c764dc2fc0d550578e25a3a327ecacfadac1",
+      "mobility_trace_sha256": "58ee447db5bff873432fe3f9a1291a7d4758c049c74d88849bd00781e3aa6d08",
+      "scenario_manifest_sha256": "b8e14c883a3e3fcd64f8b4be9a9d2b2f33e2b54b1ea0b88452ad27cf7bf5c2f4",
+      "seed": 7004,
+      "source_trace_directory": "C:\\Users\\reemg\\AppData\\Local\\VPUFT-Preservation-2026-11-15\\sensitivity_replication_2026-11-16\\shared_inputs\\traces\\density_100\\seed_7004_attempt01",
+      "trace_sha256": "a2959c2e0691364880a5f6db1dfe5b5d334b040d55308d26176b4c1264172081",
+      "unique_vehicles": 100,
+      "v2x_messages": 8905,
+      "verified_file_hashes": {
+        "attack_ground_truth.csv": "dbfa928335b650ad2f79416e335a3acf3c0b5e3204ee69c4261f7b3c75be526d",
+        "generated_messages.csv": "3a35148846e69b87d9ea718ef437c764dc2fc0d550578e25a3a327ecacfadac1",
+        "mobility_trace.csv": "58ee447db5bff873432fe3f9a1291a7d4758c049c74d88849bd00781e3aa6d08",
+        "scenario_manifest.json": "b8e14c883a3e3fcd64f8b4be9a9d2b2f33e2b54b1ea0b88452ad27cf7bf5c2f4",
+        "shared_detection_trace.jsonl": "a2959c2e0691364880a5f6db1dfe5b5d334b040d55308d26176b4c1264172081"
+      }
+    },
+    {
+      "attack_ground_truth_sha256": "f4140225bf737af9a8370319e08d8368f75f281f67e210ad21cf5452eda1e3c5",
+      "case_count_in_raw_trace": 636,
+      "density": 100,
+      "detection_events": 82641,
+      "generated_messages_sha256": "bbce25145024fd196588e7e3e5f89689cd6d55888cd182f52a48e10c36abe43c",
+      "mobility_trace_sha256": "b79f77f0d3abaaa3cd4f823d31e94d4b5dc86a98789fe50916228b284ceee12c",
+      "scenario_manifest_sha256": "715b92fe6ccb78884cc57cc934ec51f9cfc9ff7918dc6e3db1a870a256af054c",
+      "seed": 7005,
+      "source_trace_directory": "C:\\Users\\reemg\\AppData\\Local\\VPUFT-Preservation-2026-11-15\\sensitivity_replication_2026-11-16\\shared_inputs\\traces\\density_100\\seed_7005_attempt01",
+      "trace_sha256": "f14be43f7e8ff810efc7cbfc43ae2c7bf0b1372e1412d8940590cd5d41411be9",
+      "unique_vehicles": 100,
+      "v2x_messages": 8937,
+      "verified_file_hashes": {
+        "attack_ground_truth.csv": "f4140225bf737af9a8370319e08d8368f75f281f67e210ad21cf5452eda1e3c5",
+        "generated_messages.csv": "bbce25145024fd196588e7e3e5f89689cd6d55888cd182f52a48e10c36abe43c",
+        "mobility_trace.csv": "b79f77f0d3abaaa3cd4f823d31e94d4b5dc86a98789fe50916228b284ceee12c",
+        "scenario_manifest.json": "715b92fe6ccb78884cc57cc934ec51f9cfc9ff7918dc6e3db1a870a256af054c",
+        "shared_detection_trace.jsonl": "f14be43f7e8ff810efc7cbfc43ae2c7bf0b1372e1412d8940590cd5d41411be9"
+      }
+    },
+    {
+      "attack_ground_truth_sha256": "cce3935c4711239900e11395c3d5e3d8c3147d446f3ef0ff99f39b2f875180c6",
+      "case_count_in_raw_trace": 630,
+      "density": 100,
+      "detection_events": 81731,
+      "generated_messages_sha256": "8ad2a31dd63ef51ef6c526548ec87542518adfcd6e0eee6edb409454b560e616",
+      "mobility_trace_sha256": "170c93d0c9bba4ac2fd9b1b5ddeff320cb341f49d2787a748e5f3fa27dfaa1be",
+      "scenario_manifest_sha256": "83a969f0b752ebe4c717a5306ba7b7304a4991dbfdac621cbfd4280ca69eb010",
+      "seed": 7006,
+      "source_trace_directory": "C:\\Users\\reemg\\AppData\\Local\\VPUFT-Preservation-2026-11-15\\sensitivity_replication_2026-11-16\\shared_inputs\\traces\\density_100\\seed_7006_attempt01",
+      "trace_sha256": "9ac41cf599e5fa4a1937f7986613a50d3d3b755469cdffde1ce3d2e6ccbe67ec",
+      "unique_vehicles": 100,
+      "v2x_messages": 8845,
+      "verified_file_hashes": {
+        "attack_ground_truth.csv": "cce3935c4711239900e11395c3d5e3d8c3147d446f3ef0ff99f39b2f875180c6",
+        "generated_messages.csv": "8ad2a31dd63ef51ef6c526548ec87542518adfcd6e0eee6edb409454b560e616",
+        "mobility_trace.csv": "170c93d0c9bba4ac2fd9b1b5ddeff320cb341f49d2787a748e5f3fa27dfaa1be",
+        "scenario_manifest.json": "83a969f0b752ebe4c717a5306ba7b7304a4991dbfdac621cbfd4280ca69eb010",
+        "shared_detection_trace.jsonl": "9ac41cf599e5fa4a1937f7986613a50d3d3b755469cdffde1ce3d2e6ccbe67ec"
+      }
+    }
+  ]
+}

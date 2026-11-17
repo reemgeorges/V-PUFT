@@ -1,0 +1,66 @@
+{
+  "architectures": [
+    "C100",
+    "Distributed"
+  ],
+  "baseline_config_sha256": "a0e7128f0a9f84210686e00415094da465a0bc1f18acc555b0998b748ae98aa8",
+  "branch": "research/final-scenario5",
+  "commit": "563dc613e880800cdfe673a7f3f14e20d50176e7",
+  "density": [
+    20,
+    100
+  ],
+  "max_comparison_cells": 48,
+  "max_new_ablation_runs": 32,
+  "minimum_free_bytes": 5000000000,
+  "output_cap_bytes": 500000000,
+  "pilot_seeds": [
+    7003,
+    7004
+  ],
+  "raw_trace_storage": "C:\\Users\\reemg\\AppData\\Local\\VPUFT-Preservation-2026-11-15\\sensitivity_replication_2026-11-16",
+  "raw_traces_copied": false,
+  "seeds": [
+    7003,
+    7004,
+    7005,
+    7006
+  ],
+  "source_hashes": {
+    "C:\\Users\\reemg\\AppData\\Local\\VPUFT-Preservation-2026-11-15\\sensitivity_replication_2026-11-16\\SENSITIVITY_CASE_DECISIONS.csv": "3821251efce18a572f6335abbc4caa113bcee8a8408436d73ed3284b1088ab3f",
+    "C:\\Users\\reemg\\AppData\\Local\\VPUFT-Preservation-2026-11-15\\sensitivity_replication_2026-11-16\\SENSITIVITY_EFFECTIVE_CONFIGS.json": "eb5f6a33cbc84a01946fa923dad4051ff2d3d2bab98a7cc4d46fa76d3b8cd285",
+    "C:\\Users\\reemg\\AppData\\Local\\VPUFT-Preservation-2026-11-15\\sensitivity_replication_2026-11-16\\SENSITIVITY_FIXED_OPPORTUNITIES.csv": "0c7ca25733a22b313ff26601d4f11050da903e057e512cdd2f412ac965251141",
+    "C:\\Users\\reemg\\AppData\\Local\\VPUFT-Preservation-2026-11-15\\sensitivity_replication_2026-11-16\\SENSITIVITY_METRICS_BY_SEED.csv": "57b613bf9c186da87bb913616049b66f4552d0c4ddd9e681f3a33d48946c23fd",
+    "C:\\Users\\reemg\\AppData\\Local\\VPUFT-Preservation-2026-11-15\\sensitivity_replication_2026-11-16\\SENSITIVITY_RUN_MANIFEST.csv": "8b51e0bddbfadfe0383dc4c337aded9f373ad8bccaca73a98549bb5aadb65b95",
+    "C:\\Users\\reemg\\AppData\\Local\\VPUFT-Preservation-2026-11-15\\sensitivity_replication_2026-11-16\\SENSITIVITY_TRACE_MANIFEST.json": "fedd9164214863fa118ae82d5590a5038be52e6cbd0030e5a869f10d1dbda883",
+    "results/urban_roundabout_campaign_corrected_final/effective_config.json": "2969b2f8ddfb13bfffe20cf203bfddf251d62a761dc577e9d88d0e07f750cead",
+    "scripts/analyze_final_scenario5_ablation.py": "6c3c8766ef116c082ee27f753b1eb0ea5906a0f53cdfd5caad219dc9b70b15bf",
+    "scripts/final_scenario5_ablation_adapter.py": "159f68ef47de4d06727795344bc8606b3c29de5e060499fc491e8dfd1e2a802c",
+    "scripts/run_final_scenario5_ablation.py": "945be4842dceb47dd63c5c23c95d32570035d0e427bcb4d4e1af46a24b12ef49",
+    "scripts/sensitivity_opportunities.py": "00ef78517a325a28918c7f1112af922c44a0210f762b6a29f07768ef79154cb8",
+    "src/vpuft/architectures/base.py": "30fbb376d0238b3c247dd0da3089f0a571e555f66ed429b772858c340c36158f",
+    "src/vpuft/architectures/centralized.py": "52b1e6aeb8b98b3881fe95af91531a4c15edfb620e0c79feade4b787cdf2b870",
+    "src/vpuft/architectures/distributed_extension.py": "e1bc801073a4c79e14bdc2498a865eec59f3c4d28930a00d449f4f40d25d8c87",
+    "src/vpuft/config.py": "40a18a30809b079b75beaf4218236573d4839cfb7a8f78fe344d8de13be4fbe1",
+    "src/vpuft/crypto.py": "c03dad9ab8944f46977d9c3ab0695ebb2b98d640ac15756982447b5fc3e86ea2",
+    "src/vpuft/density_campaign.py": "ff5d20cfdd50dca7b554aa6551425d2561e87aee4a4dd6c2e3a8cc92dc7d04b2",
+    "src/vpuft/domain.py": "ac87f9caddf9ad070d8cd5d79970c7cad8753f93e4ed1a9e58cbfe73541b38ee",
+    "src/vpuft/evidence.py": "ea9a161c540f9cd3fefcd297f834f8868a77ac367fd2b23a39f5005f79fc3b96",
+    "src/vpuft/metrics.py": "3b5ff5d5fb43e14fb2639568dbc72ca08251e595ba14fd2a98b27ca7b8e8efa2",
+    "src/vpuft/qualification.py": "56bebaaf94d7e167be8fff39e3c1091b67f60609e1d2d91ef6328028571f2495",
+    "src/vpuft/state_aware_evaluation.py": "81dead793fd6dc27a366fd833b992297bc0df54a68946d325574e23ca8fea447",
+    "src/vpuft/trace.py": "994333c94b1581dcbc100dcc679491b91954595ba19db30bc4aa6e2997f5dbe2",
+    "src/vpuft/weighting.py": "ce081ca73000ae65d70c9d74ff0d813caec93aee714ad2f92fadfb4058c4fd3f",
+    "sumo/urban_roundabout/attacks.json": "a5338d955b09046ec0b16f3a9625b7955c763aae07dc722e474e6078745f932f",
+    "sumo/urban_roundabout/rsus.json": "1e255ee33493ccfcafd9114c43c3da7b53360558bd024a17c1e72a6145a82da2",
+    "tests/test_scenario5_ablation_adapter.py": "575526023c9635696549a00fd6bbbf72e0dcc5d9a43c90af349eb98960fbc6a1",
+    "tests/test_scenario5_ablation_analysis.py": "4116d77a7c84dbc242bb3a5b5c5c30661427f1da0d1e2bc16ba99b4eb8214b8d"
+  },
+  "study": "final_scenario5_bounded_component_ablation_v1",
+  "variants": [
+    "baseline",
+    "A_report_mass",
+    "C_no_diversity_gates"
+  ],
+  "wall_time_cap_seconds": 1800.0
+}

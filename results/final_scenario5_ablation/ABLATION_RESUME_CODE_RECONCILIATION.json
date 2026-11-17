@@ -1,0 +1,29 @@
+{
+  "changed_files": [
+    "C:\\Users\\reemg\\AppData\\Local\\VPUFT-Preservation-2026-11-15\\sensitivity_replication_2026-11-16\\RUN_CONTEXT.json",
+    "scripts/analyze_final_scenario5_ablation.py",
+    "scripts/run_final_scenario5_ablation.py",
+    "tests/test_scenario5_ablation_analysis.py"
+  ],
+  "completed_pilot_outputs_preserved": true,
+  "current_source_hashes": {
+    "C:\\Users\\reemg\\AppData\\Local\\VPUFT-Preservation-2026-11-15\\sensitivity_replication_2026-11-16\\RUN_CONTEXT.json": "848e3907ac601645d8324a4c436379e5b46d5f19d5a92fc4d415234593bb7bde",
+    "scripts/analyze_final_scenario5_ablation.py": "f3af011e57c0e6c7f9382ad3a449f7287911e6ae1481f20c8731a6344ca5f558",
+    "scripts/run_final_scenario5_ablation.py": "04d3e0083cbb1f87da279f802599fb2a41dfa651ad6989f1526d0f84b47afde3",
+    "tests/test_scenario5_ablation_analysis.py": "a7a7fdf960081f30371564084936922194e7a4df56e1db5e8fe7bd0f79a762d5"
+  },
+  "no_behavioral_or_simulation_logic_changed": true,
+  "original_source_hashes": {
+    "C:\\Users\\reemg\\AppData\\Local\\VPUFT-Preservation-2026-11-15\\sensitivity_replication_2026-11-16\\RUN_CONTEXT.json": null,
+    "scripts/analyze_final_scenario5_ablation.py": "6c3c8766ef116c082ee27f753b1eb0ea5906a0f53cdfd5caad219dc9b70b15bf",
+    "scripts/run_final_scenario5_ablation.py": "945be4842dceb47dd63c5c23c95d32570035d0e427bcb4d4e1af46a24b12ef49",
+    "tests/test_scenario5_ablation_analysis.py": "4116d77a7c84dbc242bb3a5b5c5c30661427f1da0d1e2bc16ba99b4eb8214b8d"
+  },
+  "scope": [
+    "corrected the pilot validator to restrict identity checks to pilot seeds",
+    "normalized tuple/list representation when comparing effective configuration JSON",
+    "added source provenance fields for reused baseline rows",
+    "added pooled fixed-opportunity count aggregation; no experiment inputs or adapter qualification semantics changed",
+    "added the read-only source RUN_CONTEXT manifest hash to provenance"
+  ]
+}

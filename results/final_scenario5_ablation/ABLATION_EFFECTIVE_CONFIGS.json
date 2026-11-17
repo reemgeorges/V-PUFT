@@ -1,0 +1,1538 @@
+{
+  "A_report_mass": {
+    "C100": {
+      "adapter": "AblationQualificationAdapter",
+      "adapter_mode": "A_report_mass",
+      "description": "Counterfactual: mass each fresh valid signed report separately; retain true root IDs and all diversity gates. Correlation suppression is weakened.",
+      "effective_config": {
+        "central": {
+          "audit_replica_enabled": true,
+          "availability": 0.995,
+          "compromise_mode": "false_revocation",
+          "compromised": false,
+          "queue_capacity": 1000,
+          "service_time_ms": 12.0,
+          "workers": 4
+        },
+        "density_campaign": {
+          "attack_vehicle_ratio": 0.35,
+          "backhaul_extra_latency_ms": [
+            0.0,
+            100.0
+          ],
+          "departure_window_seconds": 20.0,
+          "include_robustness_variants": false,
+          "include_topology_cache": true,
+          "primary_cache_ttl_seconds": 5.0,
+          "v2v_range_m": 180.0,
+          "v2v_sample_period_seconds": 1.0,
+          "vehicle_counts": [
+            20,
+            40,
+            60,
+            80,
+            100
+          ]
+        },
+        "detector": {
+          "benign_clean_confidence": 0.78,
+          "case_window_seconds": 15.0,
+          "false_denm_deceleration_threshold_mps2": -3.0,
+          "flood_messages_per_second": 3,
+          "freshness_tau_seconds": 12.0,
+          "position_error_threshold_m": 20.0,
+          "replay_max_age_seconds": 2.5,
+          "rsu_acceleration_sigma_mps2": 0.4,
+          "rsu_position_sigma_m": 3.0,
+          "rsu_range_m": 450.0,
+          "rsu_speed_sigma_mps": 0.6,
+          "speed_error_threshold_mps": 5.0,
+          "witness_acceleration_sigma_mps2": 0.8,
+          "witness_position_sigma_m": 5.0,
+          "witness_range_m": 180.0,
+          "witness_speed_sigma_mps": 1.0
+        },
+        "distributed_extension": {
+          "coordinator_strategy": "first_observer_then_hash",
+          "evidence_bundle_base_bytes": 384,
+          "evidence_bundle_bytes_per_attestation": 704,
+          "evidence_source_fault_budget": 1,
+          "guard_on_directional_conflict_only": true,
+          "leave_one_source_out_guard": false,
+          "replicate_read_cache_to_all_rsus": true,
+          "validator_requalification": true
+        },
+        "network": {
+          "base_latency_ms": 8.0,
+          "central_backhaul_extra_latency_ms": 100.0,
+          "evidence_crn_seed": null,
+          "jitter_ms": 3.0,
+          "max_retries": 2,
+          "packet_delivery_ratio": 0.98,
+          "queue_rate_bytes_per_second": 2000000.0,
+          "retry_backoff_ms": 5.0
+        },
+        "pbft": {
+          "max_byzantine": 1,
+          "max_views": 4,
+          "state_recovery_enabled": true,
+          "timeout_ms": 120.0,
+          "validator_behaviors": {},
+          "validators": [
+            "rsu-1",
+            "rsu-2",
+            "rsu-3",
+            "rsu-4"
+          ]
+        },
+        "policies": {
+          "benign": {
+            "cryptographic_decisive": false,
+            "freshness_window_seconds": 15.0,
+            "margin_threshold": 0.5,
+            "min_representative_weight": 0.05,
+            "opposition_lambda": 1.0,
+            "required_modalities": 1,
+            "required_roots": 2,
+            "required_sources": 2,
+            "required_zones": 1
+          },
+          "certificate_tamper": {
+            "cryptographic_decisive": true,
+            "freshness_window_seconds": 15.0,
+            "margin_threshold": 0.25,
+            "min_representative_weight": 0.05,
+            "opposition_lambda": 1.0,
+            "required_modalities": 1,
+            "required_roots": 1,
+            "required_sources": 1,
+            "required_zones": 1
+          },
+          "false_denm": {
+            "cryptographic_decisive": false,
+            "freshness_window_seconds": 15.0,
+            "margin_threshold": 0.5,
+            "min_representative_weight": 0.05,
+            "opposition_lambda": 1.0,
+            "required_modalities": 1,
+            "required_roots": 2,
+            "required_sources": 2,
+            "required_zones": 2
+          },
+          "flood": {
+            "cryptographic_decisive": false,
+            "freshness_window_seconds": 15.0,
+            "margin_threshold": 0.5,
+            "min_representative_weight": 0.05,
+            "opposition_lambda": 1.0,
+            "required_modalities": 1,
+            "required_roots": 2,
+            "required_sources": 2,
+            "required_zones": 1
+          },
+          "mixed": {
+            "cryptographic_decisive": false,
+            "freshness_window_seconds": 15.0,
+            "margin_threshold": 0.55,
+            "min_representative_weight": 0.05,
+            "opposition_lambda": 1.0,
+            "required_modalities": 1,
+            "required_roots": 2,
+            "required_sources": 2,
+            "required_zones": 2
+          },
+          "position_offset": {
+            "cryptographic_decisive": false,
+            "freshness_window_seconds": 15.0,
+            "margin_threshold": 0.45,
+            "min_representative_weight": 0.05,
+            "opposition_lambda": 1.0,
+            "required_modalities": 1,
+            "required_roots": 2,
+            "required_sources": 2,
+            "required_zones": 2
+          },
+          "replay": {
+            "cryptographic_decisive": true,
+            "freshness_window_seconds": 15.0,
+            "margin_threshold": 0.35,
+            "min_representative_weight": 0.05,
+            "opposition_lambda": 1.0,
+            "required_modalities": 1,
+            "required_roots": 1,
+            "required_sources": 1,
+            "required_zones": 1
+          },
+          "speed_offset": {
+            "cryptographic_decisive": false,
+            "freshness_window_seconds": 15.0,
+            "margin_threshold": 0.45,
+            "min_representative_weight": 0.05,
+            "opposition_lambda": 1.0,
+            "required_modalities": 1,
+            "required_roots": 2,
+            "required_sources": 2,
+            "required_zones": 1
+          }
+        },
+        "robustness": {
+          "compromised_evidence_rsu": "rsu-6",
+          "correlated_forgery_copies": 4,
+          "evidence_attack_mode": "false_accusation",
+          "malicious_validator": "rsu-1",
+          "malicious_validator_behavior": "propose_invalid"
+        },
+        "security": {
+          "compromised_rsus": [],
+          "compromised_witness_ratio": 0.1,
+          "deterministic_master_seed": "vpuft-thesis-reproducible-keys-v1"
+        },
+        "simulation": {
+          "cases_per_seed": 60,
+          "malicious_ratio": 0.3,
+          "rsu_count": 6,
+          "seeds": [
+            1001,
+            1002,
+            1003,
+            1004,
+            1005,
+            1006,
+            1007,
+            1008,
+            1009,
+            1010
+          ],
+          "source": "sumo",
+          "witness_count_mean": 4.0
+        },
+        "sumo": {
+          "attack_file": "attacks.json",
+          "deterministic_seed": 1001,
+          "end_time_seconds": 95.0,
+          "keep_sumo_output": true,
+          "netconvert_binary": null,
+          "rsu_file": "rsus.json",
+          "scenario_directory": "sumo/urban_roundabout",
+          "step_length_seconds": 1.0,
+          "sumo_binary": null,
+          "use_gui": false
+        },
+        "trust_cache": {
+          "anomaly_ratio": 0.02,
+          "interaction_interval_seconds": 0.25,
+          "interactions_per_vehicle": 12,
+          "local_verification_ms": 0.25,
+          "query_bytes": 256,
+          "revocation_ratio": 0.1,
+          "token_response_bytes": 1152,
+          "ttl_seconds": [
+            0.0,
+            1.0,
+            2.0,
+            5.0,
+            10.0,
+            30.0
+          ],
+          "vehicle_counts": [
+            20,
+            40,
+            60,
+            80,
+            100
+          ]
+        },
+        "weights": {
+          "C": 0.3652673861753211,
+          "F": 0.06370517641034751,
+          "Q": 0.40608957775126925,
+          "eta": 0.0029852581432305157,
+          "rho": 0.16195260151983162
+        }
+      },
+      "effective_config_sha256": "3a9d53841fe62eeb60df3c22374cacd0b6779cd2412a859e0f5217e12744dfe8",
+      "production_configuration_unchanged": true,
+      "security_status": "insecure_counterfactual_not_for_deployment",
+      "variant_id": "A_report_mass"
+    },
+    "Distributed": {
+      "adapter": "AblationQualificationAdapter",
+      "adapter_mode": "A_report_mass",
+      "description": "Counterfactual: mass each fresh valid signed report separately; retain true root IDs and all diversity gates. Correlation suppression is weakened.",
+      "effective_config": {
+        "central": {
+          "audit_replica_enabled": true,
+          "availability": 0.995,
+          "compromise_mode": "false_revocation",
+          "compromised": false,
+          "queue_capacity": 1000,
+          "service_time_ms": 12.0,
+          "workers": 4
+        },
+        "density_campaign": {
+          "attack_vehicle_ratio": 0.35,
+          "backhaul_extra_latency_ms": [
+            0.0,
+            100.0
+          ],
+          "departure_window_seconds": 20.0,
+          "include_robustness_variants": false,
+          "include_topology_cache": true,
+          "primary_cache_ttl_seconds": 5.0,
+          "v2v_range_m": 180.0,
+          "v2v_sample_period_seconds": 1.0,
+          "vehicle_counts": [
+            20,
+            40,
+            60,
+            80,
+            100
+          ]
+        },
+        "detector": {
+          "benign_clean_confidence": 0.78,
+          "case_window_seconds": 15.0,
+          "false_denm_deceleration_threshold_mps2": -3.0,
+          "flood_messages_per_second": 3,
+          "freshness_tau_seconds": 12.0,
+          "position_error_threshold_m": 20.0,
+          "replay_max_age_seconds": 2.5,
+          "rsu_acceleration_sigma_mps2": 0.4,
+          "rsu_position_sigma_m": 3.0,
+          "rsu_range_m": 450.0,
+          "rsu_speed_sigma_mps": 0.6,
+          "speed_error_threshold_mps": 5.0,
+          "witness_acceleration_sigma_mps2": 0.8,
+          "witness_position_sigma_m": 5.0,
+          "witness_range_m": 180.0,
+          "witness_speed_sigma_mps": 1.0
+        },
+        "distributed_extension": {
+          "coordinator_strategy": "first_observer_then_hash",
+          "evidence_bundle_base_bytes": 384,
+          "evidence_bundle_bytes_per_attestation": 704,
+          "evidence_source_fault_budget": 1,
+          "guard_on_directional_conflict_only": true,
+          "leave_one_source_out_guard": false,
+          "replicate_read_cache_to_all_rsus": true,
+          "validator_requalification": true
+        },
+        "network": {
+          "base_latency_ms": 8.0,
+          "central_backhaul_extra_latency_ms": 0.0,
+          "evidence_crn_seed": null,
+          "jitter_ms": 3.0,
+          "max_retries": 2,
+          "packet_delivery_ratio": 0.98,
+          "queue_rate_bytes_per_second": 2000000.0,
+          "retry_backoff_ms": 5.0
+        },
+        "pbft": {
+          "max_byzantine": 1,
+          "max_views": 4,
+          "state_recovery_enabled": true,
+          "timeout_ms": 120.0,
+          "validator_behaviors": {},
+          "validators": [
+            "rsu-1",
+            "rsu-2",
+            "rsu-3",
+            "rsu-4"
+          ]
+        },
+        "policies": {
+          "benign": {
+            "cryptographic_decisive": false,
+            "freshness_window_seconds": 15.0,
+            "margin_threshold": 0.5,
+            "min_representative_weight": 0.05,
+            "opposition_lambda": 1.0,
+            "required_modalities": 1,
+            "required_roots": 2,
+            "required_sources": 2,
+            "required_zones": 1
+          },
+          "certificate_tamper": {
+            "cryptographic_decisive": true,
+            "freshness_window_seconds": 15.0,
+            "margin_threshold": 0.25,
+            "min_representative_weight": 0.05,
+            "opposition_lambda": 1.0,
+            "required_modalities": 1,
+            "required_roots": 1,
+            "required_sources": 1,
+            "required_zones": 1
+          },
+          "false_denm": {
+            "cryptographic_decisive": false,
+            "freshness_window_seconds": 15.0,
+            "margin_threshold": 0.5,
+            "min_representative_weight": 0.05,
+            "opposition_lambda": 1.0,
+            "required_modalities": 1,
+            "required_roots": 2,
+            "required_sources": 2,
+            "required_zones": 2
+          },
+          "flood": {
+            "cryptographic_decisive": false,
+            "freshness_window_seconds": 15.0,
+            "margin_threshold": 0.5,
+            "min_representative_weight": 0.05,
+            "opposition_lambda": 1.0,
+            "required_modalities": 1,
+            "required_roots": 2,
+            "required_sources": 2,
+            "required_zones": 1
+          },
+          "mixed": {
+            "cryptographic_decisive": false,
+            "freshness_window_seconds": 15.0,
+            "margin_threshold": 0.55,
+            "min_representative_weight": 0.05,
+            "opposition_lambda": 1.0,
+            "required_modalities": 1,
+            "required_roots": 2,
+            "required_sources": 2,
+            "required_zones": 2
+          },
+          "position_offset": {
+            "cryptographic_decisive": false,
+            "freshness_window_seconds": 15.0,
+            "margin_threshold": 0.45,
+            "min_representative_weight": 0.05,
+            "opposition_lambda": 1.0,
+            "required_modalities": 1,
+            "required_roots": 2,
+            "required_sources": 2,
+            "required_zones": 2
+          },
+          "replay": {
+            "cryptographic_decisive": true,
+            "freshness_window_seconds": 15.0,
+            "margin_threshold": 0.35,
+            "min_representative_weight": 0.05,
+            "opposition_lambda": 1.0,
+            "required_modalities": 1,
+            "required_roots": 1,
+            "required_sources": 1,
+            "required_zones": 1
+          },
+          "speed_offset": {
+            "cryptographic_decisive": false,
+            "freshness_window_seconds": 15.0,
+            "margin_threshold": 0.45,
+            "min_representative_weight": 0.05,
+            "opposition_lambda": 1.0,
+            "required_modalities": 1,
+            "required_roots": 2,
+            "required_sources": 2,
+            "required_zones": 1
+          }
+        },
+        "robustness": {
+          "compromised_evidence_rsu": "rsu-6",
+          "correlated_forgery_copies": 4,
+          "evidence_attack_mode": "false_accusation",
+          "malicious_validator": "rsu-1",
+          "malicious_validator_behavior": "propose_invalid"
+        },
+        "security": {
+          "compromised_rsus": [],
+          "compromised_witness_ratio": 0.1,
+          "deterministic_master_seed": "vpuft-thesis-reproducible-keys-v1"
+        },
+        "simulation": {
+          "cases_per_seed": 60,
+          "malicious_ratio": 0.3,
+          "rsu_count": 6,
+          "seeds": [
+            1001,
+            1002,
+            1003,
+            1004,
+            1005,
+            1006,
+            1007,
+            1008,
+            1009,
+            1010
+          ],
+          "source": "sumo",
+          "witness_count_mean": 4.0
+        },
+        "sumo": {
+          "attack_file": "attacks.json",
+          "deterministic_seed": 1001,
+          "end_time_seconds": 95.0,
+          "keep_sumo_output": true,
+          "netconvert_binary": null,
+          "rsu_file": "rsus.json",
+          "scenario_directory": "sumo/urban_roundabout",
+          "step_length_seconds": 1.0,
+          "sumo_binary": null,
+          "use_gui": false
+        },
+        "trust_cache": {
+          "anomaly_ratio": 0.02,
+          "interaction_interval_seconds": 0.25,
+          "interactions_per_vehicle": 12,
+          "local_verification_ms": 0.25,
+          "query_bytes": 256,
+          "revocation_ratio": 0.1,
+          "token_response_bytes": 1152,
+          "ttl_seconds": [
+            0.0,
+            1.0,
+            2.0,
+            5.0,
+            10.0,
+            30.0
+          ],
+          "vehicle_counts": [
+            20,
+            40,
+            60,
+            80,
+            100
+          ]
+        },
+        "weights": {
+          "C": 0.3652673861753211,
+          "F": 0.06370517641034751,
+          "Q": 0.40608957775126925,
+          "eta": 0.0029852581432305157,
+          "rho": 0.16195260151983162
+        }
+      },
+      "effective_config_sha256": "a0e7128f0a9f84210686e00415094da465a0bc1f18acc555b0998b748ae98aa8",
+      "production_configuration_unchanged": true,
+      "security_status": "insecure_counterfactual_not_for_deployment",
+      "variant_id": "A_report_mass"
+    }
+  },
+  "C_no_diversity_gates": {
+    "C100": {
+      "adapter": "AblationQualificationAdapter",
+      "adapter_mode": "C_no_diversity_gates",
+      "description": "Counterfactual: bypass roots/sources/zones/modalities gate only; preserve evidence aggregation, signatures, validity, freshness, weights, opposition, margin, and crypto rule.",
+      "effective_config": {
+        "central": {
+          "audit_replica_enabled": true,
+          "availability": 0.995,
+          "compromise_mode": "false_revocation",
+          "compromised": false,
+          "queue_capacity": 1000,
+          "service_time_ms": 12.0,
+          "workers": 4
+        },
+        "density_campaign": {
+          "attack_vehicle_ratio": 0.35,
+          "backhaul_extra_latency_ms": [
+            0.0,
+            100.0
+          ],
+          "departure_window_seconds": 20.0,
+          "include_robustness_variants": false,
+          "include_topology_cache": true,
+          "primary_cache_ttl_seconds": 5.0,
+          "v2v_range_m": 180.0,
+          "v2v_sample_period_seconds": 1.0,
+          "vehicle_counts": [
+            20,
+            40,
+            60,
+            80,
+            100
+          ]
+        },
+        "detector": {
+          "benign_clean_confidence": 0.78,
+          "case_window_seconds": 15.0,
+          "false_denm_deceleration_threshold_mps2": -3.0,
+          "flood_messages_per_second": 3,
+          "freshness_tau_seconds": 12.0,
+          "position_error_threshold_m": 20.0,
+          "replay_max_age_seconds": 2.5,
+          "rsu_acceleration_sigma_mps2": 0.4,
+          "rsu_position_sigma_m": 3.0,
+          "rsu_range_m": 450.0,
+          "rsu_speed_sigma_mps": 0.6,
+          "speed_error_threshold_mps": 5.0,
+          "witness_acceleration_sigma_mps2": 0.8,
+          "witness_position_sigma_m": 5.0,
+          "witness_range_m": 180.0,
+          "witness_speed_sigma_mps": 1.0
+        },
+        "distributed_extension": {
+          "coordinator_strategy": "first_observer_then_hash",
+          "evidence_bundle_base_bytes": 384,
+          "evidence_bundle_bytes_per_attestation": 704,
+          "evidence_source_fault_budget": 1,
+          "guard_on_directional_conflict_only": true,
+          "leave_one_source_out_guard": false,
+          "replicate_read_cache_to_all_rsus": true,
+          "validator_requalification": true
+        },
+        "network": {
+          "base_latency_ms": 8.0,
+          "central_backhaul_extra_latency_ms": 100.0,
+          "evidence_crn_seed": null,
+          "jitter_ms": 3.0,
+          "max_retries": 2,
+          "packet_delivery_ratio": 0.98,
+          "queue_rate_bytes_per_second": 2000000.0,
+          "retry_backoff_ms": 5.0
+        },
+        "pbft": {
+          "max_byzantine": 1,
+          "max_views": 4,
+          "state_recovery_enabled": true,
+          "timeout_ms": 120.0,
+          "validator_behaviors": {},
+          "validators": [
+            "rsu-1",
+            "rsu-2",
+            "rsu-3",
+            "rsu-4"
+          ]
+        },
+        "policies": {
+          "benign": {
+            "cryptographic_decisive": false,
+            "freshness_window_seconds": 15.0,
+            "margin_threshold": 0.5,
+            "min_representative_weight": 0.05,
+            "opposition_lambda": 1.0,
+            "required_modalities": 1,
+            "required_roots": 2,
+            "required_sources": 2,
+            "required_zones": 1
+          },
+          "certificate_tamper": {
+            "cryptographic_decisive": true,
+            "freshness_window_seconds": 15.0,
+            "margin_threshold": 0.25,
+            "min_representative_weight": 0.05,
+            "opposition_lambda": 1.0,
+            "required_modalities": 1,
+            "required_roots": 1,
+            "required_sources": 1,
+            "required_zones": 1
+          },
+          "false_denm": {
+            "cryptographic_decisive": false,
+            "freshness_window_seconds": 15.0,
+            "margin_threshold": 0.5,
+            "min_representative_weight": 0.05,
+            "opposition_lambda": 1.0,
+            "required_modalities": 1,
+            "required_roots": 2,
+            "required_sources": 2,
+            "required_zones": 2
+          },
+          "flood": {
+            "cryptographic_decisive": false,
+            "freshness_window_seconds": 15.0,
+            "margin_threshold": 0.5,
+            "min_representative_weight": 0.05,
+            "opposition_lambda": 1.0,
+            "required_modalities": 1,
+            "required_roots": 2,
+            "required_sources": 2,
+            "required_zones": 1
+          },
+          "mixed": {
+            "cryptographic_decisive": false,
+            "freshness_window_seconds": 15.0,
+            "margin_threshold": 0.55,
+            "min_representative_weight": 0.05,
+            "opposition_lambda": 1.0,
+            "required_modalities": 1,
+            "required_roots": 2,
+            "required_sources": 2,
+            "required_zones": 2
+          },
+          "position_offset": {
+            "cryptographic_decisive": false,
+            "freshness_window_seconds": 15.0,
+            "margin_threshold": 0.45,
+            "min_representative_weight": 0.05,
+            "opposition_lambda": 1.0,
+            "required_modalities": 1,
+            "required_roots": 2,
+            "required_sources": 2,
+            "required_zones": 2
+          },
+          "replay": {
+            "cryptographic_decisive": true,
+            "freshness_window_seconds": 15.0,
+            "margin_threshold": 0.35,
+            "min_representative_weight": 0.05,
+            "opposition_lambda": 1.0,
+            "required_modalities": 1,
+            "required_roots": 1,
+            "required_sources": 1,
+            "required_zones": 1
+          },
+          "speed_offset": {
+            "cryptographic_decisive": false,
+            "freshness_window_seconds": 15.0,
+            "margin_threshold": 0.45,
+            "min_representative_weight": 0.05,
+            "opposition_lambda": 1.0,
+            "required_modalities": 1,
+            "required_roots": 2,
+            "required_sources": 2,
+            "required_zones": 1
+          }
+        },
+        "robustness": {
+          "compromised_evidence_rsu": "rsu-6",
+          "correlated_forgery_copies": 4,
+          "evidence_attack_mode": "false_accusation",
+          "malicious_validator": "rsu-1",
+          "malicious_validator_behavior": "propose_invalid"
+        },
+        "security": {
+          "compromised_rsus": [],
+          "compromised_witness_ratio": 0.1,
+          "deterministic_master_seed": "vpuft-thesis-reproducible-keys-v1"
+        },
+        "simulation": {
+          "cases_per_seed": 60,
+          "malicious_ratio": 0.3,
+          "rsu_count": 6,
+          "seeds": [
+            1001,
+            1002,
+            1003,
+            1004,
+            1005,
+            1006,
+            1007,
+            1008,
+            1009,
+            1010
+          ],
+          "source": "sumo",
+          "witness_count_mean": 4.0
+        },
+        "sumo": {
+          "attack_file": "attacks.json",
+          "deterministic_seed": 1001,
+          "end_time_seconds": 95.0,
+          "keep_sumo_output": true,
+          "netconvert_binary": null,
+          "rsu_file": "rsus.json",
+          "scenario_directory": "sumo/urban_roundabout",
+          "step_length_seconds": 1.0,
+          "sumo_binary": null,
+          "use_gui": false
+        },
+        "trust_cache": {
+          "anomaly_ratio": 0.02,
+          "interaction_interval_seconds": 0.25,
+          "interactions_per_vehicle": 12,
+          "local_verification_ms": 0.25,
+          "query_bytes": 256,
+          "revocation_ratio": 0.1,
+          "token_response_bytes": 1152,
+          "ttl_seconds": [
+            0.0,
+            1.0,
+            2.0,
+            5.0,
+            10.0,
+            30.0
+          ],
+          "vehicle_counts": [
+            20,
+            40,
+            60,
+            80,
+            100
+          ]
+        },
+        "weights": {
+          "C": 0.3652673861753211,
+          "F": 0.06370517641034751,
+          "Q": 0.40608957775126925,
+          "eta": 0.0029852581432305157,
+          "rho": 0.16195260151983162
+        }
+      },
+      "effective_config_sha256": "3a9d53841fe62eeb60df3c22374cacd0b6779cd2412a859e0f5217e12744dfe8",
+      "production_configuration_unchanged": true,
+      "security_status": "insecure_counterfactual_not_for_deployment",
+      "variant_id": "C_no_diversity_gates"
+    },
+    "Distributed": {
+      "adapter": "AblationQualificationAdapter",
+      "adapter_mode": "C_no_diversity_gates",
+      "description": "Counterfactual: bypass roots/sources/zones/modalities gate only; preserve evidence aggregation, signatures, validity, freshness, weights, opposition, margin, and crypto rule.",
+      "effective_config": {
+        "central": {
+          "audit_replica_enabled": true,
+          "availability": 0.995,
+          "compromise_mode": "false_revocation",
+          "compromised": false,
+          "queue_capacity": 1000,
+          "service_time_ms": 12.0,
+          "workers": 4
+        },
+        "density_campaign": {
+          "attack_vehicle_ratio": 0.35,
+          "backhaul_extra_latency_ms": [
+            0.0,
+            100.0
+          ],
+          "departure_window_seconds": 20.0,
+          "include_robustness_variants": false,
+          "include_topology_cache": true,
+          "primary_cache_ttl_seconds": 5.0,
+          "v2v_range_m": 180.0,
+          "v2v_sample_period_seconds": 1.0,
+          "vehicle_counts": [
+            20,
+            40,
+            60,
+            80,
+            100
+          ]
+        },
+        "detector": {
+          "benign_clean_confidence": 0.78,
+          "case_window_seconds": 15.0,
+          "false_denm_deceleration_threshold_mps2": -3.0,
+          "flood_messages_per_second": 3,
+          "freshness_tau_seconds": 12.0,
+          "position_error_threshold_m": 20.0,
+          "replay_max_age_seconds": 2.5,
+          "rsu_acceleration_sigma_mps2": 0.4,
+          "rsu_position_sigma_m": 3.0,
+          "rsu_range_m": 450.0,
+          "rsu_speed_sigma_mps": 0.6,
+          "speed_error_threshold_mps": 5.0,
+          "witness_acceleration_sigma_mps2": 0.8,
+          "witness_position_sigma_m": 5.0,
+          "witness_range_m": 180.0,
+          "witness_speed_sigma_mps": 1.0
+        },
+        "distributed_extension": {
+          "coordinator_strategy": "first_observer_then_hash",
+          "evidence_bundle_base_bytes": 384,
+          "evidence_bundle_bytes_per_attestation": 704,
+          "evidence_source_fault_budget": 1,
+          "guard_on_directional_conflict_only": true,
+          "leave_one_source_out_guard": false,
+          "replicate_read_cache_to_all_rsus": true,
+          "validator_requalification": true
+        },
+        "network": {
+          "base_latency_ms": 8.0,
+          "central_backhaul_extra_latency_ms": 0.0,
+          "evidence_crn_seed": null,
+          "jitter_ms": 3.0,
+          "max_retries": 2,
+          "packet_delivery_ratio": 0.98,
+          "queue_rate_bytes_per_second": 2000000.0,
+          "retry_backoff_ms": 5.0
+        },
+        "pbft": {
+          "max_byzantine": 1,
+          "max_views": 4,
+          "state_recovery_enabled": true,
+          "timeout_ms": 120.0,
+          "validator_behaviors": {},
+          "validators": [
+            "rsu-1",
+            "rsu-2",
+            "rsu-3",
+            "rsu-4"
+          ]
+        },
+        "policies": {
+          "benign": {
+            "cryptographic_decisive": false,
+            "freshness_window_seconds": 15.0,
+            "margin_threshold": 0.5,
+            "min_representative_weight": 0.05,
+            "opposition_lambda": 1.0,
+            "required_modalities": 1,
+            "required_roots": 2,
+            "required_sources": 2,
+            "required_zones": 1
+          },
+          "certificate_tamper": {
+            "cryptographic_decisive": true,
+            "freshness_window_seconds": 15.0,
+            "margin_threshold": 0.25,
+            "min_representative_weight": 0.05,
+            "opposition_lambda": 1.0,
+            "required_modalities": 1,
+            "required_roots": 1,
+            "required_sources": 1,
+            "required_zones": 1
+          },
+          "false_denm": {
+            "cryptographic_decisive": false,
+            "freshness_window_seconds": 15.0,
+            "margin_threshold": 0.5,
+            "min_representative_weight": 0.05,
+            "opposition_lambda": 1.0,
+            "required_modalities": 1,
+            "required_roots": 2,
+            "required_sources": 2,
+            "required_zones": 2
+          },
+          "flood": {
+            "cryptographic_decisive": false,
+            "freshness_window_seconds": 15.0,
+            "margin_threshold": 0.5,
+            "min_representative_weight": 0.05,
+            "opposition_lambda": 1.0,
+            "required_modalities": 1,
+            "required_roots": 2,
+            "required_sources": 2,
+            "required_zones": 1
+          },
+          "mixed": {
+            "cryptographic_decisive": false,
+            "freshness_window_seconds": 15.0,
+            "margin_threshold": 0.55,
+            "min_representative_weight": 0.05,
+            "opposition_lambda": 1.0,
+            "required_modalities": 1,
+            "required_roots": 2,
+            "required_sources": 2,
+            "required_zones": 2
+          },
+          "position_offset": {
+            "cryptographic_decisive": false,
+            "freshness_window_seconds": 15.0,
+            "margin_threshold": 0.45,
+            "min_representative_weight": 0.05,
+            "opposition_lambda": 1.0,
+            "required_modalities": 1,
+            "required_roots": 2,
+            "required_sources": 2,
+            "required_zones": 2
+          },
+          "replay": {
+            "cryptographic_decisive": true,
+            "freshness_window_seconds": 15.0,
+            "margin_threshold": 0.35,
+            "min_representative_weight": 0.05,
+            "opposition_lambda": 1.0,
+            "required_modalities": 1,
+            "required_roots": 1,
+            "required_sources": 1,
+            "required_zones": 1
+          },
+          "speed_offset": {
+            "cryptographic_decisive": false,
+            "freshness_window_seconds": 15.0,
+            "margin_threshold": 0.45,
+            "min_representative_weight": 0.05,
+            "opposition_lambda": 1.0,
+            "required_modalities": 1,
+            "required_roots": 2,
+            "required_sources": 2,
+            "required_zones": 1
+          }
+        },
+        "robustness": {
+          "compromised_evidence_rsu": "rsu-6",
+          "correlated_forgery_copies": 4,
+          "evidence_attack_mode": "false_accusation",
+          "malicious_validator": "rsu-1",
+          "malicious_validator_behavior": "propose_invalid"
+        },
+        "security": {
+          "compromised_rsus": [],
+          "compromised_witness_ratio": 0.1,
+          "deterministic_master_seed": "vpuft-thesis-reproducible-keys-v1"
+        },
+        "simulation": {
+          "cases_per_seed": 60,
+          "malicious_ratio": 0.3,
+          "rsu_count": 6,
+          "seeds": [
+            1001,
+            1002,
+            1003,
+            1004,
+            1005,
+            1006,
+            1007,
+            1008,
+            1009,
+            1010
+          ],
+          "source": "sumo",
+          "witness_count_mean": 4.0
+        },
+        "sumo": {
+          "attack_file": "attacks.json",
+          "deterministic_seed": 1001,
+          "end_time_seconds": 95.0,
+          "keep_sumo_output": true,
+          "netconvert_binary": null,
+          "rsu_file": "rsus.json",
+          "scenario_directory": "sumo/urban_roundabout",
+          "step_length_seconds": 1.0,
+          "sumo_binary": null,
+          "use_gui": false
+        },
+        "trust_cache": {
+          "anomaly_ratio": 0.02,
+          "interaction_interval_seconds": 0.25,
+          "interactions_per_vehicle": 12,
+          "local_verification_ms": 0.25,
+          "query_bytes": 256,
+          "revocation_ratio": 0.1,
+          "token_response_bytes": 1152,
+          "ttl_seconds": [
+            0.0,
+            1.0,
+            2.0,
+            5.0,
+            10.0,
+            30.0
+          ],
+          "vehicle_counts": [
+            20,
+            40,
+            60,
+            80,
+            100
+          ]
+        },
+        "weights": {
+          "C": 0.3652673861753211,
+          "F": 0.06370517641034751,
+          "Q": 0.40608957775126925,
+          "eta": 0.0029852581432305157,
+          "rho": 0.16195260151983162
+        }
+      },
+      "effective_config_sha256": "a0e7128f0a9f84210686e00415094da465a0bc1f18acc555b0998b748ae98aa8",
+      "production_configuration_unchanged": true,
+      "security_status": "insecure_counterfactual_not_for_deployment",
+      "variant_id": "C_no_diversity_gates"
+    }
+  },
+  "baseline": {
+    "C100": {
+      "adapter": "production_engine",
+      "adapter_mode": "baseline",
+      "description": "Unwrapped production VPUFTQualificationEngine; no ablation.",
+      "effective_config": {
+        "central": {
+          "audit_replica_enabled": true,
+          "availability": 0.995,
+          "compromise_mode": "false_revocation",
+          "compromised": false,
+          "queue_capacity": 1000,
+          "service_time_ms": 12.0,
+          "workers": 4
+        },
+        "density_campaign": {
+          "attack_vehicle_ratio": 0.35,
+          "backhaul_extra_latency_ms": [
+            0.0,
+            100.0
+          ],
+          "departure_window_seconds": 20.0,
+          "include_robustness_variants": false,
+          "include_topology_cache": true,
+          "primary_cache_ttl_seconds": 5.0,
+          "v2v_range_m": 180.0,
+          "v2v_sample_period_seconds": 1.0,
+          "vehicle_counts": [
+            20,
+            40,
+            60,
+            80,
+            100
+          ]
+        },
+        "detector": {
+          "benign_clean_confidence": 0.78,
+          "case_window_seconds": 15.0,
+          "false_denm_deceleration_threshold_mps2": -3.0,
+          "flood_messages_per_second": 3,
+          "freshness_tau_seconds": 12.0,
+          "position_error_threshold_m": 20.0,
+          "replay_max_age_seconds": 2.5,
+          "rsu_acceleration_sigma_mps2": 0.4,
+          "rsu_position_sigma_m": 3.0,
+          "rsu_range_m": 450.0,
+          "rsu_speed_sigma_mps": 0.6,
+          "speed_error_threshold_mps": 5.0,
+          "witness_acceleration_sigma_mps2": 0.8,
+          "witness_position_sigma_m": 5.0,
+          "witness_range_m": 180.0,
+          "witness_speed_sigma_mps": 1.0
+        },
+        "distributed_extension": {
+          "coordinator_strategy": "first_observer_then_hash",
+          "evidence_bundle_base_bytes": 384,
+          "evidence_bundle_bytes_per_attestation": 704,
+          "evidence_source_fault_budget": 1,
+          "guard_on_directional_conflict_only": true,
+          "leave_one_source_out_guard": false,
+          "replicate_read_cache_to_all_rsus": true,
+          "validator_requalification": true
+        },
+        "network": {
+          "base_latency_ms": 8.0,
+          "central_backhaul_extra_latency_ms": 100.0,
+          "evidence_crn_seed": null,
+          "jitter_ms": 3.0,
+          "max_retries": 2,
+          "packet_delivery_ratio": 0.98,
+          "queue_rate_bytes_per_second": 2000000.0,
+          "retry_backoff_ms": 5.0
+        },
+        "pbft": {
+          "max_byzantine": 1,
+          "max_views": 4,
+          "state_recovery_enabled": true,
+          "timeout_ms": 120.0,
+          "validator_behaviors": {},
+          "validators": [
+            "rsu-1",
+            "rsu-2",
+            "rsu-3",
+            "rsu-4"
+          ]
+        },
+        "policies": {
+          "benign": {
+            "cryptographic_decisive": false,
+            "freshness_window_seconds": 15.0,
+            "margin_threshold": 0.5,
+            "min_representative_weight": 0.05,
+            "opposition_lambda": 1.0,
+            "required_modalities": 1,
+            "required_roots": 2,
+            "required_sources": 2,
+            "required_zones": 1
+          },
+          "certificate_tamper": {
+            "cryptographic_decisive": true,
+            "freshness_window_seconds": 15.0,
+            "margin_threshold": 0.25,
+            "min_representative_weight": 0.05,
+            "opposition_lambda": 1.0,
+            "required_modalities": 1,
+            "required_roots": 1,
+            "required_sources": 1,
+            "required_zones": 1
+          },
+          "false_denm": {
+            "cryptographic_decisive": false,
+            "freshness_window_seconds": 15.0,
+            "margin_threshold": 0.5,
+            "min_representative_weight": 0.05,
+            "opposition_lambda": 1.0,
+            "required_modalities": 1,
+            "required_roots": 2,
+            "required_sources": 2,
+            "required_zones": 2
+          },
+          "flood": {
+            "cryptographic_decisive": false,
+            "freshness_window_seconds": 15.0,
+            "margin_threshold": 0.5,
+            "min_representative_weight": 0.05,
+            "opposition_lambda": 1.0,
+            "required_modalities": 1,
+            "required_roots": 2,
+            "required_sources": 2,
+            "required_zones": 1
+          },
+          "mixed": {
+            "cryptographic_decisive": false,
+            "freshness_window_seconds": 15.0,
+            "margin_threshold": 0.55,
+            "min_representative_weight": 0.05,
+            "opposition_lambda": 1.0,
+            "required_modalities": 1,
+            "required_roots": 2,
+            "required_sources": 2,
+            "required_zones": 2
+          },
+          "position_offset": {
+            "cryptographic_decisive": false,
+            "freshness_window_seconds": 15.0,
+            "margin_threshold": 0.45,
+            "min_representative_weight": 0.05,
+            "opposition_lambda": 1.0,
+            "required_modalities": 1,
+            "required_roots": 2,
+            "required_sources": 2,
+            "required_zones": 2
+          },
+          "replay": {
+            "cryptographic_decisive": true,
+            "freshness_window_seconds": 15.0,
+            "margin_threshold": 0.35,
+            "min_representative_weight": 0.05,
+            "opposition_lambda": 1.0,
+            "required_modalities": 1,
+            "required_roots": 1,
+            "required_sources": 1,
+            "required_zones": 1
+          },
+          "speed_offset": {
+            "cryptographic_decisive": false,
+            "freshness_window_seconds": 15.0,
+            "margin_threshold": 0.45,
+            "min_representative_weight": 0.05,
+            "opposition_lambda": 1.0,
+            "required_modalities": 1,
+            "required_roots": 2,
+            "required_sources": 2,
+            "required_zones": 1
+          }
+        },
+        "robustness": {
+          "compromised_evidence_rsu": "rsu-6",
+          "correlated_forgery_copies": 4,
+          "evidence_attack_mode": "false_accusation",
+          "malicious_validator": "rsu-1",
+          "malicious_validator_behavior": "propose_invalid"
+        },
+        "security": {
+          "compromised_rsus": [],
+          "compromised_witness_ratio": 0.1,
+          "deterministic_master_seed": "vpuft-thesis-reproducible-keys-v1"
+        },
+        "simulation": {
+          "cases_per_seed": 60,
+          "malicious_ratio": 0.3,
+          "rsu_count": 6,
+          "seeds": [
+            1001,
+            1002,
+            1003,
+            1004,
+            1005,
+            1006,
+            1007,
+            1008,
+            1009,
+            1010
+          ],
+          "source": "sumo",
+          "witness_count_mean": 4.0
+        },
+        "sumo": {
+          "attack_file": "attacks.json",
+          "deterministic_seed": 1001,
+          "end_time_seconds": 95.0,
+          "keep_sumo_output": true,
+          "netconvert_binary": null,
+          "rsu_file": "rsus.json",
+          "scenario_directory": "sumo/urban_roundabout",
+          "step_length_seconds": 1.0,
+          "sumo_binary": null,
+          "use_gui": false
+        },
+        "trust_cache": {
+          "anomaly_ratio": 0.02,
+          "interaction_interval_seconds": 0.25,
+          "interactions_per_vehicle": 12,
+          "local_verification_ms": 0.25,
+          "query_bytes": 256,
+          "revocation_ratio": 0.1,
+          "token_response_bytes": 1152,
+          "ttl_seconds": [
+            0.0,
+            1.0,
+            2.0,
+            5.0,
+            10.0,
+            30.0
+          ],
+          "vehicle_counts": [
+            20,
+            40,
+            60,
+            80,
+            100
+          ]
+        },
+        "weights": {
+          "C": 0.3652673861753211,
+          "F": 0.06370517641034751,
+          "Q": 0.40608957775126925,
+          "eta": 0.0029852581432305157,
+          "rho": 0.16195260151983162
+        }
+      },
+      "effective_config_sha256": "3a9d53841fe62eeb60df3c22374cacd0b6779cd2412a859e0f5217e12744dfe8",
+      "production_configuration_unchanged": true,
+      "security_status": "production_baseline",
+      "variant_id": "baseline"
+    },
+    "Distributed": {
+      "adapter": "production_engine",
+      "adapter_mode": "baseline",
+      "description": "Unwrapped production VPUFTQualificationEngine; no ablation.",
+      "effective_config": {
+        "central": {
+          "audit_replica_enabled": true,
+          "availability": 0.995,
+          "compromise_mode": "false_revocation",
+          "compromised": false,
+          "queue_capacity": 1000,
+          "service_time_ms": 12.0,
+          "workers": 4
+        },
+        "density_campaign": {
+          "attack_vehicle_ratio": 0.35,
+          "backhaul_extra_latency_ms": [
+            0.0,
+            100.0
+          ],
+          "departure_window_seconds": 20.0,
+          "include_robustness_variants": false,
+          "include_topology_cache": true,
+          "primary_cache_ttl_seconds": 5.0,
+          "v2v_range_m": 180.0,
+          "v2v_sample_period_seconds": 1.0,
+          "vehicle_counts": [
+            20,
+            40,
+            60,
+            80,
+            100
+          ]
+        },
+        "detector": {
+          "benign_clean_confidence": 0.78,
+          "case_window_seconds": 15.0,
+          "false_denm_deceleration_threshold_mps2": -3.0,
+          "flood_messages_per_second": 3,
+          "freshness_tau_seconds": 12.0,
+          "position_error_threshold_m": 20.0,
+          "replay_max_age_seconds": 2.5,
+          "rsu_acceleration_sigma_mps2": 0.4,
+          "rsu_position_sigma_m": 3.0,
+          "rsu_range_m": 450.0,
+          "rsu_speed_sigma_mps": 0.6,
+          "speed_error_threshold_mps": 5.0,
+          "witness_acceleration_sigma_mps2": 0.8,
+          "witness_position_sigma_m": 5.0,
+          "witness_range_m": 180.0,
+          "witness_speed_sigma_mps": 1.0
+        },
+        "distributed_extension": {
+          "coordinator_strategy": "first_observer_then_hash",
+          "evidence_bundle_base_bytes": 384,
+          "evidence_bundle_bytes_per_attestation": 704,
+          "evidence_source_fault_budget": 1,
+          "guard_on_directional_conflict_only": true,
+          "leave_one_source_out_guard": false,
+          "replicate_read_cache_to_all_rsus": true,
+          "validator_requalification": true
+        },
+        "network": {
+          "base_latency_ms": 8.0,
+          "central_backhaul_extra_latency_ms": 0.0,
+          "evidence_crn_seed": null,
+          "jitter_ms": 3.0,
+          "max_retries": 2,
+          "packet_delivery_ratio": 0.98,
+          "queue_rate_bytes_per_second": 2000000.0,
+          "retry_backoff_ms": 5.0
+        },
+        "pbft": {
+          "max_byzantine": 1,
+          "max_views": 4,
+          "state_recovery_enabled": true,
+          "timeout_ms": 120.0,
+          "validator_behaviors": {},
+          "validators": [
+            "rsu-1",
+            "rsu-2",
+            "rsu-3",
+            "rsu-4"
+          ]
+        },
+        "policies": {
+          "benign": {
+            "cryptographic_decisive": false,
+            "freshness_window_seconds": 15.0,
+            "margin_threshold": 0.5,
+            "min_representative_weight": 0.05,
+            "opposition_lambda": 1.0,
+            "required_modalities": 1,
+            "required_roots": 2,
+            "required_sources": 2,
+            "required_zones": 1
+          },
+          "certificate_tamper": {
+            "cryptographic_decisive": true,
+            "freshness_window_seconds": 15.0,
+            "margin_threshold": 0.25,
+            "min_representative_weight": 0.05,
+            "opposition_lambda": 1.0,
+            "required_modalities": 1,
+            "required_roots": 1,
+            "required_sources": 1,
+            "required_zones": 1
+          },
+          "false_denm": {
+            "cryptographic_decisive": false,
+            "freshness_window_seconds": 15.0,
+            "margin_threshold": 0.5,
+            "min_representative_weight": 0.05,
+            "opposition_lambda": 1.0,
+            "required_modalities": 1,
+            "required_roots": 2,
+            "required_sources": 2,
+            "required_zones": 2
+          },
+          "flood": {
+            "cryptographic_decisive": false,
+            "freshness_window_seconds": 15.0,
+            "margin_threshold": 0.5,
+            "min_representative_weight": 0.05,
+            "opposition_lambda": 1.0,
+            "required_modalities": 1,
+            "required_roots": 2,
+            "required_sources": 2,
+            "required_zones": 1
+          },
+          "mixed": {
+            "cryptographic_decisive": false,
+            "freshness_window_seconds": 15.0,
+            "margin_threshold": 0.55,
+            "min_representative_weight": 0.05,
+            "opposition_lambda": 1.0,
+            "required_modalities": 1,
+            "required_roots": 2,
+            "required_sources": 2,
+            "required_zones": 2
+          },
+          "position_offset": {
+            "cryptographic_decisive": false,
+            "freshness_window_seconds": 15.0,
+            "margin_threshold": 0.45,
+            "min_representative_weight": 0.05,
+            "opposition_lambda": 1.0,
+            "required_modalities": 1,
+            "required_roots": 2,
+            "required_sources": 2,
+            "required_zones": 2
+          },
+          "replay": {
+            "cryptographic_decisive": true,
+            "freshness_window_seconds": 15.0,
+            "margin_threshold": 0.35,
+            "min_representative_weight": 0.05,
+            "opposition_lambda": 1.0,
+            "required_modalities": 1,
+            "required_roots": 1,
+            "required_sources": 1,
+            "required_zones": 1
+          },
+          "speed_offset": {
+            "cryptographic_decisive": false,
+            "freshness_window_seconds": 15.0,
+            "margin_threshold": 0.45,
+            "min_representative_weight": 0.05,
+            "opposition_lambda": 1.0,
+            "required_modalities": 1,
+            "required_roots": 2,
+            "required_sources": 2,
+            "required_zones": 1
+          }
+        },
+        "robustness": {
+          "compromised_evidence_rsu": "rsu-6",
+          "correlated_forgery_copies": 4,
+          "evidence_attack_mode": "false_accusation",
+          "malicious_validator": "rsu-1",
+          "malicious_validator_behavior": "propose_invalid"
+        },
+        "security": {
+          "compromised_rsus": [],
+          "compromised_witness_ratio": 0.1,
+          "deterministic_master_seed": "vpuft-thesis-reproducible-keys-v1"
+        },
+        "simulation": {
+          "cases_per_seed": 60,
+          "malicious_ratio": 0.3,
+          "rsu_count": 6,
+          "seeds": [
+            1001,
+            1002,
+            1003,
+            1004,
+            1005,
+            1006,
+            1007,
+            1008,
+            1009,
+            1010
+          ],
+          "source": "sumo",
+          "witness_count_mean": 4.0
+        },
+        "sumo": {
+          "attack_file": "attacks.json",
+          "deterministic_seed": 1001,
+          "end_time_seconds": 95.0,
+          "keep_sumo_output": true,
+          "netconvert_binary": null,
+          "rsu_file": "rsus.json",
+          "scenario_directory": "sumo/urban_roundabout",
+          "step_length_seconds": 1.0,
+          "sumo_binary": null,
+          "use_gui": false
+        },
+        "trust_cache": {
+          "anomaly_ratio": 0.02,
+          "interaction_interval_seconds": 0.25,
+          "interactions_per_vehicle": 12,
+          "local_verification_ms": 0.25,
+          "query_bytes": 256,
+          "revocation_ratio": 0.1,
+          "token_response_bytes": 1152,
+          "ttl_seconds": [
+            0.0,
+            1.0,
+            2.0,
+            5.0,
+            10.0,
+            30.0
+          ],
+          "vehicle_counts": [
+            20,
+            40,
+            60,
+            80,
+            100
+          ]
+        },
+        "weights": {
+          "C": 0.3652673861753211,
+          "F": 0.06370517641034751,
+          "Q": 0.40608957775126925,
+          "eta": 0.0029852581432305157,
+          "rho": 0.16195260151983162
+        }
+      },
+      "effective_config_sha256": "a0e7128f0a9f84210686e00415094da465a0bc1f18acc555b0998b748ae98aa8",
+      "production_configuration_unchanged": true,
+      "security_status": "production_baseline",
+      "variant_id": "baseline"
+    }
+  }
+}

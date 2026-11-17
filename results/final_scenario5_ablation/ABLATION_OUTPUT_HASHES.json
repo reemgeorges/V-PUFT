@@ -1,0 +1,22 @@
+{
+  "ABLATION_CASE_DECISIONS.csv": "b03538cc4891079812918d39c7b7d3db60ddf7fdca87298f7a0eeb2af8723d6b",
+  "ABLATION_CONTEXT.json": "3e85c9601f871e0169ddb46bf374beb8fcdc4582903bd57cf395e8c85964623d",
+  "ABLATION_EFFECTIVE_CONFIGS.json": "e6252e3a0bed1eca58640d3c8a79c30e06c1b5f281a20ebddfea8e97b6eef7fb",
+  "ABLATION_FIXED_OPPORTUNITIES.csv": "95daa0abee16202d498fe2e6603f10b0946441c7132ce114c2a33368c91556c2",
+  "ABLATION_INPUT_TRACE_MANIFEST.json": "591e3dd50a3480134f218c869b9e196e0b57fea09620e18b614af0e55a2fc5a7",
+  "ABLATION_METRICS_BY_SEED.csv": "504e4c798082b78058808dba2f4920f4cbc85649bdd70daedc099df2c69a9cf9",
+  "ABLATION_PILOT_VALIDATION.json": "1132e963cb4ece7f97fdf9e4e71e69dae23930c53affa40cf671d8e37c84bdaa",
+  "ABLATION_RESUME_CODE_RECONCILIATION.json": "af0921046e4b30998814b2f6c143b809f37caa5e7df4bf29b93cc45756d09b43",
+  "ABLATION_RUN_MANIFEST.csv": "7632753d2885b28fb444221a2e3a69ec0eba6a983a49c4e58727d578e6680fa3",
+  "ABLATION_STATUS.json": "aa89850169a4b3218b738a4d999fa2fc4ccfb257e8ac36248266d5cb8771fdff",
+  "STATISTICAL_ANALYSIS.md": "dd5968fdbabad7b0d6e0380b31b45c1139c8777da3d7e3c95028ef12be6f03ca",
+  "aggregated_metrics.csv": "021bbdfb9ab3367c98cc32fba770256696b47805e29746afec035b513c854dfb",
+  "case_level_changes.csv": "bf3051cad25e60abedc5391d71d20d2597dee344d85354db583b557c60989f14",
+  "figures/ablation_cost_density_100.png": "34a5b2725bf4c7ddb5f12e2744ff018346e826dba9a916e1a57cf9c81bfc23b6",
+  "figures/ablation_cost_density_20.png": "7a79c55055f14fff84695f238b1177feca7924572040f74b6dcd1f879bc6291f",
+  "figures/ablation_security_density_100.png": "72f74c06d6965f537678b3fa029d766e163d9a45928a5ead87baca0f293b9327",
+  "figures/ablation_security_density_20.png": "d2df4a97ea48d69e17ac5b60ab7ddd47e7dcfea6a960942e6bbf5b52af8872fb",
+  "metrics_and_opportunities_joined.csv": "e2d9885e690aef968d519048dbd3a0dbf53cf3d803a026b9e40afb6c7884c9c9",
+  "paired_comparison_by_seed.csv": "fbbcb3b64edd6b73823b4d3601aebd214669064367ad3c91e7332a4d89ec48d4",
+  "paired_comparison_summary.csv": "8109fe745adeacf54d849a406936b666e1ee9f68ad2a5488a93088f0f154ad7a"
+}

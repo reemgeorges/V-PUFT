@@ -1,0 +1,10 @@
+{
+  "active_wall_seconds": 20.42200000002049,
+  "completed_comparison_cells": 48,
+  "executed_this_invocation": 0,
+  "new_ablation_runs_total": 32,
+  "output_bytes": 5178047,
+  "reused_baseline_cells": 16,
+  "stage": "remaining",
+  "status": "all_cells_completed"
+}

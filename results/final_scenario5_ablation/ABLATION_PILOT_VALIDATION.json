@@ -1,0 +1,22 @@
+{
+  "all_expected_variants_architectures_and_seeds_present": true,
+  "all_replayed_metrics_reconcile_to_Method_B": true,
+  "all_selected_trace_hashes_match_manifest": true,
+  "each_cell_has_unique_case_ids": true,
+  "fixed_opportunity_denominators_match_within_trace": true,
+  "passed": true,
+  "pilot_has_all_24_comparison_cells": true,
+  "scope": {
+    "architectures": 2,
+    "densities": [
+      20,
+      100
+    ],
+    "seeds": [
+      7003,
+      7004
+    ],
+    "variants": 3
+  },
+  "trace_case_sets_match_baseline": true
+}
