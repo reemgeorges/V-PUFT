@@ -1,4 +1,4 @@
-﻿# مقارنة C100 وDistributed — Scenario 5 Method B
+# مقارنة C100 وDistributed — Scenario 5 Method B
 
 المصدر Dataset B وحده عند المرجع `0c0c10b3d6cbb2075e430a299e3c18cdf382320a`. C100 هو `centralized_remote_100ms` وDistributed هو `distributed_density_honest`. لكل منهما 17,418 سجل حالة؛ تقاطع المفاتيح 17,418، وغير المطابق صفر. اختلاف الحقيقة المرجعية أو نوع الهجوم على الحالات المشتركة صفر.
 
@@ -32,3 +32,13 @@
 | 100 | 1004 | case-urban_roundabout-1004-veh_020-w0006 | veh_020 | 0 | insufficient_independent_evidence_diversity | already_revoked_terminal_state |
 
 توجد 8 نوافذ terminal إضافية بعد الإبطال المبكر في Distributed: واحدة malicious وسبع benign. لذا يختلف المقام المؤهل رغم تطابق مجموعة السجلات الخام. Recall هنا state-aware، ولا توجد فرصة هجوم ذات مقام ثابت في هذه الحملة.
+
+## إيضاح C0 وC100 وحالتي عدم الإتاحة
+
+### C0 مقابل C100
+
+تتطابق مؤشرات التصنيف في Dataset B بين C0 (centralized_remote_0ms_control) وC100 (centralized_remote_100ms): TP=639 وFP=9 وTN=12,981 وFN=964 في كل منهما، مع 14,593 نافذة مؤهلة و2,825 مستبعدة بعد REVOKED. وتطابقت قرارات الحالات الـ17,418. هذا يثبت تكافؤ التصنيف في هذه السجلات لا تكافؤ الكمون أو الإتاحة في كل الظروف.
+
+### حالتا عدم إتاحة الخادم والصفوف الطرفية
+
+الحالتان: density 60 / seed 1002 / veh_044 / speed_offset / case-urban_roundabout-1002-veh_044-w0002؛ وdensity 100 / seed 1004 / veh_020 / position_offset / case-urban_roundabout-1004-veh_020-w0001. في C100 تعذر الإنهاء بسبب central_server_unavailable؛ وفي Distributed تم الإنهاء. تلاهما ثماني نوافذ already_revoked_terminal_state في Distributed (واحدة malicious وسبع benign). هذا فرق إتاحة وإنهاء وآثاره على حالة المركبة ومقام Method B، ولا يثبت تفوق QE أو PBFT-style detection.

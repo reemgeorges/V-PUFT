@@ -39,3 +39,7 @@ For a separate coverage study, keep six sensing RSUs and four PBFT validators (`
 ## Limits
 
 Physical capability is modeled by the simulator's 450 m range and recorded sender positions; the files do not establish real-world radio visibility, occlusion, or sensor quality. The trace proves what this detector emitted, not what an unrecorded alternative detector would infer. The 29 multi-observer shortfalls and 19 margin failures cannot be called algorithmically recoverable from present evidence. The existing pilot is three cells and does not establish population-wide FP safety. The Phase 4 instrumentation adds attestation identity, arrival time, and evaluation time for future audits but does not itself improve Recall.
+
+## توضيح تفسير فشل تنوع المصدر
+
+العدد 943 يصف نوافذ FN التي فشلت شرط تنوع المصادر ضمن مسار التأهيل؛ ولا يثبت وحده أن RSU ثانية كانت خارج مجال الاستشعار أو لم ترصد الرسالة فعلياً. حيث تسمح السجلات، كان في 876 نافذة مراقب واحد فقط ضمن المدى الفيزيائي المُمثّل، وفي 29 نافذة أكثر من مراقب ممكن لكن لم يبق مراقب داعم ثانٍ مؤهل. أعداد القيود متداخلة لا حصرية: فشل المصدر 943، والمنطقة 612، والجذر المستقل 96، والهامش 148، والوسيط 5 من 961 FN.

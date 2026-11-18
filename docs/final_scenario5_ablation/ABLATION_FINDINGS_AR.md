@@ -112,3 +112,9 @@ Recall الحالة يعتمد مقامه على نوافذ التقييم ال�
 - تغييرات قرارات الحالات: [`case_level_changes.csv`](../../results/final_scenario5_ablation/case_level_changes.csv)
 - تعريفات المنهج والتحليل الإحصائي: [`ABLATION_DESIGN.md`](ABLATION_DESIGN.md)، و[`STATISTICAL_ANALYSIS.md`](../../results/final_scenario5_ablation/STATISTICAL_ANALYSIS.md)
 - بصمات المدخلات والمخرجات: [`ABLATION_CONTEXT.json`](../../results/final_scenario5_ablation/ABLATION_CONTEXT.json)، و[`ABLATION_OUTPUT_HASHES.json`](../../results/final_scenario5_ablation/ABLATION_OUTPUT_HASHES.json)
+
+## التفسير المحدد للمتغير C
+
+المتغير C (C_no_diversity_gates) يزيل بوابات تنوع الجذر/المصدر/المنطقة/الوسيط؛ وهو مقابِل تشخيصي بسياسة أضعف أمنياً وليس إعداد نشر. عند الكثافة 20 (أربع بذور مجمعة)، ارتفع TP من 15 إلى 28 في C100 وDistributed؛ وأصبح FN=1 و0 على الترتيب. عند الكثافة 100 ارتفع TP من 79 إلى 137 في المعماريتين وأصبح FN=18. لم تسجل العينة FP جديدة، لكن ذلك لا يعوض إزالة قيود الاستقلال.
+
+تغير مقام Method B state-aware بسبب الإبطال المبكر: عند الكثافة 20 انخفض المؤهل في C100 من 402 إلى 342 وفي Distributed من 402 إلى 341، وارتفع المستبعد بعد REVOKED من 74 إلى 134 ومن 74 إلى 135. عند الكثافة 100 انخفض المؤهل في المعماريتين من 1,923 إلى 1,657، وارتفع المستبعد من 357 إلى 623. بقي مقام فرص الهجوم ثابتاً: 1,700 عند الكثافة 20 و7,612 عند الكثافة 100. هذه زيادة تحت سياسة مخففة وليست تحسناً آمناً أو تغييراً في baseline.

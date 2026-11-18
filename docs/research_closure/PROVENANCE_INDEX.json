@@ -45,7 +45,7 @@
     "pkg": "research/vpuft-post-seminar-optimization",
     "old": "main historical snapshot"
   },
-  "dataset_A_B_status": "UNRESOLVED; separately preserved",
+  "dataset_A_B_status": "Dataset B corrected_final is authoritative for final Scenario 5 Method B reporting by closure decision; Dataset A is preserved as the historical report-linked campaign and is not interchangeable with Dataset B.",
   "sensitivity": "103/120; 17 never started",
   "ablation": "48/48",
   "video": {
@@ -3170,5 +3170,32 @@
       "normalized_matches_canonical": true
     }
   },
-  "dataset_B_hash_note": "Frozen hashes are canonical Git blob bytes (LF). The Windows worktree has core.autocrlf=true, so checked-out files contain CRLF; byte-for-byte LF normalization exactly matches the frozen Git blob. Raw worktree hashes are listed separately."
+  "dataset_B_hash_note": "Frozen hashes are canonical Git blob bytes (LF). The Windows worktree has core.autocrlf=true, so checked-out files contain CRLF; byte-for-byte LF normalization exactly matches the frozen Git blob. Raw worktree hashes are listed separately.",
+  "phase6_reporting_correction": {
+    "source": "results/post_seminar_phase6_final/final_paired_comparison.csv",
+    "sha256": "ffba8583826fe6c13484ca4a54e283cab0839f686d74cc891f8dd127e1b2f4fd",
+    "opportunities": 1086,
+    "observed": {
+      "before": 948,
+      "after": 953,
+      "gain": 5,
+      "improved_cells": 5,
+      "unchanged_cells": 15,
+      "worsened_cells": 0
+    },
+    "protected": {
+      "before": 455,
+      "after": 501,
+      "gain": 46,
+      "newly_detected": 21,
+      "terminally_protected": 25
+    }
+  },
+  "restored_historical_document": {
+    "path": "docs/post_seminar/EVIDENCE_AVAILABILITY_V5.md",
+    "source_commit": "2df02a0f17dc4782b833b882edbc3ec30c1e8e8d",
+    "sha256": "bdeca249daa5fe1be5b67f408ecf33755f8b8f537147f15428aa50fc264cdbaf",
+    "bytes": 8644,
+    "status": "restored byte-for-byte; historical prototype only"
+  }
 }
