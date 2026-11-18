@@ -1,0 +1,57 @@
+{
+  "security_gates": {
+    "no_introduced_false_positive_case": true,
+    "candidate_frr_not_above_c1_in_any_pair": true,
+    "precision_drop_within_preregistered_limit": true,
+    "observed_attack_opportunities_not_reduced_in_any_pair": true,
+    "fixed_protected_fraction_gain_at_least_5pp": true,
+    "no_density_mean_protected_fraction_regression": true,
+    "at_least_four_of_six_cells_improve": true,
+    "eligible_independent_roots_sources_and_zones_increase_on_common_active_cases": true
+  },
+  "resource_gates": {
+    "mean_cpu_overhead_within_cap": false,
+    "mean_messages_per_case_overhead_within_cap": false,
+    "mean_p95_e2e_overhead_within_cap": true
+  },
+  "summary": {
+    "paired_cells": 6,
+    "introduced_false_positive_cases": 0,
+    "removed_false_positive_cases": 2,
+    "state_aware_FN_cases_recovered_as_TP": 59,
+    "C1_nonterminal_FN_case_transition_counts": {
+      "started_as_C1_FN": 115,
+      "became_C3_TP": 59,
+      "became_C3_terminal_after_earlier_revocation": 20,
+      "remained_C3_nonterminal_FN": 36
+    },
+    "paired_case_ground_truth_disagreements": 0,
+    "recovered_cases_meeting_C3_root_source_zone_requirements": {
+      "roots": 59,
+      "sources": 59,
+      "zones": 59
+    },
+    "common_active_evidence_differences_C3_minus_C1": {
+      "roots": 40,
+      "sources": 104,
+      "zones": 104,
+      "roots_meeting_requirement": 0,
+      "sources_meeting_requirement": 67,
+      "zones_meeting_requirement": 39
+    },
+    "mean_fixed_protected_fraction_gain": 0.2915910465819722,
+    "cells_improved_unchanged_worsened": {
+      "improved": 6,
+      "unchanged": 0,
+      "worsened": 0
+    },
+    "mean_resource_overheads": {
+      "cpu_time_seconds": 0.44267690039158536,
+      "messages_per_case": 0.37124835241362136,
+      "p95_e2e_ms": 0.0013321583390924383
+    },
+    "security_gate_pass": true,
+    "resource_caps_pass": false,
+    "decision": "NO_GO_REJECT_OR_REDESIGN"
+  }
+}

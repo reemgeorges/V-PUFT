@@ -1,0 +1,19 @@
+{
+  "pbft": {
+    "validators": ["rsu-1", "rsu-2", "rsu-3", "rsu-4", "rsu-5"],
+    "max_byzantine": 1,
+    "quorum_size": 4,
+    "membership_epoch": "v5-coordinator-security-fixed-epoch-v1"
+  },
+  "simulation": {
+    "rsu_count": 8
+  },
+  "distributed_extension": {
+    "coordinator_strategy": "canonical_case_epoch_hash",
+    "coordinator_pool": ["rsu-1", "rsu-2", "rsu-3", "rsu-4", "rsu-5"],
+    "membership_epoch": "v5-coordinator-security-fixed-epoch-v1",
+    "sensing_only_rsu_ids": ["rsu-6", "rsu-7", "rsu-8"],
+    "simulator_finalization_guard_enabled": false,
+    "validator_requalification": true
+  }
+}

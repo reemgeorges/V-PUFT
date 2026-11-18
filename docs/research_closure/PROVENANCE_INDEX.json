@@ -1,0 +1,3174 @@
+{
+  "package": "V-PUFT post-seminar consolidation",
+  "base_main_commit": "b66b82ad0782e6d060d20cf7a70bcb569d4295ad",
+  "backup_branch": "archive/main-before-final-research-consolidation-2026-11-18",
+  "backup_commit": "b66b82ad0782e6d060d20cf7a70bcb569d4295ad",
+  "key_commits": {
+    "p6": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+    "r8": "96a7e903438c7316c25ed5e4b2e2cad433229224",
+    "v5": "4687266bae35d680d77730b1dd4d929a6ea57900",
+    "coord": "abe80d00a7a9b2bbc8d722c449f4c401827bab8f",
+    "avail": "2df02a0f17dc4782b833b882edbc3ec30c1e8e8d",
+    "no_go": "944d65b15711c8a79b94b4355c27211148b30ac5",
+    "sv": "49088bdff6f0f557a9fa1e8152475712fbf376e7",
+    "sv_audit": "5c344e0a9a0590c8dbb055208c8a18e86e4ab7f7",
+    "sv_int": "0c468368296963b797a4a99f9130c5e00c4cc072",
+    "omit": "d6fa44df28788f3497a0e7e209c28d7b354c7a94",
+    "prov": "10286c426bff74752feaaceac88fd7ddb5833e8a",
+    "sens": "563dc613e880800cdfe673a7f3f14e20d50176e7",
+    "abl": "26c0de2ec0fd2c3e63a20da9fe585ba34b2c11e5",
+    "vd": "040b26a22d2401e6fdd3b580a81c7e180815d029",
+    "vp": "b66b82ad0782e6d060d20cf7a70bcb569d4295ad",
+    "A": "638a6d7909aefa192d532932ab1095111475021c",
+    "B": "0c0c10b3d6cbb2075e430a299e3c18cdf382320a",
+    "pkg": "fc8f0587d49a6b33f96fe5d019ef1062e00bcab4",
+    "old": "c1878e8d6bef7a44830d8b44d5f55d47d5810f3c"
+  },
+  "branch_labels": {
+    "p6": "research/vpuft-post-seminar-optimization",
+    "r8": "research/recall-70-feasibility",
+    "v5": "research/vpuft-v5-validator-prototype",
+    "coord": "security/coordinator-evidence-v5",
+    "avail": "security/v5-evidence-availability",
+    "no_go": "security/v5-evidence-availability-optimization",
+    "sv": "security/v5-cross-view-safety",
+    "sv_audit": "security/v5-cross-view-safety",
+    "sv_int": "security/v5-cross-view-safety",
+    "omit": "security/evidence-omission-feasibility",
+    "prov": "research/provenance-safe-evidence-optimization",
+    "sens": "research/final-scenario5",
+    "abl": "research/final-scenario5",
+    "vd": "research/final-scenario5",
+    "vp": "research/final-scenario5",
+    "A": "review/scenario5-defense-report-v4",
+    "B": "main",
+    "pkg": "research/vpuft-post-seminar-optimization",
+    "old": "main historical snapshot"
+  },
+  "dataset_A_B_status": "UNRESOLVED; separately preserved",
+  "sensitivity": "103/120; 17 never started",
+  "ablation": "48/48",
+  "video": {
+    "path": "results/final_scenario5_video/VPUFT_Scenario5_Defense_Demo.mp4",
+    "sha256": "ec44e59352c3dff4e274a3432723406704df738a8da10d0c6d5673909eba22d8",
+    "status": "expected hash match"
+  },
+  "freeze_manifest": {
+    "path": "docs/final_scenario5_evidence_package/FINAL_EXPERIMENT_FREEZE_MANIFEST.json",
+    "sha256": "31e4777e6d80a4d11ad9b30176fd1e0cf32ca4338754c05618b4c8ea689a22ac",
+    "entry_audit": [
+      {
+        "path": "results/urban_roundabout_campaign/combined/density_campaign_manifest.json",
+        "ref": "review/scenario5-defense-report-v4@638a6d7909aefa192d532932ab1095111475021c",
+        "expected_sha256": "2ad936f713b70e7fd436b8fa987e0e770ced79f3a8e0e281cb5398edacd66ed6",
+        "source_commit": "638a6d7909aefa192d532932ab1095111475021c",
+        "actual_sha256": "2ad936f713b70e7fd436b8fa987e0e770ced79f3a8e0e281cb5398edacd66ed6",
+        "status": "match"
+      },
+      {
+        "path": "results/urban_roundabout_campaign/combined/DENSITY_RESULTS_AUDIT.md",
+        "ref": "review/scenario5-defense-report-v4@638a6d7909aefa192d532932ab1095111475021c",
+        "expected_sha256": "1aa468362cbd6cc16d05d52adb0182b69fc5d7343ef34402392f8c8e90199c58",
+        "source_commit": "638a6d7909aefa192d532932ab1095111475021c",
+        "actual_sha256": "1aa468362cbd6cc16d05d52adb0182b69fc5d7343ef34402392f8c8e90199c58",
+        "status": "match"
+      },
+      {
+        "path": "results/urban_roundabout_campaign/combined/density_architecture_summary.csv",
+        "ref": "review/scenario5-defense-report-v4@638a6d7909aefa192d532932ab1095111475021c",
+        "expected_sha256": "bb03922e304e190ac44b50a379b40300098b1d975983c8ebff448094ddd8bbe5",
+        "source_commit": "638a6d7909aefa192d532932ab1095111475021c",
+        "actual_sha256": "bb03922e304e190ac44b50a379b40300098b1d975983c8ebff448094ddd8bbe5",
+        "status": "match"
+      },
+      {
+        "path": "results/urban_roundabout_campaign/combined/density_metrics_by_seed.csv",
+        "ref": "review/scenario5-defense-report-v4@638a6d7909aefa192d532932ab1095111475021c",
+        "expected_sha256": "0d208da0018df16e7a4e300d65d39556bc9712337021be44b8ec8fb15fad1797",
+        "source_commit": "638a6d7909aefa192d532932ab1095111475021c",
+        "actual_sha256": "0d208da0018df16e7a4e300d65d39556bc9712337021be44b8ec8fb15fad1797",
+        "status": "match"
+      },
+      {
+        "path": "results/urban_roundabout_campaign/combined/density_decisions.csv",
+        "ref": "review/scenario5-defense-report-v4@638a6d7909aefa192d532932ab1095111475021c",
+        "expected_sha256": "97955b407f88b7353c7f1b5b6c39a5381e4c1242f5ad337d6c410176ae1953ce",
+        "source_commit": "638a6d7909aefa192d532932ab1095111475021c",
+        "actual_sha256": "97955b407f88b7353c7f1b5b6c39a5381e4c1242f5ad337d6c410176ae1953ce",
+        "status": "match"
+      },
+      {
+        "path": "results/urban_roundabout_campaign/combined/density_attack_metrics_by_seed.csv",
+        "ref": "review/scenario5-defense-report-v4@638a6d7909aefa192d532932ab1095111475021c",
+        "expected_sha256": "59301b4defcc60b2d35639d7f21b516b2c5007330ce2f40dde2414c371e5bb7e",
+        "source_commit": "638a6d7909aefa192d532932ab1095111475021c",
+        "actual_sha256": "59301b4defcc60b2d35639d7f21b516b2c5007330ce2f40dde2414c371e5bb7e",
+        "status": "match"
+      },
+      {
+        "path": "results/urban_roundabout_campaign/combined/density_case_agreement.csv",
+        "ref": "review/scenario5-defense-report-v4@638a6d7909aefa192d532932ab1095111475021c",
+        "expected_sha256": "f01ca43ab994659c4d45a283d88d257d71951770633154b9b7f6ce35554c9fad",
+        "source_commit": "638a6d7909aefa192d532932ab1095111475021c",
+        "actual_sha256": "f01ca43ab994659c4d45a283d88d257d71951770633154b9b7f6ce35554c9fad",
+        "status": "match"
+      },
+      {
+        "path": "results/urban_roundabout_campaign/combined/density_consensus_outcomes.csv",
+        "ref": "review/scenario5-defense-report-v4@638a6d7909aefa192d532932ab1095111475021c",
+        "expected_sha256": "e427d6acebe74d39d080a3faf932a8ccf4ac78fdfb62bdb507aad3383db8d74b",
+        "source_commit": "638a6d7909aefa192d532932ab1095111475021c",
+        "actual_sha256": "e427d6acebe74d39d080a3faf932a8ccf4ac78fdfb62bdb507aad3383db8d74b",
+        "status": "match"
+      },
+      {
+        "path": "results/urban_roundabout_campaign/combined/density_message_type_architecture_summary.csv",
+        "ref": "review/scenario5-defense-report-v4@638a6d7909aefa192d532932ab1095111475021c",
+        "expected_sha256": "bb1efa51ea83e64e1c02e3af92b2787980e59a0cb6e99c785928fa6905b25603",
+        "source_commit": "638a6d7909aefa192d532932ab1095111475021c",
+        "actual_sha256": "bb1efa51ea83e64e1c02e3af92b2787980e59a0cb6e99c785928fa6905b25603",
+        "status": "match"
+      },
+      {
+        "path": "results/urban_roundabout_campaign/combined/density_trace_audit.csv",
+        "ref": "review/scenario5-defense-report-v4@638a6d7909aefa192d532932ab1095111475021c",
+        "expected_sha256": "076a8aae1e5e56e22627dfe90f9a1c868af5f8068b9a22a65268e0c380ae90b3",
+        "source_commit": "638a6d7909aefa192d532932ab1095111475021c",
+        "actual_sha256": "076a8aae1e5e56e22627dfe90f9a1c868af5f8068b9a22a65268e0c380ae90b3",
+        "status": "match"
+      },
+      {
+        "path": "docs/final_chapter5/VPUFT_Scenario5_Defense_Report_Final.html",
+        "ref": "main@0c0c10b3d6cbb2075e430a299e3c18cdf382320a",
+        "expected_sha256": "c808991d7cc3812cbb461621edcfc2b8ad0b5c6ce6bdd76bb98d64e594070c1e",
+        "source_commit": "0c0c10b3d6cbb2075e430a299e3c18cdf382320a",
+        "actual_sha256": "c808991d7cc3812cbb461621edcfc2b8ad0b5c6ce6bdd76bb98d64e594070c1e",
+        "status": "match"
+      },
+      {
+        "path": "results/full_campaign_v7/statistical_inference/SUMMARY.md",
+        "ref": "main@0c0c10b3d6cbb2075e430a299e3c18cdf382320a",
+        "expected_sha256": "2fc70c3ac52a2b9db50214689b9f0bba0e12407410c08d129e7117bcd2001196",
+        "source_commit": "0c0c10b3d6cbb2075e430a299e3c18cdf382320a",
+        "actual_sha256": "2fc70c3ac52a2b9db50214689b9f0bba0e12407410c08d129e7117bcd2001196",
+        "status": "match"
+      },
+      {
+        "path": "results/full_campaign_v7/statistical_inference/inference_manifest.json",
+        "ref": "main@0c0c10b3d6cbb2075e430a299e3c18cdf382320a",
+        "expected_sha256": "c2b7157ef52934c48fcc79a5e2316054f59852090731403bd16a4063099957d1",
+        "source_commit": "0c0c10b3d6cbb2075e430a299e3c18cdf382320a",
+        "actual_sha256": "c2b7157ef52934c48fcc79a5e2316054f59852090731403bd16a4063099957d1",
+        "status": "match"
+      },
+      {
+        "path": "results/full_campaign_v7/case_agreement/SUMMARY.md",
+        "ref": "main@0c0c10b3d6cbb2075e430a299e3c18cdf382320a",
+        "expected_sha256": "788300d57c8c2dfe7dcd673636964cbd7e6900fbcd0cbf7aa92986fcb2ad9e3e",
+        "source_commit": "0c0c10b3d6cbb2075e430a299e3c18cdf382320a",
+        "actual_sha256": "788300d57c8c2dfe7dcd673636964cbd7e6900fbcd0cbf7aa92986fcb2ad9e3e",
+        "status": "match"
+      },
+      {
+        "path": "docs/post_seminar/PHASE_6_FINAL_HELDOUT_RESULTS.md",
+        "ref": "research/vpuft-post-seminar-optimization@fdca82f6a3fd5273df454bee709a2800f97f941a",
+        "expected_sha256": "4c2de9b28631bfc7085b7915b1c27432d45cf5fea4f00a8b9ce714b0b9b2f855",
+        "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+        "actual_sha256": "4c2de9b28631bfc7085b7915b1c27432d45cf5fea4f00a8b9ce714b0b9b2f855",
+        "status": "match"
+      },
+      {
+        "path": "docs/post_seminar/PHASE_6_COVERAGE_FEASIBILITY.md",
+        "ref": "research/vpuft-post-seminar-optimization@fdca82f6a3fd5273df454bee709a2800f97f941a",
+        "expected_sha256": "9d9a6c39329713a82110c84c19760634afeb03ee2bcf3f5c2a21cd06dd88f19c",
+        "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+        "actual_sha256": "9d9a6c39329713a82110c84c19760634afeb03ee2bcf3f5c2a21cd06dd88f19c",
+        "status": "match"
+      },
+      {
+        "path": "docs/post_seminar/PHASE_4_EVIDENCE_LIFECYCLE_AUDIT.md",
+        "ref": "research/vpuft-post-seminar-optimization@fdca82f6a3fd5273df454bee709a2800f97f941a",
+        "expected_sha256": "6e0a5a913a7bcaaeeaa24d36d4f1e0f75683353fbc39d205334bac5d7150b5f2",
+        "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+        "actual_sha256": "6e0a5a913a7bcaaeeaa24d36d4f1e0f75683353fbc39d205334bac5d7150b5f2",
+        "status": "match"
+      },
+      {
+        "path": "results/urban_roundabout_campaign_corrected_final/combined/density_campaign_manifest.json",
+        "ref": "main@0c0c10b3d6cbb2075e430a299e3c18cdf382320a",
+        "expected_sha256": "4d5a0e45ace6dd406689c15bab5cb0a27b9afcc3bf08cbce008ae74088fbd372",
+        "source_commit": "0c0c10b3d6cbb2075e430a299e3c18cdf382320a",
+        "actual_sha256": "4d5a0e45ace6dd406689c15bab5cb0a27b9afcc3bf08cbce008ae74088fbd372",
+        "status": "match"
+      },
+      {
+        "path": "results/urban_roundabout_campaign_corrected_final/combined/density_metrics_by_seed.csv",
+        "ref": "main@0c0c10b3d6cbb2075e430a299e3c18cdf382320a",
+        "expected_sha256": "7f5592f04edb562afa69bca8d9059b92c2443e52d2fc16fdefdd973fd6ca4c16",
+        "source_commit": "0c0c10b3d6cbb2075e430a299e3c18cdf382320a",
+        "actual_sha256": "7f5592f04edb562afa69bca8d9059b92c2443e52d2fc16fdefdd973fd6ca4c16",
+        "status": "match"
+      },
+      {
+        "path": "results/urban_roundabout_campaign_corrected_final/combined/density_decisions.csv",
+        "ref": "main@0c0c10b3d6cbb2075e430a299e3c18cdf382320a",
+        "expected_sha256": "792f54b1b342adf725f17f9cc9077efc81bc72e4e188a8c9ba0308e92de088e8",
+        "source_commit": "0c0c10b3d6cbb2075e430a299e3c18cdf382320a",
+        "actual_sha256": "792f54b1b342adf725f17f9cc9077efc81bc72e4e188a8c9ba0308e92de088e8",
+        "status": "match"
+      },
+      {
+        "path": "results/urban_roundabout_campaign_corrected_final/combined/density_trace_audit.csv",
+        "ref": "main@0c0c10b3d6cbb2075e430a299e3c18cdf382320a",
+        "expected_sha256": "a150b32c3a34ccbbd6bf93ef1b170e15928a635bc729fa4b3c179ad575d0cfa3",
+        "source_commit": "0c0c10b3d6cbb2075e430a299e3c18cdf382320a",
+        "actual_sha256": "a150b32c3a34ccbbd6bf93ef1b170e15928a635bc729fa4b3c179ad575d0cfa3",
+        "status": "match"
+      },
+      {
+        "path": "results/urban_roundabout_campaign_corrected_final/effective_config.json",
+        "ref": "main@0c0c10b3d6cbb2075e430a299e3c18cdf382320a",
+        "expected_sha256": "bb04e38f840029694fbd6a13d0797f81427748f775d9fd14e42bf30bd9a92824",
+        "source_commit": "0c0c10b3d6cbb2075e430a299e3c18cdf382320a",
+        "actual_sha256": "bb04e38f840029694fbd6a13d0797f81427748f775d9fd14e42bf30bd9a92824",
+        "status": "match"
+      },
+      {
+        "path": "docs/post_seminar/PHASE_6_8RSU_PILOT_AR.md",
+        "ref": "research/recall-70-feasibility@96a7e903438c7316c25ed5e4b2e2cad433229224",
+        "expected_sha256": "d1bdec0e7524c3712c90551cc62de37f8adcc114f0ae35f1f4fc807fbfe01ec1",
+        "source_commit": "96a7e903438c7316c25ed5e4b2e2cad433229224",
+        "actual_sha256": "d1bdec0e7524c3712c90551cc62de37f8adcc114f0ae35f1f4fc807fbfe01ec1",
+        "status": "match"
+      },
+      {
+        "path": "docs/post_seminar/V5_VALIDATOR_ARCHITECTURE.md",
+        "ref": "research/vpuft-v5-validator-prototype@4687266bae35d680d77730b1dd4d929a6ea57900",
+        "expected_sha256": "d015e80188c7595827cd37b1e9f8499d995fafbf11ae26130813b893108ac10f",
+        "source_commit": "4687266bae35d680d77730b1dd4d929a6ea57900",
+        "actual_sha256": "d015e80188c7595827cd37b1e9f8499d995fafbf11ae26130813b893108ac10f",
+        "status": "match"
+      },
+      {
+        "path": "docs/post_seminar/COORDINATOR_ASSUMPTIONS.md",
+        "ref": "security/coordinator-evidence-v5@abe80d00a7a9b2bbc8d722c449f4c401827bab8f",
+        "expected_sha256": "919c7e9a48ffc57fc38a5b415417b9f5387cf24488c478bee59aa872262da3c1",
+        "source_commit": "abe80d00a7a9b2bbc8d722c449f4c401827bab8f",
+        "actual_sha256": "919c7e9a48ffc57fc38a5b415417b9f5387cf24488c478bee59aa872262da3c1",
+        "status": "match"
+      },
+      {
+        "path": "docs/post_seminar/EVIDENCE_AVAILABILITY_V5.md",
+        "ref": "security/v5-evidence-availability@2df02a0f17dc4782b833b882edbc3ec30c1e8e8d",
+        "expected_sha256": "bdeca249daa5fe1be5b67f408ecf33755f8b8f537147f15428aa50fc264cdbaf",
+        "source_commit": "2df02a0f17dc4782b833b882edbc3ec30c1e8e8d",
+        "actual_sha256": "bdeca249daa5fe1be5b67f408ecf33755f8b8f537147f15428aa50fc264cdbaf",
+        "status": "match"
+      },
+      {
+        "path": "docs/post_seminar/EVIDENCE_AVAILABILITY_OPTIMIZATION_NO_GO_AR.md",
+        "ref": "security/v5-evidence-availability-optimization@944d65b15711c8a79b94b4355c27211148b30ac5",
+        "expected_sha256": "cc7eed71d6dfaee6ddf6c79f18eba7adc71eb7b0232d0f912d06bd10722a9103",
+        "source_commit": "944d65b15711c8a79b94b4355c27211148b30ac5",
+        "actual_sha256": "cc7eed71d6dfaee6ddf6c79f18eba7adc71eb7b0232d0f912d06bd10722a9103",
+        "status": "match"
+      },
+      {
+        "path": "docs/post_seminar/V5_SINGLE_VIEW_SAFETY_BOUNDARY.md",
+        "ref": "security/v5-cross-view-safety@5c344e0a9a0590c8dbb055208c8a18e86e4ab7f7",
+        "expected_sha256": "f53194bea3eef27e1301e37948120be00a1065b740aa0f026f1336273720a1f2",
+        "source_commit": "5c344e0a9a0590c8dbb055208c8a18e86e4ab7f7",
+        "actual_sha256": "f53194bea3eef27e1301e37948120be00a1065b740aa0f026f1336273720a1f2",
+        "status": "match"
+      },
+      {
+        "path": "docs/post_seminar/V5_EVIDENCE_OMISSION_FEASIBILITY_GATE_AR.md",
+        "ref": "security/evidence-omission-feasibility@d6fa44df28788f3497a0e7e209c28d7b354c7a94",
+        "expected_sha256": "9cb241dbe8fb8c3e31029f6f57f8fabbbe9b869485bba4b5f1bfcef526efe1bd",
+        "source_commit": "d6fa44df28788f3497a0e7e209c28d7b354c7a94",
+        "actual_sha256": "9cb241dbe8fb8c3e31029f6f57f8fabbbe9b869485bba4b5f1bfcef526efe1bd",
+        "status": "match"
+      }
+    ],
+    "match": 29,
+    "unavailable": 0,
+    "mismatch": 0
+  },
+  "dataset_B_frozen_hashes_at_base": {
+    "results/urban_roundabout_campaign_corrected_final/combined/density_campaign_manifest.json": "4d5a0e45ace6dd406689c15bab5cb0a27b9afcc3bf08cbce008ae74088fbd372",
+    "results/urban_roundabout_campaign_corrected_final/combined/density_metrics_by_seed.csv": "7f5592f04edb562afa69bca8d9059b92c2443e52d2fc16fdefdd973fd6ca4c16",
+    "results/urban_roundabout_campaign_corrected_final/combined/density_decisions.csv": "792f54b1b342adf725f17f9cc9077efc81bc72e4e188a8c9ba0308e92de088e8",
+    "results/urban_roundabout_campaign_corrected_final/combined/density_trace_audit.csv": "a150b32c3a34ccbbd6bf93ef1b170e15928a635bc729fa4b3c179ad575d0cfa3",
+    "results/urban_roundabout_campaign_corrected_final/effective_config.json": "bb04e38f840029694fbd6a13d0797f81427748f775d9fd14e42bf30bd9a92824"
+  },
+  "copied_artifacts": [
+    {
+      "destination": "docs/post_seminar/ALGORITHM_VS_INFRASTRUCTURE_COMPARISON.md",
+      "source_commit": "d6fa44df28788f3497a0e7e209c28d7b354c7a94",
+      "source_branch": "security/evidence-omission-feasibility",
+      "source_path": "docs/post_seminar/ALGORITHM_VS_INFRASTRUCTURE_COMPARISON.md",
+      "source_blob_sha1": "d98cd153a9c1fd9bb4103ce20055afbb81b8210e",
+      "source_sha256": "a263f517a3331d944c1107c7140d28044e9c3c5d2d9cc4fc4c396ff3139dfae1",
+      "destination_sha256": "a263f517a3331d944c1107c7140d28044e9c3c5d2d9cc4fc4c396ff3139dfae1",
+      "bytes": 928,
+      "role": "exact historical report"
+    },
+    {
+      "destination": "docs/post_seminar/COORDINATOR_ASSUMPTIONS.md",
+      "source_commit": "d6fa44df28788f3497a0e7e209c28d7b354c7a94",
+      "source_branch": "security/evidence-omission-feasibility",
+      "source_path": "docs/post_seminar/COORDINATOR_ASSUMPTIONS.md",
+      "source_blob_sha1": "a784dab92e4e8f954f3d544ef8587f151b9a12d6",
+      "source_sha256": "919c7e9a48ffc57fc38a5b415417b9f5387cf24488c478bee59aa872262da3c1",
+      "destination_sha256": "919c7e9a48ffc57fc38a5b415417b9f5387cf24488c478bee59aa872262da3c1",
+      "bytes": 1335,
+      "role": "exact historical report"
+    },
+    {
+      "destination": "docs/post_seminar/COORDINATOR_EVIDENCE_PROTOCOL_DESIGN.md",
+      "source_commit": "d6fa44df28788f3497a0e7e209c28d7b354c7a94",
+      "source_branch": "security/evidence-omission-feasibility",
+      "source_path": "docs/post_seminar/COORDINATOR_EVIDENCE_PROTOCOL_DESIGN.md",
+      "source_blob_sha1": "9923bdeecead4078f7c677934c12d348bcbe0230",
+      "source_sha256": "51e3d3d4337e0aa19b0e8b5de6eab011099b44834576569cd1158204350b7aee",
+      "destination_sha256": "51e3d3d4337e0aa19b0e8b5de6eab011099b44834576569cd1158204350b7aee",
+      "bytes": 9814,
+      "role": "exact historical report"
+    },
+    {
+      "destination": "docs/post_seminar/COVERAGE_RECALL_RESULTS.md",
+      "source_commit": "d6fa44df28788f3497a0e7e209c28d7b354c7a94",
+      "source_branch": "security/evidence-omission-feasibility",
+      "source_path": "docs/post_seminar/COVERAGE_RECALL_RESULTS.md",
+      "source_blob_sha1": "b941c10fbe91b3fcfe4d8dabc9de30ee83a4fbc4",
+      "source_sha256": "857db0062d9cb8bd2863bea54169194eb3f5fff42d07381a51a21d0f85e50777",
+      "destination_sha256": "857db0062d9cb8bd2863bea54169194eb3f5fff42d07381a51a21d0f85e50777",
+      "bytes": 2404,
+      "role": "exact historical report"
+    },
+    {
+      "destination": "docs/post_seminar/FINAL_COMMITTEE_SECURITY_RESPONSE_AR.md",
+      "source_commit": "d6fa44df28788f3497a0e7e209c28d7b354c7a94",
+      "source_branch": "security/evidence-omission-feasibility",
+      "source_path": "docs/post_seminar/FINAL_COMMITTEE_SECURITY_RESPONSE_AR.md",
+      "source_blob_sha1": "23ff1bc54370a06b66321436a93ace768b3bd64a",
+      "source_sha256": "af7523779e7e30592fbc62e0d2fd1ad612e38e11110af63ddf845bd3d72a1c0a",
+      "destination_sha256": "af7523779e7e30592fbc62e0d2fd1ad612e38e11110af63ddf845bd3d72a1c0a",
+      "bytes": 4284,
+      "role": "exact historical report"
+    },
+    {
+      "destination": "docs/post_seminar/FINAL_SECURITY_HARDENING.md",
+      "source_commit": "d6fa44df28788f3497a0e7e209c28d7b354c7a94",
+      "source_branch": "security/evidence-omission-feasibility",
+      "source_path": "docs/post_seminar/FINAL_SECURITY_HARDENING.md",
+      "source_blob_sha1": "54358f352f8b027eac658f8bf888ce3b37579eea",
+      "source_sha256": "c39d66c3f207522d90586862f2ff080fc5a4f854046ab84a143e94e91be1abf1",
+      "destination_sha256": "c39d66c3f207522d90586862f2ff080fc5a4f854046ab84a143e94e91be1abf1",
+      "bytes": 4412,
+      "role": "exact historical report"
+    },
+    {
+      "destination": "docs/post_seminar/PBFT_STYLE_SAFETY_SCOPE.md",
+      "source_commit": "d6fa44df28788f3497a0e7e209c28d7b354c7a94",
+      "source_branch": "security/evidence-omission-feasibility",
+      "source_path": "docs/post_seminar/PBFT_STYLE_SAFETY_SCOPE.md",
+      "source_blob_sha1": "2c3f3a89f760645f922aad54eddc56032899efce",
+      "source_sha256": "30a8136e7d694c94eb485c96ab3455e8f347984e427073916425bddeb62a4fad",
+      "destination_sha256": "30a8136e7d694c94eb485c96ab3455e8f347984e427073916425bddeb62a4fad",
+      "bytes": 1723,
+      "role": "exact historical report"
+    },
+    {
+      "destination": "docs/post_seminar/PHASE_1_AUDIT.md",
+      "source_commit": "d6fa44df28788f3497a0e7e209c28d7b354c7a94",
+      "source_branch": "security/evidence-omission-feasibility",
+      "source_path": "docs/post_seminar/PHASE_1_AUDIT.md",
+      "source_blob_sha1": "961d261144950e3dbde3104062ee4f3cff994aca",
+      "source_sha256": "2e7f29e930709b139c30dd4766d7fecdd39f9401442764ae9960376a066b8596",
+      "destination_sha256": "2e7f29e930709b139c30dd4766d7fecdd39f9401442764ae9960376a066b8596",
+      "bytes": 11131,
+      "role": "exact historical report"
+    },
+    {
+      "destination": "docs/post_seminar/PHASE_3_IMPLEMENTATION_AUDIT.md",
+      "source_commit": "d6fa44df28788f3497a0e7e209c28d7b354c7a94",
+      "source_branch": "security/evidence-omission-feasibility",
+      "source_path": "docs/post_seminar/PHASE_3_IMPLEMENTATION_AUDIT.md",
+      "source_blob_sha1": "8bfa06b7d88060dcf093277d901ef731d92504d8",
+      "source_sha256": "58cfe54133bbb3b86e7d70396641899e253e9d035385305bc9191edbd4f4c15f",
+      "destination_sha256": "58cfe54133bbb3b86e7d70396641899e253e9d035385305bc9191edbd4f4c15f",
+      "bytes": 4984,
+      "role": "exact historical report"
+    },
+    {
+      "destination": "docs/post_seminar/PHASE_3_PAIRED_PILOT.md",
+      "source_commit": "d6fa44df28788f3497a0e7e209c28d7b354c7a94",
+      "source_branch": "security/evidence-omission-feasibility",
+      "source_path": "docs/post_seminar/PHASE_3_PAIRED_PILOT.md",
+      "source_blob_sha1": "3e63458fed44a231bc11b401641c250c4051817a",
+      "source_sha256": "3578af7ae37a21cb03e565ed61aac0fa50f4b24f6ef36a1e42cd6e2444ba520f",
+      "destination_sha256": "3578af7ae37a21cb03e565ed61aac0fa50f4b24f6ef36a1e42cd6e2444ba520f",
+      "bytes": 3447,
+      "role": "exact historical report"
+    },
+    {
+      "destination": "docs/post_seminar/PHASE_3_RELEVANT_DIFF.patch",
+      "source_commit": "d6fa44df28788f3497a0e7e209c28d7b354c7a94",
+      "source_branch": "security/evidence-omission-feasibility",
+      "source_path": "docs/post_seminar/PHASE_3_RELEVANT_DIFF.patch",
+      "source_blob_sha1": "9a1a15b4269f30b005bf1102aef46ce9960d271e",
+      "source_sha256": "85d07530465c198a97be21ac6347b46bacad608df6e1f9a716149c008aa815a7",
+      "destination_sha256": "85d07530465c198a97be21ac6347b46bacad608df6e1f9a716149c008aa815a7",
+      "bytes": 75012,
+      "role": "exact historical report"
+    },
+    {
+      "destination": "docs/post_seminar/PHASE_4_EVIDENCE_LIFECYCLE_AUDIT.md",
+      "source_commit": "d6fa44df28788f3497a0e7e209c28d7b354c7a94",
+      "source_branch": "security/evidence-omission-feasibility",
+      "source_path": "docs/post_seminar/PHASE_4_EVIDENCE_LIFECYCLE_AUDIT.md",
+      "source_blob_sha1": "c8a61258d7c4f18c58566b40033ed599a852c60e",
+      "source_sha256": "6e0a5a913a7bcaaeeaa24d36d4f1e0f75683353fbc39d205334bac5d7150b5f2",
+      "destination_sha256": "6e0a5a913a7bcaaeeaa24d36d4f1e0f75683353fbc39d205334bac5d7150b5f2",
+      "bytes": 9382,
+      "role": "exact historical report"
+    },
+    {
+      "destination": "docs/post_seminar/PHASE_5_COMMITTEE_EXPLANATION_AR.md",
+      "source_commit": "d6fa44df28788f3497a0e7e209c28d7b354c7a94",
+      "source_branch": "security/evidence-omission-feasibility",
+      "source_path": "docs/post_seminar/PHASE_5_COMMITTEE_EXPLANATION_AR.md",
+      "source_blob_sha1": "35679ae76ada8dab0cdc9bee441a7b45ca06fa39",
+      "source_sha256": "ce5afc808a5fc812fd489a8bdd490c10d0de2d26bc0c82b1c05b2f290341087b",
+      "destination_sha256": "ce5afc808a5fc812fd489a8bdd490c10d0de2d26bc0c82b1c05b2f290341087b",
+      "bytes": 1631,
+      "role": "exact historical report"
+    },
+    {
+      "destination": "docs/post_seminar/PHASE_5_COVERAGE_EXPERIMENT.md",
+      "source_commit": "d6fa44df28788f3497a0e7e209c28d7b354c7a94",
+      "source_branch": "security/evidence-omission-feasibility",
+      "source_path": "docs/post_seminar/PHASE_5_COVERAGE_EXPERIMENT.md",
+      "source_blob_sha1": "77e48b9951f81fdb8b5e7b8658abe124aab321e1",
+      "source_sha256": "289d4244fc6aef7ba57fd4f6fc43c525f6e5e89313606825d2c983e40f3f0356",
+      "destination_sha256": "289d4244fc6aef7ba57fd4f6fc43c525f6e5e89313606825d2c983e40f3f0356",
+      "bytes": 2181,
+      "role": "exact historical report"
+    },
+    {
+      "destination": "docs/post_seminar/PHASE_6_8RSU_PILOT_AR.md",
+      "source_commit": "d6fa44df28788f3497a0e7e209c28d7b354c7a94",
+      "source_branch": "security/evidence-omission-feasibility",
+      "source_path": "docs/post_seminar/PHASE_6_8RSU_PILOT_AR.md",
+      "source_blob_sha1": "0a1bd30bee651e52c85a229f4dd6ecccaa509710",
+      "source_sha256": "d1bdec0e7524c3712c90551cc62de37f8adcc114f0ae35f1f4fc807fbfe01ec1",
+      "destination_sha256": "d1bdec0e7524c3712c90551cc62de37f8adcc114f0ae35f1f4fc807fbfe01ec1",
+      "bytes": 10147,
+      "role": "exact historical report"
+    },
+    {
+      "destination": "docs/post_seminar/PHASE_6_COMMITTEE_EXPLANATION_AR.md",
+      "source_commit": "d6fa44df28788f3497a0e7e209c28d7b354c7a94",
+      "source_branch": "security/evidence-omission-feasibility",
+      "source_path": "docs/post_seminar/PHASE_6_COMMITTEE_EXPLANATION_AR.md",
+      "source_blob_sha1": "53b40aed73f8f62de900cad073033f51ba035a63",
+      "source_sha256": "9f0bbebf407a17655807bfb6b975d1764a1a32b58b763daf6181f82e5e2e1948",
+      "destination_sha256": "9f0bbebf407a17655807bfb6b975d1764a1a32b58b763daf6181f82e5e2e1948",
+      "bytes": 5138,
+      "role": "exact historical report"
+    },
+    {
+      "destination": "docs/post_seminar/PHASE_6_COVERAGE_FEASIBILITY.md",
+      "source_commit": "d6fa44df28788f3497a0e7e209c28d7b354c7a94",
+      "source_branch": "security/evidence-omission-feasibility",
+      "source_path": "docs/post_seminar/PHASE_6_COVERAGE_FEASIBILITY.md",
+      "source_blob_sha1": "c10d0892d824b6cf37dc730fab9e1d8f6e31fe64",
+      "source_sha256": "9d9a6c39329713a82110c84c19760634afeb03ee2bcf3f5c2a21cd06dd88f19c",
+      "destination_sha256": "9d9a6c39329713a82110c84c19760634afeb03ee2bcf3f5c2a21cd06dd88f19c",
+      "bytes": 2840,
+      "role": "exact historical report"
+    },
+    {
+      "destination": "docs/post_seminar/PHASE_6_FINAL_DECISION_AR.md",
+      "source_commit": "d6fa44df28788f3497a0e7e209c28d7b354c7a94",
+      "source_branch": "security/evidence-omission-feasibility",
+      "source_path": "docs/post_seminar/PHASE_6_FINAL_DECISION_AR.md",
+      "source_blob_sha1": "d86c81af9f359e37d7a826c43184ef83ace5ce43",
+      "source_sha256": "ede8ac1037c8e8ffb84b9437012767f8608a7d1ad1a92ec1b61246f112c4c8d8",
+      "destination_sha256": "ede8ac1037c8e8ffb84b9437012767f8608a7d1ad1a92ec1b61246f112c4c8d8",
+      "bytes": 3578,
+      "role": "exact historical report"
+    },
+    {
+      "destination": "docs/post_seminar/PHASE_6_FINAL_HELDOUT_RESULTS.md",
+      "source_commit": "d6fa44df28788f3497a0e7e209c28d7b354c7a94",
+      "source_branch": "security/evidence-omission-feasibility",
+      "source_path": "docs/post_seminar/PHASE_6_FINAL_HELDOUT_RESULTS.md",
+      "source_blob_sha1": "81a132d004cedcc917fd62890dc2f353acc569ee",
+      "source_sha256": "4c2de9b28631bfc7085b7915b1c27432d45cf5fea4f00a8b9ce714b0b9b2f855",
+      "destination_sha256": "4c2de9b28631bfc7085b7915b1c27432d45cf5fea4f00a8b9ce714b0b9b2f855",
+      "bytes": 8746,
+      "role": "exact historical report"
+    },
+    {
+      "destination": "docs/post_seminar/PHASE_6_OPPORTUNITY_EVALUATION.md",
+      "source_commit": "d6fa44df28788f3497a0e7e209c28d7b354c7a94",
+      "source_branch": "security/evidence-omission-feasibility",
+      "source_path": "docs/post_seminar/PHASE_6_OPPORTUNITY_EVALUATION.md",
+      "source_blob_sha1": "aa2ff3a57c5b849b14045937e169d91521d0e443",
+      "source_sha256": "d234386073a5fd103f0f62254b201933bde191aa749702786cdb5b2b7a63f2a3",
+      "destination_sha256": "d234386073a5fd103f0f62254b201933bde191aa749702786cdb5b2b7a63f2a3",
+      "bytes": 2524,
+      "role": "exact historical report"
+    },
+    {
+      "destination": "docs/post_seminar/PROVENANCE_SAFE_EVIDENCE_OPTIMIZATION.md",
+      "source_commit": "d6fa44df28788f3497a0e7e209c28d7b354c7a94",
+      "source_branch": "security/evidence-omission-feasibility",
+      "source_path": "docs/post_seminar/PROVENANCE_SAFE_EVIDENCE_OPTIMIZATION.md",
+      "source_blob_sha1": "52d6458cc7c45b319ce67764161dbd16ab1cf24b",
+      "source_sha256": "5a2701627314246111bdcde44ed6826b9ccde33140ee1025e0ae762d2cbeaece",
+      "destination_sha256": "5a2701627314246111bdcde44ed6826b9ccde33140ee1025e0ae762d2cbeaece",
+      "bytes": 14056,
+      "role": "exact historical report"
+    },
+    {
+      "destination": "docs/post_seminar/RSU_PLACEMENT_METHOD.md",
+      "source_commit": "d6fa44df28788f3497a0e7e209c28d7b354c7a94",
+      "source_branch": "security/evidence-omission-feasibility",
+      "source_path": "docs/post_seminar/RSU_PLACEMENT_METHOD.md",
+      "source_blob_sha1": "98ad99ab369ca58dfb1180e52b473037c35ec3ae",
+      "source_sha256": "4537ad37969b2bd63f165ad238f7116f111762a29b30501076180a32626d7db6",
+      "destination_sha256": "4537ad37969b2bd63f165ad238f7116f111762a29b30501076180a32626d7db6",
+      "bytes": 2159,
+      "role": "exact historical report"
+    },
+    {
+      "destination": "docs/post_seminar/THREAT_MODEL_AND_LIMITATIONS.md",
+      "source_commit": "d6fa44df28788f3497a0e7e209c28d7b354c7a94",
+      "source_branch": "security/evidence-omission-feasibility",
+      "source_path": "docs/post_seminar/THREAT_MODEL_AND_LIMITATIONS.md",
+      "source_blob_sha1": "13d4511f8674e2b240aa7269e1d090a65f31e188",
+      "source_sha256": "c5c294c95294d20251d959313701cd48e83f4e51c52e0ec94ec3b917eccc6a01",
+      "destination_sha256": "c5c294c95294d20251d959313701cd48e83f4e51c52e0ec94ec3b917eccc6a01",
+      "bytes": 2521,
+      "role": "exact historical report"
+    },
+    {
+      "destination": "docs/post_seminar/V5_EVIDENCE_OMISSION_FEASIBILITY_GATE_AR.md",
+      "source_commit": "d6fa44df28788f3497a0e7e209c28d7b354c7a94",
+      "source_branch": "security/evidence-omission-feasibility",
+      "source_path": "docs/post_seminar/V5_EVIDENCE_OMISSION_FEASIBILITY_GATE_AR.md",
+      "source_blob_sha1": "afc2d69ea9f1bf6955c9d2f831a59ba3ab084509",
+      "source_sha256": "9cb241dbe8fb8c3e31029f6f57f8fabbbe9b869485bba4b5f1bfcef526efe1bd",
+      "destination_sha256": "9cb241dbe8fb8c3e31029f6f57f8fabbbe9b869485bba4b5f1bfcef526efe1bd",
+      "bytes": 14863,
+      "role": "exact historical report"
+    },
+    {
+      "destination": "docs/post_seminar/V5_INTEGRATED_FAULT_INJECTION_AUDIT_AR.md",
+      "source_commit": "d6fa44df28788f3497a0e7e209c28d7b354c7a94",
+      "source_branch": "security/evidence-omission-feasibility",
+      "source_path": "docs/post_seminar/V5_INTEGRATED_FAULT_INJECTION_AUDIT_AR.md",
+      "source_blob_sha1": "3e88ff0f8210481d17ff9254e001adb4048d1e68",
+      "source_sha256": "798729e3899fabd15d8f27b3f78b1bad6a91a37b94bfa6cade5e77ac618ac323",
+      "destination_sha256": "798729e3899fabd15d8f27b3f78b1bad6a91a37b94bfa6cade5e77ac618ac323",
+      "bytes": 14980,
+      "role": "exact historical report"
+    },
+    {
+      "destination": "docs/post_seminar/V5_SINGLE_VIEW_INTEGRATION_AUDIT_AR.md",
+      "source_commit": "d6fa44df28788f3497a0e7e209c28d7b354c7a94",
+      "source_branch": "security/evidence-omission-feasibility",
+      "source_path": "docs/post_seminar/V5_SINGLE_VIEW_INTEGRATION_AUDIT_AR.md",
+      "source_blob_sha1": "711f4a829e32612d6456e392f8d8b35e8e595513",
+      "source_sha256": "6c18673a0b79ceeac0d23da514ae93347232192b1f40f296391cb038992272a3",
+      "destination_sha256": "6c18673a0b79ceeac0d23da514ae93347232192b1f40f296391cb038992272a3",
+      "bytes": 3519,
+      "role": "exact historical report"
+    },
+    {
+      "destination": "docs/post_seminar/V5_SINGLE_VIEW_SAFETY_BOUNDARY.md",
+      "source_commit": "d6fa44df28788f3497a0e7e209c28d7b354c7a94",
+      "source_branch": "security/evidence-omission-feasibility",
+      "source_path": "docs/post_seminar/V5_SINGLE_VIEW_SAFETY_BOUNDARY.md",
+      "source_blob_sha1": "ea2023b2f0ad9417156da9b01f127b5b741f1a69",
+      "source_sha256": "f53194bea3eef27e1301e37948120be00a1065b740aa0f026f1336273720a1f2",
+      "destination_sha256": "f53194bea3eef27e1301e37948120be00a1065b740aa0f026f1336273720a1f2",
+      "bytes": 1869,
+      "role": "exact historical report"
+    },
+    {
+      "destination": "docs/post_seminar/V5_VALIDATOR_ARCHITECTURE.md",
+      "source_commit": "d6fa44df28788f3497a0e7e209c28d7b354c7a94",
+      "source_branch": "security/evidence-omission-feasibility",
+      "source_path": "docs/post_seminar/V5_VALIDATOR_ARCHITECTURE.md",
+      "source_blob_sha1": "47744ffef3034d421f69adf02e233882bbf618ed",
+      "source_sha256": "d015e80188c7595827cd37b1e9f8499d995fafbf11ae26130813b893108ac10f",
+      "destination_sha256": "d015e80188c7595827cd37b1e9f8499d995fafbf11ae26130813b893108ac10f",
+      "bytes": 7485,
+      "role": "exact historical report"
+    },
+    {
+      "destination": "docs/post_seminar/phase_1_fn_audit.json",
+      "source_commit": "d6fa44df28788f3497a0e7e209c28d7b354c7a94",
+      "source_branch": "security/evidence-omission-feasibility",
+      "source_path": "docs/post_seminar/phase_1_fn_audit.json",
+      "source_blob_sha1": "fdfb4310eb78a1fed95fe6175c63bf17337e9d8c",
+      "source_sha256": "d7719add3b3e5fa16693dc7f76e2f8de25e65c2ab614d8c8cb3883b74daf2836",
+      "destination_sha256": "d7719add3b3e5fa16693dc7f76e2f8de25e65c2ab614d8c8cb3883b74daf2836",
+      "bytes": 12435,
+      "role": "exact historical report"
+    },
+    {
+      "destination": "docs/post_seminar/EVIDENCE_AVAILABILITY_OPTIMIZATION_NO_GO_AR.md",
+      "source_commit": "944d65b15711c8a79b94b4355c27211148b30ac5",
+      "source_branch": "security/v5-evidence-availability-optimization",
+      "source_path": "docs/post_seminar/EVIDENCE_AVAILABILITY_OPTIMIZATION_NO_GO_AR.md",
+      "source_blob_sha1": "3d8b759329589c37be56d19286e2b8c3aab51ee9",
+      "source_sha256": "cc7eed71d6dfaee6ddf6c79f18eba7adc71eb7b0232d0f912d06bd10722a9103",
+      "destination_sha256": "cc7eed71d6dfaee6ddf6c79f18eba7adc71eb7b0232d0f912d06bd10722a9103",
+      "bytes": 10782,
+      "role": "rejected optimization report"
+    },
+    {
+      "destination": "research_archive/scenario5_dataset_a_report_linked/combined/DENSITY_RESULTS_AUDIT.md",
+      "source_commit": "638a6d7909aefa192d532932ab1095111475021c",
+      "source_branch": "review/scenario5-defense-report-v4",
+      "source_path": "results/urban_roundabout_campaign/combined/DENSITY_RESULTS_AUDIT.md",
+      "source_blob_sha1": "3ae08f60d549c75fdb24fdf902ae46d20f81d8a6",
+      "source_sha256": "1aa468362cbd6cc16d05d52adb0182b69fc5d7343ef34402392f8c8e90199c58",
+      "destination_sha256": "1aa468362cbd6cc16d05d52adb0182b69fc5d7343ef34402392f8c8e90199c58",
+      "bytes": 1844,
+      "role": "byte-exact report-linked Dataset A archive"
+    },
+    {
+      "destination": "research_archive/scenario5_dataset_a_report_linked/combined/density_architecture_summary.csv",
+      "source_commit": "638a6d7909aefa192d532932ab1095111475021c",
+      "source_branch": "review/scenario5-defense-report-v4",
+      "source_path": "results/urban_roundabout_campaign/combined/density_architecture_summary.csv",
+      "source_blob_sha1": "cfa123820ddeee8eeadfd06ccd225f517de0eb89",
+      "source_sha256": "bb03922e304e190ac44b50a379b40300098b1d975983c8ebff448094ddd8bbe5",
+      "destination_sha256": "bb03922e304e190ac44b50a379b40300098b1d975983c8ebff448094ddd8bbe5",
+      "bytes": 18791,
+      "role": "byte-exact report-linked Dataset A archive"
+    },
+    {
+      "destination": "research_archive/scenario5_dataset_a_report_linked/combined/density_attack_metrics_by_seed.csv",
+      "source_commit": "638a6d7909aefa192d532932ab1095111475021c",
+      "source_branch": "review/scenario5-defense-report-v4",
+      "source_path": "results/urban_roundabout_campaign/combined/density_attack_metrics_by_seed.csv",
+      "source_blob_sha1": "48d9507f16b6350879fce877bf43a3da9a533d83",
+      "source_sha256": "59301b4defcc60b2d35639d7f21b516b2c5007330ce2f40dde2414c371e5bb7e",
+      "destination_sha256": "59301b4defcc60b2d35639d7f21b516b2c5007330ce2f40dde2414c371e5bb7e",
+      "bytes": 80554,
+      "role": "byte-exact report-linked Dataset A archive"
+    },
+    {
+      "destination": "research_archive/scenario5_dataset_a_report_linked/combined/density_attack_summary.csv",
+      "source_commit": "638a6d7909aefa192d532932ab1095111475021c",
+      "source_branch": "review/scenario5-defense-report-v4",
+      "source_path": "results/urban_roundabout_campaign/combined/density_attack_summary.csv",
+      "source_blob_sha1": "d2d85eced467c14011d9e11176ac2ff23b869d7b",
+      "source_sha256": "eca7858beed77e06a668cdad1107dba26cbc57a391a9d67b80ba99c3ee4506da",
+      "destination_sha256": "eca7858beed77e06a668cdad1107dba26cbc57a391a9d67b80ba99c3ee4506da",
+      "bytes": 18770,
+      "role": "byte-exact report-linked Dataset A archive"
+    },
+    {
+      "destination": "research_archive/scenario5_dataset_a_report_linked/combined/density_breakeven_by_topology_vehicle_count.csv",
+      "source_commit": "638a6d7909aefa192d532932ab1095111475021c",
+      "source_branch": "review/scenario5-defense-report-v4",
+      "source_path": "results/urban_roundabout_campaign/combined/density_breakeven_by_topology_vehicle_count.csv",
+      "source_blob_sha1": "9630856a5eb57ed252a5dc8b2525e163dc3802cf",
+      "source_sha256": "16be37fa14b435f321bc0e325bf04de6872ea4b7b0672c41775a393ed2ade4c6",
+      "destination_sha256": "16be37fa14b435f321bc0e325bf04de6872ea4b7b0672c41775a393ed2ade4c6",
+      "bytes": 622,
+      "role": "byte-exact report-linked Dataset A archive"
+    },
+    {
+      "destination": "research_archive/scenario5_dataset_a_report_linked/combined/density_campaign_manifest.json",
+      "source_commit": "638a6d7909aefa192d532932ab1095111475021c",
+      "source_branch": "review/scenario5-defense-report-v4",
+      "source_path": "results/urban_roundabout_campaign/combined/density_campaign_manifest.json",
+      "source_blob_sha1": "57f2ca6575d6899453927ef9aeae0de2c108ad19",
+      "source_sha256": "2ad936f713b70e7fd436b8fa987e0e770ced79f3a8e0e281cb5398edacd66ed6",
+      "destination_sha256": "2ad936f713b70e7fd436b8fa987e0e770ced79f3a8e0e281cb5398edacd66ed6",
+      "bytes": 1037,
+      "role": "byte-exact report-linked Dataset A archive"
+    },
+    {
+      "destination": "research_archive/scenario5_dataset_a_report_linked/combined/density_case_agreement.csv",
+      "source_commit": "638a6d7909aefa192d532932ab1095111475021c",
+      "source_branch": "review/scenario5-defense-report-v4",
+      "source_path": "results/urban_roundabout_campaign/combined/density_case_agreement.csv",
+      "source_blob_sha1": "c28594247ca693ae9222bc5265ae237dde8ebe76",
+      "source_sha256": "f01ca43ab994659c4d45a283d88d257d71951770633154b9b7f6ce35554c9fad",
+      "destination_sha256": "f01ca43ab994659c4d45a283d88d257d71951770633154b9b7f6ce35554c9fad",
+      "bytes": 6905,
+      "role": "byte-exact report-linked Dataset A archive"
+    },
+    {
+      "destination": "research_archive/scenario5_dataset_a_report_linked/combined/density_consensus_outcomes.csv",
+      "source_commit": "638a6d7909aefa192d532932ab1095111475021c",
+      "source_branch": "review/scenario5-defense-report-v4",
+      "source_path": "results/urban_roundabout_campaign/combined/density_consensus_outcomes.csv",
+      "source_blob_sha1": "7f99d2399a60de16ecae8334808bc2fd0695f2d8",
+      "source_sha256": "e427d6acebe74d39d080a3faf932a8ccf4ac78fdfb62bdb507aad3383db8d74b",
+      "destination_sha256": "e427d6acebe74d39d080a3faf932a8ccf4ac78fdfb62bdb507aad3383db8d74b",
+      "bytes": 90422,
+      "role": "byte-exact report-linked Dataset A archive"
+    },
+    {
+      "destination": "research_archive/scenario5_dataset_a_report_linked/combined/density_decisions.csv",
+      "source_commit": "638a6d7909aefa192d532932ab1095111475021c",
+      "source_branch": "review/scenario5-defense-report-v4",
+      "source_path": "results/urban_roundabout_campaign/combined/density_decisions.csv",
+      "source_blob_sha1": "9d38ffe2301d97d3ea30ff9f9f7c3ef72e457947",
+      "source_sha256": "97955b407f88b7353c7f1b5b6c39a5381e4c1242f5ad337d6c410176ae1953ce",
+      "destination_sha256": "97955b407f88b7353c7f1b5b6c39a5381e4c1242f5ad337d6c410176ae1953ce",
+      "bytes": 8647717,
+      "role": "byte-exact report-linked Dataset A archive"
+    },
+    {
+      "destination": "research_archive/scenario5_dataset_a_report_linked/combined/density_message_type_architecture_summary.csv",
+      "source_commit": "638a6d7909aefa192d532932ab1095111475021c",
+      "source_branch": "review/scenario5-defense-report-v4",
+      "source_path": "results/urban_roundabout_campaign/combined/density_message_type_architecture_summary.csv",
+      "source_blob_sha1": "1c021956476a7c5f20974c9e980d0c81d9b181eb",
+      "source_sha256": "bb1efa51ea83e64e1c02e3af92b2787980e59a0cb6e99c785928fa6905b25603",
+      "destination_sha256": "bb1efa51ea83e64e1c02e3af92b2787980e59a0cb6e99c785928fa6905b25603",
+      "bytes": 11750,
+      "role": "byte-exact report-linked Dataset A archive"
+    },
+    {
+      "destination": "research_archive/scenario5_dataset_a_report_linked/combined/density_message_type_summary.csv",
+      "source_commit": "638a6d7909aefa192d532932ab1095111475021c",
+      "source_branch": "review/scenario5-defense-report-v4",
+      "source_path": "results/urban_roundabout_campaign/combined/density_message_type_summary.csv",
+      "source_blob_sha1": "3e34262c6762e533fcdded92bd6af22d0314974f",
+      "source_sha256": "3856d81da701891c755f733e3abcd4e5010b2c9b9a781df32ae5f5b909b525d5",
+      "destination_sha256": "3856d81da701891c755f733e3abcd4e5010b2c9b9a781df32ae5f5b909b525d5",
+      "bytes": 45210,
+      "role": "byte-exact report-linked Dataset A archive"
+    },
+    {
+      "destination": "research_archive/scenario5_dataset_a_report_linked/combined/density_metrics_by_seed.csv",
+      "source_commit": "638a6d7909aefa192d532932ab1095111475021c",
+      "source_branch": "review/scenario5-defense-report-v4",
+      "source_path": "results/urban_roundabout_campaign/combined/density_metrics_by_seed.csv",
+      "source_blob_sha1": "5eb54bbba88bde229275c107af66df1b0aa70bb0",
+      "source_sha256": "0d208da0018df16e7a4e300d65d39556bc9712337021be44b8ec8fb15fad1797",
+      "destination_sha256": "0d208da0018df16e7a4e300d65d39556bc9712337021be44b8ec8fb15fad1797",
+      "bytes": 66868,
+      "role": "byte-exact report-linked Dataset A archive"
+    },
+    {
+      "destination": "research_archive/scenario5_dataset_a_report_linked/combined/density_paired_comparisons.csv",
+      "source_commit": "638a6d7909aefa192d532932ab1095111475021c",
+      "source_branch": "review/scenario5-defense-report-v4",
+      "source_path": "results/urban_roundabout_campaign/combined/density_paired_comparisons.csv",
+      "source_blob_sha1": "25f5a8293068216b3f6a260ebab265776fef9c62",
+      "source_sha256": "c2080496d2178beafcd3ea618cf218bfe629f80e3f17848c88762ddca6b7ff25",
+      "destination_sha256": "c2080496d2178beafcd3ea618cf218bfe629f80e3f17848c88762ddca6b7ff25",
+      "bytes": 50750,
+      "role": "byte-exact report-linked Dataset A archive"
+    },
+    {
+      "destination": "research_archive/scenario5_dataset_a_report_linked/combined/density_step_changes.csv",
+      "source_commit": "638a6d7909aefa192d532932ab1095111475021c",
+      "source_branch": "review/scenario5-defense-report-v4",
+      "source_path": "results/urban_roundabout_campaign/combined/density_step_changes.csv",
+      "source_blob_sha1": "bdb2fef52b6c399c85c2032692e076a9a9c70ddc",
+      "source_sha256": "2bb3ba6c902741834377d18ce893e3a7af6824e528cbf0497c4723a826748fe7",
+      "destination_sha256": "2bb3ba6c902741834377d18ce893e3a7af6824e528cbf0497c4723a826748fe7",
+      "bytes": 38571,
+      "role": "byte-exact report-linked Dataset A archive"
+    },
+    {
+      "destination": "research_archive/scenario5_dataset_a_report_linked/combined/density_topology_v2v_cache.csv",
+      "source_commit": "638a6d7909aefa192d532932ab1095111475021c",
+      "source_branch": "review/scenario5-defense-report-v4",
+      "source_path": "results/urban_roundabout_campaign/combined/density_topology_v2v_cache.csv",
+      "source_blob_sha1": "ccd40b044251ac25b89d5153297934042a92b081",
+      "source_sha256": "ea234fb94689a4f4fae6f8d4397adac6843b53e5b1ec64578c6c5d0d95496e96",
+      "destination_sha256": "ea234fb94689a4f4fae6f8d4397adac6843b53e5b1ec64578c6c5d0d95496e96",
+      "bytes": 66652,
+      "role": "byte-exact report-linked Dataset A archive"
+    },
+    {
+      "destination": "research_archive/scenario5_dataset_a_report_linked/combined/density_topology_v2v_cache_step_changes.csv",
+      "source_commit": "638a6d7909aefa192d532932ab1095111475021c",
+      "source_branch": "review/scenario5-defense-report-v4",
+      "source_path": "results/urban_roundabout_campaign/combined/density_topology_v2v_cache_step_changes.csv",
+      "source_blob_sha1": "4ab134e683f3666da14e7e2c68ef66a2ba5ba07a",
+      "source_sha256": "70f4679519519a0931bb707275353f6849d73c7c534175b60da39717b38d0d4a",
+      "destination_sha256": "70f4679519519a0931bb707275353f6849d73c7c534175b60da39717b38d0d4a",
+      "bytes": 54713,
+      "role": "byte-exact report-linked Dataset A archive"
+    },
+    {
+      "destination": "research_archive/scenario5_dataset_a_report_linked/combined/density_topology_v2v_cache_summary.csv",
+      "source_commit": "638a6d7909aefa192d532932ab1095111475021c",
+      "source_branch": "review/scenario5-defense-report-v4",
+      "source_path": "results/urban_roundabout_campaign/combined/density_topology_v2v_cache_summary.csv",
+      "source_blob_sha1": "f725631c741fb4307a4847dd3762cfa8fd226f9a",
+      "source_sha256": "54855d49f871e4fc26a897f2e9a5273655fe25dfa25e66e20e5dbd1341124e43",
+      "destination_sha256": "54855d49f871e4fc26a897f2e9a5273655fe25dfa25e66e20e5dbd1341124e43",
+      "bytes": 7917,
+      "role": "byte-exact report-linked Dataset A archive"
+    },
+    {
+      "destination": "research_archive/scenario5_dataset_a_report_linked/combined/density_trace_audit.csv",
+      "source_commit": "638a6d7909aefa192d532932ab1095111475021c",
+      "source_branch": "review/scenario5-defense-report-v4",
+      "source_path": "results/urban_roundabout_campaign/combined/density_trace_audit.csv",
+      "source_blob_sha1": "7be68348c53ffb5688cdffb73f08d36d53a09fc7",
+      "source_sha256": "076a8aae1e5e56e22627dfe90f9a1c868af5f8068b9a22a65268e0c380ae90b3",
+      "destination_sha256": "076a8aae1e5e56e22627dfe90f9a1c868af5f8068b9a22a65268e0c380ae90b3",
+      "bytes": 10585,
+      "role": "byte-exact report-linked Dataset A archive"
+    },
+    {
+      "destination": "research_archive/post_seminar/post_seminar_phase3/limited_v2/decisions.csv.gz",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_branch": "research/vpuft-post-seminar-optimization",
+      "source_path": "results/post_seminar_phase3/limited_v2/decisions.csv.gz",
+      "source_blob_sha1": "aa8c44e7ab7e1ebc4b27e63d9d3c27e868ea3193",
+      "source_sha256": "d397d7891ace0fa88201b746d6c9aad526f6ad702b21362b30c9979b36ad96f4",
+      "destination_sha256": "d397d7891ace0fa88201b746d6c9aad526f6ad702b21362b30c9979b36ad96f4",
+      "bytes": 656428,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/post_seminar_phase3/limited_v2/metrics.csv",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_branch": "research/vpuft-post-seminar-optimization",
+      "source_path": "results/post_seminar_phase3/limited_v2/metrics.csv",
+      "source_blob_sha1": "80b19f96e7fed440e1a960df1f496dc41af44e7e",
+      "source_sha256": "935c8ef5926ca6779cf7b86d080b0a79753a9c02f2d4dbedd13ca54f2aa18997",
+      "destination_sha256": "935c8ef5926ca6779cf7b86d080b0a79753a9c02f2d4dbedd13ca54f2aa18997",
+      "bytes": 2809,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/post_seminar_phase3/limited_v2/new_b8_false_positives.csv",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_branch": "research/vpuft-post-seminar-optimization",
+      "source_path": "results/post_seminar_phase3/limited_v2/new_b8_false_positives.csv",
+      "source_blob_sha1": "91d810282f54ea53cdcba855e2faaae507fd535c",
+      "source_sha256": "00ae2a1a40512d584655619e8811dd468d5a06cf1849c3a288db1066081c20db",
+      "destination_sha256": "00ae2a1a40512d584655619e8811dd468d5a06cf1849c3a288db1066081c20db",
+      "bytes": 48,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/post_seminar_phase3/limited_v2/shared_trace_manifest.csv",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_branch": "research/vpuft-post-seminar-optimization",
+      "source_path": "results/post_seminar_phase3/limited_v2/shared_trace_manifest.csv",
+      "source_blob_sha1": "73cfd7af0fce73f1e07a2bfaa9f57359e742504d",
+      "source_sha256": "4028a155d5274554a2bad16d6d4ed96cca894d2867736977ae77e2cace800fff",
+      "destination_sha256": "4028a155d5274554a2bad16d6d4ed96cca894d2867736977ae77e2cace800fff",
+      "bytes": 653,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/post_seminar_phase3/limited_v2/summary.csv",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_branch": "research/vpuft-post-seminar-optimization",
+      "source_path": "results/post_seminar_phase3/limited_v2/summary.csv",
+      "source_blob_sha1": "a55d39f8f224b5df4674f6085d82429345d2b8f2",
+      "source_sha256": "574dfc05b1f63fb992746a07a4d2d9b10fc84483c86a9b26c83f3a7448ebaf03",
+      "destination_sha256": "574dfc05b1f63fb992746a07a4d2d9b10fc84483c86a9b26c83f3a7448ebaf03",
+      "bytes": 1172,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/post_seminar_phase4/baseline_diagnostics/baseline_metrics_by_cell.csv",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_branch": "research/vpuft-post-seminar-optimization",
+      "source_path": "results/post_seminar_phase4/baseline_diagnostics/baseline_metrics_by_cell.csv",
+      "source_blob_sha1": "f3b29a1c83553f4cdb726521650034671492d48b",
+      "source_sha256": "350b2a9d7c4ee0c68ddffb926e047a954ab32f90692dc4e4ed5f60d380971592",
+      "destination_sha256": "350b2a9d7c4ee0c68ddffb926e047a954ab32f90692dc4e4ed5f60d380971592",
+      "bytes": 5427,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/post_seminar_phase4/baseline_diagnostics/fn_cases_all_50.csv",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_branch": "research/vpuft-post-seminar-optimization",
+      "source_path": "results/post_seminar_phase4/baseline_diagnostics/fn_cases_all_50.csv",
+      "source_blob_sha1": "db1ba554d7ae3257b45f64bd017c7f798cda5382",
+      "source_sha256": "af7468d331e6b636a775a3bbf0781f52cc7101ef3e327b87997955faee27277f",
+      "destination_sha256": "af7468d331e6b636a775a3bbf0781f52cc7101ef3e327b87997955faee27277f",
+      "bytes": 4990922,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/post_seminar_phase4/baseline_diagnostics/fn_constraint_counts_by_density_attack.csv",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_branch": "research/vpuft-post-seminar-optimization",
+      "source_path": "results/post_seminar_phase4/baseline_diagnostics/fn_constraint_counts_by_density_attack.csv",
+      "source_blob_sha1": "cb89b9f8d3732d09a8cb4cdd2b42da66a7d07c80",
+      "source_sha256": "da24b49dcc44743a01e0df3da4d611ad3052e728409c2ad3f52b0c8e250c35d7",
+      "destination_sha256": "da24b49dcc44743a01e0df3da4d611ad3052e728409c2ad3f52b0c8e250c35d7",
+      "bytes": 3792,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/post_seminar_phase4/baseline_diagnostics/fn_constraint_overlap_matrix.csv",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_branch": "research/vpuft-post-seminar-optimization",
+      "source_path": "results/post_seminar_phase4/baseline_diagnostics/fn_constraint_overlap_matrix.csv",
+      "source_blob_sha1": "ef4228d01dd1fe647ed43d0b589d294456556d90",
+      "source_sha256": "2cfdc7ce9bc41a19e68195a40d3d9d0733be48a71f111e825f73c48eea0cd637",
+      "destination_sha256": "2cfdc7ce9bc41a19e68195a40d3d9d0733be48a71f111e825f73c48eea0cd637",
+      "bytes": 1625,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/post_seminar_phase4/baseline_diagnostics/fn_constraint_overlap_patterns.csv",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_branch": "research/vpuft-post-seminar-optimization",
+      "source_path": "results/post_seminar_phase4/baseline_diagnostics/fn_constraint_overlap_patterns.csv",
+      "source_blob_sha1": "9517dad3892e952eb8521b72e8f6d419b26956b4",
+      "source_sha256": "35c44464948856f990041ffbf303669a7497e08e8235917493a96391801dbbf6",
+      "destination_sha256": "35c44464948856f990041ffbf303669a7497e08e8235917493a96391801dbbf6",
+      "bytes": 1664,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/post_seminar_phase4/baseline_diagnostics/fn_evidence_assignments_all_50.csv.gz",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_branch": "research/vpuft-post-seminar-optimization",
+      "source_path": "results/post_seminar_phase4/baseline_diagnostics/fn_evidence_assignments_all_50.csv.gz",
+      "source_blob_sha1": "96635dad41510525aba468b15b9ad76573e5d962",
+      "source_sha256": "b924951b513ef1c4f0389a46426ad5a51631858ab67b09d606e7ba727e3f3c3a",
+      "destination_sha256": "b924951b513ef1c4f0389a46426ad5a51631858ab67b09d606e7ba727e3f3c3a",
+      "bytes": 1498099,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/post_seminar_phase4/baseline_diagnostics/fn_exhaustive_categories_by_density_attack.csv",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_branch": "research/vpuft-post-seminar-optimization",
+      "source_path": "results/post_seminar_phase4/baseline_diagnostics/fn_exhaustive_categories_by_density_attack.csv",
+      "source_blob_sha1": "bf3f356f8e64545b8084a68f504d3b57b2f145ba",
+      "source_sha256": "a5e09692b9c3d52f7f10612e5d6f6e2f0cd4ed7b15949221933dc70451cd165e",
+      "destination_sha256": "a5e09692b9c3d52f7f10612e5d6f6e2f0cd4ed7b15949221933dc70451cd165e",
+      "bytes": 2952,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/post_seminar_phase4/baseline_diagnostics/fn_lifecycle_classification.csv",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_branch": "research/vpuft-post-seminar-optimization",
+      "source_path": "results/post_seminar_phase4/baseline_diagnostics/fn_lifecycle_classification.csv",
+      "source_blob_sha1": "a4a9f67358428f5ff05543ed4bf8a65ad10c954c",
+      "source_sha256": "3a507ba588dde3271f525e5e4ed0982dc27a26bb54c286c18480fb2226d095d7",
+      "destination_sha256": "3a507ba588dde3271f525e5e4ed0982dc27a26bb54c286c18480fb2226d095d7",
+      "bytes": 5726269,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/post_seminar_phase4/baseline_diagnostics/fn_recoverability_by_density_attack.csv",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_branch": "research/vpuft-post-seminar-optimization",
+      "source_path": "results/post_seminar_phase4/baseline_diagnostics/fn_recoverability_by_density_attack.csv",
+      "source_blob_sha1": "4ac9d6824b2aeeb1bdcd0f7da4b9bb6b157cf649",
+      "source_sha256": "27c1b98cf3066ef65f9f1b2218a27d7802b91f30763ef35a9f3bd8b2ec0c1c01",
+      "destination_sha256": "27c1b98cf3066ef65f9f1b2218a27d7802b91f30763ef35a9f3bd8b2ec0c1c01",
+      "bytes": 1043,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/post_seminar_phase4/baseline_diagnostics/fn_source_zone_overlap_table.csv",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_branch": "research/vpuft-post-seminar-optimization",
+      "source_path": "results/post_seminar_phase4/baseline_diagnostics/fn_source_zone_overlap_table.csv",
+      "source_blob_sha1": "ab83dfc0874eef771ac8159ddf985e4ae8f1a1f4",
+      "source_sha256": "5fcd8b6d2a51a4610335f6e28da99546de6f4c2ffaff53552f0de8d975fa6384",
+      "destination_sha256": "5fcd8b6d2a51a4610335f6e28da99546de6f4c2ffaff53552f0de8d975fa6384",
+      "bytes": 660,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/post_seminar_phase4/baseline_diagnostics/phase4_existing_evidence_summary.json",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_branch": "research/vpuft-post-seminar-optimization",
+      "source_path": "results/post_seminar_phase4/baseline_diagnostics/phase4_existing_evidence_summary.json",
+      "source_blob_sha1": "848d8baf92535384f3a2c96abfcc80952e71d8ba",
+      "source_sha256": "05c64b928ce333cdb5fd734da5b981292b466370d9d4e71a0ed6c77c4bc5552f",
+      "destination_sha256": "05c64b928ce333cdb5fd734da5b981292b466370d9d4e71a0ed6c77c4bc5552f",
+      "bytes": 926,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/post_seminar_phase4/baseline_diagnostics/scenario5_coverage_fn_map.png",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_branch": "research/vpuft-post-seminar-optimization",
+      "source_path": "results/post_seminar_phase4/baseline_diagnostics/scenario5_coverage_fn_map.png",
+      "source_blob_sha1": "dde7e9e9c47918008fec230dbff3a522ec2ace44",
+      "source_sha256": "f8dfb94aceedc051d96645eda110849211f86b5c69380a73f6da96fe96e6215b",
+      "destination_sha256": "f8dfb94aceedc051d96645eda110849211f86b5c69380a73f6da96fe96e6215b",
+      "bytes": 245226,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/post_seminar_phase4/baseline_diagnostics/trace_manifest_verified.csv",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_branch": "research/vpuft-post-seminar-optimization",
+      "source_path": "results/post_seminar_phase4/baseline_diagnostics/trace_manifest_verified.csv",
+      "source_blob_sha1": "7819db5e68cd8099dce862d3c9bf80a6b4c97370",
+      "source_sha256": "dbf1e9f65580c083551880f8de4e2c7af843a931eb5601e10dd8d3cbf8d429f1",
+      "destination_sha256": "dbf1e9f65580c083551880f8de4e2c7af843a931eb5601e10dd8d3cbf8d429f1",
+      "bytes": 10499,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/post_seminar_phase5/coverage_candidate.png",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_branch": "research/vpuft-post-seminar-optimization",
+      "source_path": "results/post_seminar_phase5/coverage_candidate.png",
+      "source_blob_sha1": "92a0302fa249f5902e0bc69b136b8d7a880f1687",
+      "source_sha256": "6d49d896d88d22e07bcc4231f218be699d7568fde85bee7c1095d1de3780cc20",
+      "destination_sha256": "6d49d896d88d22e07bcc4231f218be699d7568fde85bee7c1095d1de3780cc20",
+      "bytes": 155165,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/post_seminar_phase5/coverage_original.png",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_branch": "research/vpuft-post-seminar-optimization",
+      "source_path": "results/post_seminar_phase5/coverage_original.png",
+      "source_blob_sha1": "9fddddd9d496ed09987a5b6d243e026ee9fb69f7",
+      "source_sha256": "c0c63b744954eb64b90f1c3c1a66c612f35b9b476aca42a5ed29bde3f0d1000a",
+      "destination_sha256": "c0c63b744954eb64b90f1c3c1a66c612f35b9b476aca42a5ed29bde3f0d1000a",
+      "bytes": 149617,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/post_seminar_phase5/phase5_29_observer_directions.csv",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_branch": "research/vpuft-post-seminar-optimization",
+      "source_path": "results/post_seminar_phase5/phase5_29_observer_directions.csv",
+      "source_blob_sha1": "8b0a56a7b6f0b7e341d68443e416824b6c0e7766",
+      "source_sha256": "df6dbeed362f5668bc76bb4f26b4341206657deba459d44dbe72234ad6e4f5e3",
+      "destination_sha256": "df6dbeed362f5668bc76bb4f26b4341206657deba459d44dbe72234ad6e4f5e3",
+      "bytes": 502238,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/post_seminar_phase5/phase5_29_raw_sensor_observations.csv",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_branch": "research/vpuft-post-seminar-optimization",
+      "source_path": "results/post_seminar_phase5/phase5_29_raw_sensor_observations.csv",
+      "source_blob_sha1": "9644e1875586a0443e570fe6d50adc5cb6b77183",
+      "source_sha256": "d5f7d766b917aa4efd95722df9912991bf9e2866c15230d3b0a107155ccf4d3b",
+      "destination_sha256": "d5f7d766b917aa4efd95722df9912991bf9e2866c15230d3b0a107155ccf4d3b",
+      "bytes": 111840,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/post_seminar_phase5/phase6_training_feasibility_summary.json",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_branch": "research/vpuft-post-seminar-optimization",
+      "source_path": "results/post_seminar_phase5/phase6_training_feasibility_summary.json",
+      "source_blob_sha1": "4f390026df999b5fabc80d26e306cff3b3160fdc",
+      "source_sha256": "5423e86e3814148502d1472878dd0ed5aa9d2e76ef3d5f22d317e5203f786620",
+      "destination_sha256": "5423e86e3814148502d1472878dd0ed5aa9d2e76ef3d5f22d317e5203f786620",
+      "bytes": 315,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/post_seminar_phase5/phase6_training_placement_feasibility.csv",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_branch": "research/vpuft-post-seminar-optimization",
+      "source_path": "results/post_seminar_phase5/phase6_training_placement_feasibility.csv",
+      "source_blob_sha1": "0885601955dbef9c65f10e8c43b37431884c34c0",
+      "source_sha256": "bd5039019b481943b47bf8aebbfdb5bbc4e7c22e6e5e55d65532ebe7a51932c5",
+      "destination_sha256": "bd5039019b481943b47bf8aebbfdb5bbc4e7c22e6e5e55d65532ebe7a51932c5",
+      "bytes": 1500122,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/post_seminar_phase5/pilot_metrics.csv",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_branch": "research/vpuft-post-seminar-optimization",
+      "source_path": "results/post_seminar_phase5/pilot_metrics.csv",
+      "source_blob_sha1": "752885cd4c8eb928071d7df8f17a870134a1f285",
+      "source_sha256": "54b300f6dac8c44daa0961ffeba26645b2e72c359497db15e3ccd6a4152f91a0",
+      "destination_sha256": "54b300f6dac8c44daa0961ffeba26645b2e72c359497db15e3ccd6a4152f91a0",
+      "bytes": 1399,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/post_seminar_phase5/pilot_paired_deltas.csv",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_branch": "research/vpuft-post-seminar-optimization",
+      "source_path": "results/post_seminar_phase5/pilot_paired_deltas.csv",
+      "source_blob_sha1": "8d57fadbeb8174d538608bbcb95e486a7e876cea",
+      "source_sha256": "bd1625b0c9c6f6dacd2f94c9fe7de33d35a444d0e41239f621c80fb90f1fb798",
+      "destination_sha256": "bd1625b0c9c6f6dacd2f94c9fe7de33d35a444d0e41239f621c80fb90f1fb798",
+      "bytes": 1342,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/post_seminar_phase5/pilot_paired_metrics.csv",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_branch": "research/vpuft-post-seminar-optimization",
+      "source_path": "results/post_seminar_phase5/pilot_paired_metrics.csv",
+      "source_blob_sha1": "51ad5707f0cfc93282fe7535a23d2cbb5358773b",
+      "source_sha256": "736ddbaa052bd2ba0ce63c011179d523d0eb171595cdabba0af9351e1eb4ecd9",
+      "destination_sha256": "736ddbaa052bd2ba0ce63c011179d523d0eb171595cdabba0af9351e1eb4ecd9",
+      "bytes": 1912,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/post_seminar_phase5/pilot_trace_manifest.json",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_branch": "research/vpuft-post-seminar-optimization",
+      "source_path": "results/post_seminar_phase5/pilot_trace_manifest.json",
+      "source_blob_sha1": "df7473a3f25d48878ab27422e2f784a53343eb12",
+      "source_sha256": "8e4ae960a0c4928b22bd0935daeb0ab942fc24654c414fda35a6fc3834e9c6cc",
+      "destination_sha256": "8e4ae960a0c4928b22bd0935daeb0ab942fc24654c414fda35a6fc3834e9c6cc",
+      "bytes": 2242,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/post_seminar_phase5/placement_preregistered.json",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_branch": "research/vpuft-post-seminar-optimization",
+      "source_path": "results/post_seminar_phase5/placement_preregistered.json",
+      "source_blob_sha1": "924a274aecc865c3f42b8907883d75cbfe4b5c19",
+      "source_sha256": "234a8f018ad8464c79cc3fea0637286d1811a910ef28edd2ef2847d980f80caf",
+      "destination_sha256": "234a8f018ad8464c79cc3fea0637286d1811a910ef28edd2ef2847d980f80caf",
+      "bytes": 1882,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/post_seminar_phase6/coverage_candidate.png",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_branch": "research/vpuft-post-seminar-optimization",
+      "source_path": "results/post_seminar_phase6/coverage_candidate.png",
+      "source_blob_sha1": "b307b0d66dbdde9e68db5130dfb5300d1b64552f",
+      "source_sha256": "1132ac8a24362c591b55e51dd50547e0eb26a5c2038f02d0e2cfa99959f34325",
+      "destination_sha256": "1132ac8a24362c591b55e51dd50547e0eb26a5c2038f02d0e2cfa99959f34325",
+      "bytes": 155508,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/post_seminar_phase6/coverage_original.png",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_branch": "research/vpuft-post-seminar-optimization",
+      "source_path": "results/post_seminar_phase6/coverage_original.png",
+      "source_blob_sha1": "9fddddd9d496ed09987a5b6d243e026ee9fb69f7",
+      "source_sha256": "c0c63b744954eb64b90f1c3c1a66c612f35b9b476aca42a5ed29bde3f0d1000a",
+      "destination_sha256": "c0c63b744954eb64b90f1c3c1a66c612f35b9b476aca42a5ed29bde3f0d1000a",
+      "bytes": 149617,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/post_seminar_phase6/opportunity_cases_corrected.csv",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_branch": "research/vpuft-post-seminar-optimization",
+      "source_path": "results/post_seminar_phase6/opportunity_cases_corrected.csv",
+      "source_blob_sha1": "649bbeab69f83b5c64cff7ef9281e64e5ffebd8b",
+      "source_sha256": "bf0f3eac906116d671d7b5aea00b14409ccd73992d3daa793ff35d89f4020276",
+      "destination_sha256": "bf0f3eac906116d671d7b5aea00b14409ccd73992d3daa793ff35d89f4020276",
+      "bytes": 25264,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/post_seminar_phase6/opportunity_pilot_comparison_corrected.csv",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_branch": "research/vpuft-post-seminar-optimization",
+      "source_path": "results/post_seminar_phase6/opportunity_pilot_comparison_corrected.csv",
+      "source_blob_sha1": "3f714395114656681e3b94205501d64db5c435ab",
+      "source_sha256": "e504382f8e51ed33d058bfc599de8cc3bb7c7a4761abc280f1be0541c949c076",
+      "destination_sha256": "e504382f8e51ed33d058bfc599de8cc3bb7c7a4761abc280f1be0541c949c076",
+      "bytes": 2864,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/post_seminar_phase6/pilot_metrics.csv",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_branch": "research/vpuft-post-seminar-optimization",
+      "source_path": "results/post_seminar_phase6/pilot_metrics.csv",
+      "source_blob_sha1": "decf233f92fc71a717ceb48672086801bc71d1cc",
+      "source_sha256": "555c2a38924bfe22b3086a285b79afa8aee08eea9cfba8a8f808ddacb6361722",
+      "destination_sha256": "555c2a38924bfe22b3086a285b79afa8aee08eea9cfba8a8f808ddacb6361722",
+      "bytes": 1413,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/post_seminar_phase6/placement_preregistered.json",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_branch": "research/vpuft-post-seminar-optimization",
+      "source_path": "results/post_seminar_phase6/placement_preregistered.json",
+      "source_blob_sha1": "a6f59a438e2826592ea55d8d464be792beb476c8",
+      "source_sha256": "d827cb5634f21e74dbe79d38d086786ce1fdb58b6e19531c674a704a00085716",
+      "destination_sha256": "d827cb5634f21e74dbe79d38d086786ce1fdb58b6e19531c674a704a00085716",
+      "bytes": 2183,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/post_seminar_phase6_final/false_positive_case_audit.csv",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_branch": "research/vpuft-post-seminar-optimization",
+      "source_path": "results/post_seminar_phase6_final/false_positive_case_audit.csv",
+      "source_blob_sha1": "57d5d3e445ab9930a2171ebd2b496f7ee6ca3600",
+      "source_sha256": "ef219ed3b8701daf35d6c99786d77334aeddc433e8711c3bdc760b31d121cf76",
+      "destination_sha256": "ef219ed3b8701daf35d6c99786d77334aeddc433e8711c3bdc760b31d121cf76",
+      "bytes": 571,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/post_seminar_phase6_final/final_paired_comparison.csv",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_branch": "research/vpuft-post-seminar-optimization",
+      "source_path": "results/post_seminar_phase6_final/final_paired_comparison.csv",
+      "source_blob_sha1": "7495a2f67b868fb7b90957d63b76c3c8724d14df",
+      "source_sha256": "ffba8583826fe6c13484ca4a54e283cab0839f686d74cc891f8dd127e1b2f4fd",
+      "destination_sha256": "ffba8583826fe6c13484ca4a54e283cab0839f686d74cc891f8dd127e1b2f4fd",
+      "bytes": 11789,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/post_seminar_phase6_final/opportunity_case_unions.csv",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_branch": "research/vpuft-post-seminar-optimization",
+      "source_path": "results/post_seminar_phase6_final/opportunity_case_unions.csv",
+      "source_blob_sha1": "148c85be65eeda6fa6335b94668189e335b71040",
+      "source_sha256": "1acbbcda75a6066fd449e24da29faf22f354e4b14870252bdb177443abb400aa",
+      "destination_sha256": "1acbbcda75a6066fd449e24da29faf22f354e4b14870252bdb177443abb400aa",
+      "bytes": 26954,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/post_seminar_phase6_final/paired_input_manifest.json",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_branch": "research/vpuft-post-seminar-optimization",
+      "source_path": "results/post_seminar_phase6_final/paired_input_manifest.json",
+      "source_blob_sha1": "729f6daff318d224030c5343c873070aabfa299b",
+      "source_sha256": "739474d6b87f74d242f1f02793dc5a58699d9734b63f7f0e08197ff1df37a0b5",
+      "destination_sha256": "739474d6b87f74d242f1f02793dc5a58699d9734b63f7f0e08197ff1df37a0b5",
+      "bytes": 22840,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/post_seminar_phase6_final/paired_seed_statistics.csv",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_branch": "research/vpuft-post-seminar-optimization",
+      "source_path": "results/post_seminar_phase6_final/paired_seed_statistics.csv",
+      "source_blob_sha1": "44757fc359af384ba6bf82e94d85e610b618f9c7",
+      "source_sha256": "c0d54f475e7dd6e2fa3d6a1253d80f2473a957309e7ba019d8fb5044059dfded",
+      "destination_sha256": "c0d54f475e7dd6e2fa3d6a1253d80f2473a957309e7ba019d8fb5044059dfded",
+      "bytes": 6557,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/post_seminar_phase6_final/paired_seed_statistics.json",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_branch": "research/vpuft-post-seminar-optimization",
+      "source_path": "results/post_seminar_phase6_final/paired_seed_statistics.json",
+      "source_blob_sha1": "e350e88337253dd2e4c2450740d8f8ead5b7e362",
+      "source_sha256": "edefab37ea0eab204413f04023f55e73d3ce5382fb80b28dc724809d2c2f5543",
+      "destination_sha256": "edefab37ea0eab204413f04023f55e73d3ce5382fb80b28dc724809d2c2f5543",
+      "bytes": 4625,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/rsu8_pilot/acceptance_gate_preregistered.json",
+      "source_commit": "96a7e903438c7316c25ed5e4b2e2cad433229224",
+      "source_branch": "research/recall-70-feasibility",
+      "source_path": "results/rsu8_pilot/acceptance_gate_preregistered.json",
+      "source_blob_sha1": "8164bb08534ad03288a29612cd31b2673eab9a9a",
+      "source_sha256": "7e2ca538d4ee6ad7bc5c65e3d992cc8dcd1ccadbe0b2f3366e4564c8121dd905",
+      "destination_sha256": "7e2ca538d4ee6ad7bc5c65e3d992cc8dcd1ccadbe0b2f3366e4564c8121dd905",
+      "bytes": 1258,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/rsu8_pilot/active_common_evidence_independence.csv",
+      "source_commit": "96a7e903438c7316c25ed5e4b2e2cad433229224",
+      "source_branch": "research/recall-70-feasibility",
+      "source_path": "results/rsu8_pilot/active_common_evidence_independence.csv",
+      "source_blob_sha1": "ff65cf2a28ae1fa74f1214d7e09d6d777c2f1d8e",
+      "source_sha256": "7b66da0f49740feabd75fb125d1a9d90e68de28dde6cb19922b981ee4abbca41",
+      "destination_sha256": "7b66da0f49740feabd75fb125d1a9d90e68de28dde6cb19922b981ee4abbca41",
+      "bytes": 523,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/rsu8_pilot/false_positive_case_audit.csv",
+      "source_commit": "96a7e903438c7316c25ed5e4b2e2cad433229224",
+      "source_branch": "research/recall-70-feasibility",
+      "source_path": "results/rsu8_pilot/false_positive_case_audit.csv",
+      "source_blob_sha1": "104a35919875e3fdf52f34408611a796b9b734a9",
+      "source_sha256": "6868c6258367ef72f109e0bcab7536a5b3451f92153a1f31f36750b5be8e2002",
+      "destination_sha256": "6868c6258367ef72f109e0bcab7536a5b3451f92153a1f31f36750b5be8e2002",
+      "bytes": 183,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/rsu8_pilot/paired_manifests.json",
+      "source_commit": "96a7e903438c7316c25ed5e4b2e2cad433229224",
+      "source_branch": "research/recall-70-feasibility",
+      "source_path": "results/rsu8_pilot/paired_manifests.json",
+      "source_blob_sha1": "8a18309828fe70659620c09eacf1e90ec7bda921",
+      "source_sha256": "73c2ce0b2a943aaff693d2717034cc833035e2c4e7a2fc24a9f11ab834ea94c2",
+      "destination_sha256": "73c2ce0b2a943aaff693d2717034cc833035e2c4e7a2fc24a9f11ab834ea94c2",
+      "bytes": 5296,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/rsu8_pilot/pilot_density_summary.csv",
+      "source_commit": "96a7e903438c7316c25ed5e4b2e2cad433229224",
+      "source_branch": "research/recall-70-feasibility",
+      "source_path": "results/rsu8_pilot/pilot_density_summary.csv",
+      "source_blob_sha1": "3924c7f545a2a319f64bf85dee3dbeaaf5dce610",
+      "source_sha256": "5e81b9393af20b654946f91e0aeeebf23217b275bb595a673ca7cec20b0d1b35",
+      "destination_sha256": "5e81b9393af20b654946f91e0aeeebf23217b275bb595a673ca7cec20b0d1b35",
+      "bytes": 1439,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/rsu8_pilot/pilot_gate_result.json",
+      "source_commit": "96a7e903438c7316c25ed5e4b2e2cad433229224",
+      "source_branch": "research/recall-70-feasibility",
+      "source_path": "results/rsu8_pilot/pilot_gate_result.json",
+      "source_blob_sha1": "f05f3dd1e12d938ebe3fe164db0141c6bbcf1897",
+      "source_sha256": "746ca33bf6c98b3b16e269befbf916ee5c09e5a31e0ac35687492ceabe67ad4a",
+      "destination_sha256": "746ca33bf6c98b3b16e269befbf916ee5c09e5a31e0ac35687492ceabe67ad4a",
+      "bytes": 1937,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/rsu8_pilot/pilot_metrics.csv",
+      "source_commit": "96a7e903438c7316c25ed5e4b2e2cad433229224",
+      "source_branch": "research/recall-70-feasibility",
+      "source_path": "results/rsu8_pilot/pilot_metrics.csv",
+      "source_blob_sha1": "11ac01289b5c8372ee25c3098119b9d8baf146ca",
+      "source_sha256": "4df02b0529eebaa0bd13fb398ad99229682fd6c2e1123e9fd45f82ed577beda8",
+      "destination_sha256": "4df02b0529eebaa0bd13fb398ad99229682fd6c2e1123e9fd45f82ed577beda8",
+      "bytes": 5712,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/rsu8_pilot/pilot_opportunity_comparison.csv",
+      "source_commit": "96a7e903438c7316c25ed5e4b2e2cad433229224",
+      "source_branch": "research/recall-70-feasibility",
+      "source_path": "results/rsu8_pilot/pilot_opportunity_comparison.csv",
+      "source_blob_sha1": "d476af6d997f31810ec3f1c9d41f0e954fb30fe9",
+      "source_sha256": "8e7512f500830d069310dc9c8b32401c90fec4a4ba93249e90a9481926ab9e79",
+      "destination_sha256": "8e7512f500830d069310dc9c8b32401c90fec4a4ba93249e90a9481926ab9e79",
+      "bytes": 2639,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/rsu8_pilot/pilot_paired_comparison.csv",
+      "source_commit": "96a7e903438c7316c25ed5e4b2e2cad433229224",
+      "source_branch": "research/recall-70-feasibility",
+      "source_path": "results/rsu8_pilot/pilot_paired_comparison.csv",
+      "source_blob_sha1": "09de6ab7e0c1ea22e46e0dc4b9f7815d8a6a35bc",
+      "source_sha256": "11a9e59c65c20ea13387ea14531717265ba357f0aa26dc50d03017e20e194c2b",
+      "destination_sha256": "11a9e59c65c20ea13387ea14531717265ba357f0aa26dc50d03017e20e194c2b",
+      "bytes": 8723,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/rsu8_pilot/placement_preregistered.json",
+      "source_commit": "96a7e903438c7316c25ed5e4b2e2cad433229224",
+      "source_branch": "research/recall-70-feasibility",
+      "source_path": "results/rsu8_pilot/placement_preregistered.json",
+      "source_blob_sha1": "637b51dd05ff9a983a75ddda0c09807beeb65f1c",
+      "source_sha256": "74c472d3affbc7f8d34d68ecaaac4de255e373ceced3aedc1b3c84789b53cb40",
+      "destination_sha256": "74c472d3affbc7f8d34d68ecaaac4de255e373ceced3aedc1b3c84789b53cb40",
+      "bytes": 4807,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/rsu8_pilot/recovered_fn_case_audit.csv",
+      "source_commit": "96a7e903438c7316c25ed5e4b2e2cad433229224",
+      "source_branch": "research/recall-70-feasibility",
+      "source_path": "results/rsu8_pilot/recovered_fn_case_audit.csv",
+      "source_blob_sha1": "ffd5f4fbfac8a768cfcc1f11b8d8fd90b24d844a",
+      "source_sha256": "c601054cf444e47bc11524e2047b76e7d5028150267a44b9190ed577504130ec",
+      "destination_sha256": "c601054cf444e47bc11524e2047b76e7d5028150267a44b9190ed577504130ec",
+      "bytes": 36102,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/rsu8_pilot/rsu8_training_coverage_map.png",
+      "source_commit": "96a7e903438c7316c25ed5e4b2e2cad433229224",
+      "source_branch": "research/recall-70-feasibility",
+      "source_path": "results/rsu8_pilot/rsu8_training_coverage_map.png",
+      "source_blob_sha1": "06caf1cb3079eceee25ebade5176b4d0c8cc50b1",
+      "source_sha256": "a43c9faf9435da1faba20abc51704abee7c0322351a6bb9733f5b79f8afcc7aa",
+      "destination_sha256": "a43c9faf9435da1faba20abc51704abee7c0322351a6bb9733f5b79f8afcc7aa",
+      "bytes": 158464,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/rsu8_pilot/training_coverage_summary.csv",
+      "source_commit": "96a7e903438c7316c25ed5e4b2e2cad433229224",
+      "source_branch": "research/recall-70-feasibility",
+      "source_path": "results/rsu8_pilot/training_coverage_summary.csv",
+      "source_blob_sha1": "4ac6632947c8b6464bb5f9495d6f38102cb8dac9",
+      "source_sha256": "67ce8e246bd1ced5ed2849c9139b5a30b078e3aef2749626ca496d5bdacc2321",
+      "destination_sha256": "67ce8e246bd1ced5ed2849c9139b5a30b078e3aef2749626ca496d5bdacc2321",
+      "bytes": 757,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/v5_validator_prototype/paired_replay_manifest.json",
+      "source_commit": "4687266bae35d680d77730b1dd4d929a6ea57900",
+      "source_branch": "research/vpuft-v5-validator-prototype",
+      "source_path": "results/v5_validator_prototype/paired_replay_manifest.json",
+      "source_blob_sha1": "ac9e64debb8524d4f71cc6384161a38229177d32",
+      "source_sha256": "b9745c30486940599677c9441cba00fccb0f99f1c5cc46fe00bc724604c1254b",
+      "destination_sha256": "b9745c30486940599677c9441cba00fccb0f99f1c5cc46fe00bc724604c1254b",
+      "bytes": 2868,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/v5_validator_prototype/v4_v5_architecture_summary.csv",
+      "source_commit": "4687266bae35d680d77730b1dd4d929a6ea57900",
+      "source_branch": "research/vpuft-v5-validator-prototype",
+      "source_path": "results/v5_validator_prototype/v4_v5_architecture_summary.csv",
+      "source_blob_sha1": "ebf490ac30348d0ec82e637661d4df0800f527ca",
+      "source_sha256": "ce3c2b229dea4a7fffdab8c86b15d68f5b01f579c152340827ac499f134db23e",
+      "destination_sha256": "ce3c2b229dea4a7fffdab8c86b15d68f5b01f579c152340827ac499f134db23e",
+      "bytes": 593,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/v5_validator_prototype/v4_v5_paired_replay.csv",
+      "source_commit": "4687266bae35d680d77730b1dd4d929a6ea57900",
+      "source_branch": "research/vpuft-v5-validator-prototype",
+      "source_path": "results/v5_validator_prototype/v4_v5_paired_replay.csv",
+      "source_blob_sha1": "d9a2e9f2c93b3ab508bab54a8e8b553627f29809",
+      "source_sha256": "e981d437e307ed76fb92d400bc178ca1917fb7a360aeb3e5d4753cdda51932a2",
+      "destination_sha256": "e981d437e307ed76fb92d400bc178ca1917fb7a360aeb3e5d4753cdda51932a2",
+      "bytes": 7082,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/coordinator_security_v5/coordinator_paired_differences.csv",
+      "source_commit": "abe80d00a7a9b2bbc8d722c449f4c401827bab8f",
+      "source_branch": "security/coordinator-evidence-v5",
+      "source_path": "results/coordinator_security_v5/coordinator_paired_differences.csv",
+      "source_blob_sha1": "fc09f1870292f6470565bfc880f4e4085f1cc2dc",
+      "source_sha256": "fa7b488d77094f19767a8c2f397bb642b0d9b6d77c058f66cce3c98c2e3ba221",
+      "destination_sha256": "fa7b488d77094f19767a8c2f397bb642b0d9b6d77c058f66cce3c98c2e3ba221",
+      "bytes": 2159,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/coordinator_security_v5/coordinator_paired_metrics.csv",
+      "source_commit": "abe80d00a7a9b2bbc8d722c449f4c401827bab8f",
+      "source_branch": "security/coordinator-evidence-v5",
+      "source_path": "results/coordinator_security_v5/coordinator_paired_metrics.csv",
+      "source_blob_sha1": "21441226974f47131a14c84a8319ca78f9557765",
+      "source_sha256": "dc9b0c9c253eb1b699d0e4d4d17ad3d38c0b2f199e76cb0dfa2ddbb4d79795dc",
+      "destination_sha256": "dc9b0c9c253eb1b699d0e4d4d17ad3d38c0b2f199e76cb0dfa2ddbb4d79795dc",
+      "bytes": 8389,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/coordinator_security_v5/coordinator_replay_manifest.json",
+      "source_commit": "abe80d00a7a9b2bbc8d722c449f4c401827bab8f",
+      "source_branch": "security/coordinator-evidence-v5",
+      "source_path": "results/coordinator_security_v5/coordinator_replay_manifest.json",
+      "source_blob_sha1": "31e3495f53389b298210bdbf6b867a923c9333da",
+      "source_sha256": "39a4168603a73cf567be035b6a29f23a2132e00bad0a1fb31cea92a8b9a04b60",
+      "destination_sha256": "39a4168603a73cf567be035b6a29f23a2132e00bad0a1fb31cea92a8b9a04b60",
+      "bytes": 3070,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/coordinator_evidence_availability_v5_final2/evidence_availability_manifest.json",
+      "source_commit": "2df02a0f17dc4782b833b882edbc3ec30c1e8e8d",
+      "source_branch": "security/v5-evidence-availability",
+      "source_path": "results/coordinator_evidence_availability_v5_final2/evidence_availability_manifest.json",
+      "source_blob_sha1": "ee5e7bc76d0dd644fbe1840074c8d34f1c0a88a9",
+      "source_sha256": "0f6f3037e220d4e64a8ef2dc812934548dae926f21b3ed190c6c1deab0dd8dcf",
+      "destination_sha256": "0f6f3037e220d4e64a8ef2dc812934548dae926f21b3ed190c6c1deab0dd8dcf",
+      "bytes": 1789,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/coordinator_evidence_availability_v5_final2/evidence_availability_metrics.csv",
+      "source_commit": "2df02a0f17dc4782b833b882edbc3ec30c1e8e8d",
+      "source_branch": "security/v5-evidence-availability",
+      "source_path": "results/coordinator_evidence_availability_v5_final2/evidence_availability_metrics.csv",
+      "source_blob_sha1": "ef2fbb001cee9b074b48589a83d3b8254b864a27",
+      "source_sha256": "05e581345d65239d4cead70d6e824a4fdeda72e2c44cbeb95a43765181e5c617",
+      "destination_sha256": "05e581345d65239d4cead70d6e824a4fdeda72e2c44cbeb95a43765181e5c617",
+      "bytes": 2180,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/coordinator_evidence_availability_v5_final2/evidence_availability_paired.csv",
+      "source_commit": "2df02a0f17dc4782b833b882edbc3ec30c1e8e8d",
+      "source_branch": "security/v5-evidence-availability",
+      "source_path": "results/coordinator_evidence_availability_v5_final2/evidence_availability_paired.csv",
+      "source_blob_sha1": "940d4d67677058b3f9833f4fddee090a7f9ff0aa",
+      "source_sha256": "44ab0d35f371f01add8118a09e7cae25230522fefa6fae6abcf7cf3056d418e9",
+      "destination_sha256": "44ab0d35f371f01add8118a09e7cae25230522fefa6fae6abcf7cf3056d418e9",
+      "bytes": 934,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/evidence_availability_optimization/replay_20_2101_final2/optimization_manifest.json",
+      "source_commit": "944d65b15711c8a79b94b4355c27211148b30ac5",
+      "source_branch": "security/v5-evidence-availability-optimization",
+      "source_path": "results/evidence_availability_optimization/replay_20_2101_final2/optimization_manifest.json",
+      "source_blob_sha1": "bc4cdfb83e14e3b6c229ac0ed7df417f2e26178c",
+      "source_sha256": "ecfd739dc4464d3194ea9b9e84e67d7d55a75aa8cf180079308b29df84e3bc23",
+      "destination_sha256": "ecfd739dc4464d3194ea9b9e84e67d7d55a75aa8cf180079308b29df84e3bc23",
+      "bytes": 2868,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/evidence_availability_optimization/replay_20_2101_final2/optimization_variants.csv",
+      "source_commit": "944d65b15711c8a79b94b4355c27211148b30ac5",
+      "source_branch": "security/v5-evidence-availability-optimization",
+      "source_path": "results/evidence_availability_optimization/replay_20_2101_final2/optimization_variants.csv",
+      "source_blob_sha1": "ab75de5a871b95b8ff6ef5c646206f5cd94b87c4",
+      "source_sha256": "02ddf43d8aef19fdf9f1af4e11d2cb18a14fa422a2b0fc2f123ee373f6efa03a",
+      "destination_sha256": "02ddf43d8aef19fdf9f1af4e11d2cb18a14fa422a2b0fc2f123ee373f6efa03a",
+      "bytes": 3841,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/evidence_availability_optimization/replay_20_2101_final2/optimization_vs_C1.csv",
+      "source_commit": "944d65b15711c8a79b94b4355c27211148b30ac5",
+      "source_branch": "security/v5-evidence-availability-optimization",
+      "source_path": "results/evidence_availability_optimization/replay_20_2101_final2/optimization_vs_C1.csv",
+      "source_blob_sha1": "8450575aaa1e7464e4f36a0fcbd02acb122a368b",
+      "source_sha256": "daae55dd9c3e5eb527f6eac0f708b2d23a8b971b0ae43b422897e6249825f2ec",
+      "destination_sha256": "daae55dd9c3e5eb527f6eac0f708b2d23a8b971b0ae43b422897e6249825f2ec",
+      "bytes": 781,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/provenance_evidence_optimization_final/analysis_manifest.json",
+      "source_commit": "944d65b15711c8a79b94b4355c27211148b30ac5",
+      "source_branch": "security/v5-evidence-availability-optimization",
+      "source_path": "results/provenance_evidence_optimization_final/analysis_manifest.json",
+      "source_blob_sha1": "038095b8ace7392555db8957395ae69d0e0754af",
+      "source_sha256": "783f86c347f849195bb095ee41aeca0591b6a47f378a08c953ed0d66fe9f4277",
+      "destination_sha256": "783f86c347f849195bb095ee41aeca0591b6a47f378a08c953ed0d66fe9f4277",
+      "bytes": 660,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/provenance_evidence_optimization_final/b1_case_differences.csv",
+      "source_commit": "944d65b15711c8a79b94b4355c27211148b30ac5",
+      "source_branch": "security/v5-evidence-availability-optimization",
+      "source_path": "results/provenance_evidence_optimization_final/b1_case_differences.csv",
+      "source_blob_sha1": "b03dbbb3a4bc2119e81320cabd9a12954560773a",
+      "source_sha256": "8ac07414b1f74124a709431c43103a23813cd1257df8de73e6a00c664a881620",
+      "destination_sha256": "8ac07414b1f74124a709431c43103a23813cd1257df8de73e6a00c664a881620",
+      "bytes": 2244,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/provenance_evidence_optimization_final/b1_case_transitions.csv",
+      "source_commit": "944d65b15711c8a79b94b4355c27211148b30ac5",
+      "source_branch": "security/v5-evidence-availability-optimization",
+      "source_path": "results/provenance_evidence_optimization_final/b1_case_transitions.csv",
+      "source_blob_sha1": "8bd1cd84c4798801e072f90c3d10960506580c15",
+      "source_sha256": "54eec27eb646bec43a922312914d5930a26dd8a6ca99209f4b6502549f405001",
+      "destination_sha256": "54eec27eb646bec43a922312914d5930a26dd8a6ca99209f4b6502549f405001",
+      "bytes": 2871,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/provenance_evidence_optimization_final/cprofile_stage_attribution.csv",
+      "source_commit": "944d65b15711c8a79b94b4355c27211148b30ac5",
+      "source_branch": "security/v5-evidence-availability-optimization",
+      "source_path": "results/provenance_evidence_optimization_final/cprofile_stage_attribution.csv",
+      "source_blob_sha1": "c733161005b01afca7c5a5f4ecd3e8f586a6dfb1",
+      "source_sha256": "0c958accaac768210ff1bcc2cb0b9ff30c57b2f29d9545ed137155b26303754f",
+      "destination_sha256": "0c958accaac768210ff1bcc2cb0b9ff30c57b2f29d9545ed137155b26303754f",
+      "bytes": 1734,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/provenance_evidence_optimization_final/metrics_by_density.csv",
+      "source_commit": "944d65b15711c8a79b94b4355c27211148b30ac5",
+      "source_branch": "security/v5-evidence-availability-optimization",
+      "source_path": "results/provenance_evidence_optimization_final/metrics_by_density.csv",
+      "source_blob_sha1": "728e13ab19f065b2488f203f9606ad54392bd286",
+      "source_sha256": "f83cec4854746a89780bf1ccb075ca8ae0c8045b6acfb5bec968e58bfd0ef8a7",
+      "destination_sha256": "f83cec4854746a89780bf1ccb075ca8ae0c8045b6acfb5bec968e58bfd0ef8a7",
+      "bytes": 3510,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/provenance_evidence_optimization_final/opportunity_counts_by_density.csv",
+      "source_commit": "944d65b15711c8a79b94b4355c27211148b30ac5",
+      "source_branch": "security/v5-evidence-availability-optimization",
+      "source_path": "results/provenance_evidence_optimization_final/opportunity_counts_by_density.csv",
+      "source_blob_sha1": "b16e2493555c96e04263872d51907b3a26cb13f0",
+      "source_sha256": "7967b62c0e87e3cd357a218a9196d3de396cee2b5229a7efb40035713833afa9",
+      "destination_sha256": "7967b62c0e87e3cd357a218a9196d3de396cee2b5229a7efb40035713833afa9",
+      "bytes": 500,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/provenance_evidence_optimization_final/opportunity_metrics_by_cell.csv",
+      "source_commit": "944d65b15711c8a79b94b4355c27211148b30ac5",
+      "source_branch": "security/v5-evidence-availability-optimization",
+      "source_path": "results/provenance_evidence_optimization_final/opportunity_metrics_by_cell.csv",
+      "source_blob_sha1": "d985d9b1b8db1e5c7b2973e547d924e178f0323c",
+      "source_sha256": "a9faba3ce0e31d2480efc40842d790fc5fddd64bfc4d5e9bf37b77815412aca6",
+      "destination_sha256": "a9faba3ce0e31d2480efc40842d790fc5fddd64bfc4d5e9bf37b77815412aca6",
+      "bytes": 1876,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/provenance_evidence_optimization_final/paired_metrics_by_cell.csv",
+      "source_commit": "944d65b15711c8a79b94b4355c27211148b30ac5",
+      "source_branch": "security/v5-evidence-availability-optimization",
+      "source_path": "results/provenance_evidence_optimization_final/paired_metrics_by_cell.csv",
+      "source_blob_sha1": "ad38a54a498d47505bc89ee4d1f9034540cd3177",
+      "source_sha256": "cc494d735e1a90007f78fa1424ad68500b0b526fa176aa6fb1177144e8c97fc8",
+      "destination_sha256": "cc494d735e1a90007f78fa1424ad68500b0b526fa176aa6fb1177144e8c97fc8",
+      "bytes": 7732,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/provenance_evidence_optimization_final/redundancy_group_audit.json",
+      "source_commit": "944d65b15711c8a79b94b4355c27211148b30ac5",
+      "source_branch": "security/v5-evidence-availability-optimization",
+      "source_path": "results/provenance_evidence_optimization_final/redundancy_group_audit.json",
+      "source_blob_sha1": "f20e7ddd746d386c3a8058125122300d63b26f4b",
+      "source_sha256": "91a988da902afbaf9d32e56996279b11bbd020eb16e5248e1d15f56af390bdc0",
+      "destination_sha256": "91a988da902afbaf9d32e56996279b11bbd020eb16e5248e1d15f56af390bdc0",
+      "bytes": 989,
+      "role": "compact frozen result/diagnostic; no raw traces"
+    },
+    {
+      "destination": "research_archive/post_seminar/source_snapshots/p6/scripts/analyze_phase4_existing_evidence.py.archived.txt",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_branch": "research/vpuft-post-seminar-optimization",
+      "source_path": "scripts/analyze_phase4_existing_evidence.py",
+      "source_blob_sha1": "3b18507650430cb260032f9a238d3854aa3604d4",
+      "source_sha256": "e085b0e2d71e536211386b02adb6c3aeec4e8e59e53659799cec3703ab3276d2",
+      "destination_sha256": "e085b0e2d71e536211386b02adb6c3aeec4e8e59e53659799cec3703ab3276d2",
+      "bytes": 8380,
+      "role": "inactive source/config/test copy; not imported or auto-collected"
+    },
+    {
+      "destination": "research_archive/post_seminar/source_snapshots/p6/scripts/audit_phase4_geographic_diversity.py.archived.txt",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_branch": "research/vpuft-post-seminar-optimization",
+      "source_path": "scripts/audit_phase4_geographic_diversity.py",
+      "source_blob_sha1": "26b69ffc0266b1f029129e7fbcda88037033756a",
+      "source_sha256": "f938356a84293dc3701cc76995ae7c2c3d7b3324703e518692950d5d22f144d3",
+      "destination_sha256": "f938356a84293dc3701cc76995ae7c2c3d7b3324703e518692950d5d22f144d3",
+      "bytes": 32093,
+      "role": "inactive source/config/test copy; not imported or auto-collected"
+    },
+    {
+      "destination": "research_archive/post_seminar/source_snapshots/p6/scripts/audit_phase6_placement_feasibility.py.archived.txt",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_branch": "research/vpuft-post-seminar-optimization",
+      "source_path": "scripts/audit_phase6_placement_feasibility.py",
+      "source_blob_sha1": "811674b8bce9fd66c347ca35b5ced0fdc8473bde",
+      "source_sha256": "01b879eb9cab62fb4f388577adeeb1a586de2c065b6a12c9f43f7dda83cc39f5",
+      "destination_sha256": "01b879eb9cab62fb4f388577adeeb1a586de2c065b6a12c9f43f7dda83cc39f5",
+      "bytes": 3871,
+      "role": "inactive source/config/test copy; not imported or auto-collected"
+    },
+    {
+      "destination": "research_archive/post_seminar/source_snapshots/p6/scripts/evaluate_phase6_final.py.archived.txt",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_branch": "research/vpuft-post-seminar-optimization",
+      "source_path": "scripts/evaluate_phase6_final.py",
+      "source_blob_sha1": "1b29306dcfd0f7885cb97018a5da076be8772088",
+      "source_sha256": "c2f204e4dd9bc32d09ed246072b1084ae04e590bba5ae1a7bd02168133c935af",
+      "destination_sha256": "c2f204e4dd9bc32d09ed246072b1084ae04e590bba5ae1a7bd02168133c935af",
+      "bytes": 9374,
+      "role": "inactive source/config/test copy; not imported or auto-collected"
+    },
+    {
+      "destination": "research_archive/post_seminar/source_snapshots/p6/scripts/evaluate_phase6_opportunities.py.archived.txt",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_branch": "research/vpuft-post-seminar-optimization",
+      "source_path": "scripts/evaluate_phase6_opportunities.py",
+      "source_blob_sha1": "4e9e02e95b7a379d7e841ad5514f94487a003837",
+      "source_sha256": "238ae0130acd8ae7d00f50a3af6a335a4165be6c9f3d72fac4f9ea69c79d5b2b",
+      "destination_sha256": "238ae0130acd8ae7d00f50a3af6a335a4165be6c9f3d72fac4f9ea69c79d5b2b",
+      "bytes": 6381,
+      "role": "inactive source/config/test copy; not imported or auto-collected"
+    },
+    {
+      "destination": "research_archive/post_seminar/source_snapshots/p6/scripts/map_phase5_coverage.py.archived.txt",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_branch": "research/vpuft-post-seminar-optimization",
+      "source_path": "scripts/map_phase5_coverage.py",
+      "source_blob_sha1": "f0256f32ff62dede647e730821aa2729908dd6a1",
+      "source_sha256": "26cb0b7b9caab9fc4635e5614b3895343b3bdfa803206b74fca9749e6147cd94",
+      "destination_sha256": "26cb0b7b9caab9fc4635e5614b3895343b3bdfa803206b74fca9749e6147cd94",
+      "bytes": 1436,
+      "role": "inactive source/config/test copy; not imported or auto-collected"
+    },
+    {
+      "destination": "research_archive/post_seminar/source_snapshots/p6/scripts/run_phase5_coverage_pilot.py.archived.txt",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_branch": "research/vpuft-post-seminar-optimization",
+      "source_path": "scripts/run_phase5_coverage_pilot.py",
+      "source_blob_sha1": "295df96e0ee9d411e4351c6d00dad82e35f30cd8",
+      "source_sha256": "cc9f93f3fc1942e239ce467a8047a3cccf21113ee08ae1b85f5009862d56bbba",
+      "destination_sha256": "cc9f93f3fc1942e239ce467a8047a3cccf21113ee08ae1b85f5009862d56bbba",
+      "bytes": 3818,
+      "role": "inactive source/config/test copy; not imported or auto-collected"
+    },
+    {
+      "destination": "research_archive/post_seminar/source_snapshots/p6/scripts/run_phase6_expansion_seed.py.archived.txt",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_branch": "research/vpuft-post-seminar-optimization",
+      "source_path": "scripts/run_phase6_expansion_seed.py",
+      "source_blob_sha1": "9f3ae82d69f60d3755e05c0f1a8d73fb627e6eae",
+      "source_sha256": "8ed7e22933891d4e032ac68cadc46833740832dd1207bd4299f4308ae389557b",
+      "destination_sha256": "8ed7e22933891d4e032ac68cadc46833740832dd1207bd4299f4308ae389557b",
+      "bytes": 556,
+      "role": "inactive source/config/test copy; not imported or auto-collected"
+    },
+    {
+      "destination": "research_archive/post_seminar/source_snapshots/p6/scripts/run_phase6_feasible_pilot.py.archived.txt",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_branch": "research/vpuft-post-seminar-optimization",
+      "source_path": "scripts/run_phase6_feasible_pilot.py",
+      "source_blob_sha1": "8716e1541f41e27447416e762df060d8a34e47b1",
+      "source_sha256": "269ec1ef704ee8dd35cf654e3d6a29efc9632e52a44ee0a1e5d8ce454b61c09f",
+      "destination_sha256": "269ec1ef704ee8dd35cf654e3d6a29efc9632e52a44ee0a1e5d8ce454b61c09f",
+      "bytes": 312,
+      "role": "inactive source/config/test copy; not imported or auto-collected"
+    },
+    {
+      "destination": "research_archive/post_seminar/source_snapshots/p6/scripts/run_phase6_final_heldout.py.archived.txt",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_branch": "research/vpuft-post-seminar-optimization",
+      "source_path": "scripts/run_phase6_final_heldout.py",
+      "source_blob_sha1": "304ecdca7e24232d1fabc525ff0e0283fe8db381",
+      "source_sha256": "ecfdd055869dcf42422deb57e81f27d2da449e325af8e13b1566e30880841900",
+      "destination_sha256": "ecfdd055869dcf42422deb57e81f27d2da449e325af8e13b1566e30880841900",
+      "bytes": 717,
+      "role": "inactive source/config/test copy; not imported or auto-collected"
+    },
+    {
+      "destination": "research_archive/post_seminar/source_snapshots/p6/scripts/select_phase5_rsu_placement.py.archived.txt",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_branch": "research/vpuft-post-seminar-optimization",
+      "source_path": "scripts/select_phase5_rsu_placement.py",
+      "source_blob_sha1": "c44c1eca7b22ef37ada7ee54d803bb2985d8f558",
+      "source_sha256": "2595cec2e80bda396761929b95dcec300b5ef6122df10fe0df963b2c2ad853b9",
+      "destination_sha256": "2595cec2e80bda396761929b95dcec300b5ef6122df10fe0df963b2c2ad853b9",
+      "bytes": 4428,
+      "role": "inactive source/config/test copy; not imported or auto-collected"
+    },
+    {
+      "destination": "research_archive/post_seminar/source_snapshots/p6/scripts/summarize_phase6_final.py.archived.txt",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_branch": "research/vpuft-post-seminar-optimization",
+      "source_path": "scripts/summarize_phase6_final.py",
+      "source_blob_sha1": "bb10dbb7352cad968676230b8a71f5de24e158a2",
+      "source_sha256": "38f0dbe388f72c58daddf96d981d125dc367b1af86a66e8cf08494b1895755aa",
+      "destination_sha256": "38f0dbe388f72c58daddf96d981d125dc367b1af86a66e8cf08494b1895755aa",
+      "bytes": 2858,
+      "role": "inactive source/config/test copy; not imported or auto-collected"
+    },
+    {
+      "destination": "research_archive/post_seminar/source_snapshots/p6/scripts/verify_phase6_final_pairs.py.archived.txt",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_branch": "research/vpuft-post-seminar-optimization",
+      "source_path": "scripts/verify_phase6_final_pairs.py",
+      "source_blob_sha1": "5a5d628822fbbeb3e8d7ddf5fb85ec3b99c5ab5c",
+      "source_sha256": "d88a650be1d89d80b58f989e23e5bd43c72875abb9d0bcc079ac862147fa6b30",
+      "destination_sha256": "d88a650be1d89d80b58f989e23e5bd43c72875abb9d0bcc079ac862147fa6b30",
+      "bytes": 2279,
+      "role": "inactive source/config/test copy; not imported or auto-collected"
+    },
+    {
+      "destination": "research_archive/post_seminar/source_snapshots/p6/tests/test_opportunity_evaluation.py.archived.txt",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_branch": "research/vpuft-post-seminar-optimization",
+      "source_path": "tests/test_opportunity_evaluation.py",
+      "source_blob_sha1": "6291a1d3bd08934ab807a34db33ff541935b9f67",
+      "source_sha256": "52ab390d954e34c2b153c55b7607f6d158230c1641ee1852e5b449043cff007f",
+      "destination_sha256": "52ab390d954e34c2b153c55b7607f6d158230c1641ee1852e5b449043cff007f",
+      "bytes": 1524,
+      "role": "inactive source/config/test copy; not imported or auto-collected"
+    },
+    {
+      "destination": "research_archive/post_seminar/source_snapshots/r8/scripts/evaluate_phase6_eight_rsu_pilot.py.archived.txt",
+      "source_commit": "96a7e903438c7316c25ed5e4b2e2cad433229224",
+      "source_branch": "research/recall-70-feasibility",
+      "source_path": "scripts/evaluate_phase6_eight_rsu_pilot.py",
+      "source_blob_sha1": "f8863f011a3ae74b437235dae7fff3be3ac2a452",
+      "source_sha256": "f66e1b224aadb4ed08f338dc95ade9d47d43e6054353ee4f675fd3b846640cef",
+      "destination_sha256": "f66e1b224aadb4ed08f338dc95ade9d47d43e6054353ee4f675fd3b846640cef",
+      "bytes": 18452,
+      "role": "inactive source/config/test copy; not imported or auto-collected"
+    },
+    {
+      "destination": "research_archive/post_seminar/source_snapshots/r8/scripts/run_phase6_eight_rsu_pilot.py.archived.txt",
+      "source_commit": "96a7e903438c7316c25ed5e4b2e2cad433229224",
+      "source_branch": "research/recall-70-feasibility",
+      "source_path": "scripts/run_phase6_eight_rsu_pilot.py",
+      "source_blob_sha1": "12b0a561691758d1e7e62eef302218a6894363a9",
+      "source_sha256": "bc974bc31a75a20f9c7cc1c8427ce877034f6862116e04f382ab06dd5492790f",
+      "destination_sha256": "bc974bc31a75a20f9c7cc1c8427ce877034f6862116e04f382ab06dd5492790f",
+      "bytes": 15592,
+      "role": "inactive source/config/test copy; not imported or auto-collected"
+    },
+    {
+      "destination": "research_archive/post_seminar/source_snapshots/r8/scripts/run_phase6_eight_rsu_placement.py.archived.txt",
+      "source_commit": "96a7e903438c7316c25ed5e4b2e2cad433229224",
+      "source_branch": "research/recall-70-feasibility",
+      "source_path": "scripts/run_phase6_eight_rsu_placement.py",
+      "source_blob_sha1": "f50dc00e8d10d2dbd987b2ecbee5ee9d3930c6c3",
+      "source_sha256": "16953f7ef76645b858c6a0cf4b121a321abf6fee636396b3b0aeeb944b54dc37",
+      "destination_sha256": "16953f7ef76645b858c6a0cf4b121a321abf6fee636396b3b0aeeb944b54dc37",
+      "bytes": 14228,
+      "role": "inactive source/config/test copy; not imported or auto-collected"
+    },
+    {
+      "destination": "research_archive/post_seminar/source_snapshots/r8/scripts/summarize_phase6_eight_rsu_coverage.py.archived.txt",
+      "source_commit": "96a7e903438c7316c25ed5e4b2e2cad433229224",
+      "source_branch": "research/recall-70-feasibility",
+      "source_path": "scripts/summarize_phase6_eight_rsu_coverage.py",
+      "source_blob_sha1": "bf744818642acbe38ba71d29adbbb2de8af55a78",
+      "source_sha256": "fa55531bb3987808a820b77670bcd3cc09338990902ad5f2114a60796361672c",
+      "destination_sha256": "fa55531bb3987808a820b77670bcd3cc09338990902ad5f2114a60796361672c",
+      "bytes": 4732,
+      "role": "inactive source/config/test copy; not imported or auto-collected"
+    },
+    {
+      "destination": "research_archive/post_seminar/source_snapshots/r8/tests/test_rsu8_sensing_roles.py.archived.txt",
+      "source_commit": "96a7e903438c7316c25ed5e4b2e2cad433229224",
+      "source_branch": "research/recall-70-feasibility",
+      "source_path": "tests/test_rsu8_sensing_roles.py",
+      "source_blob_sha1": "eaaee89394aa1fe610083577f6fc7785924321e4",
+      "source_sha256": "6ec924e89b9b85736d259f22b486fd2eaaece670e9575faddfec511f5670414b",
+      "destination_sha256": "6ec924e89b9b85736d259f22b486fd2eaaece670e9575faddfec511f5670414b",
+      "bytes": 2677,
+      "role": "inactive source/config/test copy; not imported or auto-collected"
+    },
+    {
+      "destination": "research_archive/post_seminar/source_snapshots/v5/configs/extension_v5_validator.json.archived.txt",
+      "source_commit": "4687266bae35d680d77730b1dd4d929a6ea57900",
+      "source_branch": "research/vpuft-v5-validator-prototype",
+      "source_path": "configs/extension_v5_validator.json",
+      "source_blob_sha1": "0847e9d81f54c1ae6484429f226b19c39a8aaeaf",
+      "source_sha256": "f59051cc20410f137149109db200a08adefc2d78b2a803124739aca7482aae9d",
+      "destination_sha256": "f59051cc20410f137149109db200a08adefc2d78b2a803124739aca7482aae9d",
+      "bytes": 520,
+      "role": "inactive source/config/test copy; not imported or auto-collected"
+    },
+    {
+      "destination": "research_archive/post_seminar/source_snapshots/v5/scripts/replay_v4_v5_architecture.py.archived.txt",
+      "source_commit": "4687266bae35d680d77730b1dd4d929a6ea57900",
+      "source_branch": "research/vpuft-v5-validator-prototype",
+      "source_path": "scripts/replay_v4_v5_architecture.py",
+      "source_blob_sha1": "7797d0b84af02a09c4cd7cfdff5f898b05dc0019",
+      "source_sha256": "fd5c376f8e7ba0fdfd60fc6b33f78cbf73c6162dd9de6332a638b27a5e517668",
+      "destination_sha256": "fd5c376f8e7ba0fdfd60fc6b33f78cbf73c6162dd9de6332a638b27a5e517668",
+      "bytes": 7961,
+      "role": "inactive source/config/test copy; not imported or auto-collected"
+    },
+    {
+      "destination": "research_archive/post_seminar/source_snapshots/v5/tests/test_v5_validator_architecture.py.archived.txt",
+      "source_commit": "4687266bae35d680d77730b1dd4d929a6ea57900",
+      "source_branch": "research/vpuft-v5-validator-prototype",
+      "source_path": "tests/test_v5_validator_architecture.py",
+      "source_blob_sha1": "2473f8d6a350cfdbe4c0574443faa036750b4686",
+      "source_sha256": "ec1a0e7d1e1819015aee827bee43dc862751504df34bb44654c6ea852f350807",
+      "destination_sha256": "ec1a0e7d1e1819015aee827bee43dc862751504df34bb44654c6ea852f350807",
+      "bytes": 10064,
+      "role": "inactive source/config/test copy; not imported or auto-collected"
+    },
+    {
+      "destination": "research_archive/post_seminar/source_snapshots/coord/configs/extension_v5_coordinator_security.json.archived.txt",
+      "source_commit": "abe80d00a7a9b2bbc8d722c449f4c401827bab8f",
+      "source_branch": "security/coordinator-evidence-v5",
+      "source_path": "configs/extension_v5_coordinator_security.json",
+      "source_blob_sha1": "e6fd714f15d1d35974b317b81e391b850ed24e5a",
+      "source_sha256": "b0ffa2feb2f53dccc546c2c449516752499fc92541d0e84c3b4eba088f6664e0",
+      "destination_sha256": "b0ffa2feb2f53dccc546c2c449516752499fc92541d0e84c3b4eba088f6664e0",
+      "bytes": 612,
+      "role": "inactive source/config/test copy; not imported or auto-collected"
+    },
+    {
+      "destination": "research_archive/post_seminar/source_snapshots/coord/scripts/replay_coordinator_security_v5.py.archived.txt",
+      "source_commit": "abe80d00a7a9b2bbc8d722c449f4c401827bab8f",
+      "source_branch": "security/coordinator-evidence-v5",
+      "source_path": "scripts/replay_coordinator_security_v5.py",
+      "source_blob_sha1": "bc378df2cb1f36146d7916b060ac8c2dd6238705",
+      "source_sha256": "0144f725272647673ba36bded2709d32eff078057a92796b463a3282e083a637",
+      "destination_sha256": "0144f725272647673ba36bded2709d32eff078057a92796b463a3282e083a637",
+      "bytes": 9368,
+      "role": "inactive source/config/test copy; not imported or auto-collected"
+    },
+    {
+      "destination": "research_archive/post_seminar/source_snapshots/coord/tests/test_coordinator_security_v5.py.archived.txt",
+      "source_commit": "abe80d00a7a9b2bbc8d722c449f4c401827bab8f",
+      "source_branch": "security/coordinator-evidence-v5",
+      "source_path": "tests/test_coordinator_security_v5.py",
+      "source_blob_sha1": "ff2103424d227787e7c9e5c111f8db1e54fa6c2a",
+      "source_sha256": "837547b6d904b5a61e747306efceddb3819b6aba57f0879edc9fd95f9d2873ba",
+      "destination_sha256": "837547b6d904b5a61e747306efceddb3819b6aba57f0879edc9fd95f9d2873ba",
+      "bytes": 4319,
+      "role": "inactive source/config/test copy; not imported or auto-collected"
+    },
+    {
+      "destination": "research_archive/post_seminar/source_snapshots/coord/tests/test_evidence_announcement.py.archived.txt",
+      "source_commit": "abe80d00a7a9b2bbc8d722c449f4c401827bab8f",
+      "source_branch": "security/coordinator-evidence-v5",
+      "source_path": "tests/test_evidence_announcement.py",
+      "source_blob_sha1": "9f2d7c0509cbd487e34526459f2aac6b2e2295fb",
+      "source_sha256": "2b35ecc148bc438967147ddafa7bc9ea65d8f3a5a66faa88364235b1dd36570b",
+      "destination_sha256": "2b35ecc148bc438967147ddafa7bc9ea65d8f3a5a66faa88364235b1dd36570b",
+      "bytes": 5354,
+      "role": "inactive source/config/test copy; not imported or auto-collected"
+    },
+    {
+      "destination": "research_archive/post_seminar/source_snapshots/avail/configs/extension_v5_evidence_availability.json.archived.txt",
+      "source_commit": "2df02a0f17dc4782b833b882edbc3ec30c1e8e8d",
+      "source_branch": "security/v5-evidence-availability",
+      "source_path": "configs/extension_v5_evidence_availability.json",
+      "source_blob_sha1": "3c9d6129417af8e3c6fa9a1d0a7ac564e69f1d22",
+      "source_sha256": "1b37b5d3a2d38a2bc897461e267ab57ae6c444ac9af96ecde59b1a0dc9ed0032",
+      "destination_sha256": "1b37b5d3a2d38a2bc897461e267ab57ae6c444ac9af96ecde59b1a0dc9ed0032",
+      "bytes": 657,
+      "role": "inactive source/config/test copy; not imported or auto-collected"
+    },
+    {
+      "destination": "research_archive/post_seminar/source_snapshots/avail/scripts/replay_evidence_availability_v5.py.archived.txt",
+      "source_commit": "2df02a0f17dc4782b833b882edbc3ec30c1e8e8d",
+      "source_branch": "security/v5-evidence-availability",
+      "source_path": "scripts/replay_evidence_availability_v5.py",
+      "source_blob_sha1": "2fe45a8637f6761ddf75f20a5c9ff9390f81554c",
+      "source_sha256": "265fc0dcd5d98f06bfce91149a55964df282fa01b10de0454208e9b427c98558",
+      "destination_sha256": "265fc0dcd5d98f06bfce91149a55964df282fa01b10de0454208e9b427c98558",
+      "bytes": 14917,
+      "role": "inactive source/config/test copy; not imported or auto-collected"
+    },
+    {
+      "destination": "research_archive/post_seminar/source_snapshots/avail/tests/test_evidence_availability_transport.py.archived.txt",
+      "source_commit": "2df02a0f17dc4782b833b882edbc3ec30c1e8e8d",
+      "source_branch": "security/v5-evidence-availability",
+      "source_path": "tests/test_evidence_availability_transport.py",
+      "source_blob_sha1": "cfe6b83888f199066bbbb91e970344ae44aa3ae2",
+      "source_sha256": "fed3391b513aab3370650ff83fdec685d9eb7becbd16d0bcf24fae7c452d782b",
+      "destination_sha256": "fed3391b513aab3370650ff83fdec685d9eb7becbd16d0bcf24fae7c452d782b",
+      "bytes": 12111,
+      "role": "inactive source/config/test copy; not imported or auto-collected"
+    },
+    {
+      "destination": "research_archive/post_seminar/source_snapshots/avail/tests/test_evidence_announcement.py.archived.txt",
+      "source_commit": "2df02a0f17dc4782b833b882edbc3ec30c1e8e8d",
+      "source_branch": "security/v5-evidence-availability",
+      "source_path": "tests/test_evidence_announcement.py",
+      "source_blob_sha1": "a4bf6822b2c81c3201eec9a7a68fec0e42ccfcf0",
+      "source_sha256": "b2afeb8f10a0acd4d01a2a9bc8ae2db6f3454d5aff59059955f81993d112fa1f",
+      "destination_sha256": "b2afeb8f10a0acd4d01a2a9bc8ae2db6f3454d5aff59059955f81993d112fa1f",
+      "bytes": 6483,
+      "role": "inactive source/config/test copy; not imported or auto-collected"
+    },
+    {
+      "destination": "research_archive/post_seminar/source_snapshots/no_go/scripts/benchmark_evidence_availability_optimizations.py.archived.txt",
+      "source_commit": "944d65b15711c8a79b94b4355c27211148b30ac5",
+      "source_branch": "security/v5-evidence-availability-optimization",
+      "source_path": "scripts/benchmark_evidence_availability_optimizations.py",
+      "source_blob_sha1": "136ce7f268f9c8b9db212a1b7d2fff5885e80d90",
+      "source_sha256": "d7c9c0cfcf027439289755975c2acad1aa7c2b847c799322f786a27ff6f9c4f4",
+      "destination_sha256": "d7c9c0cfcf027439289755975c2acad1aa7c2b847c799322f786a27ff6f9c4f4",
+      "bytes": 12258,
+      "role": "inactive source/config/test copy; not imported or auto-collected"
+    },
+    {
+      "destination": "research_archive/post_seminar/source_snapshots/no_go/tests/test_evidence_announcement_batches.py.archived.txt",
+      "source_commit": "944d65b15711c8a79b94b4355c27211148b30ac5",
+      "source_branch": "security/v5-evidence-availability-optimization",
+      "source_path": "tests/test_evidence_announcement_batches.py",
+      "source_blob_sha1": "2ec06eb890f59645278920a4cf73ab5ace87bba2",
+      "source_sha256": "3a6c0695b856ff8db2bdd21f75772f4e235eb2404998053948643003a2031ac4",
+      "destination_sha256": "3a6c0695b856ff8db2bdd21f75772f4e235eb2404998053948643003a2031ac4",
+      "bytes": 8489,
+      "role": "inactive source/config/test copy; not imported or auto-collected"
+    },
+    {
+      "destination": "research_archive/post_seminar/source_snapshots/no_go/tests/test_evidence_availability_transport.py.archived.txt",
+      "source_commit": "944d65b15711c8a79b94b4355c27211148b30ac5",
+      "source_branch": "security/v5-evidence-availability-optimization",
+      "source_path": "tests/test_evidence_availability_transport.py",
+      "source_blob_sha1": "f8ece7582a80dfc20c3da66125e85e33d406e558",
+      "source_sha256": "7250199279a8c2131f4e8db20e84bbe5f8113b7e3ac30c018335751e114a4837",
+      "destination_sha256": "7250199279a8c2131f4e8db20e84bbe5f8113b7e3ac30c018335751e114a4837",
+      "bytes": 18649,
+      "role": "inactive source/config/test copy; not imported or auto-collected"
+    },
+    {
+      "destination": "research_archive/post_seminar/source_snapshots/no_go/tests/test_evidence_verification_cache.py.archived.txt",
+      "source_commit": "944d65b15711c8a79b94b4355c27211148b30ac5",
+      "source_branch": "security/v5-evidence-availability-optimization",
+      "source_path": "tests/test_evidence_verification_cache.py",
+      "source_blob_sha1": "daf600fca54745a9b741daa3e043b312f22eb73e",
+      "source_sha256": "44975e49273e49f8eeb4d58d34c17ba449aa190518bbbc82b7bd0e5e104082bd",
+      "destination_sha256": "44975e49273e49f8eeb4d58d34c17ba449aa190518bbbc82b7bd0e5e104082bd",
+      "bytes": 1645,
+      "role": "inactive source/config/test copy; not imported or auto-collected"
+    },
+    {
+      "destination": "research_archive/post_seminar/source_snapshots/sv/tests/test_coordinator_security_v5.py.archived.txt",
+      "source_commit": "49088bdff6f0f557a9fa1e8152475712fbf376e7",
+      "source_branch": "security/v5-cross-view-safety",
+      "source_path": "tests/test_coordinator_security_v5.py",
+      "source_blob_sha1": "bc30daf120acefe9cb131edb932077832ecdf0c5",
+      "source_sha256": "f8b40dbae09ad7415bbcd3fd782f82adde4e477c0fe4395f8b1a155f8075af7f",
+      "destination_sha256": "f8b40dbae09ad7415bbcd3fd782f82adde4e477c0fe4395f8b1a155f8075af7f",
+      "bytes": 7392,
+      "role": "inactive source/config/test copy; not imported or auto-collected"
+    },
+    {
+      "destination": "research_archive/post_seminar/source_snapshots/sv_audit/scripts/audit_v5_integrated_fault_injection.py.archived.txt",
+      "source_commit": "5c344e0a9a0590c8dbb055208c8a18e86e4ab7f7",
+      "source_branch": "security/v5-cross-view-safety",
+      "source_path": "scripts/audit_v5_integrated_fault_injection.py",
+      "source_blob_sha1": "6aa84d504d0b881e902f195b5d414acf2e6ddf49",
+      "source_sha256": "495aa6fdf49043e5a91d912aaa05ea3c5a008c9aeb2d51433c7fbda55058a721",
+      "destination_sha256": "495aa6fdf49043e5a91d912aaa05ea3c5a008c9aeb2d51433c7fbda55058a721",
+      "bytes": 5864,
+      "role": "inactive source/config/test copy; not imported or auto-collected"
+    },
+    {
+      "destination": "research_archive/post_seminar/source_snapshots/sv_audit/tests/test_coordinator_security_v5.py.archived.txt",
+      "source_commit": "5c344e0a9a0590c8dbb055208c8a18e86e4ab7f7",
+      "source_branch": "security/v5-cross-view-safety",
+      "source_path": "tests/test_coordinator_security_v5.py",
+      "source_blob_sha1": "ed009a44f2bec95d5c58a5b3099f1325967d835c",
+      "source_sha256": "61be0f27f747163ca5d7a9a07ad8a759695d6ab3af3ed89d6e64331d52d42f6a",
+      "destination_sha256": "61be0f27f747163ca5d7a9a07ad8a759695d6ab3af3ed89d6e64331d52d42f6a",
+      "bytes": 18209,
+      "role": "inactive source/config/test copy; not imported or auto-collected"
+    },
+    {
+      "destination": "research_archive/post_seminar/source_snapshots/sv_int/scripts/audit_single_view_saved_trace.py.archived.txt",
+      "source_commit": "0c468368296963b797a4a99f9130c5e00c4cc072",
+      "source_branch": "security/v5-cross-view-safety",
+      "source_path": "scripts/audit_single_view_saved_trace.py",
+      "source_blob_sha1": "f78fe590d45c22e248328f0ce45e5a1bc0354716",
+      "source_sha256": "2ed900a922ba250f639abe965848662b0864b43f5824e83cb4dc3b94d5901812",
+      "destination_sha256": "2ed900a922ba250f639abe965848662b0864b43f5824e83cb4dc3b94d5901812",
+      "bytes": 4340,
+      "role": "inactive source/config/test copy; not imported or auto-collected"
+    },
+    {
+      "destination": "research_archive/post_seminar/source_snapshots/omit/scripts/analyze_v5_omission_knowledge.py.archived.txt",
+      "source_commit": "d6fa44df28788f3497a0e7e209c28d7b354c7a94",
+      "source_branch": "security/evidence-omission-feasibility",
+      "source_path": "scripts/analyze_v5_omission_knowledge.py",
+      "source_blob_sha1": "04222edfbf7049a6e7c55c9e2763b3f78845782c",
+      "source_sha256": "0c0df689337fd44c30cad70d4b0ee230fdd2215d437a54044ebfde9e1f40c5c0",
+      "destination_sha256": "0c0df689337fd44c30cad70d4b0ee230fdd2215d437a54044ebfde9e1f40c5c0",
+      "bytes": 6336,
+      "role": "inactive source/config/test copy; not imported or auto-collected"
+    },
+    {
+      "destination": "research_archive/post_seminar/source_snapshots/prov/scripts/analyze_provenance_evidence.py.archived.txt",
+      "source_commit": "10286c426bff74752feaaceac88fd7ddb5833e8a",
+      "source_branch": "research/provenance-safe-evidence-optimization",
+      "source_path": "scripts/analyze_provenance_evidence.py",
+      "source_blob_sha1": "dbb836d224188de7813fdfc0de0ad101ae7a85e8",
+      "source_sha256": "b10ed38ad121dfe8ea1593ee7878040be17123e1fb4f0f44b9b7e2a170c887c5",
+      "destination_sha256": "b10ed38ad121dfe8ea1593ee7878040be17123e1fb4f0f44b9b7e2a170c887c5",
+      "bytes": 11388,
+      "role": "inactive source/config/test copy; not imported or auto-collected"
+    },
+    {
+      "destination": "research_archive/post_seminar/source_snapshots/prov/scripts/summarize_provenance_evidence_results.py.archived.txt",
+      "source_commit": "10286c426bff74752feaaceac88fd7ddb5833e8a",
+      "source_branch": "research/provenance-safe-evidence-optimization",
+      "source_path": "scripts/summarize_provenance_evidence_results.py",
+      "source_blob_sha1": "5a8f2479dc48d65313c491300d4b3eaa635707da",
+      "source_sha256": "0be4b9f34056108b98ce5159b8c343135dac8a2e7c189b61ef78f2536d634014",
+      "destination_sha256": "0be4b9f34056108b98ce5159b8c343135dac8a2e7c189b61ef78f2536d634014",
+      "bytes": 7399,
+      "role": "inactive source/config/test copy; not imported or auto-collected"
+    },
+    {
+      "destination": "research_archive/post_seminar/source_snapshots/prov/tests/test_phase2_cpu_optimization.py.archived.txt",
+      "source_commit": "10286c426bff74752feaaceac88fd7ddb5833e8a",
+      "source_branch": "research/provenance-safe-evidence-optimization",
+      "source_path": "tests/test_phase2_cpu_optimization.py",
+      "source_blob_sha1": "edb8cd9932b93d717b25a01287a572e05affbdb3",
+      "source_sha256": "13793a9ad9fba3c8766e8f91f93f86da1e7f0a1cbbcc7473411658f0dee976de",
+      "destination_sha256": "13793a9ad9fba3c8766e8f91f93f86da1e7f0a1cbbcc7473411658f0dee976de",
+      "bytes": 2047,
+      "role": "inactive source/config/test copy; not imported or auto-collected"
+    },
+    {
+      "destination": "research_archive/post_seminar/source_snapshots/v5/src/vpuft/architectures/distributed_extension.py.archived.txt",
+      "source_commit": "4687266bae35d680d77730b1dd4d929a6ea57900",
+      "source_branch": "research/vpuft-v5-validator-prototype",
+      "source_path": "src/vpuft/architectures/distributed_extension.py",
+      "source_blob_sha1": "72ba0bac853d7c05f83795305b8c8405b7f145fe",
+      "source_sha256": "6849165e119dbd182e01223a32665dead2070567953ba0ee564e42e143b65982",
+      "destination_sha256": "6849165e119dbd182e01223a32665dead2070567953ba0ee564e42e143b65982",
+      "bytes": 34262,
+      "role": "complete inactive production-source snapshot"
+    },
+    {
+      "destination": "research_archive/post_seminar/source_snapshots/v5/src/vpuft/config.py.archived.txt",
+      "source_commit": "4687266bae35d680d77730b1dd4d929a6ea57900",
+      "source_branch": "research/vpuft-v5-validator-prototype",
+      "source_path": "src/vpuft/config.py",
+      "source_blob_sha1": "5989ef92e3c30ff735147cb7b6de3ed78944a35b",
+      "source_sha256": "9f932ddf9e8509bb10d64c7b77bf393e351a12d3009e9e51b00d4ab7bffb6c9b",
+      "destination_sha256": "9f932ddf9e8509bb10d64c7b77bf393e351a12d3009e9e51b00d4ab7bffb6c9b",
+      "bytes": 23588,
+      "role": "complete inactive production-source snapshot"
+    },
+    {
+      "destination": "research_archive/post_seminar/source_snapshots/v5/src/vpuft/consensus.py.archived.txt",
+      "source_commit": "4687266bae35d680d77730b1dd4d929a6ea57900",
+      "source_branch": "research/vpuft-v5-validator-prototype",
+      "source_path": "src/vpuft/consensus.py",
+      "source_blob_sha1": "d041f3c2252a83e52a4187c6d5954690a30df207",
+      "source_sha256": "3997d6ef83ce18495dcca2728c131bb6db21bad4f89bbea9fb4d4310b61f3de0",
+      "destination_sha256": "3997d6ef83ce18495dcca2728c131bb6db21bad4f89bbea9fb4d4310b61f3de0",
+      "bytes": 26077,
+      "role": "complete inactive production-source snapshot"
+    },
+    {
+      "destination": "research_archive/post_seminar/source_snapshots/v5/src/vpuft/trust_cache.py.archived.txt",
+      "source_commit": "4687266bae35d680d77730b1dd4d929a6ea57900",
+      "source_branch": "research/vpuft-v5-validator-prototype",
+      "source_path": "src/vpuft/trust_cache.py",
+      "source_blob_sha1": "52fb4b5abad753cc61c2834295e445fb029d7824",
+      "source_sha256": "8a7f0a805d1eeaf27295e6a07b18b393d57e7ca85c67a1a2412d1762eb0cd171",
+      "destination_sha256": "8a7f0a805d1eeaf27295e6a07b18b393d57e7ca85c67a1a2412d1762eb0cd171",
+      "bytes": 18584,
+      "role": "complete inactive production-source snapshot"
+    },
+    {
+      "destination": "research_archive/post_seminar/source_patches/v5_4687266bae35.patch",
+      "source_commit": "4687266bae35d680d77730b1dd4d929a6ea57900",
+      "source_branch": "research/vpuft-v5-validator-prototype",
+      "source_path": "git show binary src/vpuft diff",
+      "source_blob_sha1": "N/A commit diff",
+      "source_sha256": "008b6840f824298da49a86e6043d93aa4a04cc5a78ced76c4744ae473bbaa577",
+      "destination_sha256": "008b6840f824298da49a86e6043d93aa4a04cc5a78ced76c4744ae473bbaa577",
+      "bytes": 16673,
+      "role": "inactive patch, not applied"
+    },
+    {
+      "destination": "research_archive/post_seminar/source_snapshots/coord/src/vpuft/architectures/distributed_extension.py.archived.txt",
+      "source_commit": "abe80d00a7a9b2bbc8d722c449f4c401827bab8f",
+      "source_branch": "security/coordinator-evidence-v5",
+      "source_path": "src/vpuft/architectures/distributed_extension.py",
+      "source_blob_sha1": "76ef15d1ef8de96f992b0ba0a6cdfcb2a60989b2",
+      "source_sha256": "2bd02452a3dcb17b64bf80673b449c9931f6b452fd4fce1af66c62ace41b6438",
+      "destination_sha256": "2bd02452a3dcb17b64bf80673b449c9931f6b452fd4fce1af66c62ace41b6438",
+      "bytes": 36282,
+      "role": "complete inactive production-source snapshot"
+    },
+    {
+      "destination": "research_archive/post_seminar/source_snapshots/coord/src/vpuft/evidence_announcement.py.archived.txt",
+      "source_commit": "abe80d00a7a9b2bbc8d722c449f4c401827bab8f",
+      "source_branch": "security/coordinator-evidence-v5",
+      "source_path": "src/vpuft/evidence_announcement.py",
+      "source_blob_sha1": "5c661d5a8a97c54fd74316580bf33364490d9a63",
+      "source_sha256": "c34c81995d5b88707560f8a94eab2dc364330db9519b94c1abb7f2391377329e",
+      "destination_sha256": "c34c81995d5b88707560f8a94eab2dc364330db9519b94c1abb7f2391377329e",
+      "bytes": 6095,
+      "role": "complete inactive production-source snapshot"
+    },
+    {
+      "destination": "research_archive/post_seminar/source_patches/coord_abe80d00a7a9.patch",
+      "source_commit": "abe80d00a7a9b2bbc8d722c449f4c401827bab8f",
+      "source_branch": "security/coordinator-evidence-v5",
+      "source_path": "git show binary src/vpuft diff",
+      "source_blob_sha1": "N/A commit diff",
+      "source_sha256": "023fd38a668af342fa4e4fba7a4f1ddea0f6d32c38a5a2622c498624eeaf8a11",
+      "destination_sha256": "023fd38a668af342fa4e4fba7a4f1ddea0f6d32c38a5a2622c498624eeaf8a11",
+      "bytes": 9364,
+      "role": "inactive patch, not applied"
+    },
+    {
+      "destination": "research_archive/post_seminar/source_snapshots/avail/src/vpuft/architectures/distributed_extension.py.archived.txt",
+      "source_commit": "2df02a0f17dc4782b833b882edbc3ec30c1e8e8d",
+      "source_branch": "security/v5-evidence-availability",
+      "source_path": "src/vpuft/architectures/distributed_extension.py",
+      "source_blob_sha1": "e2e8a91633c19513d56470e0497b490a2d80c399",
+      "source_sha256": "5de32e0b0a81a01acde1f1cd5d4bd0094e659dfaee862f089cbbf3b2ee39aee8",
+      "destination_sha256": "5de32e0b0a81a01acde1f1cd5d4bd0094e659dfaee862f089cbbf3b2ee39aee8",
+      "bytes": 59830,
+      "role": "complete inactive production-source snapshot"
+    },
+    {
+      "destination": "research_archive/post_seminar/source_snapshots/avail/src/vpuft/config.py.archived.txt",
+      "source_commit": "2df02a0f17dc4782b833b882edbc3ec30c1e8e8d",
+      "source_branch": "security/v5-evidence-availability",
+      "source_path": "src/vpuft/config.py",
+      "source_blob_sha1": "746ab78097c3c831e1993ce195ff3c5cc3a90308",
+      "source_sha256": "77b81ea96d88d498522378c9964f313d1ff1a647d17528a2f6da683f053b9d85",
+      "destination_sha256": "77b81ea96d88d498522378c9964f313d1ff1a647d17528a2f6da683f053b9d85",
+      "bytes": 24281,
+      "role": "complete inactive production-source snapshot"
+    },
+    {
+      "destination": "research_archive/post_seminar/source_snapshots/avail/src/vpuft/evidence_announcement.py.archived.txt",
+      "source_commit": "2df02a0f17dc4782b833b882edbc3ec30c1e8e8d",
+      "source_branch": "security/v5-evidence-availability",
+      "source_path": "src/vpuft/evidence_announcement.py",
+      "source_blob_sha1": "88a4d282be110b3f54bf2668ff511591c1ce1d3a",
+      "source_sha256": "461e57729c9ef26c805a5630ed8f4a4a04a9b96e7c136ce16c06c8b5fd7169c1",
+      "destination_sha256": "461e57729c9ef26c805a5630ed8f4a4a04a9b96e7c136ce16c06c8b5fd7169c1",
+      "bytes": 15205,
+      "role": "complete inactive production-source snapshot"
+    },
+    {
+      "destination": "research_archive/post_seminar/source_patches/avail_2df02a0f17dc.patch",
+      "source_commit": "2df02a0f17dc4782b833b882edbc3ec30c1e8e8d",
+      "source_branch": "security/v5-evidence-availability",
+      "source_path": "git show binary src/vpuft diff",
+      "source_blob_sha1": "N/A commit diff",
+      "source_sha256": "920237c1faddbb544d40f30ed3569c723c84ceacdf76504cacfb79ec366f79fa",
+      "destination_sha256": "920237c1faddbb544d40f30ed3569c723c84ceacdf76504cacfb79ec366f79fa",
+      "bytes": 44702,
+      "role": "inactive patch, not applied"
+    },
+    {
+      "destination": "research_archive/post_seminar/source_snapshots/no_go/src/vpuft/architectures/distributed_extension.py.archived.txt",
+      "source_commit": "944d65b15711c8a79b94b4355c27211148b30ac5",
+      "source_branch": "security/v5-evidence-availability-optimization",
+      "source_path": "src/vpuft/architectures/distributed_extension.py",
+      "source_blob_sha1": "a8fe5b7b6a5b1913d2e5e6c358b74c1f40ed4069",
+      "source_sha256": "a77b402ab52abc1372132b103e007c79922e55dc2c0a46de1b70727db5d2b9ab",
+      "destination_sha256": "a77b402ab52abc1372132b103e007c79922e55dc2c0a46de1b70727db5d2b9ab",
+      "bytes": 79331,
+      "role": "complete inactive production-source snapshot"
+    },
+    {
+      "destination": "research_archive/post_seminar/source_snapshots/no_go/src/vpuft/config.py.archived.txt",
+      "source_commit": "944d65b15711c8a79b94b4355c27211148b30ac5",
+      "source_branch": "security/v5-evidence-availability-optimization",
+      "source_path": "src/vpuft/config.py",
+      "source_blob_sha1": "6055a98717e76f30d3560c20ffec17c13c857482",
+      "source_sha256": "fae02254b0382814be19cd9e4e59403cc9a11fbc676cca05cd5dde2ef5cc6083",
+      "destination_sha256": "fae02254b0382814be19cd9e4e59403cc9a11fbc676cca05cd5dde2ef5cc6083",
+      "bytes": 25074,
+      "role": "complete inactive production-source snapshot"
+    },
+    {
+      "destination": "research_archive/post_seminar/source_snapshots/no_go/src/vpuft/evidence_announcement.py.archived.txt",
+      "source_commit": "944d65b15711c8a79b94b4355c27211148b30ac5",
+      "source_branch": "security/v5-evidence-availability-optimization",
+      "source_path": "src/vpuft/evidence_announcement.py",
+      "source_blob_sha1": "155fd269b845a191a8303e398ce82b76cd0cfacc",
+      "source_sha256": "3a3a12fe47de6a247cc2514b78d62d0721ec28cef78ee2674d6a9356d843efe4",
+      "destination_sha256": "3a3a12fe47de6a247cc2514b78d62d0721ec28cef78ee2674d6a9356d843efe4",
+      "bytes": 31267,
+      "role": "complete inactive production-source snapshot"
+    },
+    {
+      "destination": "research_archive/post_seminar/source_patches/no_go_944d65b15711.patch",
+      "source_commit": "944d65b15711c8a79b94b4355c27211148b30ac5",
+      "source_branch": "security/v5-evidence-availability-optimization",
+      "source_path": "git show binary src/vpuft diff",
+      "source_blob_sha1": "N/A commit diff",
+      "source_sha256": "442cdf23b74db3e03ba88e6195bc30547e4ce6409a613ca093c34cbeb5f9bf4c",
+      "destination_sha256": "442cdf23b74db3e03ba88e6195bc30547e4ce6409a613ca093c34cbeb5f9bf4c",
+      "bytes": 58608,
+      "role": "inactive patch, not applied"
+    },
+    {
+      "destination": "research_archive/post_seminar/source_snapshots/sv/src/vpuft/config.py.archived.txt",
+      "source_commit": "49088bdff6f0f557a9fa1e8152475712fbf376e7",
+      "source_branch": "security/v5-cross-view-safety",
+      "source_path": "src/vpuft/config.py",
+      "source_blob_sha1": "6b4bfeb4850166d15f1f851b6c8f695b0b26dd01",
+      "source_sha256": "6cdc73ef690b90a2028b746f3ea9f4bfbb9325b2a2f74f77ed016a18a7fdd72f",
+      "destination_sha256": "6cdc73ef690b90a2028b746f3ea9f4bfbb9325b2a2f74f77ed016a18a7fdd72f",
+      "bytes": 23702,
+      "role": "complete inactive production-source snapshot"
+    },
+    {
+      "destination": "research_archive/post_seminar/source_snapshots/sv/src/vpuft/consensus.py.archived.txt",
+      "source_commit": "49088bdff6f0f557a9fa1e8152475712fbf376e7",
+      "source_branch": "security/v5-cross-view-safety",
+      "source_path": "src/vpuft/consensus.py",
+      "source_blob_sha1": "0301857a4a726f3121732f58c59ff6bd72a50020",
+      "source_sha256": "7f434ff19dd43ee0f3141e26d75ef82300d314533f6394f00ff6e615201ebb85",
+      "destination_sha256": "7f434ff19dd43ee0f3141e26d75ef82300d314533f6394f00ff6e615201ebb85",
+      "bytes": 26551,
+      "role": "complete inactive production-source snapshot"
+    },
+    {
+      "destination": "research_archive/post_seminar/source_patches/sv_49088bdff6f0.patch",
+      "source_commit": "49088bdff6f0f557a9fa1e8152475712fbf376e7",
+      "source_branch": "security/v5-cross-view-safety",
+      "source_path": "git show binary src/vpuft diff",
+      "source_blob_sha1": "N/A commit diff",
+      "source_sha256": "6996b1fede13e2dc679119ba0a8bc0ae2804cd4bb6b1017f724098728d401792",
+      "destination_sha256": "6996b1fede13e2dc679119ba0a8bc0ae2804cd4bb6b1017f724098728d401792",
+      "bytes": 3924,
+      "role": "inactive patch, not applied"
+    },
+    {
+      "destination": "research_archive/post_seminar/source_patches/prov_10286c426bff.patch",
+      "source_commit": "10286c426bff74752feaaceac88fd7ddb5833e8a",
+      "source_branch": "research/provenance-safe-evidence-optimization",
+      "source_path": "git show binary src/vpuft diff",
+      "source_blob_sha1": "N/A commit diff",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "destination_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "role": "inactive patch, not applied"
+    }
+  ],
+  "new_documents": {
+    "docs/research_closure/PROJECT_MASTER_INDEX_AR.md": {
+      "sha256": "5665889a770bbb96c32a07a54be0616a1d91d0865a96c7c6ab92b79af97d05bd",
+      "bytes": 5067,
+      "status": "new Arabic closure documentation"
+    },
+    "docs/research_closure/EXPERIMENT_REGISTER.csv": {
+      "sha256": "005c240aa9f913beb0a965aa15d9a3e12f2c3b47ae096db4d42d2023bb61745f",
+      "bytes": 8703,
+      "status": "experiment register; generated closure metadata"
+    },
+    "docs/research_closure/POST_SEMINAR_COMPARISON_AR.md": {
+      "sha256": "1b691dba8b14845363afe0ddc70c53286aa01cb0ba4c481314b71a97b260249a",
+      "bytes": 3111,
+      "status": "new Arabic closure documentation"
+    },
+    "docs/research_closure/CLAIMS_AND_LIMITATIONS_AR.md": {
+      "sha256": "92564fc2b0a6dfd4eb1da42ea2a9e69dd692346be1c321d65bd88db144b07b04",
+      "bytes": 3395,
+      "status": "new Arabic closure documentation"
+    },
+    "docs/research_closure/CLAUDE_AUDIT_HANDOFF.md": {
+      "sha256": "587063628c5f78c7f9cf7f474c2d50ac19a21a08dfa4685d6ca726f875a5ee30",
+      "bytes": 1939,
+      "status": "new Arabic closure documentation"
+    },
+    "docs/post_seminar/POST_SEMINAR_ARCHIVE_INDEX.md": {
+      "sha256": "24e1e8f7fd7d862d083263e7fca59dcbdc31bc784a842114d4caa50f8986bc7c",
+      "bytes": 1153,
+      "status": "new Arabic closure documentation"
+    },
+    "README.md": {
+      "sha256": "c361fc3c3ab2fdee25b4782512a4f55d5312768739dfff04c65058e70f859133",
+      "bytes": 18330,
+      "status": "research navigation"
+    }
+  },
+  "raw_traces": "Not copied; source manifests may carry machine-local paths. Independent rerun from this commit alone is not established.",
+  "preserved_worktrees": [
+    "C:/Users/reemg/OneDrive/Desktop/master/6/v10",
+    "C:/Users/reemg/OneDrive/Desktop/master/6/v10-final-scenario5",
+    "C:/Users/reemg/OneDrive/Desktop/master/6/v10-evidence-omission-feasibility",
+    "C:/Users/reemg/OneDrive/Desktop/master/6/v10-v5-evidence-availability-optimization",
+    "C:/Users/reemg/.codex/worktrees/9e5f/v10"
+  ],
+  "dirty_source_worktree": "research/vpuft-post-seminar-optimization had pre-existing deleted .bak and untracked data; untouched. Raw sensitivity/ablation traces remain local.",
+  "hash_method": "SHA-256 over bytes; no self-hash for this manifest.",
+  "historical_path_mirrors": [
+    {
+      "path": "results/urban_roundabout_campaign/combined/DENSITY_RESULTS_AUDIT.md",
+      "source_commit": "638a6d7909aefa192d532932ab1095111475021c",
+      "source_blob_sha1": "3ae08f60d549c75fdb24fdf902ae46d20f81d8a6",
+      "sha256": "1aa468362cbd6cc16d05d52adb0182b69fc5d7343ef34402392f8c8e90199c58",
+      "bytes": 1844,
+      "copied_from": "research_archive/scenario5_dataset_a_report_linked/combined/DENSITY_RESULTS_AUDIT.md"
+    },
+    {
+      "path": "results/urban_roundabout_campaign/combined/density_architecture_summary.csv",
+      "source_commit": "638a6d7909aefa192d532932ab1095111475021c",
+      "source_blob_sha1": "cfa123820ddeee8eeadfd06ccd225f517de0eb89",
+      "sha256": "bb03922e304e190ac44b50a379b40300098b1d975983c8ebff448094ddd8bbe5",
+      "bytes": 18791,
+      "copied_from": "research_archive/scenario5_dataset_a_report_linked/combined/density_architecture_summary.csv"
+    },
+    {
+      "path": "results/urban_roundabout_campaign/combined/density_attack_metrics_by_seed.csv",
+      "source_commit": "638a6d7909aefa192d532932ab1095111475021c",
+      "source_blob_sha1": "48d9507f16b6350879fce877bf43a3da9a533d83",
+      "sha256": "59301b4defcc60b2d35639d7f21b516b2c5007330ce2f40dde2414c371e5bb7e",
+      "bytes": 80554,
+      "copied_from": "research_archive/scenario5_dataset_a_report_linked/combined/density_attack_metrics_by_seed.csv"
+    },
+    {
+      "path": "results/urban_roundabout_campaign/combined/density_attack_summary.csv",
+      "source_commit": "638a6d7909aefa192d532932ab1095111475021c",
+      "source_blob_sha1": "d2d85eced467c14011d9e11176ac2ff23b869d7b",
+      "sha256": "eca7858beed77e06a668cdad1107dba26cbc57a391a9d67b80ba99c3ee4506da",
+      "bytes": 18770,
+      "copied_from": "research_archive/scenario5_dataset_a_report_linked/combined/density_attack_summary.csv"
+    },
+    {
+      "path": "results/urban_roundabout_campaign/combined/density_breakeven_by_topology_vehicle_count.csv",
+      "source_commit": "638a6d7909aefa192d532932ab1095111475021c",
+      "source_blob_sha1": "9630856a5eb57ed252a5dc8b2525e163dc3802cf",
+      "sha256": "16be37fa14b435f321bc0e325bf04de6872ea4b7b0672c41775a393ed2ade4c6",
+      "bytes": 622,
+      "copied_from": "research_archive/scenario5_dataset_a_report_linked/combined/density_breakeven_by_topology_vehicle_count.csv"
+    },
+    {
+      "path": "results/urban_roundabout_campaign/combined/density_campaign_manifest.json",
+      "source_commit": "638a6d7909aefa192d532932ab1095111475021c",
+      "source_blob_sha1": "57f2ca6575d6899453927ef9aeae0de2c108ad19",
+      "sha256": "2ad936f713b70e7fd436b8fa987e0e770ced79f3a8e0e281cb5398edacd66ed6",
+      "bytes": 1037,
+      "copied_from": "research_archive/scenario5_dataset_a_report_linked/combined/density_campaign_manifest.json"
+    },
+    {
+      "path": "results/urban_roundabout_campaign/combined/density_case_agreement.csv",
+      "source_commit": "638a6d7909aefa192d532932ab1095111475021c",
+      "source_blob_sha1": "c28594247ca693ae9222bc5265ae237dde8ebe76",
+      "sha256": "f01ca43ab994659c4d45a283d88d257d71951770633154b9b7f6ce35554c9fad",
+      "bytes": 6905,
+      "copied_from": "research_archive/scenario5_dataset_a_report_linked/combined/density_case_agreement.csv"
+    },
+    {
+      "path": "results/urban_roundabout_campaign/combined/density_consensus_outcomes.csv",
+      "source_commit": "638a6d7909aefa192d532932ab1095111475021c",
+      "source_blob_sha1": "7f99d2399a60de16ecae8334808bc2fd0695f2d8",
+      "sha256": "e427d6acebe74d39d080a3faf932a8ccf4ac78fdfb62bdb507aad3383db8d74b",
+      "bytes": 90422,
+      "copied_from": "research_archive/scenario5_dataset_a_report_linked/combined/density_consensus_outcomes.csv"
+    },
+    {
+      "path": "results/urban_roundabout_campaign/combined/density_decisions.csv",
+      "source_commit": "638a6d7909aefa192d532932ab1095111475021c",
+      "source_blob_sha1": "9d38ffe2301d97d3ea30ff9f9f7c3ef72e457947",
+      "sha256": "97955b407f88b7353c7f1b5b6c39a5381e4c1242f5ad337d6c410176ae1953ce",
+      "bytes": 8647717,
+      "copied_from": "research_archive/scenario5_dataset_a_report_linked/combined/density_decisions.csv"
+    },
+    {
+      "path": "results/urban_roundabout_campaign/combined/density_message_type_architecture_summary.csv",
+      "source_commit": "638a6d7909aefa192d532932ab1095111475021c",
+      "source_blob_sha1": "1c021956476a7c5f20974c9e980d0c81d9b181eb",
+      "sha256": "bb1efa51ea83e64e1c02e3af92b2787980e59a0cb6e99c785928fa6905b25603",
+      "bytes": 11750,
+      "copied_from": "research_archive/scenario5_dataset_a_report_linked/combined/density_message_type_architecture_summary.csv"
+    },
+    {
+      "path": "results/urban_roundabout_campaign/combined/density_message_type_summary.csv",
+      "source_commit": "638a6d7909aefa192d532932ab1095111475021c",
+      "source_blob_sha1": "3e34262c6762e533fcdded92bd6af22d0314974f",
+      "sha256": "3856d81da701891c755f733e3abcd4e5010b2c9b9a781df32ae5f5b909b525d5",
+      "bytes": 45210,
+      "copied_from": "research_archive/scenario5_dataset_a_report_linked/combined/density_message_type_summary.csv"
+    },
+    {
+      "path": "results/urban_roundabout_campaign/combined/density_metrics_by_seed.csv",
+      "source_commit": "638a6d7909aefa192d532932ab1095111475021c",
+      "source_blob_sha1": "5eb54bbba88bde229275c107af66df1b0aa70bb0",
+      "sha256": "0d208da0018df16e7a4e300d65d39556bc9712337021be44b8ec8fb15fad1797",
+      "bytes": 66868,
+      "copied_from": "research_archive/scenario5_dataset_a_report_linked/combined/density_metrics_by_seed.csv"
+    },
+    {
+      "path": "results/urban_roundabout_campaign/combined/density_paired_comparisons.csv",
+      "source_commit": "638a6d7909aefa192d532932ab1095111475021c",
+      "source_blob_sha1": "25f5a8293068216b3f6a260ebab265776fef9c62",
+      "sha256": "c2080496d2178beafcd3ea618cf218bfe629f80e3f17848c88762ddca6b7ff25",
+      "bytes": 50750,
+      "copied_from": "research_archive/scenario5_dataset_a_report_linked/combined/density_paired_comparisons.csv"
+    },
+    {
+      "path": "results/urban_roundabout_campaign/combined/density_step_changes.csv",
+      "source_commit": "638a6d7909aefa192d532932ab1095111475021c",
+      "source_blob_sha1": "bdb2fef52b6c399c85c2032692e076a9a9c70ddc",
+      "sha256": "2bb3ba6c902741834377d18ce893e3a7af6824e528cbf0497c4723a826748fe7",
+      "bytes": 38571,
+      "copied_from": "research_archive/scenario5_dataset_a_report_linked/combined/density_step_changes.csv"
+    },
+    {
+      "path": "results/urban_roundabout_campaign/combined/density_topology_v2v_cache.csv",
+      "source_commit": "638a6d7909aefa192d532932ab1095111475021c",
+      "source_blob_sha1": "ccd40b044251ac25b89d5153297934042a92b081",
+      "sha256": "ea234fb94689a4f4fae6f8d4397adac6843b53e5b1ec64578c6c5d0d95496e96",
+      "bytes": 66652,
+      "copied_from": "research_archive/scenario5_dataset_a_report_linked/combined/density_topology_v2v_cache.csv"
+    },
+    {
+      "path": "results/urban_roundabout_campaign/combined/density_topology_v2v_cache_step_changes.csv",
+      "source_commit": "638a6d7909aefa192d532932ab1095111475021c",
+      "source_blob_sha1": "4ab134e683f3666da14e7e2c68ef66a2ba5ba07a",
+      "sha256": "70f4679519519a0931bb707275353f6849d73c7c534175b60da39717b38d0d4a",
+      "bytes": 54713,
+      "copied_from": "research_archive/scenario5_dataset_a_report_linked/combined/density_topology_v2v_cache_step_changes.csv"
+    },
+    {
+      "path": "results/urban_roundabout_campaign/combined/density_topology_v2v_cache_summary.csv",
+      "source_commit": "638a6d7909aefa192d532932ab1095111475021c",
+      "source_blob_sha1": "f725631c741fb4307a4847dd3762cfa8fd226f9a",
+      "sha256": "54855d49f871e4fc26a897f2e9a5273655fe25dfa25e66e20e5dbd1341124e43",
+      "bytes": 7917,
+      "copied_from": "research_archive/scenario5_dataset_a_report_linked/combined/density_topology_v2v_cache_summary.csv"
+    },
+    {
+      "path": "results/urban_roundabout_campaign/combined/density_trace_audit.csv",
+      "source_commit": "638a6d7909aefa192d532932ab1095111475021c",
+      "source_blob_sha1": "7be68348c53ffb5688cdffb73f08d36d53a09fc7",
+      "sha256": "076a8aae1e5e56e22627dfe90f9a1c868af5f8068b9a22a65268e0c380ae90b3",
+      "bytes": 10585,
+      "copied_from": "research_archive/scenario5_dataset_a_report_linked/combined/density_trace_audit.csv"
+    },
+    {
+      "path": "results/post_seminar_phase3/limited_v2/decisions.csv.gz",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_blob_sha1": "aa8c44e7ab7e1ebc4b27e63d9d3c27e868ea3193",
+      "sha256": "d397d7891ace0fa88201b746d6c9aad526f6ad702b21362b30c9979b36ad96f4",
+      "bytes": 656428,
+      "copied_from": "research_archive/post_seminar/post_seminar_phase3/limited_v2/decisions.csv.gz"
+    },
+    {
+      "path": "results/post_seminar_phase3/limited_v2/metrics.csv",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_blob_sha1": "80b19f96e7fed440e1a960df1f496dc41af44e7e",
+      "sha256": "935c8ef5926ca6779cf7b86d080b0a79753a9c02f2d4dbedd13ca54f2aa18997",
+      "bytes": 2809,
+      "copied_from": "research_archive/post_seminar/post_seminar_phase3/limited_v2/metrics.csv"
+    },
+    {
+      "path": "results/post_seminar_phase3/limited_v2/new_b8_false_positives.csv",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_blob_sha1": "91d810282f54ea53cdcba855e2faaae507fd535c",
+      "sha256": "00ae2a1a40512d584655619e8811dd468d5a06cf1849c3a288db1066081c20db",
+      "bytes": 48,
+      "copied_from": "research_archive/post_seminar/post_seminar_phase3/limited_v2/new_b8_false_positives.csv"
+    },
+    {
+      "path": "results/post_seminar_phase3/limited_v2/shared_trace_manifest.csv",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_blob_sha1": "73cfd7af0fce73f1e07a2bfaa9f57359e742504d",
+      "sha256": "4028a155d5274554a2bad16d6d4ed96cca894d2867736977ae77e2cace800fff",
+      "bytes": 653,
+      "copied_from": "research_archive/post_seminar/post_seminar_phase3/limited_v2/shared_trace_manifest.csv"
+    },
+    {
+      "path": "results/post_seminar_phase3/limited_v2/summary.csv",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_blob_sha1": "a55d39f8f224b5df4674f6085d82429345d2b8f2",
+      "sha256": "574dfc05b1f63fb992746a07a4d2d9b10fc84483c86a9b26c83f3a7448ebaf03",
+      "bytes": 1172,
+      "copied_from": "research_archive/post_seminar/post_seminar_phase3/limited_v2/summary.csv"
+    },
+    {
+      "path": "results/post_seminar_phase4/baseline_diagnostics/baseline_metrics_by_cell.csv",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_blob_sha1": "f3b29a1c83553f4cdb726521650034671492d48b",
+      "sha256": "350b2a9d7c4ee0c68ddffb926e047a954ab32f90692dc4e4ed5f60d380971592",
+      "bytes": 5427,
+      "copied_from": "research_archive/post_seminar/post_seminar_phase4/baseline_diagnostics/baseline_metrics_by_cell.csv"
+    },
+    {
+      "path": "results/post_seminar_phase4/baseline_diagnostics/fn_cases_all_50.csv",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_blob_sha1": "db1ba554d7ae3257b45f64bd017c7f798cda5382",
+      "sha256": "af7468d331e6b636a775a3bbf0781f52cc7101ef3e327b87997955faee27277f",
+      "bytes": 4990922,
+      "copied_from": "research_archive/post_seminar/post_seminar_phase4/baseline_diagnostics/fn_cases_all_50.csv"
+    },
+    {
+      "path": "results/post_seminar_phase4/baseline_diagnostics/fn_constraint_counts_by_density_attack.csv",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_blob_sha1": "cb89b9f8d3732d09a8cb4cdd2b42da66a7d07c80",
+      "sha256": "da24b49dcc44743a01e0df3da4d611ad3052e728409c2ad3f52b0c8e250c35d7",
+      "bytes": 3792,
+      "copied_from": "research_archive/post_seminar/post_seminar_phase4/baseline_diagnostics/fn_constraint_counts_by_density_attack.csv"
+    },
+    {
+      "path": "results/post_seminar_phase4/baseline_diagnostics/fn_constraint_overlap_matrix.csv",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_blob_sha1": "ef4228d01dd1fe647ed43d0b589d294456556d90",
+      "sha256": "2cfdc7ce9bc41a19e68195a40d3d9d0733be48a71f111e825f73c48eea0cd637",
+      "bytes": 1625,
+      "copied_from": "research_archive/post_seminar/post_seminar_phase4/baseline_diagnostics/fn_constraint_overlap_matrix.csv"
+    },
+    {
+      "path": "results/post_seminar_phase4/baseline_diagnostics/fn_constraint_overlap_patterns.csv",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_blob_sha1": "9517dad3892e952eb8521b72e8f6d419b26956b4",
+      "sha256": "35c44464948856f990041ffbf303669a7497e08e8235917493a96391801dbbf6",
+      "bytes": 1664,
+      "copied_from": "research_archive/post_seminar/post_seminar_phase4/baseline_diagnostics/fn_constraint_overlap_patterns.csv"
+    },
+    {
+      "path": "results/post_seminar_phase4/baseline_diagnostics/fn_evidence_assignments_all_50.csv.gz",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_blob_sha1": "96635dad41510525aba468b15b9ad76573e5d962",
+      "sha256": "b924951b513ef1c4f0389a46426ad5a51631858ab67b09d606e7ba727e3f3c3a",
+      "bytes": 1498099,
+      "copied_from": "research_archive/post_seminar/post_seminar_phase4/baseline_diagnostics/fn_evidence_assignments_all_50.csv.gz"
+    },
+    {
+      "path": "results/post_seminar_phase4/baseline_diagnostics/fn_exhaustive_categories_by_density_attack.csv",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_blob_sha1": "bf3f356f8e64545b8084a68f504d3b57b2f145ba",
+      "sha256": "a5e09692b9c3d52f7f10612e5d6f6e2f0cd4ed7b15949221933dc70451cd165e",
+      "bytes": 2952,
+      "copied_from": "research_archive/post_seminar/post_seminar_phase4/baseline_diagnostics/fn_exhaustive_categories_by_density_attack.csv"
+    },
+    {
+      "path": "results/post_seminar_phase4/baseline_diagnostics/fn_lifecycle_classification.csv",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_blob_sha1": "a4a9f67358428f5ff05543ed4bf8a65ad10c954c",
+      "sha256": "3a507ba588dde3271f525e5e4ed0982dc27a26bb54c286c18480fb2226d095d7",
+      "bytes": 5726269,
+      "copied_from": "research_archive/post_seminar/post_seminar_phase4/baseline_diagnostics/fn_lifecycle_classification.csv"
+    },
+    {
+      "path": "results/post_seminar_phase4/baseline_diagnostics/fn_recoverability_by_density_attack.csv",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_blob_sha1": "4ac9d6824b2aeeb1bdcd0f7da4b9bb6b157cf649",
+      "sha256": "27c1b98cf3066ef65f9f1b2218a27d7802b91f30763ef35a9f3bd8b2ec0c1c01",
+      "bytes": 1043,
+      "copied_from": "research_archive/post_seminar/post_seminar_phase4/baseline_diagnostics/fn_recoverability_by_density_attack.csv"
+    },
+    {
+      "path": "results/post_seminar_phase4/baseline_diagnostics/fn_source_zone_overlap_table.csv",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_blob_sha1": "ab83dfc0874eef771ac8159ddf985e4ae8f1a1f4",
+      "sha256": "5fcd8b6d2a51a4610335f6e28da99546de6f4c2ffaff53552f0de8d975fa6384",
+      "bytes": 660,
+      "copied_from": "research_archive/post_seminar/post_seminar_phase4/baseline_diagnostics/fn_source_zone_overlap_table.csv"
+    },
+    {
+      "path": "results/post_seminar_phase4/baseline_diagnostics/phase4_existing_evidence_summary.json",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_blob_sha1": "848d8baf92535384f3a2c96abfcc80952e71d8ba",
+      "sha256": "05c64b928ce333cdb5fd734da5b981292b466370d9d4e71a0ed6c77c4bc5552f",
+      "bytes": 926,
+      "copied_from": "research_archive/post_seminar/post_seminar_phase4/baseline_diagnostics/phase4_existing_evidence_summary.json"
+    },
+    {
+      "path": "results/post_seminar_phase4/baseline_diagnostics/scenario5_coverage_fn_map.png",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_blob_sha1": "dde7e9e9c47918008fec230dbff3a522ec2ace44",
+      "sha256": "f8dfb94aceedc051d96645eda110849211f86b5c69380a73f6da96fe96e6215b",
+      "bytes": 245226,
+      "copied_from": "research_archive/post_seminar/post_seminar_phase4/baseline_diagnostics/scenario5_coverage_fn_map.png"
+    },
+    {
+      "path": "results/post_seminar_phase4/baseline_diagnostics/trace_manifest_verified.csv",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_blob_sha1": "7819db5e68cd8099dce862d3c9bf80a6b4c97370",
+      "sha256": "dbf1e9f65580c083551880f8de4e2c7af843a931eb5601e10dd8d3cbf8d429f1",
+      "bytes": 10499,
+      "copied_from": "research_archive/post_seminar/post_seminar_phase4/baseline_diagnostics/trace_manifest_verified.csv"
+    },
+    {
+      "path": "results/post_seminar_phase5/coverage_candidate.png",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_blob_sha1": "92a0302fa249f5902e0bc69b136b8d7a880f1687",
+      "sha256": "6d49d896d88d22e07bcc4231f218be699d7568fde85bee7c1095d1de3780cc20",
+      "bytes": 155165,
+      "copied_from": "research_archive/post_seminar/post_seminar_phase5/coverage_candidate.png"
+    },
+    {
+      "path": "results/post_seminar_phase5/coverage_original.png",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_blob_sha1": "9fddddd9d496ed09987a5b6d243e026ee9fb69f7",
+      "sha256": "c0c63b744954eb64b90f1c3c1a66c612f35b9b476aca42a5ed29bde3f0d1000a",
+      "bytes": 149617,
+      "copied_from": "research_archive/post_seminar/post_seminar_phase5/coverage_original.png"
+    },
+    {
+      "path": "results/post_seminar_phase5/phase5_29_observer_directions.csv",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_blob_sha1": "8b0a56a7b6f0b7e341d68443e416824b6c0e7766",
+      "sha256": "df6dbeed362f5668bc76bb4f26b4341206657deba459d44dbe72234ad6e4f5e3",
+      "bytes": 502238,
+      "copied_from": "research_archive/post_seminar/post_seminar_phase5/phase5_29_observer_directions.csv"
+    },
+    {
+      "path": "results/post_seminar_phase5/phase5_29_raw_sensor_observations.csv",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_blob_sha1": "9644e1875586a0443e570fe6d50adc5cb6b77183",
+      "sha256": "d5f7d766b917aa4efd95722df9912991bf9e2866c15230d3b0a107155ccf4d3b",
+      "bytes": 111840,
+      "copied_from": "research_archive/post_seminar/post_seminar_phase5/phase5_29_raw_sensor_observations.csv"
+    },
+    {
+      "path": "results/post_seminar_phase5/phase6_training_feasibility_summary.json",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_blob_sha1": "4f390026df999b5fabc80d26e306cff3b3160fdc",
+      "sha256": "5423e86e3814148502d1472878dd0ed5aa9d2e76ef3d5f22d317e5203f786620",
+      "bytes": 315,
+      "copied_from": "research_archive/post_seminar/post_seminar_phase5/phase6_training_feasibility_summary.json"
+    },
+    {
+      "path": "results/post_seminar_phase5/phase6_training_placement_feasibility.csv",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_blob_sha1": "0885601955dbef9c65f10e8c43b37431884c34c0",
+      "sha256": "bd5039019b481943b47bf8aebbfdb5bbc4e7c22e6e5e55d65532ebe7a51932c5",
+      "bytes": 1500122,
+      "copied_from": "research_archive/post_seminar/post_seminar_phase5/phase6_training_placement_feasibility.csv"
+    },
+    {
+      "path": "results/post_seminar_phase5/pilot_metrics.csv",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_blob_sha1": "752885cd4c8eb928071d7df8f17a870134a1f285",
+      "sha256": "54b300f6dac8c44daa0961ffeba26645b2e72c359497db15e3ccd6a4152f91a0",
+      "bytes": 1399,
+      "copied_from": "research_archive/post_seminar/post_seminar_phase5/pilot_metrics.csv"
+    },
+    {
+      "path": "results/post_seminar_phase5/pilot_paired_deltas.csv",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_blob_sha1": "8d57fadbeb8174d538608bbcb95e486a7e876cea",
+      "sha256": "bd1625b0c9c6f6dacd2f94c9fe7de33d35a444d0e41239f621c80fb90f1fb798",
+      "bytes": 1342,
+      "copied_from": "research_archive/post_seminar/post_seminar_phase5/pilot_paired_deltas.csv"
+    },
+    {
+      "path": "results/post_seminar_phase5/pilot_paired_metrics.csv",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_blob_sha1": "51ad5707f0cfc93282fe7535a23d2cbb5358773b",
+      "sha256": "736ddbaa052bd2ba0ce63c011179d523d0eb171595cdabba0af9351e1eb4ecd9",
+      "bytes": 1912,
+      "copied_from": "research_archive/post_seminar/post_seminar_phase5/pilot_paired_metrics.csv"
+    },
+    {
+      "path": "results/post_seminar_phase5/pilot_trace_manifest.json",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_blob_sha1": "df7473a3f25d48878ab27422e2f784a53343eb12",
+      "sha256": "8e4ae960a0c4928b22bd0935daeb0ab942fc24654c414fda35a6fc3834e9c6cc",
+      "bytes": 2242,
+      "copied_from": "research_archive/post_seminar/post_seminar_phase5/pilot_trace_manifest.json"
+    },
+    {
+      "path": "results/post_seminar_phase5/placement_preregistered.json",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_blob_sha1": "924a274aecc865c3f42b8907883d75cbfe4b5c19",
+      "sha256": "234a8f018ad8464c79cc3fea0637286d1811a910ef28edd2ef2847d980f80caf",
+      "bytes": 1882,
+      "copied_from": "research_archive/post_seminar/post_seminar_phase5/placement_preregistered.json"
+    },
+    {
+      "path": "results/post_seminar_phase6/coverage_candidate.png",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_blob_sha1": "b307b0d66dbdde9e68db5130dfb5300d1b64552f",
+      "sha256": "1132ac8a24362c591b55e51dd50547e0eb26a5c2038f02d0e2cfa99959f34325",
+      "bytes": 155508,
+      "copied_from": "research_archive/post_seminar/post_seminar_phase6/coverage_candidate.png"
+    },
+    {
+      "path": "results/post_seminar_phase6/coverage_original.png",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_blob_sha1": "9fddddd9d496ed09987a5b6d243e026ee9fb69f7",
+      "sha256": "c0c63b744954eb64b90f1c3c1a66c612f35b9b476aca42a5ed29bde3f0d1000a",
+      "bytes": 149617,
+      "copied_from": "research_archive/post_seminar/post_seminar_phase6/coverage_original.png"
+    },
+    {
+      "path": "results/post_seminar_phase6/opportunity_cases_corrected.csv",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_blob_sha1": "649bbeab69f83b5c64cff7ef9281e64e5ffebd8b",
+      "sha256": "bf0f3eac906116d671d7b5aea00b14409ccd73992d3daa793ff35d89f4020276",
+      "bytes": 25264,
+      "copied_from": "research_archive/post_seminar/post_seminar_phase6/opportunity_cases_corrected.csv"
+    },
+    {
+      "path": "results/post_seminar_phase6/opportunity_pilot_comparison_corrected.csv",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_blob_sha1": "3f714395114656681e3b94205501d64db5c435ab",
+      "sha256": "e504382f8e51ed33d058bfc599de8cc3bb7c7a4761abc280f1be0541c949c076",
+      "bytes": 2864,
+      "copied_from": "research_archive/post_seminar/post_seminar_phase6/opportunity_pilot_comparison_corrected.csv"
+    },
+    {
+      "path": "results/post_seminar_phase6/pilot_metrics.csv",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_blob_sha1": "decf233f92fc71a717ceb48672086801bc71d1cc",
+      "sha256": "555c2a38924bfe22b3086a285b79afa8aee08eea9cfba8a8f808ddacb6361722",
+      "bytes": 1413,
+      "copied_from": "research_archive/post_seminar/post_seminar_phase6/pilot_metrics.csv"
+    },
+    {
+      "path": "results/post_seminar_phase6/placement_preregistered.json",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_blob_sha1": "a6f59a438e2826592ea55d8d464be792beb476c8",
+      "sha256": "d827cb5634f21e74dbe79d38d086786ce1fdb58b6e19531c674a704a00085716",
+      "bytes": 2183,
+      "copied_from": "research_archive/post_seminar/post_seminar_phase6/placement_preregistered.json"
+    },
+    {
+      "path": "results/post_seminar_phase6_final/false_positive_case_audit.csv",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_blob_sha1": "57d5d3e445ab9930a2171ebd2b496f7ee6ca3600",
+      "sha256": "ef219ed3b8701daf35d6c99786d77334aeddc433e8711c3bdc760b31d121cf76",
+      "bytes": 571,
+      "copied_from": "research_archive/post_seminar/post_seminar_phase6_final/false_positive_case_audit.csv"
+    },
+    {
+      "path": "results/post_seminar_phase6_final/final_paired_comparison.csv",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_blob_sha1": "7495a2f67b868fb7b90957d63b76c3c8724d14df",
+      "sha256": "ffba8583826fe6c13484ca4a54e283cab0839f686d74cc891f8dd127e1b2f4fd",
+      "bytes": 11789,
+      "copied_from": "research_archive/post_seminar/post_seminar_phase6_final/final_paired_comparison.csv"
+    },
+    {
+      "path": "results/post_seminar_phase6_final/opportunity_case_unions.csv",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_blob_sha1": "148c85be65eeda6fa6335b94668189e335b71040",
+      "sha256": "1acbbcda75a6066fd449e24da29faf22f354e4b14870252bdb177443abb400aa",
+      "bytes": 26954,
+      "copied_from": "research_archive/post_seminar/post_seminar_phase6_final/opportunity_case_unions.csv"
+    },
+    {
+      "path": "results/post_seminar_phase6_final/paired_input_manifest.json",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_blob_sha1": "729f6daff318d224030c5343c873070aabfa299b",
+      "sha256": "739474d6b87f74d242f1f02793dc5a58699d9734b63f7f0e08197ff1df37a0b5",
+      "bytes": 22840,
+      "copied_from": "research_archive/post_seminar/post_seminar_phase6_final/paired_input_manifest.json"
+    },
+    {
+      "path": "results/post_seminar_phase6_final/paired_seed_statistics.csv",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_blob_sha1": "44757fc359af384ba6bf82e94d85e610b618f9c7",
+      "sha256": "c0d54f475e7dd6e2fa3d6a1253d80f2473a957309e7ba019d8fb5044059dfded",
+      "bytes": 6557,
+      "copied_from": "research_archive/post_seminar/post_seminar_phase6_final/paired_seed_statistics.csv"
+    },
+    {
+      "path": "results/post_seminar_phase6_final/paired_seed_statistics.json",
+      "source_commit": "fdca82f6a3fd5273df454bee709a2800f97f941a",
+      "source_blob_sha1": "e350e88337253dd2e4c2450740d8f8ead5b7e362",
+      "sha256": "edefab37ea0eab204413f04023f55e73d3ce5382fb80b28dc724809d2c2f5543",
+      "bytes": 4625,
+      "copied_from": "research_archive/post_seminar/post_seminar_phase6_final/paired_seed_statistics.json"
+    },
+    {
+      "path": "results/rsu8_pilot/acceptance_gate_preregistered.json",
+      "source_commit": "96a7e903438c7316c25ed5e4b2e2cad433229224",
+      "source_blob_sha1": "8164bb08534ad03288a29612cd31b2673eab9a9a",
+      "sha256": "7e2ca538d4ee6ad7bc5c65e3d992cc8dcd1ccadbe0b2f3366e4564c8121dd905",
+      "bytes": 1258,
+      "copied_from": "research_archive/post_seminar/rsu8_pilot/acceptance_gate_preregistered.json"
+    },
+    {
+      "path": "results/rsu8_pilot/active_common_evidence_independence.csv",
+      "source_commit": "96a7e903438c7316c25ed5e4b2e2cad433229224",
+      "source_blob_sha1": "ff65cf2a28ae1fa74f1214d7e09d6d777c2f1d8e",
+      "sha256": "7b66da0f49740feabd75fb125d1a9d90e68de28dde6cb19922b981ee4abbca41",
+      "bytes": 523,
+      "copied_from": "research_archive/post_seminar/rsu8_pilot/active_common_evidence_independence.csv"
+    },
+    {
+      "path": "results/rsu8_pilot/false_positive_case_audit.csv",
+      "source_commit": "96a7e903438c7316c25ed5e4b2e2cad433229224",
+      "source_blob_sha1": "104a35919875e3fdf52f34408611a796b9b734a9",
+      "sha256": "6868c6258367ef72f109e0bcab7536a5b3451f92153a1f31f36750b5be8e2002",
+      "bytes": 183,
+      "copied_from": "research_archive/post_seminar/rsu8_pilot/false_positive_case_audit.csv"
+    },
+    {
+      "path": "results/rsu8_pilot/paired_manifests.json",
+      "source_commit": "96a7e903438c7316c25ed5e4b2e2cad433229224",
+      "source_blob_sha1": "8a18309828fe70659620c09eacf1e90ec7bda921",
+      "sha256": "73c2ce0b2a943aaff693d2717034cc833035e2c4e7a2fc24a9f11ab834ea94c2",
+      "bytes": 5296,
+      "copied_from": "research_archive/post_seminar/rsu8_pilot/paired_manifests.json"
+    },
+    {
+      "path": "results/rsu8_pilot/pilot_density_summary.csv",
+      "source_commit": "96a7e903438c7316c25ed5e4b2e2cad433229224",
+      "source_blob_sha1": "3924c7f545a2a319f64bf85dee3dbeaaf5dce610",
+      "sha256": "5e81b9393af20b654946f91e0aeeebf23217b275bb595a673ca7cec20b0d1b35",
+      "bytes": 1439,
+      "copied_from": "research_archive/post_seminar/rsu8_pilot/pilot_density_summary.csv"
+    },
+    {
+      "path": "results/rsu8_pilot/pilot_gate_result.json",
+      "source_commit": "96a7e903438c7316c25ed5e4b2e2cad433229224",
+      "source_blob_sha1": "f05f3dd1e12d938ebe3fe164db0141c6bbcf1897",
+      "sha256": "746ca33bf6c98b3b16e269befbf916ee5c09e5a31e0ac35687492ceabe67ad4a",
+      "bytes": 1937,
+      "copied_from": "research_archive/post_seminar/rsu8_pilot/pilot_gate_result.json"
+    },
+    {
+      "path": "results/rsu8_pilot/pilot_metrics.csv",
+      "source_commit": "96a7e903438c7316c25ed5e4b2e2cad433229224",
+      "source_blob_sha1": "11ac01289b5c8372ee25c3098119b9d8baf146ca",
+      "sha256": "4df02b0529eebaa0bd13fb398ad99229682fd6c2e1123e9fd45f82ed577beda8",
+      "bytes": 5712,
+      "copied_from": "research_archive/post_seminar/rsu8_pilot/pilot_metrics.csv"
+    },
+    {
+      "path": "results/rsu8_pilot/pilot_opportunity_comparison.csv",
+      "source_commit": "96a7e903438c7316c25ed5e4b2e2cad433229224",
+      "source_blob_sha1": "d476af6d997f31810ec3f1c9d41f0e954fb30fe9",
+      "sha256": "8e7512f500830d069310dc9c8b32401c90fec4a4ba93249e90a9481926ab9e79",
+      "bytes": 2639,
+      "copied_from": "research_archive/post_seminar/rsu8_pilot/pilot_opportunity_comparison.csv"
+    },
+    {
+      "path": "results/rsu8_pilot/pilot_paired_comparison.csv",
+      "source_commit": "96a7e903438c7316c25ed5e4b2e2cad433229224",
+      "source_blob_sha1": "09de6ab7e0c1ea22e46e0dc4b9f7815d8a6a35bc",
+      "sha256": "11a9e59c65c20ea13387ea14531717265ba357f0aa26dc50d03017e20e194c2b",
+      "bytes": 8723,
+      "copied_from": "research_archive/post_seminar/rsu8_pilot/pilot_paired_comparison.csv"
+    },
+    {
+      "path": "results/rsu8_pilot/placement_preregistered.json",
+      "source_commit": "96a7e903438c7316c25ed5e4b2e2cad433229224",
+      "source_blob_sha1": "637b51dd05ff9a983a75ddda0c09807beeb65f1c",
+      "sha256": "74c472d3affbc7f8d34d68ecaaac4de255e373ceced3aedc1b3c84789b53cb40",
+      "bytes": 4807,
+      "copied_from": "research_archive/post_seminar/rsu8_pilot/placement_preregistered.json"
+    },
+    {
+      "path": "results/rsu8_pilot/recovered_fn_case_audit.csv",
+      "source_commit": "96a7e903438c7316c25ed5e4b2e2cad433229224",
+      "source_blob_sha1": "ffd5f4fbfac8a768cfcc1f11b8d8fd90b24d844a",
+      "sha256": "c601054cf444e47bc11524e2047b76e7d5028150267a44b9190ed577504130ec",
+      "bytes": 36102,
+      "copied_from": "research_archive/post_seminar/rsu8_pilot/recovered_fn_case_audit.csv"
+    },
+    {
+      "path": "results/rsu8_pilot/rsu8_training_coverage_map.png",
+      "source_commit": "96a7e903438c7316c25ed5e4b2e2cad433229224",
+      "source_blob_sha1": "06caf1cb3079eceee25ebade5176b4d0c8cc50b1",
+      "sha256": "a43c9faf9435da1faba20abc51704abee7c0322351a6bb9733f5b79f8afcc7aa",
+      "bytes": 158464,
+      "copied_from": "research_archive/post_seminar/rsu8_pilot/rsu8_training_coverage_map.png"
+    },
+    {
+      "path": "results/rsu8_pilot/training_coverage_summary.csv",
+      "source_commit": "96a7e903438c7316c25ed5e4b2e2cad433229224",
+      "source_blob_sha1": "4ac6632947c8b6464bb5f9495d6f38102cb8dac9",
+      "sha256": "67ce8e246bd1ced5ed2849c9139b5a30b078e3aef2749626ca496d5bdacc2321",
+      "bytes": 757,
+      "copied_from": "research_archive/post_seminar/rsu8_pilot/training_coverage_summary.csv"
+    },
+    {
+      "path": "results/v5_validator_prototype/paired_replay_manifest.json",
+      "source_commit": "4687266bae35d680d77730b1dd4d929a6ea57900",
+      "source_blob_sha1": "ac9e64debb8524d4f71cc6384161a38229177d32",
+      "sha256": "b9745c30486940599677c9441cba00fccb0f99f1c5cc46fe00bc724604c1254b",
+      "bytes": 2868,
+      "copied_from": "research_archive/post_seminar/v5_validator_prototype/paired_replay_manifest.json"
+    },
+    {
+      "path": "results/v5_validator_prototype/v4_v5_architecture_summary.csv",
+      "source_commit": "4687266bae35d680d77730b1dd4d929a6ea57900",
+      "source_blob_sha1": "ebf490ac30348d0ec82e637661d4df0800f527ca",
+      "sha256": "ce3c2b229dea4a7fffdab8c86b15d68f5b01f579c152340827ac499f134db23e",
+      "bytes": 593,
+      "copied_from": "research_archive/post_seminar/v5_validator_prototype/v4_v5_architecture_summary.csv"
+    },
+    {
+      "path": "results/v5_validator_prototype/v4_v5_paired_replay.csv",
+      "source_commit": "4687266bae35d680d77730b1dd4d929a6ea57900",
+      "source_blob_sha1": "d9a2e9f2c93b3ab508bab54a8e8b553627f29809",
+      "sha256": "e981d437e307ed76fb92d400bc178ca1917fb7a360aeb3e5d4753cdda51932a2",
+      "bytes": 7082,
+      "copied_from": "research_archive/post_seminar/v5_validator_prototype/v4_v5_paired_replay.csv"
+    },
+    {
+      "path": "results/coordinator_security_v5/coordinator_paired_differences.csv",
+      "source_commit": "abe80d00a7a9b2bbc8d722c449f4c401827bab8f",
+      "source_blob_sha1": "fc09f1870292f6470565bfc880f4e4085f1cc2dc",
+      "sha256": "fa7b488d77094f19767a8c2f397bb642b0d9b6d77c058f66cce3c98c2e3ba221",
+      "bytes": 2159,
+      "copied_from": "research_archive/post_seminar/coordinator_security_v5/coordinator_paired_differences.csv"
+    },
+    {
+      "path": "results/coordinator_security_v5/coordinator_paired_metrics.csv",
+      "source_commit": "abe80d00a7a9b2bbc8d722c449f4c401827bab8f",
+      "source_blob_sha1": "21441226974f47131a14c84a8319ca78f9557765",
+      "sha256": "dc9b0c9c253eb1b699d0e4d4d17ad3d38c0b2f199e76cb0dfa2ddbb4d79795dc",
+      "bytes": 8389,
+      "copied_from": "research_archive/post_seminar/coordinator_security_v5/coordinator_paired_metrics.csv"
+    },
+    {
+      "path": "results/coordinator_security_v5/coordinator_replay_manifest.json",
+      "source_commit": "abe80d00a7a9b2bbc8d722c449f4c401827bab8f",
+      "source_blob_sha1": "31e3495f53389b298210bdbf6b867a923c9333da",
+      "sha256": "39a4168603a73cf567be035b6a29f23a2132e00bad0a1fb31cea92a8b9a04b60",
+      "bytes": 3070,
+      "copied_from": "research_archive/post_seminar/coordinator_security_v5/coordinator_replay_manifest.json"
+    },
+    {
+      "path": "results/coordinator_evidence_availability_v5_final2/evidence_availability_manifest.json",
+      "source_commit": "2df02a0f17dc4782b833b882edbc3ec30c1e8e8d",
+      "source_blob_sha1": "ee5e7bc76d0dd644fbe1840074c8d34f1c0a88a9",
+      "sha256": "0f6f3037e220d4e64a8ef2dc812934548dae926f21b3ed190c6c1deab0dd8dcf",
+      "bytes": 1789,
+      "copied_from": "research_archive/post_seminar/coordinator_evidence_availability_v5_final2/evidence_availability_manifest.json"
+    },
+    {
+      "path": "results/coordinator_evidence_availability_v5_final2/evidence_availability_metrics.csv",
+      "source_commit": "2df02a0f17dc4782b833b882edbc3ec30c1e8e8d",
+      "source_blob_sha1": "ef2fbb001cee9b074b48589a83d3b8254b864a27",
+      "sha256": "05e581345d65239d4cead70d6e824a4fdeda72e2c44cbeb95a43765181e5c617",
+      "bytes": 2180,
+      "copied_from": "research_archive/post_seminar/coordinator_evidence_availability_v5_final2/evidence_availability_metrics.csv"
+    },
+    {
+      "path": "results/coordinator_evidence_availability_v5_final2/evidence_availability_paired.csv",
+      "source_commit": "2df02a0f17dc4782b833b882edbc3ec30c1e8e8d",
+      "source_blob_sha1": "940d4d67677058b3f9833f4fddee090a7f9ff0aa",
+      "sha256": "44ab0d35f371f01add8118a09e7cae25230522fefa6fae6abcf7cf3056d418e9",
+      "bytes": 934,
+      "copied_from": "research_archive/post_seminar/coordinator_evidence_availability_v5_final2/evidence_availability_paired.csv"
+    },
+    {
+      "path": "results/evidence_availability_optimization/replay_20_2101_final2/optimization_manifest.json",
+      "source_commit": "944d65b15711c8a79b94b4355c27211148b30ac5",
+      "source_blob_sha1": "bc4cdfb83e14e3b6c229ac0ed7df417f2e26178c",
+      "sha256": "ecfd739dc4464d3194ea9b9e84e67d7d55a75aa8cf180079308b29df84e3bc23",
+      "bytes": 2868,
+      "copied_from": "research_archive/post_seminar/evidence_availability_optimization/replay_20_2101_final2/optimization_manifest.json"
+    },
+    {
+      "path": "results/evidence_availability_optimization/replay_20_2101_final2/optimization_variants.csv",
+      "source_commit": "944d65b15711c8a79b94b4355c27211148b30ac5",
+      "source_blob_sha1": "ab75de5a871b95b8ff6ef5c646206f5cd94b87c4",
+      "sha256": "02ddf43d8aef19fdf9f1af4e11d2cb18a14fa422a2b0fc2f123ee373f6efa03a",
+      "bytes": 3841,
+      "copied_from": "research_archive/post_seminar/evidence_availability_optimization/replay_20_2101_final2/optimization_variants.csv"
+    },
+    {
+      "path": "results/evidence_availability_optimization/replay_20_2101_final2/optimization_vs_C1.csv",
+      "source_commit": "944d65b15711c8a79b94b4355c27211148b30ac5",
+      "source_blob_sha1": "8450575aaa1e7464e4f36a0fcbd02acb122a368b",
+      "sha256": "daae55dd9c3e5eb527f6eac0f708b2d23a8b971b0ae43b422897e6249825f2ec",
+      "bytes": 781,
+      "copied_from": "research_archive/post_seminar/evidence_availability_optimization/replay_20_2101_final2/optimization_vs_C1.csv"
+    },
+    {
+      "path": "results/provenance_evidence_optimization_final/analysis_manifest.json",
+      "source_commit": "944d65b15711c8a79b94b4355c27211148b30ac5",
+      "source_blob_sha1": "038095b8ace7392555db8957395ae69d0e0754af",
+      "sha256": "783f86c347f849195bb095ee41aeca0591b6a47f378a08c953ed0d66fe9f4277",
+      "bytes": 660,
+      "copied_from": "research_archive/post_seminar/provenance_evidence_optimization_final/analysis_manifest.json"
+    },
+    {
+      "path": "results/provenance_evidence_optimization_final/b1_case_differences.csv",
+      "source_commit": "944d65b15711c8a79b94b4355c27211148b30ac5",
+      "source_blob_sha1": "b03dbbb3a4bc2119e81320cabd9a12954560773a",
+      "sha256": "8ac07414b1f74124a709431c43103a23813cd1257df8de73e6a00c664a881620",
+      "bytes": 2244,
+      "copied_from": "research_archive/post_seminar/provenance_evidence_optimization_final/b1_case_differences.csv"
+    },
+    {
+      "path": "results/provenance_evidence_optimization_final/b1_case_transitions.csv",
+      "source_commit": "944d65b15711c8a79b94b4355c27211148b30ac5",
+      "source_blob_sha1": "8bd1cd84c4798801e072f90c3d10960506580c15",
+      "sha256": "54eec27eb646bec43a922312914d5930a26dd8a6ca99209f4b6502549f405001",
+      "bytes": 2871,
+      "copied_from": "research_archive/post_seminar/provenance_evidence_optimization_final/b1_case_transitions.csv"
+    },
+    {
+      "path": "results/provenance_evidence_optimization_final/cprofile_stage_attribution.csv",
+      "source_commit": "944d65b15711c8a79b94b4355c27211148b30ac5",
+      "source_blob_sha1": "c733161005b01afca7c5a5f4ecd3e8f586a6dfb1",
+      "sha256": "0c958accaac768210ff1bcc2cb0b9ff30c57b2f29d9545ed137155b26303754f",
+      "bytes": 1734,
+      "copied_from": "research_archive/post_seminar/provenance_evidence_optimization_final/cprofile_stage_attribution.csv"
+    },
+    {
+      "path": "results/provenance_evidence_optimization_final/metrics_by_density.csv",
+      "source_commit": "944d65b15711c8a79b94b4355c27211148b30ac5",
+      "source_blob_sha1": "728e13ab19f065b2488f203f9606ad54392bd286",
+      "sha256": "f83cec4854746a89780bf1ccb075ca8ae0c8045b6acfb5bec968e58bfd0ef8a7",
+      "bytes": 3510,
+      "copied_from": "research_archive/post_seminar/provenance_evidence_optimization_final/metrics_by_density.csv"
+    },
+    {
+      "path": "results/provenance_evidence_optimization_final/opportunity_counts_by_density.csv",
+      "source_commit": "944d65b15711c8a79b94b4355c27211148b30ac5",
+      "source_blob_sha1": "b16e2493555c96e04263872d51907b3a26cb13f0",
+      "sha256": "7967b62c0e87e3cd357a218a9196d3de396cee2b5229a7efb40035713833afa9",
+      "bytes": 500,
+      "copied_from": "research_archive/post_seminar/provenance_evidence_optimization_final/opportunity_counts_by_density.csv"
+    },
+    {
+      "path": "results/provenance_evidence_optimization_final/opportunity_metrics_by_cell.csv",
+      "source_commit": "944d65b15711c8a79b94b4355c27211148b30ac5",
+      "source_blob_sha1": "d985d9b1b8db1e5c7b2973e547d924e178f0323c",
+      "sha256": "a9faba3ce0e31d2480efc40842d790fc5fddd64bfc4d5e9bf37b77815412aca6",
+      "bytes": 1876,
+      "copied_from": "research_archive/post_seminar/provenance_evidence_optimization_final/opportunity_metrics_by_cell.csv"
+    },
+    {
+      "path": "results/provenance_evidence_optimization_final/paired_metrics_by_cell.csv",
+      "source_commit": "944d65b15711c8a79b94b4355c27211148b30ac5",
+      "source_blob_sha1": "ad38a54a498d47505bc89ee4d1f9034540cd3177",
+      "sha256": "cc494d735e1a90007f78fa1424ad68500b0b526fa176aa6fb1177144e8c97fc8",
+      "bytes": 7732,
+      "copied_from": "research_archive/post_seminar/provenance_evidence_optimization_final/paired_metrics_by_cell.csv"
+    },
+    {
+      "path": "results/provenance_evidence_optimization_final/redundancy_group_audit.json",
+      "source_commit": "944d65b15711c8a79b94b4355c27211148b30ac5",
+      "source_blob_sha1": "f20e7ddd746d386c3a8058125122300d63b26f4b",
+      "sha256": "91a988da902afbaf9d32e56996279b11bbd020eb16e5248e1d15f56af390bdc0",
+      "bytes": 989,
+      "copied_from": "research_archive/post_seminar/provenance_evidence_optimization_final/redundancy_group_audit.json"
+    }
+  ],
+  "historical_path_note": "Exact source result files are mirrored at original results paths so copied reports resolve; separate research_archive copies remain as organized archive. All mirrors were byte-compared to cited Git blobs.",
+  "provenance_self_hash_note": "This file intentionally does not contain its own SHA-256 because that would be self-referential; hash the committed Git blob or file externally.",
+  "dataset_B_worktree_hashes_at_consolidation": {
+    "results/urban_roundabout_campaign_corrected_final/combined/density_campaign_manifest.json": {
+      "worktree_sha256": "c2e6c1c3999d2037d6a853596dafcde55edd6e843583a140d3b71ed841faee37",
+      "worktree_bytes": 3958,
+      "crlf_normalized_sha256": "4d5a0e45ace6dd406689c15bab5cb0a27b9afcc3bf08cbce008ae74088fbd372",
+      "canonical_git_blob_sha256": "4d5a0e45ace6dd406689c15bab5cb0a27b9afcc3bf08cbce008ae74088fbd372",
+      "normalized_matches_canonical": true
+    },
+    "results/urban_roundabout_campaign_corrected_final/combined/density_metrics_by_seed.csv": {
+      "worktree_sha256": "3090141874e1a2ab71b0c044e428ebe972eab4a01789f1151b709bedc78f8b41",
+      "worktree_bytes": 67561,
+      "crlf_normalized_sha256": "7f5592f04edb562afa69bca8d9059b92c2443e52d2fc16fdefdd973fd6ca4c16",
+      "canonical_git_blob_sha256": "7f5592f04edb562afa69bca8d9059b92c2443e52d2fc16fdefdd973fd6ca4c16",
+      "normalized_matches_canonical": true
+    },
+    "results/urban_roundabout_campaign_corrected_final/combined/density_decisions.csv": {
+      "worktree_sha256": "bc3bc7050cff575ecfee38171ad3c1cdb2a2442e4fae799c7dce13c6a6d22e3e",
+      "worktree_bytes": 26733285,
+      "crlf_normalized_sha256": "792f54b1b342adf725f17f9cc9077efc81bc72e4e188a8c9ba0308e92de088e8",
+      "canonical_git_blob_sha256": "792f54b1b342adf725f17f9cc9077efc81bc72e4e188a8c9ba0308e92de088e8",
+      "normalized_matches_canonical": true
+    },
+    "results/urban_roundabout_campaign_corrected_final/combined/density_trace_audit.csv": {
+      "worktree_sha256": "0897cfdc2697623b2acf860712865111953d82fdbdc45d891eb65af4bd00b543",
+      "worktree_bytes": 11439,
+      "crlf_normalized_sha256": "a150b32c3a34ccbbd6bf93ef1b170e15928a635bc729fa4b3c179ad575d0cfa3",
+      "canonical_git_blob_sha256": "a150b32c3a34ccbbd6bf93ef1b170e15928a635bc729fa4b3c179ad575d0cfa3",
+      "normalized_matches_canonical": true
+    },
+    "results/urban_roundabout_campaign_corrected_final/effective_config.json": {
+      "worktree_sha256": "2969b2f8ddfb13bfffe20cf203bfddf251d62a761dc577e9d88d0e07f750cead",
+      "worktree_bytes": 6638,
+      "crlf_normalized_sha256": "bb04e38f840029694fbd6a13d0797f81427748f775d9fd14e42bf30bd9a92824",
+      "canonical_git_blob_sha256": "bb04e38f840029694fbd6a13d0797f81427748f775d9fd14e42bf30bd9a92824",
+      "normalized_matches_canonical": true
+    }
+  },
+  "dataset_B_hash_note": "Frozen hashes are canonical Git blob bytes (LF). The Windows worktree has core.autocrlf=true, so checked-out files contain CRLF; byte-for-byte LF normalization exactly matches the frozen Git blob. Raw worktree hashes are listed separately."
+}

@@ -1,0 +1,91 @@
+{
+  "baseline_config_sha256": "8ef99917dbee8ca9df83f40e77477ff9094023127387f6a8f7a725bc8629a73f",
+  "traces": [
+    {
+      "density": 20,
+      "seed": 2101,
+      "cases": 121,
+      "trace": "C:\\Users\\reemg\\OneDrive\\Desktop\\master\\6\\v10-recall-70-feasibility\\results\\rsu8_pilot\\pilot\\C3\\vehicles_20\\seed_2101\\shared_detection_trace.jsonl",
+      "sha256": "25d11c53c23d7ae71d745661d8837a70739b1b64f9759f789035cff37e02364b"
+    },
+    {
+      "density": 20,
+      "seed": 2102,
+      "cases": 120,
+      "trace": "C:\\Users\\reemg\\OneDrive\\Desktop\\master\\6\\v10-recall-70-feasibility\\results\\rsu8_pilot\\pilot\\C3\\vehicles_20\\seed_2102\\shared_detection_trace.jsonl",
+      "sha256": "8d49d3aa5a4dcec2d7730ce065b4cfae6fe792e0ca739b2925f0e52b5e2016b5"
+    },
+    {
+      "density": 60,
+      "seed": 2101,
+      "cases": 356,
+      "trace": "C:\\Users\\reemg\\OneDrive\\Desktop\\master\\6\\v10-recall-70-feasibility\\results\\rsu8_pilot\\pilot\\C3\\vehicles_60\\seed_2101\\shared_detection_trace.jsonl",
+      "sha256": "c9cab0748c83d8060695dfeeb5cc26835baf3be5a40151add628a908448f89b4"
+    },
+    {
+      "density": 60,
+      "seed": 2102,
+      "cases": 358,
+      "trace": "C:\\Users\\reemg\\OneDrive\\Desktop\\master\\6\\v10-recall-70-feasibility\\results\\rsu8_pilot\\pilot\\C3\\vehicles_60\\seed_2102\\shared_detection_trace.jsonl",
+      "sha256": "76e414b1550e0fb0cbd854cdc13edda24aaa8643041da767aaab44b3bf033742"
+    },
+    {
+      "density": 100,
+      "seed": 2101,
+      "cases": 572,
+      "trace": "C:\\Users\\reemg\\OneDrive\\Desktop\\master\\6\\v10-recall-70-feasibility\\results\\rsu8_pilot\\pilot\\C3\\vehicles_100\\seed_2101\\shared_detection_trace.jsonl",
+      "sha256": "41603c4f5f76c1e994e0a7c528b3c1b77df2f4f615122552fa2a76d1afd01d5d"
+    },
+    {
+      "density": 100,
+      "seed": 2102,
+      "cases": 575,
+      "trace": "C:\\Users\\reemg\\OneDrive\\Desktop\\master\\6\\v10-recall-70-feasibility\\results\\rsu8_pilot\\pilot\\C3\\vehicles_100\\seed_2102_retry1\\shared_detection_trace.jsonl",
+      "sha256": "150d8a2945ee946e58c9eb0f9de1a05a4af48e5c3fde3e88e020ac6b9048a032"
+    }
+  ],
+  "variants": [
+    {
+      "name": "V5_historical_first_observer_pool4",
+      "validators": [
+        "rsu-1",
+        "rsu-2",
+        "rsu-3",
+        "rsu-4",
+        "rsu-5"
+      ],
+      "quorum": 4,
+      "membership_epoch": "v5-eight-rsu-committee-v1",
+      "coordinator_strategy": "first_observer_then_hash",
+      "coordinator_pool": [
+        "rsu-1",
+        "rsu-2",
+        "rsu-3",
+        "rsu-4"
+      ]
+    },
+    {
+      "name": "V5_deterministic_pool5",
+      "validators": [
+        "rsu-1",
+        "rsu-2",
+        "rsu-3",
+        "rsu-4",
+        "rsu-5"
+      ],
+      "quorum": 4,
+      "membership_epoch": "v5-coordinator-security-fixed-epoch-v1",
+      "coordinator_strategy": "canonical_case_epoch_hash",
+      "coordinator_pool": [
+        "rsu-1",
+        "rsu-2",
+        "rsu-3",
+        "rsu-4",
+        "rsu-5"
+      ]
+    }
+  ],
+  "repeats": 3,
+  "sumo_rerun": false,
+  "paired_inputs": true
+}

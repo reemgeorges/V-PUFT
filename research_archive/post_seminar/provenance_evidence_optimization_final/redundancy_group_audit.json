@@ -1,0 +1,35 @@
+{
+  "stage": "available_before_transport",
+  "report_rows": 24408,
+  "unique_case_root_source_direction_groups": 8003,
+  "row_reduction_if_one_per_group_percent": 67.21156997705671,
+  "groups_with_more_than_one_report": 4722,
+  "exact_duplicate_rows_across_exported_columns": 0,
+  "groups_with_field_variation": {
+    "attestation_id": 3699,
+    "validator_rsu_id": 0,
+    "geographic_cell": 0,
+    "sensor_modality": 0,
+    "validity": 0,
+    "observed_at": 1785,
+    "arrival_at": 0,
+    "age_at_qualification_seconds": 2133,
+    "evidence_weight": 3017,
+    "fresh": 0,
+    "weight_eligible": 0
+  },
+  "columns_absent_from_diagnostic_export": [
+    "detector_confidence",
+    "source_reliability",
+    "freshness_factor",
+    "verifiability",
+    "independence",
+    "evidence_hash",
+    "signature",
+    "public_key_id",
+    "reason_codes",
+    "source_kind",
+    "administrative_domain_id"
+  ],
+  "interpretation": "row-count upper bound only; not a measured CPU or network saving"
+}

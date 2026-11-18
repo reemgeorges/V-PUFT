@@ -1,0 +1,210 @@
+commit abe80d00a7a9b2bbc8d722c449f4c401827bab8f
+Author:     reemgeorges <reem.georges@themetagate.me>
+AuthorDate: Fri Nov 13 21:18:57 2026 +0300
+Commit:     reemgeorges <reem.georges@themetagate.me>
+CommitDate: Fri Nov 13 21:18:57 2026 +0300
+
+    Harden V5 coordinator selection and audit evidence
+
+diff --git a/src/vpuft/architectures/distributed_extension.py b/src/vpuft/architectures/distributed_extension.py
+index 72ba0ba..76ef15d 100644
+--- a/src/vpuft/architectures/distributed_extension.py
++++ b/src/vpuft/architectures/distributed_extension.py
+@@ -590,6 +590,46 @@ class DistributedRSUExtendedVPUFT(Architecture):
+             clean = self.sanitize_case(case)
+             coordinator = self._select_coordinator(clean)
+             coordinator_counts[coordinator] += 1
++
++            # The deterministic security profile has no safe coordinator
++            # takeover certificate yet. If its assigned coordinator is known
++            # offline before this case starts, fail closed instead of allowing
++            # an unrelated PBFT view leader to act as an implicit replacement.
++            if (
++                self.config.distributed_extension.coordinator_strategy == "canonical_case_epoch_hash"
++                and self.config.pbft.validator_behaviors.get(coordinator) == "offline"
++            ):
++                current = self.state_machine.get(case.vehicle_id)
++                terminal = current.state == TrustState.REVOKED
++                decisions.append(TrustDecision(
++                    case_id=case.case_id,
++                    vehicle_id=case.vehicle_id,
++                    architecture=self.name,
++                    previous_state=current.state,
++                    new_state=current.state,
++                    detected_at=min((att.observed_at for att in clean.attestations), default=case.opened_at),
++                    qualified_at=None,
++                    finalized_at=None,
++                    ledger_available_at=None,
++                    decision_margin=current.last_margin,
++                    committed=False,
++                    reason=(
++                        "already_revoked_terminal_state"
++                        if terminal
++                        else "evidence_coordinator_unavailable_no_safe_takeover"
++                    ),
++                    metadata={
++                        "evidence_coordinator": coordinator,
++                        "coordinator_takeover_attempted": False,
++                        "attempted_attestations": len(clean.attestations),
++                        "arrived_attestations": 0,
++                        "validator_requalification": False,
++                        "terminal_state_noop": terminal,
++                        "excluded_post_revocation": terminal,
++                    },
++                ))
++                continue
++
+             ctx = {
+                 "case": case,
+                 "clean": clean,
+diff --git a/src/vpuft/evidence_announcement.py b/src/vpuft/evidence_announcement.py
+new file mode 100644
+index 0000000..5c661d5
+--- /dev/null
++++ b/src/vpuft/evidence_announcement.py
+@@ -0,0 +1,145 @@
++"""Verifier primitives for quorum-authenticated V-PUFT evidence announcements.
++
++This module does not implement announcement transport, durable inventory, or
++certificate dissemination. Callers must supply certificates already stored in
++the validator's independent local inventory. It is deliberately inert until a
++future architecture integrates those network and persistence guarantees.
++"""
++
++from __future__ import annotations
++
++import unicodedata
++from dataclasses import asdict, dataclass
++
++from .config import PBFTConfig
++from .consensus import canonical_case_identity
++from .crypto import KeyRegistry, digest_hex
++from .domain import EvidenceAttestation
++from .evidence import verify_attestation
++
++
++@dataclass(frozen=True, slots=True)
++class EvidenceAnnouncementReceipt:
++    validator_id: str
++    signature: str
++
++
++@dataclass(frozen=True, slots=True)
++class EvidenceAvailabilityCertificate:
++    attestation: EvidenceAttestation
++    receipts: tuple[EvidenceAnnouncementReceipt, ...]
++
++
++@dataclass(frozen=True, slots=True)
++class EvidenceReconciliationResult:
++    accepted: bool
++    missing_attestation_ids: tuple[str, ...] = ()
++    reason: str = "reconciled"
++
++
++def _receipt_payload(attestation: EvidenceAttestation, validator_id: str, config: PBFTConfig) -> dict:
++    return {
++        "protocol": "V-PUFT-EVIDENCE-ANNOUNCEMENT-V1",
++        "membership_digest": config.membership_digest,
++        "case_id": canonical_case_identity(attestation.case_id),
++        "attestation_id": attestation.attestation_id,
++        "attestation_digest": digest_hex(asdict(attestation)),
++        "observation_root_id": attestation.observation_root_id,
++        "source_id": attestation.source_id,
++        "direction": int(attestation.direction),
++        "evidence_hash": attestation.evidence_hash,
++        "validator_id": validator_id,
++    }
++
++
++def create_announcement_receipt(
++    attestation: EvidenceAttestation,
++    validator_id: str,
++    config: PBFTConfig,
++    keys: KeyRegistry,
++) -> EvidenceAnnouncementReceipt:
++    """Sign a receipt only for a valid original source-signed attestation."""
++    config.validate()
++    if validator_id not in config.validators:
++        raise ValueError("Announcement receipt signer is outside the fixed validator membership")
++    if attestation.validity != 1 or not verify_attestation(attestation, keys):
++        raise ValueError("Cannot receipt invalid or unsigned evidence")
++    payload = _receipt_payload(attestation, validator_id, config)
++    return EvidenceAnnouncementReceipt(validator_id, keys.sign(validator_id, payload))
++
++
++def verify_announcement_certificate(
++    certificate: EvidenceAvailabilityCertificate,
++    config: PBFTConfig,
++    keys: KeyRegistry,
++) -> bool:
++    """Verify q distinct validator receipts for the exact signed attestation."""
++    try:
++        config.validate()
++        attestation = certificate.attestation
++        if attestation.validity != 1 or not verify_attestation(attestation, keys):
++            return False
++        validators = {
++            unicodedata.normalize("NFC", validator).strip()
++            for validator in config.validators
++        }
++        signers: set[str] = set()
++        for receipt in certificate.receipts:
++            signer = unicodedata.normalize("NFC", receipt.validator_id).strip()
++            if signer not in validators or signer in signers:
++                return False
++            if not keys.verify(receipt.validator_id, _receipt_payload(attestation, receipt.validator_id, config), receipt.signature):
++                return False
++            signers.add(signer)
++        return len(signers) >= config.resolved_quorum
++    except (AttributeError, TypeError, ValueError):
++        return False
++
++
++def reconcile_announced_evidence(
++    proposed_bundle: list[EvidenceAttestation] | tuple[EvidenceAttestation, ...],
++    locally_certified: list[EvidenceAvailabilityCertificate] | tuple[EvidenceAvailabilityCertificate, ...],
++    config: PBFTConfig,
++    keys: KeyRegistry,
++) -> EvidenceReconciliationResult:
++    """Reject a proposal that omits locally known quorum-certified evidence.
++
++    The local certificate inventory must be independent of the coordinator's
++    proposal. This check preserves support, opposition, and neutral direction;
++    it neither reclassifies reports nor changes root-independence rules.
++    """
++    expected: dict[str, str] = {}
++    case_ids: set[str] = set()
++    for certificate in locally_certified:
++        if not verify_announcement_certificate(certificate, config, keys):
++            return EvidenceReconciliationResult(False, reason="invalid_local_announcement_certificate")
++        attestation = certificate.attestation
++        case_ids.add(canonical_case_identity(attestation.case_id))
++        item_id = attestation.attestation_id
++        item_digest = digest_hex(asdict(attestation))
++        old_digest = expected.get(item_id)
++        if old_digest is not None and old_digest != item_digest:
++            return EvidenceReconciliationResult(False, reason="attestation_id_equivocation")
++        expected[item_id] = item_digest
++
++    proposed: dict[str, str] = {}
++    for attestation in proposed_bundle:
++        case_ids.add(canonical_case_identity(attestation.case_id))
++        if attestation.validity != 1 or not verify_attestation(attestation, keys):
++            return EvidenceReconciliationResult(False, reason="invalid_bundle_attestation")
++        item_id = attestation.attestation_id
++        item_digest = digest_hex(asdict(attestation))
++        old_digest = proposed.get(item_id)
++        if old_digest is not None and old_digest != item_digest:
++            return EvidenceReconciliationResult(False, reason="attestation_id_equivocation")
++        proposed[item_id] = item_digest
++
++    if len(case_ids) > 1:
++        return EvidenceReconciliationResult(False, reason="announcement_case_mismatch")
++    missing = tuple(sorted(
++        item_id for item_id, item_digest in expected.items()
++        if proposed.get(item_id) != item_digest
++    ))
++    if missing:
++        return EvidenceReconciliationResult(False, missing, "missing_announced_evidence")
++    return EvidenceReconciliationResult(True)

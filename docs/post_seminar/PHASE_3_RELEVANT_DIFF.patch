@@ -1,0 +1,1441 @@
+diff --git a/docs/post_seminar/PHASE_3_IMPLEMENTATION_AUDIT.md b/docs/post_seminar/PHASE_3_IMPLEMENTATION_AUDIT.md
+new file mode 100644
+index 0000000..8bfa06b
+--- /dev/null
++++ b/docs/post_seminar/PHASE_3_IMPLEMENTATION_AUDIT.md
+@@ -0,0 +1,27 @@
++# Phase 3 implementation audit: provenance-safe observer diversity
++
++## Scope and baseline
++
++This audit uses the existing research branch and its frozen policy/weights. The new option `provenance_safe_observer_diversity` defaults to `False`; no frozen config or historical result was changed. The Phase 3 replay used the three exact JSONL trace files also named in the Phase 2 trace manifest. Their recorded SHA-256 digests are in `results/post_seminar_phase3/limited_v2/shared_trace_manifest.csv`'s source manifest reference; the exact digests are reproduced in the paired-results report. Matching trace counts alone are not treated as byte-identical reproduction of the old frozen campaign.
++
++## Findings from the full implementation diff
++
++`aggregate_by_root()` in `src/vpuft/weighting.py` groups by `observation_root_id`; it selects the strongest valid support and opposition reports, subtracts them, and emits one `RootContribution`. Thus multiple receiving RSUs do not increase root count or aggregate support mass. A root with equally strong contradictory directions becomes neutral. This behavior remains the source of root independence and support/opposition semantics.
++
++The optional qualification branch first applies the existing freshness filter, then only considers attestations with support direction, `validity == 1`, and individual evidence weight at least the attack policy's `min_representative_weight`. It restricts those reports to roots whose aggregated net contribution is supporting and meets the existing representative threshold. For each diversity dimension separately, a deterministic maximum bipartite matching assigns each supporting root to at most one distinct attribute value. Consequently, a root may contribute at most one source, one zone, and one modality credit; it cannot provide two source credits or two zone credits. Requirements greater than one therefore require that many distinct supporting roots and distinct attribute values for each such dimension.
++
++This is a conservative security interpretation: independent message roots provide independent evidence contributions; source and zone diversity are additional attributes backed by those roots. Several observers of one CAM may add signed observer metadata, but cannot turn that CAM into several roots or several source/zone credits. A single root can be matched to one value in each dimension, potentially using different eligible observer attestations. This does not prove the claimed physical location or sensor behavior is truthful: a compromised but correctly authenticated RSU can lie. Cryptographic validation establishes signer identity/integrity, not honest sensing.
++
++The matcher does not include expired reports, reports whose validity is zero, opposing/neutral reports, or below-threshold reports. Signature verification is enforced at the architecture sanitization boundary; qualification assumes it receives sanitized attestations, as the existing architecture does. The feature does not weaken roots, diversity, freshness, margin, or cryptographic-decisive policy thresholds. The false option branch preserves the original representative-only source/zone/modality counts.
++
++## Remaining limits and risks
++
++- The Phase 1 set of 847 unresolved diversity FN windows cannot be retrospectively separated into source, zone, modality, and overlap counts because the frozen per-decision records did not persist all those counters. Do not infer that all 847 are recoverable by this change.
++- The matching treats each authenticated source's signed zone/modality fields as claims. A compromised authenticated RSU can lie about them. The matching bounds each root's credits but is not a Byzantine sensor-truth mechanism.
++- The B8 option does not add a transport protocol. It only uses eligible, already-delivered observer attestations at qualification time.
++- The code's existing evidence-coordinator deterministic tie-break and PBFT view-change behavior are unchanged. PBFT leader replacement is not evidence-coordinator recovery; this Phase 3 change does not claim coordinator crash recovery.
++- An earlier direct command using global Python exited 1 because that interpreter had no `pytest` installed. The repository `.venv` includes pytest. The first actual test execution then found one incorrectly calibrated fixture: confidence 0.01 gave weight 0.395 (minimum 0.05), so the implementation correctly counted it. The fixture was lowered to confidence `1e-30`; the corrected targeted suite passed.
++
++## Decision
++
++B8 is safe enough for a limited pilot under the tested root-counting invariants, but it is not justified for the full 50-cell campaign as an improvement over B1. The pilot produced the same classifications as B1 at all sampled densities and had higher CPU at density 100. The feature remains optional and disabled by default. A full B8 campaign should wait for a research question that benefits from broader estimation or a measured optimization that removes its CPU overhead.
+diff --git a/docs/post_seminar/PHASE_3_PAIRED_PILOT.md b/docs/post_seminar/PHASE_3_PAIRED_PILOT.md
+new file mode 100644
+index 0000000..3e63458
+--- /dev/null
++++ b/docs/post_seminar/PHASE_3_PAIRED_PILOT.md
+@@ -0,0 +1,37 @@
++# Phase 3 paired pilot: B0 / B1 / B8
++
++## Protocol
++
++The pilot replayed the same generated shared detection traces for all three variants at density/seed cells `(20,1001)`, `(60,1001)`, and `(100,1001)`. B0 uses the baseline representative-only diversity behavior. B1 enables the earlier diversity-aware root assignment. B8 enables the new provenance-safe observer matching while leaving B1's reassignment option off, isolating the new branch. Network, policy, weights, labels, 15-second freshness horizon, fixed windows, architecture, and seed were otherwise held constant.
++
++The trace SHA-256 values below identify paired inputs; they do not establish byte-identical historical reproduction of frozen traces:
++
++| Density | Seed | Bytes | SHA-256 |
++|---:|---:|---:|---|
++| 20 | 1001 | 15,124,700 | `9d2262ab4639d2873b9dbe66ab1c62acf5eeedca9020ddadbb2933e9039d103c` |
++| 60 | 1001 | 74,413,783 | `7ab6eaca6ace0f6caae986c9be9085c60bb9c37e0bf5c573d9979682f324ed0d` |
++| 100 | 1001 | 122,704,706 | `56ac3aab651eaa737a78a0f2a6b97b0e9e01553e4f6010cc64949c83af8b4c6c` |
++
++## Results
++
++Each row is the exact single paired seed result. Recall, precision, FRR, and F1 are proportions. E2E is P95 milliseconds. CPU is measured Python process CPU seconds for the run. Messages per Case is the architecture metric.
++
++| Variant | Density | TP | FP | TN | FN | Recall | Precision | FRR | F1 | P95 E2E ms | CPU s | Messages/Case |
++|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
++| B0 | 20 | 4 | 0 | 89 | 7 | 0.363636 | 1.000000 | 0 | 0.533333 | 14,067.895 | 2.203125 | 21.6723 |
++| B1 | 20 | 4 | 0 | 89 | 7 | 0.363636 | 1.000000 | 0 | 0.533333 | 14,067.895 | 2.203125 | 21.6723 |
++| B8 | 20 | 4 | 0 | 89 | 7 | 0.363636 | 1.000000 | 0 | 0.533333 | 14,067.895 | 2.203125 | 21.6723 |
++| B0 | 60 | 14 | 0 | 257 | 21 | 0.400000 | 1.000000 | 0 | 0.571429 | 14,146.033 | 7.437500 | 20.6667 |
++| B1 | 60 | 15 | 0 | 253 | 20 | 0.428571 | 1.000000 | 0 | 0.600000 | 14,146.334 | 6.500000 | 20.7692 |
++| B8 | 60 | 15 | 0 | 253 | 20 | 0.428571 | 1.000000 | 0 | 0.600000 | 14,146.334 | 6.843750 | 20.7692 |
++| B0 | 100 | 20 | 0 | 430 | 31 | 0.392157 | 1.000000 | 0 | 0.563380 | 14,115.816 | 6.046875 | 17.3732 |
++| B1 | 100 | 22 | 0 | 422 | 28 | 0.440000 | 1.000000 | 0 | 0.611111 | 14,129.509 | 5.953125 | 17.5000 |
++| B8 | 100 | 22 | 0 | 422 | 28 | 0.440000 | 1.000000 | 0 | 0.611111 | 14,129.509 | 9.515625 | 17.5000 |
++
++## Paired interpretation and FP audit
++
++B8 matched B1 exactly on TP/FP/TN/FN, Recall, Precision, FRR, F1, P95 E2E, and Messages/Case for all three cells. Relative to B0, B8 reduced window FN by 1 at density 60 and by 3 at density 100, while FP remained zero; those gains are identical to the existing B1 gains and are not an incremental B8 gain. B8's CPU was equal at density 20, 0.344 seconds higher than B1 at density 60 (+5.3%), and 3.563 seconds higher at density 100 (+59.8%). P95 E2E was unchanged from B1 to reported precision.
++
++The paired B8-only new false-positive list has **0 rows**. There are no new false-positive cases to explain. These small cells cannot establish that FP risk is zero across the full scenario.
++
++The pilot is one seed per density and is descriptive, not a significance test. B8 is not selected over B1: it has no incremental Recall or latency benefit and adds CPU cost at high density. Therefore the 50-cell B8 campaign was not run. Artifacts and exact per-run metrics are under `results/post_seminar_phase3/limited_v2/`.
+diff --git a/scripts/run_phase2_ablation.py b/scripts/run_phase2_ablation.py
+new file mode 100644
+index 0000000..7b872f6
+--- /dev/null
++++ b/scripts/run_phase2_ablation.py
+@@ -0,0 +1,316 @@
++from __future__ import annotations
++
++import argparse
++import cProfile
++import hashlib
++import json
++import pstats
++import time
++import tracemalloc
++from dataclasses import asdict, replace
++from pathlib import Path
++
++import matplotlib.pyplot as plt
++import numpy as np
++import pandas as pd
++
++from vpuft.architectures import DistributedRSUExtendedVPUFT
++from vpuft.config import WeightConfig, load_config, save_config
++from vpuft.crypto import KeyRegistry
++from vpuft.evidence_acquisition import merge_existing_witness_evidence
++from vpuft.metrics import decision_metrics
++from vpuft.state_aware_evaluation import first_revocation_timing
++from vpuft.sumo.density import build_density_scenario
++from vpuft.sumo.runner import run_sumo_trace
++from vpuft.trace import build_trace_bundle, read_events_jsonl
++
++
++VARIANTS = {
++    "B0_baseline": {"witness": False, "diverse": False, "coordinator": "first_observer_then_hash", "cache": False},
++    "B1_evidence_acquisition": {"witness": False, "diverse": True, "coordinator": "first_observer_then_hash", "cache": False},
++    "B4_combined_evidence": {"witness": True, "diverse": True, "coordinator": "first_observer_then_hash", "cache": False},
++    "B5_case_hash_coordinator": {"witness": False, "diverse": False, "coordinator": "case_hash", "cache": False},
++    "B6_cpu_optimization": {"witness": False, "diverse": False, "coordinator": "first_observer_then_hash", "cache": True},
++    "B7_full_candidate": {"witness": False, "diverse": True, "coordinator": "case_hash", "cache": True},
++}
++
++
++def effective_config(config_path: Path, weights_path: Path):
++    config = load_config(config_path)
++    selected = json.loads(weights_path.read_text(encoding="utf-8"))
++    policies = dict(config.policies)
++    for name, overrides in selected.get("attack_policies", {}).items():
++        policies[name] = replace(policies[name], **overrides)
++    config = replace(config, weights=WeightConfig(**selected["weights"]), policies=policies)
++    config.validate()
++    return config
++
++
++def sha256(path: Path) -> str:
++    digest = hashlib.sha256()
++    with path.open("rb") as handle:
++        for block in iter(lambda: handle.read(1024 * 1024), b""):
++            digest.update(block)
++    return digest.hexdigest()
++
++
++def ensure_traces(config, output: Path, scenario: Path, densities, seeds) -> pd.DataFrame:
++    frozen_audit_path = Path(
++        "results/urban_roundabout_campaign_corrected_final/combined/density_trace_audit.csv"
++    )
++    frozen = pd.read_csv(frozen_audit_path).set_index(["vehicle_count", "seed"])
++    rows = []
++    for density in densities:
++        generated = output / "generated_scenarios" / "urban_roundabout" / f"vehicles_{density}"
++        density_manifest = build_density_scenario(
++            scenario, generated, vehicle_count=density,
++            attack_vehicle_ratio=config.density_campaign.attack_vehicle_ratio,
++            departure_window_seconds=config.density_campaign.departure_window_seconds,
++            end_time_seconds=config.sumo.end_time_seconds,
++        )
++        for seed in seeds:
++            trace_dir = output / "traces" / "urban_roundabout" / f"vehicles_{density}" / f"seed_{seed}"
++            trace = trace_dir / "shared_detection_trace.jsonl"
++            manifest_path = trace_dir / "scenario_manifest.json"
++            if not trace.exists() or not manifest_path.exists():
++                print(f"[trace] generate density={density} seed={seed}", flush=True)
++                run_sumo_trace(
++                    config, scenario_directory=generated, output_directory=trace_dir, seed=seed
++                )
++            manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
++            counts = manifest["counts"]
++            reference = frozen.loc[(density, seed)]
++            count_match = all(
++                int(counts[current]) == int(reference[frozen_name])
++                for current, frozen_name in (
++                    ("unique_vehicles_observed", "observed_vehicle_count"),
++                    ("peak_concurrent_vehicles", "peak_concurrent_vehicles"),
++                    ("cases", "cases"),
++                    ("v2x_messages", "v2x_messages"),
++                    ("detection_events", "detection_events"),
++                )
++            )
++            rows.append({
++                "density": density, "seed": seed, "trace_path": str(trace),
++                "sha256": sha256(trace), "bytes": trace.stat().st_size,
++                "count_match_to_frozen": int(count_match),
++                "observed_vehicle_count": counts["unique_vehicles_observed"],
++                "cases": counts["cases"], "v2x_messages": counts["v2x_messages"],
++                "detection_events": counts["detection_events"],
++                "attack_vehicle_count": density_manifest.attack_vehicle_count,
++            })
++    frame = pd.DataFrame(rows)
++    if not frame["count_match_to_frozen"].all():
++        print("[trace] exact count reproduction not established; paired rerun remains valid", flush=True)
++    return frame
++
++
++def measured_run(config, cases, seed):
++    tracemalloc.start()
++    cpu_start = time.process_time()
++    wall_start = time.perf_counter()
++    result = DistributedRSUExtendedVPUFT(config, KeyRegistry(config.security.deterministic_master_seed)).run(cases, seed)
++    cpu = time.process_time() - cpu_start
++    wall = time.perf_counter() - wall_start
++    _, peak = tracemalloc.get_traced_memory()
++    tracemalloc.stop()
++    return result, cpu, wall, peak / 1024.0
++
++
++def decision_frame(result, cases, *, density, seed, variant):
++    by_case = {case.case_id: case for case in cases}
++    rows = []
++    for decision in result.decisions:
++        case = by_case[decision.case_id]
++        rows.append({
++            "topology": "urban_roundabout", "vehicle_count": density, "seed": seed,
++            "architecture": variant, "case_id": decision.case_id,
++            "vehicle_id": decision.vehicle_id, "attack_type": case.attack_type.value,
++            "ground_truth_malicious": int(case.ground_truth_malicious),
++            "predicted_revoked": int(decision.committed and decision.new_state.value == "revoked"),
++            "committed": int(decision.committed), "new_state": decision.new_state.value,
++            "reason": decision.reason, "detected_at": decision.detected_at,
++            "qualified_at": decision.qualified_at, "finalized_at": decision.finalized_at,
++            "ledger_available_at": decision.ledger_available_at,
++            "decision_margin": decision.decision_margin,
++            "metadata_json": json.dumps(dict(decision.metadata), sort_keys=True),
++        })
++    return pd.DataFrame(rows)
++
++
++def diagnostics_rows(decisions: pd.DataFrame) -> list[dict]:
++    rows = []
++    for row in decisions.itertuples(index=False):
++        metadata = json.loads(row.metadata_json)
++        rows.append({
++            "variant": row.architecture, "density": row.vehicle_count, "seed": row.seed,
++            "case_id": row.case_id, "vehicle_id": row.vehicle_id, "attack_type": row.attack_type,
++            "ground_truth_malicious": row.ground_truth_malicious,
++            "qualified": int(bool(metadata.get("qualification_outcome", False))),
++            "reason": metadata.get("qualification_reason", row.reason),
++            "failed_constraints": "|".join(metadata.get("failed_constraints", [])),
++            "independent_roots": metadata.get("independent_roots"),
++            "required_roots": metadata.get("required_roots"),
++            "distinct_sources": metadata.get("distinct_sources"),
++            "required_sources": metadata.get("required_sources"),
++            "distinct_zones": metadata.get("distinct_zones"),
++            "required_zones": metadata.get("required_zones"),
++            "distinct_modalities": metadata.get("distinct_modalities"),
++            "required_modalities": metadata.get("required_modalities"),
++            "supporting_strength": metadata.get("supporting_strength"),
++            "opposing_strength": metadata.get("opposing_strength"),
++            "actual_margin": metadata.get("qualification_margin", row.decision_margin),
++            "required_margin": metadata.get("required_margin"),
++            "evidence_observed_at": json.dumps(metadata.get("evidence_observed_at", [])),
++            "evidence_arrival_times": json.dumps(metadata.get("evidence_arrival_times", [])),
++            "evidence_ages_seconds": json.dumps(metadata.get("evidence_ages_seconds", [])),
++            "excluded_duplicate_roots": metadata.get("excluded_duplicate_roots", 0),
++        })
++    return rows
++
++
++def metric_row(result, cases, decisions, *, density, seed, variant, cpu, wall, peak, acquisition):
++    truth = {case.case_id: case.ground_truth_malicious for case in cases}
++    opened = {case.case_id: case.opened_at for case in cases}
++    metrics = decision_metrics(result, truth, opened)
++    malicious_vehicles = decisions.loc[decisions.ground_truth_malicious.eq(1), "vehicle_id"].unique()
++    revoked = decisions.loc[
++        decisions.ground_truth_malicious.eq(1) & decisions.predicted_revoked.eq(1), "vehicle_id"
++    ].unique()
++    timing = first_revocation_timing(decisions)
++    valid_timing = timing.loc[timing.first_revocation_observed_after_malicious_case.eq(1)]
++    return {
++        "variant": variant, "density": density, "seed": seed,
++        "TP": metrics["TP"], "FP": metrics["FP"], "TN": metrics["TN"], "FN": metrics["FN"],
++        "recall": metrics["malicious_revocation_recall"], "precision": metrics["trust_precision"],
++        "frr": metrics["false_revocation_rate"], "f1": metrics["trust_f1"], "mcc": metrics["mcc"],
++        "eventual_malicious_vehicles": len(malicious_vehicles),
++        "eventually_revoked_vehicles": len(revoked),
++        "time_to_first_revocation_p95_ms": float(np.percentile(valid_timing.time_to_first_revocation_ms, 95)) if len(valid_timing) else np.nan,
++        "p95_e2e_ms": metrics["latency_p95_ms"],
++        "pure_pbft_p95_ms": metrics["consensus_latency_p95_ms"],
++        "p95_ledger_consistency_ms": metrics["ledger_consistency_delay_p95_ms"],
++        "cpu_time_seconds": cpu, "wall_time_seconds": wall, "peak_memory_kb": peak,
++        "messages_per_case": metrics["messages_per_decision"],
++        "total_transmission_attempts": len(result.messages), "pdr": metrics["packet_delivery_ratio"],
++        "ledger_consistent": int(result.ledger_consistent),
++        "safety_violations": sum(outcome.safety_violation for outcome in result.consensus),
++        "view_changes": sum(outcome.view_changes for outcome in result.consensus),
++        "witness_attestations_added": acquisition.get("witness_attestations_added", 0),
++    }
++
++
++def plot_results(metrics: pd.DataFrame, output: Path) -> None:
++    summary = metrics.groupby(["variant", "density"], as_index=False).agg(
++        recall=("recall", "mean"), frr=("frr", "mean"),
++        cpu=("cpu_time_seconds", "mean"), p95=("p95_e2e_ms", "mean"),
++    )
++    for column, ylabel, filename in (
++        ("recall", "Recall", "recall_by_density.png"),
++        ("cpu", "CPU time (s)", "cpu_by_density.png"),
++        ("p95", "P95 E2E (ms)", "p95_e2e_by_density.png"),
++    ):
++        fig, axis = plt.subplots(figsize=(9, 5))
++        for variant, group in summary.groupby("variant"):
++            axis.plot(group.density, group[column], marker="o", label=variant)
++        axis.set_xlabel("Vehicle density")
++        axis.set_ylabel(ylabel)
++        axis.grid(alpha=0.25)
++        axis.legend(fontsize=8)
++        fig.tight_layout()
++        fig.savefig(output / filename, dpi=160)
++        plt.close(fig)
++
++
++def select_profile_trace(traces: pd.DataFrame):
++    if traces.empty:
++        raise ValueError("Cannot profile an empty trace manifest")
++    highest_density = traces["density"].max()
++    return traces.loc[traces["density"].eq(highest_density)].sort_values("seed").iloc[0]
++
++
++def main() -> int:
++    parser = argparse.ArgumentParser()
++    parser.add_argument("--output", type=Path, default=Path("results/post_seminar_phase2"))
++    parser.add_argument("--config", type=Path, default=Path("configs/urban_roundabout_campaign.json"))
++    parser.add_argument("--weights", type=Path, default=Path("results/full_campaign_v7/sensitivity_shared_views_mixedfix/selected_weights.json"))
++    parser.add_argument("--densities", default="20,40,60,80,100")
++    parser.add_argument("--seeds", default="1001,1002,1003,1004,1005,1006,1007,1008,1009,1010")
++    args = parser.parse_args()
++    densities = [int(value) for value in args.densities.split(",")]
++    seeds = [int(value) for value in args.seeds.split(",")]
++    args.output.mkdir(parents=True, exist_ok=True)
++    config = effective_config(args.config, args.weights)
++    save_config(config, args.output / "phase2_effective_baseline_config.json")
++
++    trace_output = args.output / "baseline_regenerated"
++    traces = ensure_traces(config, trace_output, Path("sumo/urban_roundabout"), densities, seeds)
++    traces.to_csv(args.output / "trace_manifest.csv", index=False)
++
++    metric_rows, decision_frames, diagnostic = [], [], []
++    for trace_row in traces.itertuples(index=False):
++        events = read_events_jsonl(trace_row.trace_path)
++        bundle = build_trace_bundle(
++            events, KeyRegistry(config.security.deterministic_master_seed),
++            window_seconds=config.detector.case_window_seconds,
++            namespace=f"urban_roundabout-vehicles-{trace_row.density}",
++        )
++        merged, acquisition = merge_existing_witness_evidence(bundle.rsu_cases, bundle.witness_cases)
++        for variant, spec in VARIANTS.items():
++            cases = merged if spec["witness"] else bundle.rsu_cases
++            ext = replace(
++                config.distributed_extension,
++                coordinator_strategy=spec["coordinator"],
++                cache_verified_evidence_bundle=spec["cache"],
++                diversity_aware_root_assignment=spec["diverse"],
++            )
++            variant_config = replace(config, distributed_extension=ext)
++            print(f"[ablation] {variant} density={trace_row.density} seed={trace_row.seed}", flush=True)
++            result, cpu, wall, peak = measured_run(variant_config, cases, trace_row.seed)
++            decisions = decision_frame(
++                result, cases, density=trace_row.density, seed=trace_row.seed, variant=variant
++            )
++            decision_frames.append(decisions)
++            diagnostic.extend(diagnostics_rows(decisions))
++            metric_rows.append(metric_row(
++                result, cases, decisions, density=trace_row.density, seed=trace_row.seed,
++                variant=variant, cpu=cpu, wall=wall, peak=peak,
++                acquisition=acquisition if spec["witness"] else {},
++            ))
++
++    metrics = pd.DataFrame(metric_rows)
++    decisions = pd.concat(decision_frames, ignore_index=True)
++    diagnostics = pd.DataFrame(diagnostic)
++    metrics.to_csv(args.output / "ablation_metrics_by_seed.csv", index=False)
++    decisions.to_csv(args.output / "ablation_decisions.csv.gz", index=False, compression="gzip")
++    diagnostics.to_csv(args.output / "qualification_diagnostics.csv.gz", index=False, compression="gzip")
++    diagnostics.groupby(
++        ["variant", "density", "attack_type", "failed_constraints"], dropna=False
++    ).size().rename("cases").reset_index().to_csv(
++        args.output / "qualification_failures_by_density_attack.csv", index=False
++    )
++    metrics.groupby(["variant", "density"], as_index=False).mean(numeric_only=True).to_csv(
++        args.output / "ablation_summary.csv", index=False
++    )
++    plot_results(metrics, args.output)
++
++    representative_trace = select_profile_trace(traces)
++    events = read_events_jsonl(representative_trace.trace_path)
++    bundle = build_trace_bundle(
++        events, KeyRegistry(config.security.deterministic_master_seed),
++        window_seconds=config.detector.case_window_seconds,
++        namespace=f"urban_roundabout-vehicles-{int(representative_trace.density)}",
++    )
++    profiler = cProfile.Profile()
++    profiler.enable()
++    DistributedRSUExtendedVPUFT(config, KeyRegistry()).run(bundle.rsu_cases, int(representative_trace.seed))
++    profiler.disable()
++    profiler.dump_stats(args.output / "baseline_density100.prof")
++    with (args.output / "baseline_density100_profile.txt").open("w", encoding="utf-8") as handle:
++        stats = pstats.Stats(profiler, stream=handle).strip_dirs().sort_stats("cumulative")
++        stats.print_stats(40)
++    return 0
++
++
++if __name__ == "__main__":
++    raise SystemExit(main())
+diff --git a/scripts/run_phase3_limited_ablation.py b/scripts/run_phase3_limited_ablation.py
+new file mode 100644
+index 0000000..ca36943
+--- /dev/null
++++ b/scripts/run_phase3_limited_ablation.py
+@@ -0,0 +1,126 @@
++"""Paired B0/B1/B8 replay over selected, already-generated Scenario 5 traces."""
++from __future__ import annotations
++
++import argparse
++import hashlib
++import json
++from dataclasses import replace
++from pathlib import Path
++
++import pandas as pd
++
++from run_phase2_ablation import decision_frame, measured_run, metric_row
++from vpuft.architectures import DistributedRSUExtendedVPUFT
++from vpuft.crypto import KeyRegistry
++from vpuft.trace import build_trace_bundle, read_events_jsonl
++
++
++CELLS = ((20, 1001), (60, 1001), (100, 1001))
++VARIANTS = {
++    "B0_frozen_baseline": (False, False),
++    "B1_previous_best": (True, False),
++    "B8_provenance_safe_observer_diversity": (False, True),
++}
++
++
++def file_sha256(path: Path) -> str:
++    digest = hashlib.sha256()
++    with path.open("rb") as handle:
++        for block in iter(lambda: handle.read(1024 * 1024), b""):
++            digest.update(block)
++    return digest.hexdigest()
++
++
++def main() -> int:
++    parser = argparse.ArgumentParser()
++    parser.add_argument("--output", type=Path, default=Path("results/post_seminar_phase3/limited"))
++    parser.add_argument("--trace-root", type=Path, default=Path("results/post_seminar_phase2/baseline_regenerated/traces/urban_roundabout"))
++    parser.add_argument("--config", type=Path, default=Path("results/post_seminar_phase2/phase2_effective_baseline_config.json"))
++    args = parser.parse_args()
++    args.output.mkdir(parents=True, exist_ok=True)
++    # The saved effective config contains the frozen, selected policy and weights.
++    from vpuft.config import load_config
++    config = load_config(args.config)
++    trace_rows, metric_rows, decision_rows = [], [], []
++    for density, seed in CELLS:
++        cell_dir = args.output / f"density_{density}_seed_{seed}"
++        if (cell_dir / "cell_complete.json").is_file():
++            print(f"skip completed density={density} seed={seed}", flush=True)
++            metric_rows.extend(pd.read_csv(cell_dir / "metrics.csv").to_dict("records"))
++            decision_rows.append(pd.read_csv(cell_dir / "decisions.csv.gz"))
++            saved_trace = pd.read_csv(cell_dir / "trace_manifest.csv").iloc[0].to_dict()
++            saved_path = Path(saved_trace["trace"])
++            saved_trace["sha256"] = file_sha256(saved_path)
++            trace_rows.append(saved_trace)
++            continue
++        cell_dir.mkdir(parents=True, exist_ok=True)
++        trace = args.trace_root / f"vehicles_{density}" / f"seed_{seed}" / "shared_detection_trace.jsonl"
++        if not trace.is_file():
++            raise FileNotFoundError(trace)
++        trace_rows.append({
++            "density": density, "seed": seed, "trace": str(trace),
++            "bytes": trace.stat().st_size, "sha256": file_sha256(trace),
++        })
++        events = read_events_jsonl(trace)
++        bundle = build_trace_bundle(
++            events, KeyRegistry(config.security.deterministic_master_seed),
++            window_seconds=config.detector.case_window_seconds,
++            namespace=f"urban_roundabout-vehicles-{density}",
++        )
++        cell_metrics, cell_decisions = [], []
++        for name, (diverse_assignment, observer_diversity) in VARIANTS.items():
++            ext = replace(
++                config.distributed_extension,
++                coordinator_strategy="first_observer_then_hash",
++                cache_verified_evidence_bundle=False,
++                diversity_aware_root_assignment=diverse_assignment,
++                provenance_safe_observer_diversity=observer_diversity,
++            )
++            run_config = replace(config, distributed_extension=ext)
++            result, cpu, wall, peak_kb = measured_run(run_config, bundle.rsu_cases, seed)
++            decisions = decision_frame(result, bundle.rsu_cases, density=density, seed=seed, variant=name)
++            cell_decisions.append(decisions)
++            cell_metrics.append(metric_row(
++                result, bundle.rsu_cases, decisions, density=density, seed=seed,
++                variant=name, cpu=cpu, wall=wall, peak=peak_kb, acquisition={},
++            ))
++            print(f"completed {name} density={density} seed={seed} cases={len(bundle.rsu_cases)}", flush=True)
++        cell_metric_frame = pd.DataFrame(cell_metrics)
++        cell_decision_frame = pd.concat(cell_decisions, ignore_index=True)
++        cell_metric_frame.to_csv(cell_dir / "metrics.csv", index=False)
++        cell_decision_frame.to_csv(cell_dir / "decisions.csv.gz", index=False, compression="gzip")
++        pd.DataFrame([trace_rows[-1]]).to_csv(cell_dir / "trace_manifest.csv", index=False)
++        (cell_dir / "cell_complete.json").write_text(json.dumps({"density": density, "seed": seed}, indent=2), encoding="utf-8")
++        metric_rows.extend(cell_metrics)
++        decision_rows.append(cell_decision_frame)
++    metrics = pd.DataFrame(metric_rows)
++    decisions = pd.concat(decision_rows, ignore_index=True)
++    metrics.to_csv(args.output / "metrics.csv", index=False)
++    decisions.to_csv(args.output / "decisions.csv.gz", index=False, compression="gzip")
++    pd.DataFrame(trace_rows).to_csv(args.output / "shared_trace_manifest.csv", index=False)
++    baseline_fp = decisions.loc[
++        decisions.architecture.eq("B0_frozen_baseline") & decisions.ground_truth_malicious.eq(0)
++        & decisions.predicted_revoked.eq(1), ["vehicle_count", "seed", "case_id"]
++    ]
++    candidate_fp = decisions.loc[
++        decisions.architecture.eq("B8_provenance_safe_observer_diversity")
++        & decisions.ground_truth_malicious.eq(0) & decisions.predicted_revoked.eq(1),
++        ["vehicle_count", "seed", "case_id", "reason", "metadata_json"]
++    ]
++    prior = set(zip(baseline_fp.vehicle_count, baseline_fp.seed, baseline_fp.case_id))
++    new_fp = candidate_fp.loc[
++        [(row.vehicle_count, row.seed, row.case_id) not in prior for row in candidate_fp.itertuples(index=False)]
++    ]
++    new_fp.to_csv(args.output / "new_b8_false_positives.csv", index=False)
++    summary = metrics.groupby(["variant", "density"], as_index=False).agg(
++        TP=("TP", "sum"), FP=("FP", "sum"), TN=("TN", "sum"), FN=("FN", "sum"),
++        recall=("recall", "mean"), precision=("precision", "mean"), frr=("frr", "mean"),
++        f1=("f1", "mean"), p95_e2e_ms=("p95_e2e_ms", "mean"),
++        cpu_time_seconds=("cpu_time_seconds", "mean"), messages_per_case=("messages_per_case", "mean"),
++    )
++    summary.to_csv(args.output / "summary.csv", index=False)
++    return 0
++
++
++if __name__ == "__main__":
++    raise SystemExit(main())
+diff --git a/src/vpuft/architectures/distributed_extension.py b/src/vpuft/architectures/distributed_extension.py
+index 73784f9..ac71e62 100644
+--- a/src/vpuft/architectures/distributed_extension.py
++++ b/src/vpuft/architectures/distributed_extension.py
+@@ -96,6 +96,29 @@ class DistributedRSUExtendedVPUFT(Architecture):
+         ordered_cases = sorted(cases, key=lambda item: (item.opened_at, item.case_id))
+         case_order = {case.case_id: index for index, case in enumerate(ordered_cases)}
+ 
++        def qualification_metadata(ctx: dict, result) -> dict:
++            return {
++                "independent_roots": result.independent_roots,
++                "required_roots": result.required_roots,
++                "distinct_sources": result.distinct_sources,
++                "required_sources": result.required_sources,
++                "distinct_zones": result.distinct_zones,
++                "required_zones": result.required_zones,
++                "distinct_modalities": result.distinct_modalities,
++                "required_modalities": result.required_modalities,
++                "supporting_strength": result.supporting_strength,
++                "opposing_strength": result.opposing_strength,
++                "qualification_margin": result.decision_margin,
++                "required_margin": result.required_margin,
++                "failed_constraints": list(result.failed_constraints),
++                "qualification_outcome": bool(result.qualified),
++                "qualification_reason": result.reason,
++                "evidence_observed_at": list(result.evidence_observed_at),
++                "evidence_arrival_times": sorted(ctx.get("evidence_arrival_times", [])),
++                "evidence_ages_seconds": list(result.evidence_ages_seconds),
++                "excluded_duplicate_roots": result.excluded_duplicate_roots,
++            }
++
+         def append_decision_after_ledger(
+             *,
+             ctx: dict,
+@@ -125,8 +148,8 @@ class DistributedRSUExtendedVPUFT(Architecture):
+                 committed=outcome.committed,
+                 reason=outcome.reason,
+                 metadata={
++                    **qualification_metadata(ctx, result),
+                     "evidence_coordinator": ctx["coordinator"],
+-                    "independent_roots": result.independent_roots,
+                     "correlated_suppressed": result.correlated_suppressed,
+                     "expired_evidence": result.expired_evidence,
+                     "attempted_attestations": len(ctx["clean"].attestations),
+@@ -332,8 +355,20 @@ class DistributedRSUExtendedVPUFT(Architecture):
+             remote = [validator for validator in validators if validator != coordinator]
+             pending = {"count": len(remote)}
+ 
++            verified_case = (
++                self.sanitize_case(delivered_case)
++                if ext.cache_verified_evidence_bundle
++                else None
++            )
++
++            def validator_case():
++                # The delivered case and its signed attestations are immutable.
++                # Reuse only the signature-verified bundle; every validator
++                # still independently executes the qualification computation.
++                return verified_case if verified_case is not None else self.sanitize_case(delivered_case)
++
+             # Coordinator requalification is local and immediate.
+-            local_case = self.sanitize_case(delivered_case)
++            local_case = validator_case()
+             local_result = self.engine.qualify(local_case, ctx["qualified_at"])
+             checks[coordinator] = digest_hex(asdict(local_result)) == expected
+ 
+@@ -358,8 +393,8 @@ class DistributedRSUExtendedVPUFT(Architecture):
+                     if message.delivered_at is None:
+                         checks[validator] = False
+                     else:
+-                        validator_case = self.sanitize_case(delivered_case)
+-                        reproduced = self.engine.qualify(validator_case, ctx["qualified_at"])
++                        checked_case = validator_case()
++                        reproduced = self.engine.qualify(checked_case, ctx["qualified_at"])
+                         checks[validator] = digest_hex(asdict(reproduced)) == expected
+                     pending["count"] -= 1
+                     if pending["count"] == 0:
+@@ -450,8 +485,8 @@ class DistributedRSUExtendedVPUFT(Architecture):
+                     committed=False,
+                     reason=result.reason,
+                     metadata={
++                        **qualification_metadata(ctx, result),
+                         "evidence_coordinator": ctx["coordinator"],
+-                        "independent_roots": result.independent_roots,
+                         "correlated_suppressed": result.correlated_suppressed,
+                         "expired_evidence": result.expired_evidence,
+                         "attempted_attestations": len(clean.attestations),
+@@ -487,6 +522,7 @@ class DistributedRSUExtendedVPUFT(Architecture):
+                 "detected_at": min((att.observed_at for att in clean.attestations), default=case.opened_at),
+                 "pending": len(clean.attestations),
+                 "delivered_attestations": [],
++                "evidence_arrival_times": [],
+             }
+ 
+             if not clean.attestations:
+@@ -499,56 +535,74 @@ class DistributedRSUExtendedVPUFT(Architecture):
+                 )
+                 continue
+ 
+-            for attestation in clean.attestations:
+-                if attestation.validator_rsu_id == coordinator:
+-                    def local_complete(*, ctx=ctx, attestation=attestation) -> None:
+-                        ctx["delivered_attestations"].append(attestation)
+-                        ctx["pending"] -= 1
+-                        if ctx["pending"] == 0:
+-                            scheduler.schedule(
+-                                scheduler.now,
+-                                lambda ctx=ctx: case_ready(ctx),
+-                                phase_rank=30,
+-                                case_order_index=ctx["index"],
+-                                key=f"distributed-ready:{ctx['case'].case_id}",
+-                            )
++            def finish_attestation(ctx: dict, attestation, arrival_time: float | None) -> None:
++                if arrival_time is not None:
++                    ctx["delivered_attestations"].append(attestation)
++                    ctx["evidence_arrival_times"].append(float(arrival_time))
++                ctx["pending"] -= 1
++                if ctx["pending"] == 0:
++                    scheduler.schedule(
++                        scheduler.now,
++                        lambda ctx=ctx: case_ready(ctx),
++                        phase_rank=30,
++                        case_order_index=ctx["index"],
++                        key=f"distributed-ready:{ctx['case'].case_id}",
++                    )
+ 
++            def forward_from_validator(ctx: dict, attestation, sent_at: float) -> None:
++                if attestation.validator_rsu_id == ctx["coordinator"]:
+                     scheduler.schedule(
+-                        attestation.observed_at,
+-                        local_complete,
++                        sent_at,
++                        lambda ctx=ctx, attestation=attestation: finish_attestation(
++                            ctx, attestation, scheduler.now
++                        ),
+                         phase_rank=15,
+-                        case_order_index=index,
++                        case_order_index=ctx["index"],
+                         key=f"local-evidence:{attestation.attestation_id}",
+                     )
+-                    continue
++                    return
+ 
+                 def evidence_complete(message, _resolved_at, *, ctx=ctx, attestation=attestation) -> None:
+-                    if message.delivered_at is not None:
+-                        ctx["delivered_attestations"].append(attestation)
+-                    ctx["pending"] -= 1
+-                    if ctx["pending"] == 0:
+-                        scheduler.schedule(
+-                            scheduler.now,
+-                            lambda ctx=ctx: case_ready(ctx),
+-                            phase_rank=30,
+-                            case_order_index=ctx["index"],
+-                            key=f"distributed-ready:{ctx['case'].case_id}",
+-                        )
++                    finish_attestation(ctx, attestation, message.delivered_at)
+ 
+                 transport.send_async(
+                     message_type="RSU_EVIDENCE_EXCHANGE",
+                     sender=attestation.validator_rsu_id,
+-                    receiver=coordinator,
+-                    case_id=case.case_id,
+-                    sent_at=attestation.observed_at,
++                    receiver=ctx["coordinator"],
++                    case_id=ctx["case"].case_id,
++                    sent_at=sent_at,
+                     size_bytes=704,
+                     random_key=f"evidence-attestation:{attestation.attestation_id}",
+                     random_stream_seed=seed,
+                     on_complete=evidence_complete,
+-                    case_order_index=index,
++                    case_order_index=ctx["index"],
+                     phase_rank=10,
+                 )
+ 
++            for attestation in clean.attestations:
++                if attestation.source_kind == "vehicle_witness":
++                    def uplink_complete(message, _resolved_at, *, ctx=ctx, attestation=attestation) -> None:
++                        if message.delivered_at is None:
++                            finish_attestation(ctx, attestation, None)
++                        else:
++                            forward_from_validator(ctx, attestation, message.delivered_at)
++
++                    transport.send_async(
++                        message_type="WITNESS_EVIDENCE_UPLINK",
++                        sender=attestation.source_id,
++                        receiver=attestation.validator_rsu_id,
++                        case_id=case.case_id,
++                        sent_at=attestation.observed_at,
++                        size_bytes=512,
++                        random_key=f"witness-uplink:{attestation.attestation_id}",
++                        random_stream_seed=seed,
++                        on_complete=uplink_complete,
++                        case_order_index=index,
++                        phase_rank=8,
++                    )
++                    continue
++                forward_from_validator(ctx, attestation, attestation.observed_at)
++
+         scheduler.run()
+         decisions.sort(key=lambda decision: case_order.get(decision.case_id, 10**9))
+         outcomes.sort(key=lambda outcome: case_order.get(outcome.case_id, 10**9))
+diff --git a/src/vpuft/config.py b/src/vpuft/config.py
+index 723dde7..24035db 100644
+--- a/src/vpuft/config.py
++++ b/src/vpuft/config.py
+@@ -129,6 +129,9 @@ class DistributedExtensionConfig:
+     evidence_source_fault_budget: int = 1
+     guard_on_directional_conflict_only: bool = True
+     replicate_read_cache_to_all_rsus: bool = True
++    cache_verified_evidence_bundle: bool = False
++    diversity_aware_root_assignment: bool = False
++    provenance_safe_observer_diversity: bool = False
+ 
+ 
+ @dataclass(frozen=True)
+diff --git a/src/vpuft/domain.py b/src/vpuft/domain.py
+index 1336cba..efdcfb6 100644
+--- a/src/vpuft/domain.py
++++ b/src/vpuft/domain.py
+@@ -175,6 +175,15 @@ class QualificationResult:
+     expired_evidence: int
+     reason: str
+     cryptographic_decisive: bool = False
++    required_roots: int = 0
++    required_sources: int = 0
++    required_zones: int = 0
++    required_modalities: int = 0
++    required_margin: float = 0.0
++    failed_constraints: tuple[str, ...] = ()
++    evidence_observed_at: tuple[float, ...] = ()
++    evidence_ages_seconds: tuple[float, ...] = ()
++    excluded_duplicate_roots: int = 0
+ 
+ 
+ @dataclass(frozen=True, slots=True)
+diff --git a/src/vpuft/evidence_acquisition.py b/src/vpuft/evidence_acquisition.py
+new file mode 100644
+index 0000000..35de980
+--- /dev/null
++++ b/src/vpuft/evidence_acquisition.py
+@@ -0,0 +1,56 @@
++from __future__ import annotations
++
++from dataclasses import replace
++
++from .domain import EvidenceCase
++
++
++def merge_existing_witness_evidence(
++    rsu_cases: list[EvidenceCase],
++    witness_cases: list[EvidenceCase],
++) -> tuple[list[EvidenceCase], dict[str, int]]:
++    """Attach already-recorded witness attestations to matching RSU cases.
++
++    This is an acquisition/forwarding variant, not sensor expansion. It never
++    creates or rebinds an attestation and deliberately excludes witness-only
++    cases so the baseline case population and window semantics stay unchanged.
++    """
++    witness_by_case = {case.case_id: case for case in witness_cases}
++    merged: list[EvidenceCase] = []
++    added = duplicate_ids = incompatible = 0
++    for rsu_case in rsu_cases:
++        existing_ids = {attestation.attestation_id for attestation in rsu_case.attestations}
++        additions = []
++        witness_case = witness_by_case.get(rsu_case.case_id)
++        if witness_case is not None:
++            if (
++                witness_case.vehicle_id != rsu_case.vehicle_id
++                or witness_case.attack_type != rsu_case.attack_type
++                or witness_case.ground_truth_malicious != rsu_case.ground_truth_malicious
++            ):
++                incompatible += len(witness_case.attestations)
++            else:
++                for attestation in witness_case.attestations:
++                    if attestation.attestation_id in existing_ids:
++                        duplicate_ids += 1
++                        continue
++                    if attestation.case_id != rsu_case.case_id:
++                        incompatible += 1
++                        continue
++                    additions.append(attestation)
++                    existing_ids.add(attestation.attestation_id)
++        added += len(additions)
++        merged.append(replace(rsu_case, attestations=[*rsu_case.attestations, *additions]))
++
++    rsu_case_ids = {case.case_id for case in rsu_cases}
++    unmatched = sum(
++        len(case.attestations) for case in witness_cases if case.case_id not in rsu_case_ids
++    )
++    return merged, {
++        "rsu_cases": len(rsu_cases),
++        "witness_attestations_added": added,
++        "duplicate_attestation_ids_skipped": duplicate_ids,
++        "incompatible_attestations_skipped": incompatible,
++        "unmatched_witness_attestations_excluded": unmatched,
++        "invented_attestations": 0,
++    }
+diff --git a/src/vpuft/qualification.py b/src/vpuft/qualification.py
+index e751071..0e9bd7f 100644
+--- a/src/vpuft/qualification.py
++++ b/src/vpuft/qualification.py
+@@ -4,7 +4,7 @@ from dataclasses import replace
+ 
+ from .config import ResearchConfig
+ from .domain import EvidenceCase, EvidenceDirection, QualificationResult
+-from .weighting import case_evidence_masses, regularized_strengths
++from .weighting import case_evidence_masses, evidence_mass, evidence_weight, regularized_strengths
+ 
+ 
+ class VPUFTQualificationEngine:
+@@ -25,6 +25,54 @@ class VPUFTQualificationEngine:
+             fresh_attestations.append(replace(attestation, freshness=min(attestation.freshness, age_freshness)))
+ 
+         positive_mass, negative_mass, roots = case_evidence_masses(fresh_attestations, self.config.weights)
++        if self.config.distributed_extension.diversity_aware_root_assignment:
++            used_sources: set[str] = set()
++            used_zones: set[str] = set()
++            used_modalities: set[str] = set()
++            reassigned = []
++            for root in roots:
++                if root.direction != EvidenceDirection.SUPPORTS:
++                    reassigned.append(root)
++                    continue
++                candidates = []
++                for attestation in fresh_attestations:
++                    if (
++                        attestation.observation_root_id == root.observation_root_id
++                        and attestation.direction == EvidenceDirection.SUPPORTS
++                        and attestation.validity == 1
++                    ):
++                        weight = evidence_weight(attestation, self.config.weights)
++                        if weight - root.opposing_weight > 1e-12:
++                            candidates.append((weight, attestation))
++                if not candidates:
++                    reassigned.append(root)
++                    continue
++                weight, representative = max(
++                    candidates,
++                    key=lambda pair: (
++                        int(pair[1].source_id not in used_sources)
++                        + int(pair[1].geographic_cell not in used_zones)
++                        + int(pair[1].sensor_modality not in used_modalities),
++                        pair[0],
++                        pair[1].attestation_id,
++                    ),
++                )
++                used_sources.add(representative.source_id)
++                used_zones.add(representative.geographic_cell)
++                used_modalities.add(representative.sensor_modality)
++                reassigned.append(replace(
++                    root,
++                    representative=representative,
++                    supporting_weight=weight,
++                    weight=weight - root.opposing_weight,
++                ))
++            roots = sorted(reassigned, key=lambda item: item.observation_root_id)
++            positive_mass = evidence_mass(
++                root.weight for root in roots if root.direction == EvidenceDirection.SUPPORTS
++            )
++            negative_mass = evidence_mass(
++                root.weight for root in roots if root.direction == EvidenceDirection.OPPOSES
++            )
+         supporting, opposing, margin = regularized_strengths(
+             positive_mass, negative_mass, policy.opposition_lambda
+         )
+@@ -33,9 +81,28 @@ class VPUFTQualificationEngine:
+             if root.direction == EvidenceDirection.SUPPORTS and root.weight >= policy.min_representative_weight
+         ]
+         independent_roots = len({root.observation_root_id for root in supporters})
+-        distinct_sources = len({root.representative.source_id for root in supporters})
+-        distinct_zones = len({root.representative.geographic_cell for root in supporters})
+-        distinct_modalities = len({root.representative.sensor_modality for root in supporters})
++        if self.config.distributed_extension.provenance_safe_observer_diversity:
++            # A root can provide at most one diversity credit in each dimension.
++            # This prevents three RSUs observing one CAM from satisfying a
++            # two-source/two-zone requirement by themselves. Different roots
++            # may select different signed observers for source and zone credit.
++            eligible_by_root: dict[str, list] = {}
++            supporting_root_ids = {root.observation_root_id for root in supporters}
++            for attestation in fresh_attestations:
++                if (
++                    attestation.observation_root_id in supporting_root_ids
++                    and attestation.direction == EvidenceDirection.SUPPORTS
++                    and attestation.validity == 1
++                    and evidence_weight(attestation, self.config.weights) >= policy.min_representative_weight
++                ):
++                    eligible_by_root.setdefault(attestation.observation_root_id, []).append(attestation)
++            distinct_sources = len(self._distinct_root_matching(eligible_by_root, "source_id"))
++            distinct_zones = len(self._distinct_root_matching(eligible_by_root, "geographic_cell"))
++            distinct_modalities = len(self._distinct_root_matching(eligible_by_root, "sensor_modality"))
++        else:
++            distinct_sources = len({root.representative.source_id for root in supporters})
++            distinct_zones = len({root.representative.geographic_cell for root in supporters})
++            distinct_modalities = len({root.representative.sensor_modality for root in supporters})
+         correlated_suppressed = sum(root.duplicate_count for root in roots)
+ 
+         cryptographic_decisive = False
+@@ -55,6 +122,18 @@ class VPUFTQualificationEngine:
+         )
+         qualified = cryptographic_decisive or (diversity_ok and margin >= policy.margin_threshold)
+ 
++        failed_constraints = []
++        if independent_roots < policy.required_roots:
++            failed_constraints.append("independent_roots")
++        if distinct_sources < policy.required_sources:
++            failed_constraints.append("sources")
++        if distinct_zones < policy.required_zones:
++            failed_constraints.append("zones")
++        if distinct_modalities < policy.required_modalities:
++            failed_constraints.append("modalities")
++        if margin < policy.margin_threshold:
++            failed_constraints.append("margin")
++
+         if cryptographic_decisive:
+             reason = "cryptographic_decisive_evidence"
+         elif not fresh_attestations:
+@@ -80,4 +159,38 @@ class VPUFTQualificationEngine:
+             expired_evidence=expired,
+             reason=reason,
+             cryptographic_decisive=cryptographic_decisive,
++            required_roots=policy.required_roots,
++            required_sources=policy.required_sources,
++            required_zones=policy.required_zones,
++            required_modalities=policy.required_modalities,
++            required_margin=policy.margin_threshold,
++            failed_constraints=tuple(failed_constraints),
++            evidence_observed_at=tuple(
++                sorted(float(attestation.observed_at) for attestation in fresh_attestations)
++            ),
++            evidence_ages_seconds=tuple(
++                sorted(max(0.0, now - float(attestation.observed_at)) for attestation in fresh_attestations)
++            ),
++            excluded_duplicate_roots=correlated_suppressed,
+         )
++
++    @staticmethod
++    def _distinct_root_matching(reports_by_root: dict[str, list], attribute: str) -> dict[str, str]:
++        """Maximum one-to-one matching from supporting roots to diversity values."""
++        value_to_root: dict[str, str] = {}
++
++        def assign(root_id: str, visited: set[str]) -> bool:
++            values = sorted({str(getattr(report, attribute)) for report in reports_by_root[root_id]})
++            for value in values:
++                if value in visited:
++                    continue
++                visited.add(value)
++                current = value_to_root.get(value)
++                if current is None or assign(current, visited):
++                    value_to_root[value] = root_id
++                    return True
++            return False
++
++        for root_id in sorted(reports_by_root):
++            assign(root_id, set())
++        return value_to_root
+diff --git a/tests/test_event_time_scheduler.py b/tests/test_event_time_scheduler.py
+index d96d54e..f7730ff 100644
+--- a/tests/test_event_time_scheduler.py
++++ b/tests/test_event_time_scheduler.py
+@@ -296,6 +296,25 @@ def test_terminal_revocation_guard_prevents_repeated_consensus_and_ledger_append
+     assert distributed.consensus[0].case_id == cases[0].case_id
+ 
+ 
++def test_provenance_safe_variant_keeps_revocation_terminal_and_single_append():
++    keys = KeyRegistry()
++    cases = [
++        _window_case(keys, "veh-terminal-b8", 0, 0.0),
++        _window_case(keys, "veh-terminal-b8", 1, 15.0),
++    ]
++    config = _config()
++    config = replace(config, distributed_extension=replace(
++        config.distributed_extension, provenance_safe_observer_diversity=True
++    ))
++    result = DistributedRSUExtendedVPUFT(config, keys).run(cases, 1001)
++    first, second = result.decisions
++    assert first.committed and first.new_state.value == "revoked"
++    assert not second.committed
++    assert second.reason == "already_revoked_terminal_state"
++    assert len(result.consensus) == 1
++    assert result.ledger_blocks == 1
++
++
+ def test_security_metrics_exclude_terminal_state_noops_from_confusion_matrix():
+     keys = KeyRegistry()
+     cases = [
+diff --git a/tests/test_phase2_ablation_driver.py b/tests/test_phase2_ablation_driver.py
+new file mode 100644
+index 0000000..0f72335
+--- /dev/null
++++ b/tests/test_phase2_ablation_driver.py
+@@ -0,0 +1,9 @@
++import pandas as pd
++
++from scripts.run_phase2_ablation import select_profile_trace
++
++
++def test_profile_trace_selection_supports_single_cell_smoke_runs():
++    traces = pd.DataFrame([{"density": 20, "seed": 1001, "trace_path": "trace.jsonl"}])
++    selected = select_profile_trace(traces)
++    assert selected.trace_path == "trace.jsonl"
+diff --git a/tests/test_phase2_cpu_optimization.py b/tests/test_phase2_cpu_optimization.py
+new file mode 100644
+index 0000000..edb8cd9
+--- /dev/null
++++ b/tests/test_phase2_cpu_optimization.py
+@@ -0,0 +1,51 @@
++from dataclasses import replace
++
++from vpuft.architectures import DistributedRSUExtendedVPUFT
++from vpuft.config import DistributedExtensionConfig, NetworkConfig, ResearchConfig
++from vpuft.crypto import KeyRegistry
++from vpuft.domain import AttackType, EvidenceAttestation, EvidenceCase, EvidenceDirection
++from vpuft.evidence import sign_attestation
++
++
++def _case(keys):
++    case = EvidenceCase("case-opt", "veh-1", "p-1", AttackType.POSITION_OFFSET, 0.0, True)
++    for index, source in enumerate(("rsu-1", "rsu-2")):
++        raw = EvidenceAttestation(
++            f"att-{index}", case.case_id, f"root-{index}", source, "rsu", source,
++            f"domain-{index}", "cam", f"zone-{index}", case.attack_type,
++            EvidenceDirection.SUPPORTS, 0.99, 0.99, 0.99, 0.99, 0.99,
++            float(index), f"hash-{index}", "", "",
++        )
++        case.add(sign_attestation(raw, keys, source))
++    return case
++
++
++def test_verified_bundle_cache_preserves_decision_and_avoids_repeated_sanitization():
++    keys = KeyRegistry()
++    base = ResearchConfig(network=NetworkConfig(packet_delivery_ratio=1.0))
++    optimized = replace(
++        base,
++        distributed_extension=replace(
++            base.distributed_extension, cache_verified_evidence_bundle=True
++        ),
++    )
++
++    def run(config):
++        architecture = DistributedRSUExtendedVPUFT(config, keys)
++        original = architecture.sanitize_case
++        calls = {"count": 0}
++        def counted(case):
++            calls["count"] += 1
++            return original(case)
++        architecture.sanitize_case = counted
++        result = architecture.run([_case(keys)], 1001)
++        return result, calls["count"]
++
++    baseline, baseline_calls = run(base)
++    candidate, candidate_calls = run(optimized)
++
++    assert candidate_calls < baseline_calls
++    assert (candidate.decisions[0].committed, candidate.decisions[0].new_state) == (
++        baseline.decisions[0].committed, baseline.decisions[0].new_state
++    )
++    assert candidate.decisions[0].decision_margin == baseline.decisions[0].decision_margin
+diff --git a/tests/test_phase2_diversity_assignment.py b/tests/test_phase2_diversity_assignment.py
+new file mode 100644
+index 0000000..daaacf7
+--- /dev/null
++++ b/tests/test_phase2_diversity_assignment.py
+@@ -0,0 +1,47 @@
++from dataclasses import replace
++
++from vpuft.config import ResearchConfig
++from vpuft.crypto import KeyRegistry
++from vpuft.domain import AttackType, EvidenceAttestation, EvidenceCase, EvidenceDirection
++from vpuft.evidence import sign_attestation
++from vpuft.qualification import VPUFTQualificationEngine
++
++
++def _att(keys, root, source, zone, confidence, index):
++    raw = EvidenceAttestation(
++        f"att-{index}", "case-diverse", root, source, "rsu", source,
++        f"domain-{source}", "cam", zone, AttackType.POSITION_OFFSET,
++        EvidenceDirection.SUPPORTS, confidence, 0.99, 0.99, 0.99, 0.99,
++        1.0, f"hash-{index}", "", "",
++    )
++    return sign_attestation(raw, keys, source)
++
++
++def test_diversity_aware_assignment_uses_real_alternate_rsu_without_root_inflation():
++    keys = KeyRegistry()
++    base = ResearchConfig()
++    improved = replace(
++        base,
++        distributed_extension=replace(
++            base.distributed_extension, diversity_aware_root_assignment=True
++        ),
++    )
++    case = EvidenceCase(
++        "case-diverse", "veh-1", "p-1", AttackType.POSITION_OFFSET, 0.0, True,
++        [
++            _att(keys, "root-1", "rsu-1", "zone-1", 0.99, 1),
++            _att(keys, "root-1", "rsu-2", "zone-2", 0.95, 2),
++            _att(keys, "root-2", "rsu-1", "zone-1", 0.99, 3),
++            _att(keys, "root-2", "rsu-2", "zone-2", 0.95, 4),
++        ],
++    )
++
++    baseline = VPUFTQualificationEngine(base).qualify(case, now=2.0)
++    candidate = VPUFTQualificationEngine(improved).qualify(case, now=2.0)
++
++    assert not baseline.qualified
++    assert candidate.qualified
++    assert candidate.independent_roots == 2
++    assert candidate.distinct_sources == 2
++    assert candidate.distinct_zones == 2
++    assert candidate.excluded_duplicate_roots == 2
+diff --git a/tests/test_phase2_evidence_acquisition.py b/tests/test_phase2_evidence_acquisition.py
+new file mode 100644
+index 0000000..da40f93
+--- /dev/null
++++ b/tests/test_phase2_evidence_acquisition.py
+@@ -0,0 +1,65 @@
++from vpuft.crypto import KeyRegistry
++from vpuft.evidence_acquisition import merge_existing_witness_evidence
++from vpuft.architectures import DistributedRSUExtendedVPUFT
++from vpuft.config import NetworkConfig, ResearchConfig
++from dataclasses import replace
++from vpuft.trace import build_trace_bundle, read_events_jsonl
++
++
++def test_merge_uses_only_existing_signed_witness_attestations():
++    trace = (
++        "results/post_seminar_phase2/baseline_regenerated/traces/urban_roundabout/"
++        "vehicles_20/seed_1001/shared_detection_trace.jsonl"
++    )
++    keys = KeyRegistry()
++    bundle = build_trace_bundle(
++        read_events_jsonl(trace), keys, window_seconds=15.0,
++        namespace="urban_roundabout-vehicles-20",
++    )
++
++    merged, audit = merge_existing_witness_evidence(bundle.rsu_cases, bundle.witness_cases)
++
++    original_ids = {a.attestation_id for c in bundle.rsu_cases + bundle.witness_cases for a in c.attestations}
++    merged_ids = {a.attestation_id for c in merged for a in c.attestations}
++    assert merged_ids <= original_ids
++    assert audit["invented_attestations"] == 0
++    assert audit["witness_attestations_added"] > 0
++    assert len(merged) == len(bundle.rsu_cases)
++
++
++def test_merge_never_duplicates_an_attestation_or_rebinds_case_identity():
++    trace = (
++        "results/post_seminar_phase2/baseline_regenerated/traces/urban_roundabout/"
++        "vehicles_20/seed_1001/shared_detection_trace.jsonl"
++    )
++    keys = KeyRegistry()
++    bundle = build_trace_bundle(
++        read_events_jsonl(trace), keys, window_seconds=15.0,
++        namespace="urban_roundabout-vehicles-20",
++    )
++    merged, _ = merge_existing_witness_evidence(bundle.rsu_cases, bundle.witness_cases)
++    for case in merged:
++        ids = [a.attestation_id for a in case.attestations]
++        assert len(ids) == len(set(ids))
++        assert all(a.case_id == case.case_id for a in case.attestations)
++
++
++def test_forwarded_witness_evidence_has_an_accounted_uplink_message():
++    trace = (
++        "results/post_seminar_phase2/baseline_regenerated/traces/urban_roundabout/"
++        "vehicles_20/seed_1001/shared_detection_trace.jsonl"
++    )
++    keys = KeyRegistry()
++    bundle = build_trace_bundle(
++        read_events_jsonl(trace), keys, window_seconds=15.0,
++        namespace="urban_roundabout-vehicles-20",
++    )
++    merged, _ = merge_existing_witness_evidence(bundle.rsu_cases, bundle.witness_cases)
++    selected = next(case for case in merged if any(a.source_kind == "vehicle_witness" for a in case.attestations))
++    config = ResearchConfig(network=NetworkConfig(packet_delivery_ratio=1.0))
++
++    result = DistributedRSUExtendedVPUFT(config, keys).run([selected], 1001)
++
++    uplinks = [m for m in result.messages if m.message_type == "WITNESS_EVIDENCE_UPLINK"]
++    expected = sum(a.source_kind == "vehicle_witness" for a in selected.attestations)
++    assert len(uplinks) == expected
+diff --git a/tests/test_phase2_qualification_diagnostics.py b/tests/test_phase2_qualification_diagnostics.py
+new file mode 100644
+index 0000000..1cb70b9
+--- /dev/null
++++ b/tests/test_phase2_qualification_diagnostics.py
+@@ -0,0 +1,58 @@
++from dataclasses import replace
++
++from vpuft.config import ResearchConfig
++from vpuft.crypto import KeyRegistry
++from vpuft.domain import AttackType, EvidenceAttestation, EvidenceCase, EvidenceDirection
++from vpuft.evidence import sign_attestation
++from vpuft.qualification import VPUFTQualificationEngine
++
++
++def _support(keys, index, *, source="rsu-1", zone="cell-a", observed_at=1.0):
++    unsigned = EvidenceAttestation(
++        attestation_id=f"att-{index}", case_id="case-diagnostics",
++        observation_root_id=f"root-{index}", source_id=source, source_kind="rsu",
++        validator_rsu_id=source, administrative_domain_id="domain-1",
++        sensor_modality="rsu_cam_plausibility", geographic_cell=zone,
++        attack_type=AttackType.POSITION_OFFSET, direction=EvidenceDirection.SUPPORTS,
++        detector_confidence=0.95, source_reliability=0.95, freshness=0.95,
++        verifiability=0.95, independence=0.95, observed_at=observed_at,
++        evidence_hash=f"hash-{index}", signature="", public_key_id="",
++    )
++    return sign_attestation(unsigned, keys, source)
++
++
++def test_qualification_records_every_failed_constraint_without_changing_reason():
++    config = ResearchConfig()
++    keys = KeyRegistry(config.security.deterministic_master_seed)
++    case = EvidenceCase(
++        "case-diagnostics", "veh-1", "pseudo-1", AttackType.POSITION_OFFSET, 0.0, True,
++        [_support(keys, 1)],
++    )
++
++    result = VPUFTQualificationEngine(config).qualify(case, now=2.0)
++
++    assert not result.qualified
++    assert result.reason == "insufficient_independent_evidence_diversity"
++    assert result.required_roots == 2
++    assert result.required_sources == 2
++    assert result.required_zones == 2
++    assert result.required_modalities == 1
++    assert result.required_margin == 0.45
++    assert result.failed_constraints == ("independent_roots", "sources", "zones")
++    assert result.evidence_observed_at == (1.0,)
++    assert result.evidence_ages_seconds == (1.0,)
++    assert result.excluded_duplicate_roots == 0
++
++
++def test_diagnostics_report_margin_together_with_diversity_failures():
++    config = ResearchConfig()
++    keys = KeyRegistry(config.security.deterministic_master_seed)
++    weak = replace(_support(keys, 1), detector_confidence=0.06)
++    case = EvidenceCase(
++        "case-diagnostics", "veh-1", "pseudo-1", AttackType.POSITION_OFFSET, 0.0, True,
++        [weak],
++    )
++
++    result = VPUFTQualificationEngine(config).qualify(case, now=2.0)
++
++    assert set(result.failed_constraints) == {"independent_roots", "sources", "zones", "margin"}
+diff --git a/tests/test_phase3_provenance_safe_diversity.py b/tests/test_phase3_provenance_safe_diversity.py
+new file mode 100644
+index 0000000..142294b
+--- /dev/null
++++ b/tests/test_phase3_provenance_safe_diversity.py
+@@ -0,0 +1,159 @@
++from dataclasses import replace
++
++import pytest
++
++from vpuft.config import ResearchConfig
++from vpuft.crypto import KeyRegistry
++from vpuft.domain import AttackType, EvidenceAttestation, EvidenceCase, EvidenceDirection
++from vpuft.evidence import sign_attestation
++from vpuft.qualification import VPUFTQualificationEngine
++
++
++def _report(keys, *, root, source, zone, direction=EvidenceDirection.SUPPORTS,
++            at=1.0, confidence=0.98, validity=1, signed=True, modality="cam", suffix=""):
++    value = EvidenceAttestation(
++        f"att-{root}-{source}-{suffix or zone}", "case-p3", root, source, "rsu", source,
++        f"domain-{source}", modality, zone, AttackType.POSITION_OFFSET, direction,
++        confidence, 0.99, 0.99, 0.99, 0.99, at, f"hash-{root}-{source}-{zone}-{suffix}", "", "",
++        validity=validity,
++    )
++    return sign_attestation(value, keys, source) if signed else replace(value, signature="invalid")
++
++
++def _qualify(reports, *, enabled=True, now=2.0):
++    config = ResearchConfig()
++    config = replace(config, distributed_extension=replace(
++        config.distributed_extension, provenance_safe_observer_diversity=enabled
++    ))
++    case = EvidenceCase("case-p3", "veh-1", "p-1", AttackType.POSITION_OFFSET, 0.0, True, reports)
++    return VPUFTQualificationEngine(config).qualify(case, now)
++
++
++def test_three_rsus_observing_one_cam_remain_one_root_and_one_diversity_credit():
++    keys = KeyRegistry()
++    reports = [_report(keys, root="cam-root", source=f"rsu-{i}", zone=f"zone-{i}") for i in range(3)]
++    result = _qualify(reports)
++    assert result.independent_roots == 1
++    assert result.distinct_sources == 1
++    assert result.distinct_zones == 1
++    assert not result.qualified
++    assert "independent_roots" in result.failed_constraints
++
++
++def test_two_independent_roots_can_match_distinct_sources_and_zones():
++    keys = KeyRegistry()
++    reports = [
++        _report(keys, root="root-a", source="rsu-1", zone="zone-a"),
++        _report(keys, root="root-a", source="rsu-2", zone="zone-b", confidence=0.95),
++        _report(keys, root="root-b", source="rsu-1", zone="zone-a", suffix="b1"),
++        _report(keys, root="root-b", source="rsu-2", zone="zone-b", confidence=0.95, suffix="b2"),
++    ]
++    result = _qualify(reports)
++    assert result.independent_roots == 2
++    assert result.distinct_sources == 2
++    assert result.distinct_zones == 2
++    policy = ResearchConfig().policies[AttackType.POSITION_OFFSET.value]
++    assert result.required_roots == policy.required_roots
++    assert result.required_sources == policy.required_sources
++    assert result.required_zones == policy.required_zones
++    assert result.qualified
++
++
++def test_same_root_extra_observers_do_not_replace_required_independent_message():
++    keys = KeyRegistry()
++    reports = [_report(keys, root="root-a", source=f"rsu-{i}", zone=f"zone-{i}") for i in range(4)]
++    result = _qualify(reports)
++    assert result.independent_roots == 1
++    assert result.distinct_sources == 1
++    assert result.distinct_zones == 1
++
++
++def test_opposing_report_cannot_earn_supporting_diversity_credit():
++    keys = KeyRegistry()
++    reports = [
++        _report(keys, root="root-a", source="rsu-1", zone="zone-a"),
++        _report(keys, root="root-a", source="rsu-2", zone="zone-b", direction=EvidenceDirection.OPPOSES),
++        _report(keys, root="root-b", source="rsu-1", zone="zone-a", suffix="b"),
++    ]
++    result = _qualify(reports)
++    assert result.distinct_sources == 1
++    assert result.distinct_zones == 1
++
++
++def test_expired_invalid_and_below_weight_reports_are_ineligible_for_matching():
++    keys = KeyRegistry()
++    reports = [
++        _report(keys, root="root-a", source="rsu-1", zone="zone-a"),
++        _report(keys, root="root-a", source="rsu-2", zone="zone-b", at=-20, suffix="expired"),
++        _report(keys, root="root-a", source="rsu-3", zone="zone-c", validity=0, suffix="invalid"),
++        _report(keys, root="root-b", source="rsu-1", zone="zone-a", suffix="b"),
++        _report(keys, root="root-b", source="rsu-4", zone="zone-d", confidence=1e-30, suffix="weak"),
++    ]
++    result = _qualify(reports)
++    assert result.independent_roots == 2
++    assert result.distinct_sources == 1
++    assert result.distinct_zones == 1
++
++
++def test_invalid_signature_is_removed_by_architecture_sanitization():
++    from vpuft.architectures.base import Architecture
++
++    keys = KeyRegistry()
++    good = _report(keys, root="root-a", source="rsu-1", zone="zone-a")
++    bad = _report(keys, root="root-b", source="rsu-2", zone="zone-b", signed=False)
++    case = EvidenceCase("case-p3", "veh-1", "p-1", AttackType.POSITION_OFFSET, 0.0, True, [good, bad])
++
++    class Sanitizer(Architecture):
++        name = "test"
++        def run(self, cases, seed):
++            raise NotImplementedError
++
++    clean = Sanitizer(ResearchConfig(), keys).sanitize_case(case)
++    assert [item.observation_root_id for item in clean.attestations if item.validity == 1] == ["root-a"]
++    assert all(item.validity == 0 for item in clean.attestations if item.observation_root_id == "root-b")
++
++
++@pytest.mark.parametrize("attack", [AttackType.REPLAY, AttackType.FLOOD])
++def test_replay_and_flood_copies_do_not_increase_root_count(attack):
++    keys = KeyRegistry()
++    reports = [_report(keys, root="same-original-root", source=f"rsu-{i}", zone=f"zone-{i}") for i in range(5)]
++    result = _qualify(reports)
++    assert result.independent_roots == 1
++
++
++def test_compromised_signed_source_cannot_gain_more_than_one_root_credit():
++    keys = KeyRegistry()
++    reports = [
++        _report(keys, root="root-a", source="compromised-rsu", zone="zone-a"),
++        _report(keys, root="root-a", source="compromised-rsu", zone="zone-b", suffix="a2"),
++        _report(keys, root="root-b", source="rsu-2", zone="zone-c", suffix="b"),
++    ]
++    result = _qualify(reports)
++    assert result.independent_roots == 2
++    assert result.distinct_sources == 2
++    assert result.distinct_zones == 2
++
++
++def test_disabled_option_preserves_frozen_representative_based_result():
++    keys = KeyRegistry()
++    reports = [
++        _report(keys, root="root-a", source="rsu-1", zone="zone-a"),
++        _report(keys, root="root-a", source="rsu-2", zone="zone-b", confidence=0.95),
++        _report(keys, root="root-b", source="rsu-1", zone="zone-a", suffix="b1"),
++        _report(keys, root="root-b", source="rsu-2", zone="zone-b", confidence=0.95, suffix="b2"),
++    ]
++    assert _qualify(reports, enabled=False).distinct_sources == 1
++    assert _qualify(reports, enabled=True).distinct_sources == 2
++
++
++def test_compromised_single_source_cannot_multiply_source_or_zone_credits_per_root():
++    keys = KeyRegistry()
++    reports = [
++        _report(keys, root="cam-a", source="compromised-rsu", zone=f"lie-{i}", suffix=str(i))
++        for i in range(5)
++    ]
++    result = _qualify(reports)
++    assert result.independent_roots == 1
++    assert result.distinct_sources == 1
++    assert result.distinct_zones == 1
++    assert not result.qualified

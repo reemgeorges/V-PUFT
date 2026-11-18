@@ -1,0 +1,42 @@
+[
+  {
+    "density": 20,
+    "seed": 1007,
+    "placement": "C0",
+    "trace_path": "results\\post_seminar_phase2\\baseline_regenerated\\traces\\urban_roundabout\\vehicles_20\\seed_1007\\shared_detection_trace.jsonl",
+    "trace_sha256": "4a37f20cd1824656d4ebb7fc706561449c01538c9e951393f9e0cf020376a6c5",
+    "mobility_sha256": "0a13a2994670efabeacc459a5e9fcd00e76132ceb39e292855a7361a8fe620cb",
+    "messages_sha256": "5261440c991abd3b4b2b3269e2707c176a54e86ffb448ea5c610e2d91484c3fd",
+    "truth_sha256": "f1fa4c5de5908e85dcae02798d770d113b902c814045d7a89709ef56165392c5"
+  },
+  {
+    "density": 20,
+    "seed": 1007,
+    "placement": "C1_C2",
+    "trace_path": "results\\post_seminar_phase5\\pilot\\vehicles_20\\seed_1007\\shared_detection_trace.jsonl",
+    "trace_sha256": "0c837cca728f3e2cb6447168eb4f887aa50f5fd0cfa5d4e5d49ea800dbbe27ec",
+    "mobility_sha256": "0a13a2994670efabeacc459a5e9fcd00e76132ceb39e292855a7361a8fe620cb",
+    "messages_sha256": "5261440c991abd3b4b2b3269e2707c176a54e86ffb448ea5c610e2d91484c3fd",
+    "truth_sha256": "f1fa4c5de5908e85dcae02798d770d113b902c814045d7a89709ef56165392c5"
+  },
+  {
+    "density": 100,
+    "seed": 1007,
+    "placement": "C0",
+    "trace_path": "results\\post_seminar_phase2\\baseline_regenerated\\traces\\urban_roundabout\\vehicles_100\\seed_1007\\shared_detection_trace.jsonl",
+    "trace_sha256": "aa290a64027106a4090c0cdd06b801590210f8d2da5c23410e2d842cf3d09a53",
+    "mobility_sha256": "d5964bec78bb74baca60f66940bd3e7db1a8179dc775c8a8809ef24e7e84c69a",
+    "messages_sha256": "e5d10c3a4e72187dbed9b0582a945971326b98b66fa1f2dffdd04bb148b00707",
+    "truth_sha256": "17b4aac10c4eac4fa49f92909b24aa459559dde93bd5320ade274de9e4eb3af1"
+  },
+  {
+    "density": 100,
+    "seed": 1007,
+    "placement": "C1_C2",
+    "trace_path": "results\\post_seminar_phase5\\pilot\\vehicles_100\\seed_1007\\shared_detection_trace.jsonl",
+    "trace_sha256": "f550050a3a0c8d73f6405eac5dc77352adb1563841cd822e545ff06b5a056a39",
+    "mobility_sha256": "d5964bec78bb74baca60f66940bd3e7db1a8179dc775c8a8809ef24e7e84c69a",
+    "messages_sha256": "e5d10c3a4e72187dbed9b0582a945971326b98b66fa1f2dffdd04bb148b00707",
+    "truth_sha256": "17b4aac10c4eac4fa49f92909b24aa459559dde93bd5320ade274de9e4eb3af1"
+  }
+]

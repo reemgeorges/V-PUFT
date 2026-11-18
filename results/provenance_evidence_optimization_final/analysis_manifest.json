@@ -1,0 +1,18 @@
+{
+  "base_commit": "96a7e903438c7316c25ed5e4b2e2cad433229224",
+  "branch": "research/provenance-evidence-optimization",
+  "analysis_type": "offline replay only; no SUMO traces regenerated",
+  "variants": [
+    "C1_B0",
+    "C1_B1",
+    "C3_B0",
+    "C3_B1"
+  ],
+  "paired_cells": 6,
+  "completed_c3_100_seed_2102_source": "seed_2102_retry1",
+  "paired_mobility_message_ground_truth_manifests": 6,
+  "paired_manifests_sha256": "73c2ce0b2a943aaff693d2717034cc833035e2c4e7a2fc24a9f11ab834ea94c2",
+  "input_config_sha256": "8ef99917dbee8ca9df83f40e77477ff9094023127387f6a8f7a725bc8629a73f",
+  "false_positive_cases_introduced_by_b1": 0,
+  "summaries_only": true
+}

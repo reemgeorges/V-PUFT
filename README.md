@@ -504,3 +504,21 @@ vpuft topology-campaign `
 - `multi_topology_manifest.json`
 - مجلد مستقل لكل طبولوجيا
 - تحليل حساسية واحد عبر الطبولوجيات الأربع
+
+
+## Research navigation
+
+- Original architecture: [objectives](docs/OBJECTIVES.md) and [project index](docs/research_closure/PROJECT_MASTER_INDEX_AR.md).
+- Dataset A/B provenance: [experiment register](docs/research_closure/EXPERIMENT_REGISTER.csv) and [provenance index](docs/research_closure/PROVENANCE_INDEX.json).
+- Corrected Method B: [verified package](docs/final_scenario5_evidence_package/METHOD_B_CORRECTED_FINAL/).
+- Sensitivity: [reports and results](docs/final_scenario5_sensitivity/).
+- Ablation: [reports and results](docs/final_scenario5_ablation/).
+- Post-seminar studies: [archive index](docs/post_seminar/POST_SEMINAR_ARCHIVE_INDEX.md) and [Phase 6 held-out report](docs/post_seminar/PHASE_6_FINAL_HELDOUT_RESULTS.md).
+- RSU expansion: [8-RSU pilot](docs/post_seminar/PHASE_6_8RSU_PILOT_AR.md).
+- Coordinator selection: [assumptions](docs/post_seminar/COORDINATOR_ASSUMPTIONS.md).
+- V5 experiments: [validator architecture](docs/post_seminar/V5_VALIDATOR_ARCHITECTURE.md).
+- Security limitations: [claims and limits](docs/research_closure/CLAIMS_AND_LIMITATIONS_AR.md).
+- Defense video: [assets and provenance](docs/final_scenario5_video/).
+- Independent Claude review: [read-only handoff](docs/research_closure/CLAUDE_AUDIT_HANDOFF.md).
+
+Post-seminar and V5 results are supplementary/archive artifacts. Do not combine them with Dataset A or Dataset B.

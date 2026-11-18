@@ -1,0 +1,3 @@
+variant,cells,input_cases,TP,FP,TN,FN,mean_cpu_s,mean_p95_e2e_ms,mean_pbft_p95_ms,mean_ledger_delay_p95_ms,mean_pdr,total_pbft_messages,total_evidence_transport_messages,total_messages,messages_per_input_case,successful_finalizations,progress_failures,ledger_consistent_cells
+V4_q3,6,2102,115,0,1418,38,3.5442708333333335,14138.127433257609,124.40063478099597,14.58782657525141,0.9805151585562369,3166,58040,61557,29.284966698382494,115,0,6
+V5_q4,6,2102,115,0,1418,38,3.8125,14150.40576522195,135.43430475963905,15.490815657206568,0.9803594828057559,5166,58159,63793,30.34871550903901,115,0,6

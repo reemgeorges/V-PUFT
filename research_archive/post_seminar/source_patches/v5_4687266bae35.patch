@@ -1,0 +1,346 @@
+commit 4687266bae35d680d77730b1dd4d929a6ea57900
+Author:     reemgeorges <reem.georges@themetagate.me>
+AuthorDate: Fri Nov 13 19:44:33 2026 +0300
+Commit:     reemgeorges <reem.georges@themetagate.me>
+CommitDate: Fri Nov 13 19:44:33 2026 +0300
+
+    Add five-validator V-PUFT prototype
+
+diff --git a/src/vpuft/architectures/distributed_extension.py b/src/vpuft/architectures/distributed_extension.py
+index 8ffcc92..72ba0ba 100644
+--- a/src/vpuft/architectures/distributed_extension.py
++++ b/src/vpuft/architectures/distributed_extension.py
+@@ -42,9 +42,10 @@ class DistributedRSUExtendedVPUFT(Architecture):
+ 
+     def _select_coordinator(self, case: EvidenceCase) -> str:
+         validators = tuple(self.config.pbft.validators)
++        coordinator_pool = tuple(self.config.distributed_extension.coordinator_pool) or validators
+         strategy = self.config.distributed_extension.coordinator_strategy
+         if strategy == "first_observer_then_hash":
+-            local = [att for att in case.attestations if att.validator_rsu_id in validators]
++            local = [att for att in case.attestations if att.validator_rsu_id in coordinator_pool]
+             if local:
+                 return min(local, key=lambda att: (att.observed_at, att.attestation_id)).validator_rsu_id
+         if strategy == "canonical_case_epoch_hash":
+@@ -55,10 +56,10 @@ class DistributedRSUExtendedVPUFT(Architecture):
+             epoch = unicodedata.normalize("NFC", raw_epoch).strip()
+             if not epoch:
+                 raise ValueError("membership_epoch must be non-empty")
+-            if any(not isinstance(validator, str) for validator in validators):
++            if any(not isinstance(validator, str) for validator in coordinator_pool):
+                 raise ValueError("Canonical coordinator validator identities must be strings")
+             canonical_validators = sorted(
+-                unicodedata.normalize("NFC", validator).strip() for validator in validators
++                unicodedata.normalize("NFC", validator).strip() for validator in coordinator_pool
+             )
+             if not canonical_validators or any(not validator for validator in canonical_validators):
+                 raise ValueError("Canonical coordinator mapping requires non-empty validators")
+@@ -69,8 +70,8 @@ class DistributedRSUExtendedVPUFT(Architecture):
+             ).encode("utf-8")
+             offset = int.from_bytes(sha256(encoded).digest(), "big") % len(canonical_validators)
+             return canonical_validators[offset]
+-        offset = int(sha256(case.case_id.encode("utf-8")).hexdigest(), 16) % len(validators)
+-        return validators[offset]
++        offset = int(sha256(case.case_id.encode("utf-8")).hexdigest(), 16) % len(coordinator_pool)
++        return coordinator_pool[offset]
+ 
+     def _apply_evidence_source_guard(self, case: EvidenceCase, result, now: float):
+         ext = self.config.distributed_extension
+@@ -124,7 +125,11 @@ class DistributedRSUExtendedVPUFT(Architecture):
+             if self.config.distributed_extension.simulator_finalization_guard_enabled
+             else None
+         )
+-        pbft = PBFTConsensus(self.config.pbft, transport, self.keys, finalization_guard=finalization_guard)
++        pbft_config = replace(
++            self.config.pbft,
++            membership_epoch=self.config.distributed_extension.membership_epoch,
++        )
++        pbft = PBFTConsensus(pbft_config, transport, self.keys, finalization_guard=finalization_guard)
+         validators = tuple(self.config.pbft.validators)
+         replica_nodes = replica_membership(
+             validators,
+diff --git a/src/vpuft/config.py b/src/vpuft/config.py
+index e8e8fcf..5989ef9 100644
+--- a/src/vpuft/config.py
++++ b/src/vpuft/config.py
+@@ -1,6 +1,8 @@
+ from __future__ import annotations
+ 
+ import json
++from hashlib import sha256
++import unicodedata
+ from dataclasses import asdict, dataclass, field
+ from pathlib import Path
+ from typing import Any
+@@ -58,6 +60,57 @@ class PBFTConfig:
+     max_views: int = 4
+     validator_behaviors: dict[str, str] = field(default_factory=dict)
+     state_recovery_enabled: bool = True
++    quorum_size: int | None = None
++    membership_epoch: str = "phase6-fixed-membership-v1"
++
++    @property
++    def resolved_quorum(self) -> int:
++        return int(self.quorum_size) if self.quorum_size is not None else 2 * self.max_byzantine + 1
++
++    def membership_digest_for_epoch(self, epoch: str | None = None) -> str:
++        raw_epoch = self.membership_epoch if epoch is None else epoch
++        if not isinstance(raw_epoch, str) or not unicodedata.normalize("NFC", raw_epoch).strip():
++            raise ValueError("PBFT membership epoch must be a non-empty string")
++        identities = [unicodedata.normalize("NFC", item).strip() for item in self.validators]
++        material = {
++            "epoch": unicodedata.normalize("NFC", raw_epoch).strip(),
++            "validators": sorted(identities),
++            "max_byzantine": int(self.max_byzantine),
++            "quorum": self.resolved_quorum,
++        }
++        encoded = json.dumps(material, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
++        return sha256(encoded).hexdigest()
++
++    @property
++    def membership_digest(self) -> str:
++        return self.membership_digest_for_epoch()
++
++    def validate(self) -> None:
++        n = len(self.validators)
++        f = self.max_byzantine
++        if isinstance(f, bool) or not isinstance(f, int) or f < 0:
++            raise ValueError("max_byzantine must be a non-negative integer")
++        if n < 3 * f + 1:
++            raise ValueError(f"PBFT requires n >= 3f+1; got n={n}, f={f}")
++        if any(not isinstance(item, str) or not unicodedata.normalize("NFC", item).strip() for item in self.validators):
++            raise ValueError("PBFT validator identities must be non-empty strings")
++        canonical = [unicodedata.normalize("NFC", item).strip() for item in self.validators]
++        if len(set(canonical)) != n:
++            raise ValueError("PBFT validator identities must be unique after canonicalization")
++        if self.quorum_size is not None and (
++            isinstance(self.quorum_size, bool) or not isinstance(self.quorum_size, int)
++        ):
++            raise ValueError("quorum_size must be an integer when specified")
++        q = self.resolved_quorum
++        if q <= 0 or 2 * q - n <= f:
++            raise ValueError(
++                f"PBFT quorum fails Byzantine-safe certificate intersection: n={n}, f={f}, q={q}"
++            )
++        if q > n - f:
++            raise ValueError(
++                f"PBFT quorum exceeds availability with f unavailable validators: n={n}, f={f}, q={q}"
++            )
++        self.membership_digest_for_epoch()
+ 
+ 
+ @dataclass(frozen=True)
+@@ -122,6 +175,7 @@ class DistributedExtensionConfig:
+     """Opt-in controls for the post-freeze distributed architecture extension."""
+ 
+     coordinator_strategy: str = "first_observer_then_hash"
++    coordinator_pool: tuple[str, ...] = ()
+     membership_epoch: str = "phase6-fixed-membership-v1"
+     simulator_finalization_guard_enabled: bool = False
+     validator_requalification: bool = True
+@@ -216,12 +270,7 @@ class ResearchConfig:
+ 
+     def validate(self) -> None:
+         self.weights.validate()
+-        n = len(self.pbft.validators)
+-        f = self.pbft.max_byzantine
+-        if n < 3 * f + 1:
+-            raise ValueError(f"PBFT requires n >= 3f+1; got n={n}, f={f}")
+-        if len(set(self.pbft.validators)) != n:
+-            raise ValueError("PBFT validator identities must be unique")
++        self.pbft.validate()
+         if not 0 < self.network.packet_delivery_ratio <= 1:
+             raise ValueError("PDR must be in (0, 1]")
+         if self.network.central_backhaul_extra_latency_ms < 0:
+@@ -240,6 +289,22 @@ class ResearchConfig:
+             raise ValueError("Unsupported distributed coordinator strategy")
+         if not isinstance(self.distributed_extension.membership_epoch, str) or not self.distributed_extension.membership_epoch.strip():
+             raise ValueError("membership_epoch must be a non-empty string")
++        sensing_only = tuple(self.distributed_extension.sensing_only_rsu_ids)
++        if len(set(sensing_only)) != len(sensing_only):
++            raise ValueError("Sensing-only RSU identities must be unique")
++        rsu_ids = {f"rsu-{index}" for index in range(1, self.simulation.rsu_count + 1)}
++        unknown_sensing = set(sensing_only) - rsu_ids
++        if unknown_sensing:
++            raise ValueError(f"Unknown sensing-only RSU IDs: {sorted(unknown_sensing)}")
++        overlap = set(sensing_only) & set(self.pbft.validators)
++        if overlap:
++            raise ValueError(f"PBFT validators cannot be sensing-only: {sorted(overlap)}")
++        coordinator_pool = tuple(self.distributed_extension.coordinator_pool)
++        if coordinator_pool:
++            if len(set(coordinator_pool)) != len(coordinator_pool):
++                raise ValueError("Coordinator pool identities must be unique")
++            if set(coordinator_pool) - set(self.pbft.validators):
++                raise ValueError("Coordinator pool must be a subset of PBFT validators")
+         if self.distributed_extension.coordinator_strategy == "canonical_case_epoch_hash":
+             from unicodedata import normalize
+             if any(not isinstance(validator, str) for validator in self.pbft.validators):
+@@ -342,6 +407,8 @@ def load_config(path: str | Path | None = None) -> ResearchConfig:
+             max_views=pbft_raw.get("max_views", PBFTConfig().max_views),
+             validator_behaviors=pbft_raw.get("validator_behaviors", {}),
+             state_recovery_enabled=pbft_raw.get("state_recovery_enabled", True),
++            quorum_size=pbft_raw.get("quorum_size"),
++            membership_epoch=pbft_raw.get("membership_epoch", PBFTConfig().membership_epoch),
+         ),
+         central=CentralServerConfig(**_section(raw, "central")),
+         detector=DetectorConfig(**_section(raw, "detector")),
+@@ -351,7 +418,13 @@ def load_config(path: str | Path | None = None) -> ResearchConfig:
+             compromised_rsus=tuple(sec_raw.get("compromised_rsus", [])),
+             compromised_witness_ratio=sec_raw.get("compromised_witness_ratio", SecurityConfig().compromised_witness_ratio),
+         ),
+-        distributed_extension=DistributedExtensionConfig(**ext_raw),
++        distributed_extension=DistributedExtensionConfig(
++            **{
++                **ext_raw,
++                "coordinator_pool": tuple(ext_raw.get("coordinator_pool", ())),
++                "sensing_only_rsu_ids": tuple(ext_raw.get("sensing_only_rsu_ids", ())),
++            }
++        ),
+         trust_cache=TrustCacheConfig(
+             ttl_seconds=tuple(cache_raw.get("ttl_seconds", TrustCacheConfig().ttl_seconds)),
+             vehicle_counts=tuple(cache_raw.get("vehicle_counts", TrustCacheConfig().vehicle_counts)),
+diff --git a/src/vpuft/consensus.py b/src/vpuft/consensus.py
+index a289557..d041f3c 100644
+--- a/src/vpuft/consensus.py
++++ b/src/vpuft/consensus.py
+@@ -14,6 +14,23 @@ from .domain import ConsensusOutcome
+ from .network import SimulatedTransport
+ 
+ 
++def consensus_vote_payload(
++    config: PBFTConfig,
++    *,
++    case_id: str,
++    view: int,
++    phase: str,
++    digest: str,
++) -> dict[str, str | int]:
++    return {
++        "membership_digest": config.membership_digest,
++        "case_id": case_id,
++        "view": int(view),
++        "phase": phase,
++        "digest": digest,
++    }
++
++
+ def canonical_case_identity(case_id: str) -> str:
+     """Return the stable case key used by opt-in simulator safeguards."""
+     if not isinstance(case_id, str):
+@@ -114,6 +131,7 @@ class PBFTConsensus:
+         online: Callable[[str, float], bool] | None = None,
+         finalization_guard: SimulatorFinalizationGuard | None = None,
+     ) -> None:
++        config.validate()
+         self.config = config
+         self.transport = transport
+         self.keys = keys
+@@ -125,7 +143,7 @@ class PBFTConsensus:
+ 
+     @property
+     def quorum(self) -> int:
+-        return 2 * self.config.max_byzantine + 1
++        return self.config.resolved_quorum
+ 
+     def _behavior(self, validator: str) -> str:
+         return self.config.validator_behaviors.get(validator, "honest")
+@@ -164,7 +182,9 @@ class PBFTConsensus:
+         for voter in voters:
+             if not self._lock_vote(voter, view, phase, case_id, digest):
+                 continue
+-            vote = {"case_id": case_id, "view": view, "phase": phase, "digest": digest}
++            vote = consensus_vote_payload(
++                self.config, case_id=case_id, view=view, phase=phase, digest=digest
++            )
+             signature = self.keys.sign(voter, vote)
+             if not self.keys.verify(voter, vote, signature):
+                 continue
+@@ -215,7 +235,13 @@ class PBFTConsensus:
+                 view_changes += 1
+                 continue
+ 
+-            proposal = {"case_id": case_id, "view": view, "leader": leader, "payload_digest": payload_digest}
++            proposal = {
++                "membership_digest": self.config.membership_digest,
++                "case_id": case_id,
++                "view": view,
++                "leader": leader,
++                "payload_digest": payload_digest,
++            }
+             proposal_signature = self.keys.sign(leader, proposal)
+             leader_semantic_valid = semantic_proposal_valid and leader_behavior != "propose_invalid"
+             if leader_behavior == "propose_invalid":
+@@ -422,7 +448,13 @@ class PBFTConsensus:
+                 schedule_view(view + 1, scheduler.now)
+                 return
+ 
+-            proposal = {"case_id": case_id, "view": view, "leader": leader, "payload_digest": payload_digest}
++            proposal = {
++                "membership_digest": self.config.membership_digest,
++                "case_id": case_id,
++                "view": view,
++                "leader": leader,
++                "payload_digest": payload_digest,
++            }
+             proposal_signature = self.keys.sign(leader, proposal)
+             leader_semantic_valid = semantic_proposal_valid and leader_behavior != "propose_invalid"
+             state["last_semantic_valid"] = leader_semantic_valid
+@@ -498,7 +530,9 @@ class PBFTConsensus:
+             for voter in voters:
+                 if not self._lock_vote(voter, view, phase, case_id, payload_digest):
+                     continue
+-                vote = {"case_id": case_id, "view": view, "phase": phase, "digest": payload_digest}
++                vote = consensus_vote_payload(
++                    self.config, case_id=case_id, view=view, phase=phase, digest=payload_digest
++                )
+                 signature = self.keys.sign(voter, vote)
+                 if not self.keys.verify(voter, vote, signature):
+                     continue
+diff --git a/src/vpuft/trust_cache.py b/src/vpuft/trust_cache.py
+index 123f06c..52fb4b5 100644
+--- a/src/vpuft/trust_cache.py
++++ b/src/vpuft/trust_cache.py
+@@ -24,6 +24,7 @@ class QuorumTrustToken:
+     ledger_height: int
+     checkpoint_hash: str
+     decision_id: str
++    membership_digest: str
+     signatures: Mapping[str, str] = field(default_factory=dict)
+ 
+ 
+@@ -41,7 +42,13 @@ class QuorumTrustTokenService:
+ 
+     @property
+     def quorum(self) -> int:
+-        return 2 * self.config.pbft.max_byzantine + 1
++        return self.config.pbft.resolved_quorum
++
++    @property
++    def membership_digest(self) -> str:
++        return self.config.pbft.membership_digest_for_epoch(
++            self.config.distributed_extension.membership_epoch
++        )
+ 
+     def issue(
+         self,
+@@ -62,6 +69,7 @@ class QuorumTrustTokenService:
+             ledger_height=ledger_height,
+             checkpoint_hash=checkpoint_hash,
+             decision_id=decision_id,
++            membership_digest=self.membership_digest,
+         )
+         payload = token_payload(unsigned)
+         signatures = {
+@@ -71,7 +79,11 @@ class QuorumTrustTokenService:
+         return QuorumTrustToken(**{**payload, "trust_state": state, "signatures": signatures})
+ 
+     def verify(self, token: QuorumTrustToken, *, now: float, minimum_ledger_height: int) -> bool:
+-        if now > token.expires_at or token.ledger_height < minimum_ledger_height:
++        if (
++            now > token.expires_at
++            or token.ledger_height < minimum_ledger_height
++            or token.membership_digest != self.membership_digest
++        ):
+             return False
+         payload = token_payload(token)
+         valid_signers = {

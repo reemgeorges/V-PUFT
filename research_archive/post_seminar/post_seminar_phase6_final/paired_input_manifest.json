@@ -1,0 +1,466 @@
+{
+  "cell_count": 20,
+  "same_mobility_messages_and_attack_truth": true,
+  "cells": [
+    {
+      "density": 20,
+      "seed": 1007,
+      "baseline_dir": "results\\post_seminar_phase2\\baseline_regenerated\\traces\\urban_roundabout\\vehicles_20\\seed_1007",
+      "candidate_dir": "results\\post_seminar_phase6\\pilot\\vehicles_20\\seed_1007",
+      "completed": true,
+      "case_count": 131,
+      "hashes": {
+        "mobility_trace.csv": {
+          "baseline": "0a13a2994670efabeacc459a5e9fcd00e76132ceb39e292855a7361a8fe620cb",
+          "candidate": "0a13a2994670efabeacc459a5e9fcd00e76132ceb39e292855a7361a8fe620cb"
+        },
+        "generated_messages.csv": {
+          "baseline": "5261440c991abd3b4b2b3269e2707c176a54e86ffb448ea5c610e2d91484c3fd",
+          "candidate": "5261440c991abd3b4b2b3269e2707c176a54e86ffb448ea5c610e2d91484c3fd"
+        },
+        "attack_ground_truth.csv": {
+          "baseline": "f1fa4c5de5908e85dcae02798d770d113b902c814045d7a89709ef56165392c5",
+          "candidate": "f1fa4c5de5908e85dcae02798d770d113b902c814045d7a89709ef56165392c5"
+        }
+      },
+      "candidate_scenario_manifest_sha256": "9cda8e8a19b45f4c9ffdde84890f2708bd9ba34bf6541c623c97182103f7d46a"
+    },
+    {
+      "density": 20,
+      "seed": 1008,
+      "baseline_dir": "results\\post_seminar_phase2\\baseline_regenerated\\traces\\urban_roundabout\\vehicles_20\\seed_1008",
+      "candidate_dir": "results\\post_seminar_phase6_holdout\\pilot\\vehicles_20\\seed_1008",
+      "completed": true,
+      "case_count": 132,
+      "hashes": {
+        "mobility_trace.csv": {
+          "baseline": "3ea88dbceed1e41556eff79c1df28943a935da8cee169c3509b7c4465431ee42",
+          "candidate": "3ea88dbceed1e41556eff79c1df28943a935da8cee169c3509b7c4465431ee42"
+        },
+        "generated_messages.csv": {
+          "baseline": "3d6476f86f45e87bd9851a195fd8d98d63c3f4fd82cfcef128ee1647da1c14b5",
+          "candidate": "3d6476f86f45e87bd9851a195fd8d98d63c3f4fd82cfcef128ee1647da1c14b5"
+        },
+        "attack_ground_truth.csv": {
+          "baseline": "c19250ff627f89c7074abf54981fe7d9bea61e116b02650ed3c90282e63269fc",
+          "candidate": "c19250ff627f89c7074abf54981fe7d9bea61e116b02650ed3c90282e63269fc"
+        }
+      },
+      "candidate_scenario_manifest_sha256": "7c35b4252429aac79821ffa0cc3a1085149b9504ee4a7d35caa1ec2828c8c6fb"
+    },
+    {
+      "density": 20,
+      "seed": 1009,
+      "baseline_dir": "results\\post_seminar_phase2\\baseline_regenerated\\traces\\urban_roundabout\\vehicles_20\\seed_1009",
+      "candidate_dir": "results\\post_seminar_phase6_final\\pilot\\vehicles_20\\seed_1009",
+      "completed": true,
+      "case_count": 131,
+      "hashes": {
+        "mobility_trace.csv": {
+          "baseline": "6ca7914197918fcebd6a032f867303c0ed017fb423ade8c65c9649d859151504",
+          "candidate": "6ca7914197918fcebd6a032f867303c0ed017fb423ade8c65c9649d859151504"
+        },
+        "generated_messages.csv": {
+          "baseline": "7a795c8ec8bf6f0ea21dc55c2a20cad84106aafa4d1f16b9fe9ec91e3836bce1",
+          "candidate": "7a795c8ec8bf6f0ea21dc55c2a20cad84106aafa4d1f16b9fe9ec91e3836bce1"
+        },
+        "attack_ground_truth.csv": {
+          "baseline": "c094d86e34909e64bc0eefdd6e92d4854848713a3da020084e16d6e48b304151",
+          "candidate": "c094d86e34909e64bc0eefdd6e92d4854848713a3da020084e16d6e48b304151"
+        }
+      },
+      "candidate_scenario_manifest_sha256": "ca252dd2aec67dafee93dca370b1c51b6e939a0b01b0864fe9249ed1f2684507"
+    },
+    {
+      "density": 20,
+      "seed": 1010,
+      "baseline_dir": "results\\post_seminar_phase2\\baseline_regenerated\\traces\\urban_roundabout\\vehicles_20\\seed_1010",
+      "candidate_dir": "results\\post_seminar_phase6_final\\pilot\\vehicles_20\\seed_1010",
+      "completed": true,
+      "case_count": 131,
+      "hashes": {
+        "mobility_trace.csv": {
+          "baseline": "b1425c5f6b85f783b1d787e4e48c37a7c1bc0cc7aff2fc7c9bdd631f74786aa1",
+          "candidate": "b1425c5f6b85f783b1d787e4e48c37a7c1bc0cc7aff2fc7c9bdd631f74786aa1"
+        },
+        "generated_messages.csv": {
+          "baseline": "5baa00ec6956645555551a8bc69ed6bf6b6819575d4aa6d590610543d61acf49",
+          "candidate": "5baa00ec6956645555551a8bc69ed6bf6b6819575d4aa6d590610543d61acf49"
+        },
+        "attack_ground_truth.csv": {
+          "baseline": "df7c0a418d80ebc44390160cb80559ca487ad40392a8cb6da8c0324b58a57225",
+          "candidate": "df7c0a418d80ebc44390160cb80559ca487ad40392a8cb6da8c0324b58a57225"
+        }
+      },
+      "candidate_scenario_manifest_sha256": "5bc0d2a755a024e29b3daed8751535dd21bfe72fb07ff5cb4f47b8116848b405"
+    },
+    {
+      "density": 40,
+      "seed": 1007,
+      "baseline_dir": "results\\post_seminar_phase2\\baseline_regenerated\\traces\\urban_roundabout\\vehicles_40\\seed_1007",
+      "candidate_dir": "results\\post_seminar_phase6_final\\pilot\\vehicles_40\\seed_1007",
+      "completed": true,
+      "case_count": 266,
+      "hashes": {
+        "mobility_trace.csv": {
+          "baseline": "c3c0f5cffac052b350dde531738ec789aa55106a4c6ac17390978c2778c2c886",
+          "candidate": "c3c0f5cffac052b350dde531738ec789aa55106a4c6ac17390978c2778c2c886"
+        },
+        "generated_messages.csv": {
+          "baseline": "e1cef8673c7d3a28fb48aa2c8ad3d3aca8bf6d085f45b9bd682361899104f8db",
+          "candidate": "e1cef8673c7d3a28fb48aa2c8ad3d3aca8bf6d085f45b9bd682361899104f8db"
+        },
+        "attack_ground_truth.csv": {
+          "baseline": "b2a5def322aac1a908dd5cd20a9c4b1563637e443f24116622ac73d6d277cbe0",
+          "candidate": "b2a5def322aac1a908dd5cd20a9c4b1563637e443f24116622ac73d6d277cbe0"
+        }
+      },
+      "candidate_scenario_manifest_sha256": "bf833243b0c7d6478a67a9966ff8eeda80c65e454079c1bf898146e041b04c8d"
+    },
+    {
+      "density": 40,
+      "seed": 1008,
+      "baseline_dir": "results\\post_seminar_phase2\\baseline_regenerated\\traces\\urban_roundabout\\vehicles_40\\seed_1008",
+      "candidate_dir": "results\\post_seminar_phase6_holdout\\pilot\\vehicles_40\\seed_1008",
+      "completed": true,
+      "case_count": 266,
+      "hashes": {
+        "mobility_trace.csv": {
+          "baseline": "90f25687beaee0a2e575fbf917c043176ef393ecc4cc6372c344aedd83a5cc2e",
+          "candidate": "90f25687beaee0a2e575fbf917c043176ef393ecc4cc6372c344aedd83a5cc2e"
+        },
+        "generated_messages.csv": {
+          "baseline": "ea1d7d13821a35d30518636a206cff33eed87c32d7d884d3902aba43f1320fef",
+          "candidate": "ea1d7d13821a35d30518636a206cff33eed87c32d7d884d3902aba43f1320fef"
+        },
+        "attack_ground_truth.csv": {
+          "baseline": "60e5176d39e493579981f72dfd781a468aa5a071314561a6b8c6ae462cc6f0e2",
+          "candidate": "60e5176d39e493579981f72dfd781a468aa5a071314561a6b8c6ae462cc6f0e2"
+        }
+      },
+      "candidate_scenario_manifest_sha256": "cc96e998029114293e39affff17a05bc75be3bc7a13d13c46d44e0cb9b7830dc"
+    },
+    {
+      "density": 40,
+      "seed": 1009,
+      "baseline_dir": "results\\post_seminar_phase2\\baseline_regenerated\\traces\\urban_roundabout\\vehicles_40\\seed_1009",
+      "candidate_dir": "results\\post_seminar_phase6_final\\pilot\\vehicles_40\\seed_1009",
+      "completed": true,
+      "case_count": 266,
+      "hashes": {
+        "mobility_trace.csv": {
+          "baseline": "01fb98e38bf91c6461c1123704e5dc0befd73dc9280d056a65b0da6a094d4232",
+          "candidate": "01fb98e38bf91c6461c1123704e5dc0befd73dc9280d056a65b0da6a094d4232"
+        },
+        "generated_messages.csv": {
+          "baseline": "38b8bd8e8d29b794cf208191c8b34f1d2006d902597bf4ef08aef7753d9c5651",
+          "candidate": "38b8bd8e8d29b794cf208191c8b34f1d2006d902597bf4ef08aef7753d9c5651"
+        },
+        "attack_ground_truth.csv": {
+          "baseline": "d230a4be2bc2adfdce1cad3d095d5224b364dfd964ca7e61823c205af686e7ee",
+          "candidate": "d230a4be2bc2adfdce1cad3d095d5224b364dfd964ca7e61823c205af686e7ee"
+        }
+      },
+      "candidate_scenario_manifest_sha256": "861f5813c8bafc5132d92a47facaa62ff0baa31869cf12e6368871814ec94928"
+    },
+    {
+      "density": 40,
+      "seed": 1010,
+      "baseline_dir": "results\\post_seminar_phase2\\baseline_regenerated\\traces\\urban_roundabout\\vehicles_40\\seed_1010",
+      "candidate_dir": "results\\post_seminar_phase6_final\\pilot\\vehicles_40\\seed_1010",
+      "completed": true,
+      "case_count": 266,
+      "hashes": {
+        "mobility_trace.csv": {
+          "baseline": "1c973492d4d7bcf6d67554eaf47c1c182506a623c8bb2faee1ffb7e45de5dddb",
+          "candidate": "1c973492d4d7bcf6d67554eaf47c1c182506a623c8bb2faee1ffb7e45de5dddb"
+        },
+        "generated_messages.csv": {
+          "baseline": "59ead5a911b2678fa8618e40f3d40ff7ab30a523431e636cc9f2a7c4fbb8a9fb",
+          "candidate": "59ead5a911b2678fa8618e40f3d40ff7ab30a523431e636cc9f2a7c4fbb8a9fb"
+        },
+        "attack_ground_truth.csv": {
+          "baseline": "fb98cb1eb740aa3766269b0d7b10682487718baee14a937c81243f7900ebf991",
+          "candidate": "fb98cb1eb740aa3766269b0d7b10682487718baee14a937c81243f7900ebf991"
+        }
+      },
+      "candidate_scenario_manifest_sha256": "94cc4d10801ac9110ebdbd731d55a9941a9fcadb31725fe9977e8a7c3f7edf04"
+    },
+    {
+      "density": 60,
+      "seed": 1007,
+      "baseline_dir": "results\\post_seminar_phase2\\baseline_regenerated\\traces\\urban_roundabout\\vehicles_60\\seed_1007",
+      "candidate_dir": "results\\post_seminar_phase6_final\\pilot\\vehicles_60\\seed_1007",
+      "completed": true,
+      "case_count": 393,
+      "hashes": {
+        "mobility_trace.csv": {
+          "baseline": "e2bdcd3bbcc87ca296ffc8f2478ce64cb8d6f3cbe6cad26fe46f333f1b9c6aa9",
+          "candidate": "e2bdcd3bbcc87ca296ffc8f2478ce64cb8d6f3cbe6cad26fe46f333f1b9c6aa9"
+        },
+        "generated_messages.csv": {
+          "baseline": "384d5cf9005fd080c22363bc87e3d63730bc8718db1d67f3af6bdd0dd9f77d90",
+          "candidate": "384d5cf9005fd080c22363bc87e3d63730bc8718db1d67f3af6bdd0dd9f77d90"
+        },
+        "attack_ground_truth.csv": {
+          "baseline": "55c7df67e115fbe4f9ee581b340acd34840bc8dc32bbc732aba7dd7981bac41f",
+          "candidate": "55c7df67e115fbe4f9ee581b340acd34840bc8dc32bbc732aba7dd7981bac41f"
+        }
+      },
+      "candidate_scenario_manifest_sha256": "e57fea160d8fb20793cf557c76e40779cdb4a1c455bd5d8bb1af9c5d90a8c80d"
+    },
+    {
+      "density": 60,
+      "seed": 1008,
+      "baseline_dir": "results\\post_seminar_phase2\\baseline_regenerated\\traces\\urban_roundabout\\vehicles_60\\seed_1008",
+      "candidate_dir": "results\\post_seminar_phase6_holdout\\pilot\\vehicles_60\\seed_1008",
+      "completed": true,
+      "case_count": 393,
+      "hashes": {
+        "mobility_trace.csv": {
+          "baseline": "df3f83445f15c00072507a782c35f5d6ae60ce2cf3846f4501900c04149edc27",
+          "candidate": "df3f83445f15c00072507a782c35f5d6ae60ce2cf3846f4501900c04149edc27"
+        },
+        "generated_messages.csv": {
+          "baseline": "43cb2a1eaeafb8134cdb70b3d825970f27c4dd95b598b8f21ceb963d08dc21c6",
+          "candidate": "43cb2a1eaeafb8134cdb70b3d825970f27c4dd95b598b8f21ceb963d08dc21c6"
+        },
+        "attack_ground_truth.csv": {
+          "baseline": "9e44f489d4a056e21ca02e3551e93567cb5e2190cde8bf4c8b454b13b8feb579",
+          "candidate": "9e44f489d4a056e21ca02e3551e93567cb5e2190cde8bf4c8b454b13b8feb579"
+        }
+      },
+      "candidate_scenario_manifest_sha256": "b00b51ac3c8f2d5b55dc8ff04c48d43faac2b230dbb6b5e64b8cec1b56abe08c"
+    },
+    {
+      "density": 60,
+      "seed": 1009,
+      "baseline_dir": "results\\post_seminar_phase2\\baseline_regenerated\\traces\\urban_roundabout\\vehicles_60\\seed_1009",
+      "candidate_dir": "results\\post_seminar_phase6_final\\pilot\\vehicles_60\\seed_1009",
+      "completed": true,
+      "case_count": 393,
+      "hashes": {
+        "mobility_trace.csv": {
+          "baseline": "18d87194f4548e267ac005edca4f07a48ae723a0f1d18b2b68fc8908b001247b",
+          "candidate": "18d87194f4548e267ac005edca4f07a48ae723a0f1d18b2b68fc8908b001247b"
+        },
+        "generated_messages.csv": {
+          "baseline": "c8ccf4134d0fed5388a07183ce652b87607652bf16fbdaf6f2fb8ca8caa52ebb",
+          "candidate": "c8ccf4134d0fed5388a07183ce652b87607652bf16fbdaf6f2fb8ca8caa52ebb"
+        },
+        "attack_ground_truth.csv": {
+          "baseline": "5dbc3eb62c7bca26cb63778c54e735e1029cc5f230c26afea9a808cef199263b",
+          "candidate": "5dbc3eb62c7bca26cb63778c54e735e1029cc5f230c26afea9a808cef199263b"
+        }
+      },
+      "candidate_scenario_manifest_sha256": "eb2b7665c827f83f2e0a9256f14643809199a35c01d19ea2211b53c996140d59"
+    },
+    {
+      "density": 60,
+      "seed": 1010,
+      "baseline_dir": "results\\post_seminar_phase2\\baseline_regenerated\\traces\\urban_roundabout\\vehicles_60\\seed_1010",
+      "candidate_dir": "results\\post_seminar_phase6_final\\pilot\\vehicles_60\\seed_1010",
+      "completed": true,
+      "case_count": 394,
+      "hashes": {
+        "mobility_trace.csv": {
+          "baseline": "554cc6980dcfb3336e6d9fbbb4b2546b12dae2b05a4ad9202d7efcdf582d5f90",
+          "candidate": "554cc6980dcfb3336e6d9fbbb4b2546b12dae2b05a4ad9202d7efcdf582d5f90"
+        },
+        "generated_messages.csv": {
+          "baseline": "407db1526375e282fe5b00288a08bacc0c24a3ba62b8a472a0e01f34896b6b14",
+          "candidate": "407db1526375e282fe5b00288a08bacc0c24a3ba62b8a472a0e01f34896b6b14"
+        },
+        "attack_ground_truth.csv": {
+          "baseline": "de6cb64a0b4273a78ca4fa6d0aa486d4872f3a7a7130a351b40d1cbb2c0848d9",
+          "candidate": "de6cb64a0b4273a78ca4fa6d0aa486d4872f3a7a7130a351b40d1cbb2c0848d9"
+        }
+      },
+      "candidate_scenario_manifest_sha256": "983a210a15a43dae9142d1f6b85e77b34538e130dab403f3d15b629bbc9344a1"
+    },
+    {
+      "density": 80,
+      "seed": 1007,
+      "baseline_dir": "results\\post_seminar_phase2\\baseline_regenerated\\traces\\urban_roundabout\\vehicles_80\\seed_1007",
+      "candidate_dir": "results\\post_seminar_phase6_final\\pilot\\vehicles_80\\seed_1007",
+      "completed": true,
+      "case_count": 518,
+      "hashes": {
+        "mobility_trace.csv": {
+          "baseline": "511fd8f7475d60c60ba4e515d83570cb313e3797f25fa4bfecc9dc576c646495",
+          "candidate": "511fd8f7475d60c60ba4e515d83570cb313e3797f25fa4bfecc9dc576c646495"
+        },
+        "generated_messages.csv": {
+          "baseline": "3bf835c868f3882f17468fecd417c18dcbd29e369c9a9d11d9a909a076b04a74",
+          "candidate": "3bf835c868f3882f17468fecd417c18dcbd29e369c9a9d11d9a909a076b04a74"
+        },
+        "attack_ground_truth.csv": {
+          "baseline": "bd3e5a750cd9befd5fbd3f91370f7a8e9a1346493e3fe707041cc87979c3b4fa",
+          "candidate": "bd3e5a750cd9befd5fbd3f91370f7a8e9a1346493e3fe707041cc87979c3b4fa"
+        }
+      },
+      "candidate_scenario_manifest_sha256": "41f14f1e433da04145b347c60dde3eec28605c8ecf11e2e65692588bb1b4f340"
+    },
+    {
+      "density": 80,
+      "seed": 1008,
+      "baseline_dir": "results\\post_seminar_phase2\\baseline_regenerated\\traces\\urban_roundabout\\vehicles_80\\seed_1008",
+      "candidate_dir": "results\\post_seminar_phase6_holdout\\pilot\\vehicles_80\\seed_1008",
+      "completed": true,
+      "case_count": 518,
+      "hashes": {
+        "mobility_trace.csv": {
+          "baseline": "d4f02e793a8c5476965f7edc2f126b08a2342f2ba33be270d746bd5eb4f2f8f0",
+          "candidate": "d4f02e793a8c5476965f7edc2f126b08a2342f2ba33be270d746bd5eb4f2f8f0"
+        },
+        "generated_messages.csv": {
+          "baseline": "1bf2b53e1233a39cfbb19d566568ad1d1ae540a44fdc916c94407f1021fc0d2f",
+          "candidate": "1bf2b53e1233a39cfbb19d566568ad1d1ae540a44fdc916c94407f1021fc0d2f"
+        },
+        "attack_ground_truth.csv": {
+          "baseline": "e623ddd55beedfac73dfe4f520555c74241e26c79d6c54cdca5a134c923dabba",
+          "candidate": "e623ddd55beedfac73dfe4f520555c74241e26c79d6c54cdca5a134c923dabba"
+        }
+      },
+      "candidate_scenario_manifest_sha256": "6bc5eb95ab7503f8333bff94414b6be68593ea88b0f1fa074b45b8968a15999b"
+    },
+    {
+      "density": 80,
+      "seed": 1009,
+      "baseline_dir": "results\\post_seminar_phase2\\baseline_regenerated\\traces\\urban_roundabout\\vehicles_80\\seed_1009",
+      "candidate_dir": "results\\post_seminar_phase6_final\\pilot\\vehicles_80\\seed_1009",
+      "completed": true,
+      "case_count": 518,
+      "hashes": {
+        "mobility_trace.csv": {
+          "baseline": "c43e6739ca3dce32e09d8663431299e69b317a7510fc8f82da7dcd9a77fbe634",
+          "candidate": "c43e6739ca3dce32e09d8663431299e69b317a7510fc8f82da7dcd9a77fbe634"
+        },
+        "generated_messages.csv": {
+          "baseline": "f67242e74ad4ad602a33d8f956c2ebde04ec050f69dc32e67a97ceaeb20347a6",
+          "candidate": "f67242e74ad4ad602a33d8f956c2ebde04ec050f69dc32e67a97ceaeb20347a6"
+        },
+        "attack_ground_truth.csv": {
+          "baseline": "2cbdede0719c873545311926a52673b18f952eec8738436aa9d5f463ada859c6",
+          "candidate": "2cbdede0719c873545311926a52673b18f952eec8738436aa9d5f463ada859c6"
+        }
+      },
+      "candidate_scenario_manifest_sha256": "b344d55236ff032d5b8dbe621f30f2dc2ef0ce76ef48736d4539e42bb858e971"
+    },
+    {
+      "density": 80,
+      "seed": 1010,
+      "baseline_dir": "results\\post_seminar_phase2\\baseline_regenerated\\traces\\urban_roundabout\\vehicles_80\\seed_1010",
+      "candidate_dir": "results\\post_seminar_phase6_final\\pilot\\vehicles_80\\seed_1010",
+      "completed": true,
+      "case_count": 517,
+      "hashes": {
+        "mobility_trace.csv": {
+          "baseline": "20dac05ab3fd1e5c07446f00694290f5ae00c31cac5124480f1a7017e6a5386f",
+          "candidate": "20dac05ab3fd1e5c07446f00694290f5ae00c31cac5124480f1a7017e6a5386f"
+        },
+        "generated_messages.csv": {
+          "baseline": "0d96114849318a1977a2f5175cc620230cb174df8839f11440e670795edc7f39",
+          "candidate": "0d96114849318a1977a2f5175cc620230cb174df8839f11440e670795edc7f39"
+        },
+        "attack_ground_truth.csv": {
+          "baseline": "75f919eb1589e6981b63206d948e01f055f5d4374c44be09bfce39ccb35ea166",
+          "candidate": "75f919eb1589e6981b63206d948e01f055f5d4374c44be09bfce39ccb35ea166"
+        }
+      },
+      "candidate_scenario_manifest_sha256": "9a1e2e651d7f8040c7f5a0650e6a443903d28c1d51964ed67dfbcb7b28481b91"
+    },
+    {
+      "density": 100,
+      "seed": 1007,
+      "baseline_dir": "results\\post_seminar_phase2\\baseline_regenerated\\traces\\urban_roundabout\\vehicles_100\\seed_1007",
+      "candidate_dir": "results\\post_seminar_phase6\\pilot\\vehicles_100\\seed_1007",
+      "completed": true,
+      "case_count": 630,
+      "hashes": {
+        "mobility_trace.csv": {
+          "baseline": "d5964bec78bb74baca60f66940bd3e7db1a8179dc775c8a8809ef24e7e84c69a",
+          "candidate": "d5964bec78bb74baca60f66940bd3e7db1a8179dc775c8a8809ef24e7e84c69a"
+        },
+        "generated_messages.csv": {
+          "baseline": "e5d10c3a4e72187dbed9b0582a945971326b98b66fa1f2dffdd04bb148b00707",
+          "candidate": "e5d10c3a4e72187dbed9b0582a945971326b98b66fa1f2dffdd04bb148b00707"
+        },
+        "attack_ground_truth.csv": {
+          "baseline": "17b4aac10c4eac4fa49f92909b24aa459559dde93bd5320ade274de9e4eb3af1",
+          "candidate": "17b4aac10c4eac4fa49f92909b24aa459559dde93bd5320ade274de9e4eb3af1"
+        }
+      },
+      "candidate_scenario_manifest_sha256": "4780954b651fe6e2a75b8b8ff467fd91b5a6f02e0420914a71260ea38acf949a"
+    },
+    {
+      "density": 100,
+      "seed": 1008,
+      "baseline_dir": "results\\post_seminar_phase2\\baseline_regenerated\\traces\\urban_roundabout\\vehicles_100\\seed_1008",
+      "candidate_dir": "results\\post_seminar_phase6_holdout\\pilot\\vehicles_100\\seed_1008",
+      "completed": true,
+      "case_count": 631,
+      "hashes": {
+        "mobility_trace.csv": {
+          "baseline": "fec5eb0e0ac26dc8818c0732f8ae77d9b5746dc51bf307a85e64ba6203a04c17",
+          "candidate": "fec5eb0e0ac26dc8818c0732f8ae77d9b5746dc51bf307a85e64ba6203a04c17"
+        },
+        "generated_messages.csv": {
+          "baseline": "24d6ac19b6139572321f9248d70fd95e5c1a7a41cb5cb57c5bf552b2998722ba",
+          "candidate": "24d6ac19b6139572321f9248d70fd95e5c1a7a41cb5cb57c5bf552b2998722ba"
+        },
+        "attack_ground_truth.csv": {
+          "baseline": "408dc828e6f202882c76569d594899ae3435ac8d080fbf30d1ca54437830e167",
+          "candidate": "408dc828e6f202882c76569d594899ae3435ac8d080fbf30d1ca54437830e167"
+        }
+      },
+      "candidate_scenario_manifest_sha256": "341d60aea89c9c06752a3d070e8669935d6115110a051b9d9dfa964d958b5b65"
+    },
+    {
+      "density": 100,
+      "seed": 1009,
+      "baseline_dir": "results\\post_seminar_phase2\\baseline_regenerated\\traces\\urban_roundabout\\vehicles_100\\seed_1009",
+      "candidate_dir": "results\\post_seminar_phase6_final\\pilot\\vehicles_100\\seed_1009",
+      "completed": true,
+      "case_count": 631,
+      "hashes": {
+        "mobility_trace.csv": {
+          "baseline": "07ba76a15160acf553fc029c7efbb163bb14f1d6e604ccbbcddd4f913bf26ede",
+          "candidate": "07ba76a15160acf553fc029c7efbb163bb14f1d6e604ccbbcddd4f913bf26ede"
+        },
+        "generated_messages.csv": {
+          "baseline": "4e4cc9281ccdea3fd8cd0403cd4bebab3ccb07112a5ef2c7ae454674ebda1722",
+          "candidate": "4e4cc9281ccdea3fd8cd0403cd4bebab3ccb07112a5ef2c7ae454674ebda1722"
+        },
+        "attack_ground_truth.csv": {
+          "baseline": "155edbe1e80e0100a0795ccfb405c1b329c2d0486fd925f991c0200d495717f9",
+          "candidate": "155edbe1e80e0100a0795ccfb405c1b329c2d0486fd925f991c0200d495717f9"
+        }
+      },
+      "candidate_scenario_manifest_sha256": "6c3c5ddad9d2de8a151612f578587e28fa87dc099395ac387b28250970a8ad99"
+    },
+    {
+      "density": 100,
+      "seed": 1010,
+      "baseline_dir": "results\\post_seminar_phase2\\baseline_regenerated\\traces\\urban_roundabout\\vehicles_100\\seed_1010",
+      "candidate_dir": "results\\post_seminar_phase6_final\\pilot\\vehicles_100\\seed_1010",
+      "completed": true,
+      "case_count": 629,
+      "hashes": {
+        "mobility_trace.csv": {
+          "baseline": "68307477bc3d086c0966e23e6b30d85135344f9f2398d6db1a9fc78131e4fc15",
+          "candidate": "68307477bc3d086c0966e23e6b30d85135344f9f2398d6db1a9fc78131e4fc15"
+        },
+        "generated_messages.csv": {
+          "baseline": "8141fcfe4bd2b0b3bbab35a88cdb7cb3079d14a4ed55ed9789e186ab56e0a05f",
+          "candidate": "8141fcfe4bd2b0b3bbab35a88cdb7cb3079d14a4ed55ed9789e186ab56e0a05f"
+        },
+        "attack_ground_truth.csv": {
+          "baseline": "638498e472abba8cfa32ab4bd694e9a5b6f64403852d751d33cb0a5a28d4704a",
+          "candidate": "638498e472abba8cfa32ab4bd694e9a5b6f64403852d751d33cb0a5a28d4704a"
+        }
+      },
+      "candidate_scenario_manifest_sha256": "daf4415d4deda1cefdcb0d88201696d91841a8b9c6a554ce101619366a490a48"
+    }
+  ]
+}

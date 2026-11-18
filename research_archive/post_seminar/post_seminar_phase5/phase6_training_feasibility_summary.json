@@ -1,0 +1,12 @@
+{
+  "candidate_pairs": 12653,
+  "passing_pairs": 324,
+  "baseline_coverage_by_density": {
+    "20": 0.8728323699421965,
+    "60": 0.8735165013818891,
+    "100": 0.881
+  },
+  "baseline_multi_cell_fraction": 0.5493701747257212,
+  "best_passing_multi_cell_fraction": 0.5996981482556452,
+  "road_segments_audited": 24
+}

@@ -1,0 +1,70 @@
+{
+  "base_config_sha256": "1b37b5d3a2d38a2bc897461e267ab57ae6c444ac9af96ecde59b1a0dc9ed0032",
+  "variants": [
+    {
+      "name": "V5_deterministic_baseline",
+      "validators": [
+        "rsu-1",
+        "rsu-2",
+        "rsu-3",
+        "rsu-4",
+        "rsu-5"
+      ],
+      "quorum": 4,
+      "max_byzantine": 1,
+      "membership_epoch": "v5-evidence-availability-fixed-epoch-v1",
+      "coordinator_strategy": "canonical_case_epoch_hash",
+      "coordinator_pool": [
+        "rsu-1",
+        "rsu-2",
+        "rsu-3",
+        "rsu-4",
+        "rsu-5"
+      ],
+      "evidence_availability_enabled": false
+    },
+    {
+      "name": "V5_evidence_availability",
+      "validators": [
+        "rsu-1",
+        "rsu-2",
+        "rsu-3",
+        "rsu-4",
+        "rsu-5"
+      ],
+      "quorum": 4,
+      "max_byzantine": 1,
+      "membership_epoch": "v5-evidence-availability-fixed-epoch-v1",
+      "coordinator_strategy": "canonical_case_epoch_hash",
+      "coordinator_pool": [
+        "rsu-1",
+        "rsu-2",
+        "rsu-3",
+        "rsu-4",
+        "rsu-5"
+      ],
+      "evidence_availability_enabled": true
+    }
+  ],
+  "cells": [
+    {
+      "density": 20,
+      "seed": 2101,
+      "trace_path": "C:\\Users\\reemg\\OneDrive\\Desktop\\master\\6\\v10-recall-70-feasibility\\results\\rsu8_pilot\\pilot\\C3\\vehicles_20\\seed_2101\\shared_detection_trace.jsonl",
+      "trace_sha256": "25d11c53c23d7ae71d745661d8837a70739b1b64f9759f789035cff37e02364b",
+      "case_count": 121,
+      "attack_opportunity_count": 19,
+      "paired_case_ids_identical": true,
+      "paired_opportunity_ids_identical": true,
+      "sumo_rerun": false,
+      "repeats_per_variant": 1
+    }
+  ],
+  "requested_cells": [
+    [
+      20,
+      2101
+    ]
+  ],
+  "all_six_pilot_cells_evaluated": false
+}
