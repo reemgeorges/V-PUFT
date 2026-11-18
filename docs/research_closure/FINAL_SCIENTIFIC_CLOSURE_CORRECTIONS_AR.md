@@ -17,6 +17,6 @@ Dataset B، results/urban_roundabout_campaign_corrected_final/، هي المرج
 
 ## الأمن والفيديو والاستعادة
 
-حجب الأدلة من منسق خبيث، والاستعادة الآمنة للمنسق، وسلامة PBFT الكاملة عبر VIEW-CHANGE/NEW-VIEW أمور غير محسومة. الفيديو trace-based لا native SUMO-GUI ولا يمثل Dataset B؛ وإعادة إنتاجه تعتمد على raw traces محفوظة محلياً لا داخل المستودع.
+يظل حجب الأدلة من منسق خبيث، والاستعادة الآمنة للمنسق، وسلامة PBFT الكاملة عبر VIEW-CHANGE/NEW-VIEW غير محسوم. الفيديو trace-based وليس تسجيل SUMO-GUI ولا يمثل Dataset B: provenance يربطه بأثر sensitivity replication المعاد استخدامه baseline في Ablation، density 20 وseed 7003، الحالة case-urban_roundabout-7003-veh_000-w0001، والهجوم position_offset عند 15.0 ثانية، مع إبطال committed عند 29.0681 ثانية وإتاحة السجل عند 29.0829 ثانية. مسار الأثر الخام محلي خارج المستودع؛ تحققت هذه المراجعة من وجود المجلد الحالي ومطابقة SHA-256 للملفات الخمسة المدرجة في provenance (attack truth، الرسائل، الحركة، manifest، detection trace). لا يضمن ذلك بقاءها مستقبلاً أو استقلال إعادة الإنتاج عن النسخة المحلية.
 
 استعيد docs/post_seminar/EVIDENCE_AVAILABILITY_V5.md حرفياً من 2df02a0f17dc4782b833b882edbc3ec30c1e8e8d؛ الحجم 8,644 بايت، SHA-256 bdeca249daa5fe1be5b67f408ecf33755f8b8f537147f15428aa50fc264cdbaf. محتواه تاريخي فقط.
