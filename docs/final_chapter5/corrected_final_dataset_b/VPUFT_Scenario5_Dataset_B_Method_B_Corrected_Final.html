@@ -1,0 +1,137 @@
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><title>الفصل الخامس المصحح وفق Dataset B Method B</title><style>@page{size:A4;margin:2cm}body{font-family:Arial,'Traditional Arabic',sans-serif;font-size:10.5pt;line-height:1.48;color:#202124;direction:rtl;text-align:right}h1,h2,h3{color:#000;page-break-after:avoid;line-height:1.25}h1{font-size:21pt;text-align:center;margin:18pt 0}h2{font-size:15pt;margin:17pt 0 7pt}h2[style*='page-break-before']{page-break-before:always}h3{font-size:12pt;margin:13pt 0 6pt}p{text-align:justify;margin:0 0 8pt}table{border-collapse:collapse;width:100%;margin:8pt 0 12pt;direction:rtl;table-layout:auto}thead{display:table-header-group}tfoot{display:table-footer-group}tr{break-inside:avoid;page-break-inside:avoid}th,td{border:.6pt solid #D9D9D9;padding:4.5pt;text-align:center;vertical-align:middle;word-wrap:break-word}th{background:#24476B;color:#fff;font-size:8pt}td{font-size:8pt}tbody tr:nth-child(even){background:#F2F6FA}figure{text-align:center;margin:12pt auto 16pt;page-break-inside:avoid}figure img{width:16cm;max-width:100%;height:auto}ul{padding-right:20pt}</style></head><body><h1>الفصل الخامس — نتائج وتقييم Scenario 5 المصححة وفق Method B</h1>
+<h2>نطاق النسخة ومصدر النتائج</h2>
+<p><strong>القرار النهائي:</strong> Dataset B corrected-final هي المصدر المعتمد لجداول Method B. Dataset A وHTML التاريخي محفوظان دون تعديل ولا تمثل B إعادة إنتاج لهما. الفصل التاريخي DOCX/PDF ورسومه يخص v7 متعددة الطوبولوجيات، ولا تستخدم أرقامه هنا.</p>
+<p>تعرض هذه النسخة نتائج <strong>Scenario 5 — Urban Roundabout</strong> من حملة `urban_roundabout_campaign_corrected_final` (Dataset B) وفق Method B. وهي نسخة مصححة مستقلة أُعدت بجانب الفصل والتقرير المعتمدين؛ لا تستبدلهما ولا تدعي إعادة إنتاج Dataset A التي بُني عليها تقرير الدفاع التاريخي. تبقى Dataset A حملة تاريخية مؤرشفة منفصلة بسبب اختلاف مجموعة الحالات وقراراتها.</p>
+<p>لا تستخدم هذه النسخة قيم Recall الخمس التي لم يمكن تتبع مصدرها. كما لا تنقل نتائج v7 أو Phase 6 أو C3 أو تجارب V5 إلى جداول Scenario 5. نتائج V5 الأمنية استكشافية ومنفصلة عن بنية هذه الحملة.</p>
+<h2>تصميم الحملة</h2>
+<p>تغطي Dataset B خمس كثافات للمركبات (20، 40، 60، 80، 100) وعشر بذور (1001–1010)، أي 50 خلية paired. يسجل manifest وجود 50 أثراً مشتركاً وثلاثة تقييمات معمارية لكل أثر. المقارنة تشمل C0 عند 0 ms، وC100 عند 100 ms، وDistributed بالمعمارية الموزعة الأصلية. تختلف مسارات النقل والمعالجة، فلا تعزل المقارنة خوارزمية QE وحدها. استُخدمت إعدادات الحملة الفعلية الواردة في manifest و`effective_config.json`، بما فيها أوزان الثقة ومتطلبات QE ومحددات النقل. لم تُغيّر هذه النسخة بيانات الهجوم أو قواعد التأهيل أو سجل الحالات.</p>
+<h2>تعريف التقييم</h2>
+<p>وحدة العد هي سجل نافذة قرار. التنبؤ الإيجابي هو قرار ملتزم ينقل الحالة إلى `REVOKED`. تطبق Method B استبعاداً طرفياً: الصفوف ذات `reason=already_revoked_terminal_state` لا تدخل في TP/FP/TN/FN، لكنها تظل محسوبة ضمن إجمالي السجلات ويُبلغ عددها منفصلاً.</p>
+<p>Recall المعروض هو <strong>state-aware Recall = TP/(TP+FN)</strong> بعد الاستبعاد الطرفي؛ يتغير مقامه إذا أُبطلت المركبة قبل نوافذ لاحقة. لا تحتوي Dataset B على مقام ثابت لفرص الهجوم ولا على protected-opportunity fraction، لذا لا تُفسر هذه النتائج على أنها opportunity-based Recall أو نسبة حماية فرص ثابتة.</p>
+<h2>نتائج التصنيف المجمعة عبر البذور</h2>
+<p>الوحدة سجل نافذة قرار. تُستبعد النوافذ الطرفية فقط من أهلية Method B.</p>
+<table><thead><tr><th dir="rtl">الكثافة</th><th dir="rtl">المعمارية</th><th dir="ltr">TP</th><th dir="ltr">FP</th><th dir="ltr">TN</th><th dir="ltr">FN</th><th dir="rtl">مؤهل</th><th dir="rtl">مستبعد terminal</th></tr></thead><tbody>
+<tr><td dir="ltr">20</td><td dir="ltr">C0</td><td dir="ltr">38</td><td dir="ltr">0</td><td dir="ltr">901</td><td dir="ltr">72</td><td dir="ltr">1011</td><td dir="ltr">179</td></tr>
+<tr><td dir="ltr">20</td><td dir="ltr">C100</td><td dir="ltr">38</td><td dir="ltr">0</td><td dir="ltr">901</td><td dir="ltr">72</td><td dir="ltr">1011</td><td dir="ltr">179</td></tr>
+<tr><td dir="ltr">20</td><td dir="ltr">Distributed</td><td dir="ltr">38</td><td dir="ltr">0</td><td dir="ltr">901</td><td dir="ltr">72</td><td dir="ltr">1011</td><td dir="ltr">179</td></tr>
+<tr><td dir="ltr">40</td><td dir="ltr">C0</td><td dir="ltr">88</td><td dir="ltr">1</td><td dir="ltr">1770</td><td dir="ltr">116</td><td dir="ltr">1975</td><td dir="ltr">396</td></tr>
+<tr><td dir="ltr">40</td><td dir="ltr">C100</td><td dir="ltr">88</td><td dir="ltr">1</td><td dir="ltr">1770</td><td dir="ltr">116</td><td dir="ltr">1975</td><td dir="ltr">396</td></tr>
+<tr><td dir="ltr">40</td><td dir="ltr">Distributed</td><td dir="ltr">88</td><td dir="ltr">1</td><td dir="ltr">1770</td><td dir="ltr">116</td><td dir="ltr">1975</td><td dir="ltr">396</td></tr>
+<tr><td dir="ltr">60</td><td dir="ltr">C0</td><td dir="ltr">141</td><td dir="ltr">0</td><td dir="ltr">2578</td><td dir="ltr">208</td><td dir="ltr">2927</td><td dir="ltr">595</td></tr>
+<tr><td dir="ltr">60</td><td dir="ltr">C100</td><td dir="ltr">141</td><td dir="ltr">0</td><td dir="ltr">2578</td><td dir="ltr">208</td><td dir="ltr">2927</td><td dir="ltr">595</td></tr>
+<tr><td dir="ltr">60</td><td dir="ltr">Distributed</td><td dir="ltr">142</td><td dir="ltr">0</td><td dir="ltr">2575</td><td dir="ltr">207</td><td dir="ltr">2924</td><td dir="ltr">598</td></tr>
+<tr><td dir="ltr">80</td><td dir="ltr">C0</td><td dir="ltr">177</td><td dir="ltr">1</td><td dir="ltr">3444</td><td dir="ltr">255</td><td dir="ltr">3877</td><td dir="ltr">774</td></tr>
+<tr><td dir="ltr">80</td><td dir="ltr">C100</td><td dir="ltr">177</td><td dir="ltr">1</td><td dir="ltr">3444</td><td dir="ltr">255</td><td dir="ltr">3877</td><td dir="ltr">774</td></tr>
+<tr><td dir="ltr">80</td><td dir="ltr">Distributed</td><td dir="ltr">177</td><td dir="ltr">1</td><td dir="ltr">3444</td><td dir="ltr">255</td><td dir="ltr">3877</td><td dir="ltr">774</td></tr>
+<tr><td dir="ltr">100</td><td dir="ltr">C0</td><td dir="ltr">195</td><td dir="ltr">7</td><td dir="ltr">4288</td><td dir="ltr">313</td><td dir="ltr">4803</td><td dir="ltr">881</td></tr>
+<tr><td dir="ltr">100</td><td dir="ltr">C100</td><td dir="ltr">195</td><td dir="ltr">7</td><td dir="ltr">4288</td><td dir="ltr">313</td><td dir="ltr">4803</td><td dir="ltr">881</td></tr>
+<tr><td dir="ltr">100</td><td dir="ltr">Distributed</td><td dir="ltr">196</td><td dir="ltr">7</td><td dir="ltr">4284</td><td dir="ltr">311</td><td dir="ltr">4798</td><td dir="ltr">886</td></tr>
+</tbody></table>
+<h3>المقاييس pooled حسب الكثافة</h3>
+<table><thead><tr><th dir="rtl">الكثافة</th><th dir="rtl">المعمارية</th><th dir="ltr">Precision</th><th dir="ltr">Recall pooled</th><th dir="ltr">FRR</th><th dir="ltr">F1</th><th dir="ltr">MCC</th></tr></thead><tbody>
+<tr><td dir="ltr">20</td><td dir="ltr">C0</td><td dir="ltr">100.00%</td><td dir="ltr">34.55%</td><td dir="ltr">0.00%</td><td dir="ltr">0.5135</td><td dir="ltr">0.5656</td></tr>
+<tr><td dir="ltr">20</td><td dir="ltr">C100</td><td dir="ltr">100.00%</td><td dir="ltr">34.55%</td><td dir="ltr">0.00%</td><td dir="ltr">0.5135</td><td dir="ltr">0.5656</td></tr>
+<tr><td dir="ltr">20</td><td dir="ltr">Distributed</td><td dir="ltr">100.00%</td><td dir="ltr">34.55%</td><td dir="ltr">0.00%</td><td dir="ltr">0.5135</td><td dir="ltr">0.5656</td></tr>
+<tr><td dir="ltr">40</td><td dir="ltr">C0</td><td dir="ltr">98.88%</td><td dir="ltr">43.14%</td><td dir="ltr">0.06%</td><td dir="ltr">0.6007</td><td dir="ltr">0.6320</td></tr>
+<tr><td dir="ltr">40</td><td dir="ltr">C100</td><td dir="ltr">98.88%</td><td dir="ltr">43.14%</td><td dir="ltr">0.06%</td><td dir="ltr">0.6007</td><td dir="ltr">0.6320</td></tr>
+<tr><td dir="ltr">40</td><td dir="ltr">Distributed</td><td dir="ltr">98.88%</td><td dir="ltr">43.14%</td><td dir="ltr">0.06%</td><td dir="ltr">0.6007</td><td dir="ltr">0.6320</td></tr>
+<tr><td dir="ltr">60</td><td dir="ltr">C0</td><td dir="ltr">100.00%</td><td dir="ltr">40.40%</td><td dir="ltr">0.00%</td><td dir="ltr">0.5755</td><td dir="ltr">0.6114</td></tr>
+<tr><td dir="ltr">60</td><td dir="ltr">C100</td><td dir="ltr">100.00%</td><td dir="ltr">40.40%</td><td dir="ltr">0.00%</td><td dir="ltr">0.5755</td><td dir="ltr">0.6114</td></tr>
+<tr><td dir="ltr">60</td><td dir="ltr">Distributed</td><td dir="ltr">100.00%</td><td dir="ltr">40.69%</td><td dir="ltr">0.00%</td><td dir="ltr">0.5784</td><td dir="ltr">0.6137</td></tr>
+<tr><td dir="ltr">80</td><td dir="ltr">C0</td><td dir="ltr">99.44%</td><td dir="ltr">40.97%</td><td dir="ltr">0.03%</td><td dir="ltr">0.5803</td><td dir="ltr">0.6156</td></tr>
+<tr><td dir="ltr">80</td><td dir="ltr">C100</td><td dir="ltr">99.44%</td><td dir="ltr">40.97%</td><td dir="ltr">0.03%</td><td dir="ltr">0.5803</td><td dir="ltr">0.6156</td></tr>
+<tr><td dir="ltr">80</td><td dir="ltr">Distributed</td><td dir="ltr">99.44%</td><td dir="ltr">40.97%</td><td dir="ltr">0.03%</td><td dir="ltr">0.5803</td><td dir="ltr">0.6156</td></tr>
+<tr><td dir="ltr">100</td><td dir="ltr">C0</td><td dir="ltr">96.53%</td><td dir="ltr">38.39%</td><td dir="ltr">0.16%</td><td dir="ltr">0.5493</td><td dir="ltr">0.5856</td></tr>
+<tr><td dir="ltr">100</td><td dir="ltr">C100</td><td dir="ltr">96.53%</td><td dir="ltr">38.39%</td><td dir="ltr">0.16%</td><td dir="ltr">0.5493</td><td dir="ltr">0.5856</td></tr>
+<tr><td dir="ltr">100</td><td dir="ltr">Distributed</td><td dir="ltr">96.55%</td><td dir="ltr">38.66%</td><td dir="ltr">0.16%</td><td dir="ltr">0.5521</td><td dir="ltr">0.5879</td></tr>
+</tbody></table>
+<h3>المتوسط الحسابي macro عبر البذور</h3>
+<p>المتوسط غير الموزون لعشر نسب seed-level، وليس نسبة محسوبة من المجاميع.</p>
+<table><thead><tr><th dir="rtl">الكثافة</th><th dir="rtl">المعمارية</th><th dir="ltr">Precision macro</th><th dir="ltr">Recall macro</th><th dir="ltr">FRR macro</th><th dir="ltr">F1 macro</th><th dir="ltr">MCC macro</th></tr></thead><tbody>
+<tr><td dir="ltr">20</td><td dir="ltr">C0</td><td dir="ltr">100.00%</td><td dir="ltr">34.55%</td><td dir="ltr">0.00%</td><td dir="ltr">0.5124</td><td dir="ltr">0.5648</td></tr>
+<tr><td dir="ltr">20</td><td dir="ltr">C100</td><td dir="ltr">100.00%</td><td dir="ltr">34.55%</td><td dir="ltr">0.00%</td><td dir="ltr">0.5124</td><td dir="ltr">0.5648</td></tr>
+<tr><td dir="ltr">20</td><td dir="ltr">Distributed</td><td dir="ltr">100.00%</td><td dir="ltr">34.55%</td><td dir="ltr">0.00%</td><td dir="ltr">0.5124</td><td dir="ltr">0.5648</td></tr>
+<tr><td dir="ltr">40</td><td dir="ltr">C0</td><td dir="ltr">98.89%</td><td dir="ltr">43.52%</td><td dir="ltr">0.06%</td><td dir="ltr">0.6017</td><td dir="ltr">0.6335</td></tr>
+<tr><td dir="ltr">40</td><td dir="ltr">C100</td><td dir="ltr">98.89%</td><td dir="ltr">43.52%</td><td dir="ltr">0.06%</td><td dir="ltr">0.6017</td><td dir="ltr">0.6335</td></tr>
+<tr><td dir="ltr">40</td><td dir="ltr">Distributed</td><td dir="ltr">98.89%</td><td dir="ltr">43.52%</td><td dir="ltr">0.06%</td><td dir="ltr">0.6017</td><td dir="ltr">0.6335</td></tr>
+<tr><td dir="ltr">60</td><td dir="ltr">C0</td><td dir="ltr">100.00%</td><td dir="ltr">40.44%</td><td dir="ltr">0.00%</td><td dir="ltr">0.5755</td><td dir="ltr">0.6115</td></tr>
+<tr><td dir="ltr">60</td><td dir="ltr">C100</td><td dir="ltr">100.00%</td><td dir="ltr">40.44%</td><td dir="ltr">0.00%</td><td dir="ltr">0.5755</td><td dir="ltr">0.6115</td></tr>
+<tr><td dir="ltr">60</td><td dir="ltr">Distributed</td><td dir="ltr">100.00%</td><td dir="ltr">40.71%</td><td dir="ltr">0.00%</td><td dir="ltr">0.5784</td><td dir="ltr">0.6137</td></tr>
+<tr><td dir="ltr">80</td><td dir="ltr">C0</td><td dir="ltr">99.47%</td><td dir="ltr">41.03%</td><td dir="ltr">0.03%</td><td dir="ltr">0.5806</td><td dir="ltr">0.6159</td></tr>
+<tr><td dir="ltr">80</td><td dir="ltr">C100</td><td dir="ltr">99.47%</td><td dir="ltr">41.03%</td><td dir="ltr">0.03%</td><td dir="ltr">0.5806</td><td dir="ltr">0.6159</td></tr>
+<tr><td dir="ltr">80</td><td dir="ltr">Distributed</td><td dir="ltr">99.47%</td><td dir="ltr">41.03%</td><td dir="ltr">0.03%</td><td dir="ltr">0.5806</td><td dir="ltr">0.6159</td></tr>
+<tr><td dir="ltr">100</td><td dir="ltr">C0</td><td dir="ltr">96.52%</td><td dir="ltr">38.43%</td><td dir="ltr">0.16%</td><td dir="ltr">0.5494</td><td dir="ltr">0.5858</td></tr>
+<tr><td dir="ltr">100</td><td dir="ltr">C100</td><td dir="ltr">96.52%</td><td dir="ltr">38.43%</td><td dir="ltr">0.16%</td><td dir="ltr">0.5494</td><td dir="ltr">0.5858</td></tr>
+<tr><td dir="ltr">100</td><td dir="ltr">Distributed</td><td dir="ltr">96.55%</td><td dir="ltr">38.69%</td><td dir="ltr">0.16%</td><td dir="ltr">0.5522</td><td dir="ltr">0.5880</td></tr>
+</tbody></table>
+<h3>المجاميع الكلية</h3>
+<table><thead><tr><th dir="rtl">المعمارية</th><th dir="ltr">TP</th><th dir="ltr">FP</th><th dir="ltr">TN</th><th dir="ltr">FN</th><th dir="rtl">مؤهل</th><th dir="rtl">مستبعد</th><th dir="ltr">Precision</th><th dir="ltr">Recall state-aware</th><th dir="ltr">FRR</th><th dir="ltr">F1</th><th dir="ltr">MCC</th></tr></thead><tbody>
+<tr><td dir="ltr">C0</td><td dir="ltr">639</td><td dir="ltr">9</td><td dir="ltr">12981</td><td dir="ltr">964</td><td dir="ltr">14593</td><td dir="ltr">2825</td><td dir="ltr">98.61%</td><td dir="ltr">39.86%</td><td dir="ltr">0.07%</td><td dir="ltr">0.5677</td><td dir="ltr">0.6041</td></tr>
+<tr><td dir="ltr">C100</td><td dir="ltr">639</td><td dir="ltr">9</td><td dir="ltr">12981</td><td dir="ltr">964</td><td dir="ltr">14593</td><td dir="ltr">2825</td><td dir="ltr">98.61%</td><td dir="ltr">39.86%</td><td dir="ltr">0.07%</td><td dir="ltr">0.5677</td><td dir="ltr">0.6041</td></tr>
+<tr><td dir="ltr">Distributed</td><td dir="ltr">641</td><td dir="ltr">9</td><td dir="ltr">12974</td><td dir="ltr">961</td><td dir="ltr">14585</td><td dir="ltr">2833</td><td dir="ltr">98.62%</td><td dir="ltr">40.01%</td><td dir="ltr">0.07%</td><td dir="ltr">0.5693</td><td dir="ltr">0.6053</td></tr>
+</tbody></table>
+<h2 style="page-break-before:always">الأداء المسجل</h2>
+<p>القيم متوسطات عشر قيم seed-level. P95 E2E بالميلي ثانية وCPU بالثانية. تأخير السجل يأتي بعد الإنهاء.</p>
+<h3>زمن الاستجابة والمعالجة</h3>
+<table><thead><tr><th dir="rtl">الكثافة</th><th dir="rtl">المعمارية</th><th dir="ltr">P95 E2E (ms)</th><th dir="ltr">CPU (s)</th></tr></thead><tbody>
+<tr><td dir="ltr">20</td><td dir="ltr">C0</td><td dir="ltr">14058.3</td><td dir="ltr">1.141</td></tr>
+<tr><td dir="ltr">20</td><td dir="ltr">C100</td><td dir="ltr">14158.3</td><td dir="ltr">1.150</td></tr>
+<tr><td dir="ltr">20</td><td dir="ltr">Distributed</td><td dir="ltr">14075.2</td><td dir="ltr">1.225</td></tr>
+<tr><td dir="ltr">40</td><td dir="ltr">C0</td><td dir="ltr">14100.9</td><td dir="ltr">2.330</td></tr>
+<tr><td dir="ltr">40</td><td dir="ltr">C100</td><td dir="ltr">14200.9</td><td dir="ltr">2.373</td></tr>
+<tr><td dir="ltr">40</td><td dir="ltr">Distributed</td><td dir="ltr">14109.1</td><td dir="ltr">2.534</td></tr>
+<tr><td dir="ltr">60</td><td dir="ltr">C0</td><td dir="ltr">14142.5</td><td dir="ltr">3.466</td></tr>
+<tr><td dir="ltr">60</td><td dir="ltr">C100</td><td dir="ltr">14242.5</td><td dir="ltr">3.423</td></tr>
+<tr><td dir="ltr">60</td><td dir="ltr">Distributed</td><td dir="ltr">14116.2</td><td dir="ltr">3.739</td></tr>
+<tr><td dir="ltr">80</td><td dir="ltr">C0</td><td dir="ltr">14188.3</td><td dir="ltr">4.322</td></tr>
+<tr><td dir="ltr">80</td><td dir="ltr">C100</td><td dir="ltr">14288.3</td><td dir="ltr">4.430</td></tr>
+<tr><td dir="ltr">80</td><td dir="ltr">Distributed</td><td dir="ltr">14116.7</td><td dir="ltr">4.705</td></tr>
+<tr><td dir="ltr">100</td><td dir="ltr">C0</td><td dir="ltr">14234.8</td><td dir="ltr">5.692</td></tr>
+<tr><td dir="ltr">100</td><td dir="ltr">C100</td><td dir="ltr">14334.8</td><td dir="ltr">5.930</td></tr>
+<tr><td dir="ltr">100</td><td dir="ltr">Distributed</td><td dir="ltr">14113.7</td><td dir="ltr">6.339</td></tr>
+</tbody></table>
+<h3>النقل والسجل</h3>
+<table><thead><tr><th dir="rtl">الكثافة</th><th dir="rtl">المعمارية</th><th dir="rtl">رسائل/قرار</th><th dir="ltr">PDR</th><th dir="rtl">P95 تأخير السجل (ms)</th></tr></thead><tbody>
+<tr><td dir="ltr">20</td><td dir="ltr">C0</td><td dir="ltr">33.115</td><td dir="ltr">0.97985</td><td dir="ltr">1.000</td></tr>
+<tr><td dir="ltr">20</td><td dir="ltr">C100</td><td dir="ltr">33.115</td><td dir="ltr">0.97985</td><td dir="ltr">1.000</td></tr>
+<tr><td dir="ltr">20</td><td dir="ltr">Distributed</td><td dir="ltr">22.164</td><td dir="ltr">0.97968</td><td dir="ltr">14.195</td></tr>
+<tr><td dir="ltr">40</td><td dir="ltr">C0</td><td dir="ltr">32.401</td><td dir="ltr">0.97996</td><td dir="ltr">1.000</td></tr>
+<tr><td dir="ltr">40</td><td dir="ltr">C100</td><td dir="ltr">32.401</td><td dir="ltr">0.97996</td><td dir="ltr">1.000</td></tr>
+<tr><td dir="ltr">40</td><td dir="ltr">Distributed</td><td dir="ltr">21.691</td><td dir="ltr">0.97997</td><td dir="ltr">16.530</td></tr>
+<tr><td dir="ltr">60</td><td dir="ltr">C0</td><td dir="ltr">31.138</td><td dir="ltr">0.98000</td><td dir="ltr">1.000</td></tr>
+<tr><td dir="ltr">60</td><td dir="ltr">C100</td><td dir="ltr">31.138</td><td dir="ltr">0.98000</td><td dir="ltr">1.000</td></tr>
+<tr><td dir="ltr">60</td><td dir="ltr">Distributed</td><td dir="ltr">20.570</td><td dir="ltr">0.98008</td><td dir="ltr">15.868</td></tr>
+<tr><td dir="ltr">80</td><td dir="ltr">C0</td><td dir="ltr">29.400</td><td dir="ltr">0.97993</td><td dir="ltr">1.000</td></tr>
+<tr><td dir="ltr">80</td><td dir="ltr">C100</td><td dir="ltr">29.400</td><td dir="ltr">0.97993</td><td dir="ltr">1.000</td></tr>
+<tr><td dir="ltr">80</td><td dir="ltr">Distributed</td><td dir="ltr">18.943</td><td dir="ltr">0.97997</td><td dir="ltr">15.625</td></tr>
+<tr><td dir="ltr">100</td><td dir="ltr">C0</td><td dir="ltr">27.513</td><td dir="ltr">0.98006</td><td dir="ltr">1.000</td></tr>
+<tr><td dir="ltr">100</td><td dir="ltr">C100</td><td dir="ltr">27.513</td><td dir="ltr">0.98006</td><td dir="ltr">1.000</td></tr>
+<tr><td dir="ltr">100</td><td dir="ltr">Distributed</td><td dir="ltr">17.268</td><td dir="ltr">0.98018</td><td dir="ltr">16.038</td></tr>
+</tbody></table>
+<p>المسار المركزي لا يتضمن PBFT؛ لا توجد نسبة موحدة موثقة لـconsensus/ledger overhead. CPU وP95 E2E قيم محفوظة وليست إعادة بناء مستقلة من profiler.</p>
+<figure><img src="figures/01_state_aware_recall.png" alt="الشكل 5-1: Recall الحالة pooled حسب الكثافة والمعمارية." width="620"></figure>
+<p><strong>الشكل 5-1: Recall الحالة pooled حسب الكثافة والمعمارية.</strong> المصدر: مقاييس Dataset B المحفوظة.</p>
+<figure><img src="figures/02_p95_e2e_latency.png" alt="الشكل 5-2: P95 E2E المسجل ومحوره يبدأ من الصفر." width="620"></figure>
+<p><strong>الشكل 5-2: P95 E2E المسجل ومحوره يبدأ من الصفر.</strong> المصدر: مقاييس Dataset B المحفوظة.</p>
+<figure><img src="figures/03_messages_per_decision.png" alt="الشكل 5-3: الرسائل المسجلة لكل قرار، متوسط seed-level." width="620"></figure>
+<p><strong>الشكل 5-3: الرسائل المسجلة لكل قرار، متوسط seed-level.</strong> المصدر: مقاييس Dataset B المحفوظة.</p>
+<figure><img src="figures/04_cpu_time.png" alt="الشكل 5-4: CPU المسجل بالثواني، متوسط seed-level." width="620"></figure>
+<p><strong>الشكل 5-4: CPU المسجل بالثواني، متوسط seed-level.</strong> المصدر: مقاييس Dataset B المحفوظة.</p>
+<h2>المقارنة على مستوى الهوية وتوافر الخادم</h2>
+<p>تطابقت الهويات الثلاث 17,418/17,418؛ لا حالات غير متطابقة. تطابقت حقول القرار والحالة والسبب بين C0 وC100. اختلف قرار الإبطال الأولي بين C100 وDistributed في حالتين خبيثتين فقط، وبقيت هويات FP التسع متطابقة.</p>
+<table><thead><tr><th dir="rtl">الكثافة</th><th dir="rtl">البذرة</th><th dir="ltr">case_id</th><th dir="rtl">المركبة</th><th dir="rtl">الهجوم</th><th dir="ltr">C100</th><th dir="ltr">Distributed</th></tr></thead><tbody>
+<tr><td dir="ltr">60</td><td dir="ltr">1002</td><td dir="ltr">case-urban_roundabout-1002-veh_044-w0002</td><td dir="ltr">veh_044</td><td dir="ltr">speed_offset</td><td dir="rtl">central_server_unavailable؛ لا إبطال ملتزم</td><td dir="rtl">إبطال ملتزم عند 44.112420255 s</td></tr>
+<tr><td dir="ltr">100</td><td dir="ltr">1004</td><td dir="ltr">case-urban_roundabout-1004-veh_020-w0001</td><td dir="ltr">veh_020</td><td dir="ltr">position_offset</td><td dir="rtl">central_server_unavailable؛ لا إبطال ملتزم</td><td dir="rtl">إبطال ملتزم عند 29.102440446 s</td></tr>
+</tbody></table>
+<p>تلت ذلك ثماني نوافذ terminal إضافية في Distributed: واحدة خبيثة وسبع حميدة. وُسم 75 صفاً بـcentral_server_unavailable في كل من C0 وC100؛ الحالتان أعلاه فقط هما فرق الإبطال الأولي بين C100 وDistributed. التفسير هو اختلاف التوافر في المسار المحاكى، لا إثبات تفوق خوارزمية QE أو PBFT. كما تغيّر مقام Recall بسبب الاستبعاد الطرفي: 14,593 مؤهلة في C100 و14,585 في Distributed.</p>
+<h2>تفسير النتائج</h2>
+<p>تتقارب نتائج C100 وDistributed؛ Recall الحالة pooled يساوي 39.8628% و40.0125% على الترتيب، مع تسع حالات FP متطابقة الهوية. ارتبط قرارا الإبطال الأوليان المختلفان بتعذر إتمام المسار المركزي في حالتين. لا تعزل هذه النتيجة خوارزمية التأهيل أو الإجماع وحدها.</p>
+<p>تطابق C0 وC100 تصنيفياً رغم فرق backhaul الإضافي 100 ms. تسجيل 75 سبباً لعدم توافر الخادم في كل منهما لا يعني أن التصنيف اختلف. لا تظهر المقارنة أفضلية كشف خوارزمية لـDistributed.</p>
+<p>Recall هو state-aware بعد استبعاد النوافذ الطرفية. لا يتوفر في Dataset B مقام ثابت لفرص الهجوم أو fixed-universe protection fraction، فلا تستنتج منه هذه المقاييس.</p>
+<h2>القيود وإعادة الإنتاج</h2>
+<ul><li>سجل manifest يصف paired traces، وتتطابق سجلات الحالات في الهوية والحقيقة المرجعية ونوع الهجوم، كما لا يسجل transport audit مخالفات سببية. لكن ملفات الحركة والهجوم الخام غير موجودة في مجلد Dataset B؛ لذلك لا يمكن إعادة تشغيل الحملة أو إثبات التطابق البايتّي للمدخلات من الملفات المتاحة.</li><li>Dataset B لا توفر fixed-denominator opportunity Recall أو protected-opportunity fraction. لا يجوز استبدالهما بـ Recall state-aware.</li><li>إعداد الحملة هو manifest و`effective_config.json`. ملف `configs/urban_roundabout_campaign.json` لا يطابق بعض قيم التشغيل، ولا يُستخدم وحده دليلاً على الإعداد الفعلي.</li><li>النتائج تخص معمارية Distributed الأصلية ذات أربعة validators؛ لا تنطبق عليها نتائج V5 ذات الخمسة validators.</li><li>لا تثبت المحاكاة تحمل Byzantine طرفاً إلى طرف. حذف الأدلة المعارضة من قبل المنسق، واكتمال الأدلة، واستعادة المنسق الآمنة تظل مسائل غير محسومة. ولا ينبغي تقديم هذا الفصل على أنه إثبات full Byzantine fault tolerance.</li></ul>
+<p>تُراجع أرقام هذا الفصل في <a href="../final_scenario5_evidence_package/METHOD_B_CORRECTED_FINAL/SCENARIO5_METHOD_B_VERIFIED_METRICS.csv">سجل Method B المحقق</a>، وتعريفات المقاييس في <a href="../final_scenario5_evidence_package/METHOD_B_CORRECTED_FINAL/SCENARIO5_METHOD_B_METRIC_DEFINITIONS_AR.md">ملف التعريفات</a>، وبصمات المدخلات في <a href="SCENARIO5_METHOD_B_PROVENANCE.json">ملف provenance</a>.</p>
+<h2 style="page-break-before:always">الدراسات التكميلية وحدود الأمن</h2>
+<p>دراسات Phase 1–6، وتوسعة 8-RSU، وV5، والمنسق الحتمي، وتوافر الأدلة، والحساسية وAblation تكميلية ومنفصلة عن Dataset B. في Phase 6 زادت الفرص المرصودة 948 إلى 953 (+5)، بخمس خلايا تحسن و15 ثابتة. ارتفعت الحماية على المقام الثابت 455/1,086 إلى 501/1,086 (+46): منها +21 فرصة مكتشفة في نافذتها و+25 فرصة طرفية حُميت بعد إبطال سابق. ليست +46 اكتشافات جديدة.</p>
+<p>طيار 8-RSU تجاوز حد CPU (+44.27%) والرسائل لكل حالة (+37.12%)، ولذلك هو NO-GO. تحليل الحساسية اكتمل في 103/120 خلية؛ و17 لم تبدأ بسبب حد زمن التنفيذ. اكتمل Ablation في 48/48. المتغير C أزال بوابات تنوع الجذر والمصدر والمنطقة والوسيط، ولذلك فهو مقابل أضعف أمنياً لا إعداداً مقترحاً. عند الكثافة 20 ارتفع TP من 15 إلى 28 في C100 وDistributed؛ وتغيرت النوافذ المؤهلة/الطرفية من 402/74 إلى 342/134 في C100 ومن 402/74 إلى 341/135 في Distributed. وعند الكثافة 100 ارتفع TP من 79 إلى 137 في المعماريتين، وتغيرت المؤهلة/الطرفية من 1,923/357 إلى 1,657/623. بقي مقام فرص الهجوم ثابتاً (1,700 عند الكثافة 20 و7,612 عند 100): في C100 زادت الفرص المكتشفة/المحمية من 227/142 إلى 781/546 عند الكثافة 20، وفي Distributed إلى 774/561؛ وعند الكثافة 100 زادت من 2,179/1,106 إلى 3,298/2,828 في المعماريتين. لم تظهر FP جديدة في العينة، وانخفض FP من 1 إلى 0 عند الكثافة 20 ومن 2 إلى 0 عند 100؛ لا يثبت ذلك السلامة خارج العينة ولا يعوض إلغاء شروط الاستقلال. بقي خط الأساس الأصلي كما هو.</p>
+<p>تجارب V5 والمنسق الحتمي وحد single-view وتوافر الأدلة منفصلة واستكشافية. لا تثبت تحمل Byzantine طرفاً إلى طرف؛ لا يوجد VIEW-CHANGE/NEW-VIEW كامل أو استعادة منسق آمنة. حجب الأدلة المعارضة من المنسق ثغرة مثبتة، والتوقيع لا يثبت اكتمال الأدلة.</p></body></html>

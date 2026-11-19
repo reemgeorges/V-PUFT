@@ -1,0 +1,171 @@
+{
+  "dataset": "Dataset B corrected-final Method B",
+  "source_commit": "0c0c10b3d6cbb2075e430a299e3c18cdf382320a",
+  "main_head_at_build": "a78272de4017286c5c31c6d90f4f49c7e464ce92",
+  "campaign": {
+    "densities": [
+      20,
+      40,
+      60,
+      80,
+      100
+    ],
+    "seeds": [
+      1001,
+      1002,
+      1003,
+      1004,
+      1005,
+      1006,
+      1007,
+      1008,
+      1009,
+      1010
+    ],
+    "shared_cells": 50,
+    "decision_rows_all_architectures": 52254,
+    "rows_per_architecture": 17418
+  },
+  "source_sha256": {
+    "results/urban_roundabout_campaign_corrected_final/combined/density_decisions.csv": "bc3bc7050cff575ecfee38171ad3c1cdb2a2442e4fae799c7dce13c6a6d22e3e",
+    "results/urban_roundabout_campaign_corrected_final/combined/density_metrics_by_seed.csv": "3090141874e1a2ab71b0c044e428ebe972eab4a01789f1151b709bedc78f8b41",
+    "results/urban_roundabout_campaign_corrected_final/combined/density_campaign_manifest.json": "c2e6c1c3999d2037d6a853596dafcde55edd6e843583a140d3b71ed841faee37",
+    "results/urban_roundabout_campaign_corrected_final/effective_config.json": "2969b2f8ddfb13bfffe20cf203bfddf251d62a761dc577e9d88d0e07f750cead",
+    "docs/final_scenario5_evidence_package/METHOD_B_CORRECTED_FINAL/SCENARIO5_METHOD_B_VERIFIED_METRICS.csv": "71ba5bb86fbdc9a433e26606baefe5f630146ecf3e0d76d1b944fecfbfd83bf0",
+    "docs/final_chapter5/VPUFT_Chapter5_MethodB_Corrected_AR.md": "8d2baacd60232eba7b26713b06604faf69b661c8d8dc4a9386a2983344152ed0",
+    "docs/final_chapter5/VPUFT_Scenario5_Defense_Report_Final.html": "3d01fd7d730a14d3d0113291d593cd0128dc886ce0d2cfa061ef213afbdac6b8",
+    "docs/final_chapter5/VPUFT_Chapter5_Arabic_Complete.docx": "109ff640f1e7111c7c91fc994ed1c5e2108ae06f4ca7da697e8f48f7ebd87a27",
+    "docs/final_chapter5/VPUFT_Chapter5_Arabic_Complete.pdf": "8da6699fa9d2f7686f2252dcfdc34622591e2e037ea9f82ca0c88b24a8aea23a"
+  },
+  "recomputed_overall": {
+    "centralized_remote_0ms_control": {
+      "TP": 639,
+      "FP": 9,
+      "TN": 12981,
+      "FN": 964,
+      "eligible": 14593,
+      "excluded": 2825,
+      "total": 17418,
+      "precision": 0.9861111111111112,
+      "recall": 0.3986275733000624,
+      "FRR": 0.0006928406466512702,
+      "F1": 0.567747667703243,
+      "MCC": 0.6040688227893408
+    },
+    "centralized_remote_100ms": {
+      "TP": 639,
+      "FP": 9,
+      "TN": 12981,
+      "FN": 964,
+      "eligible": 14593,
+      "excluded": 2825,
+      "total": 17418,
+      "precision": 0.9861111111111112,
+      "recall": 0.3986275733000624,
+      "FRR": 0.0006928406466512702,
+      "F1": 0.567747667703243,
+      "MCC": 0.6040688227893408
+    },
+    "distributed_density_honest": {
+      "TP": 641,
+      "FP": 9,
+      "TN": 12974,
+      "FN": 961,
+      "eligible": 14585,
+      "excluded": 2833,
+      "total": 17418,
+      "precision": 0.9861538461538462,
+      "recall": 0.40012484394506864,
+      "FRR": 0.0006932142031887853,
+      "F1": 0.5692717584369449,
+      "MCC": 0.6052726802099498
+    }
+  },
+  "identity_audit": {
+    "common_identities": 17418,
+    "unmatched": 0,
+    "C0_C100_decision_equal": true,
+    "C100_Distributed_primary_revocation_differences": 2,
+    "C100_Distributed_state_or_reason_differences": 731,
+    "additional_terminal_rows_Distributed": 8,
+    "central_server_unavailable_rows": {
+      "centralized_remote_0ms_control": 75,
+      "centralized_remote_100ms": 75
+    },
+    "false_positive_case_ids": {
+      "centralized_remote_0ms_control": [
+        "case-urban_roundabout-1002-veh_079-w0003",
+        "case-urban_roundabout-1003-veh_079-w0003",
+        "case-urban_roundabout-1004-veh_050-w0003",
+        "case-urban_roundabout-1004-veh_064-w0003",
+        "case-urban_roundabout-1005-veh_079-w0003",
+        "case-urban_roundabout-1006-veh_079-w0003",
+        "case-urban_roundabout-1008-veh_079-w0003",
+        "case-urban_roundabout-1009-veh_024-w0003",
+        "case-urban_roundabout-1010-veh_079-w0003"
+      ],
+      "centralized_remote_100ms": [
+        "case-urban_roundabout-1002-veh_079-w0003",
+        "case-urban_roundabout-1003-veh_079-w0003",
+        "case-urban_roundabout-1004-veh_050-w0003",
+        "case-urban_roundabout-1004-veh_064-w0003",
+        "case-urban_roundabout-1005-veh_079-w0003",
+        "case-urban_roundabout-1006-veh_079-w0003",
+        "case-urban_roundabout-1008-veh_079-w0003",
+        "case-urban_roundabout-1009-veh_024-w0003",
+        "case-urban_roundabout-1010-veh_079-w0003"
+      ],
+      "distributed_density_honest": [
+        "case-urban_roundabout-1002-veh_079-w0003",
+        "case-urban_roundabout-1003-veh_079-w0003",
+        "case-urban_roundabout-1004-veh_050-w0003",
+        "case-urban_roundabout-1004-veh_064-w0003",
+        "case-urban_roundabout-1005-veh_079-w0003",
+        "case-urban_roundabout-1006-veh_079-w0003",
+        "case-urban_roundabout-1008-veh_079-w0003",
+        "case-urban_roundabout-1009-veh_024-w0003",
+        "case-urban_roundabout-1010-veh_079-w0003"
+      ]
+    }
+  },
+  "config": {
+    "validators": [
+      "rsu-1",
+      "rsu-2",
+      "rsu-3",
+      "rsu-4"
+    ],
+    "max_byzantine": 1,
+    "central_availability": 0.995,
+    "validator_requalification": true
+  },
+  "limitations": [
+    "Fixed-denominator opportunity metrics unavailable in Dataset B.",
+    "Raw SUMO mobility and attack traces unavailable.",
+    "CPU and P95 E2E are copied from seed metrics; raw profiler unavailable.",
+    "No full Byzantine tolerance, evidence completeness, or safe coordinator recovery claim."
+  ],
+  "supplementary_sources": {
+    "docs/final_scenario5_ablation/ABLATION_FINDINGS_AR.md": "e47b4e7c5757446cc22d1d408da28b7a987ec67c569bf26c3d76926e2ab27561",
+    "results/final_scenario5_ablation/aggregated_metrics.csv": "021bbdfb9ab3367c98cc32fba770256696b47805e29746afec035b513c854dfb"
+  },
+  "generated_artifact_sha256": {
+    "docs/final_chapter5/corrected_final_dataset_b/VPUFT_Chapter5_MethodB_Corrected_Final_AR.md": "e3b052a6f12ff2ddadd383623cf42f0ea382510e36c283cea2e4fd086a15395c",
+    "docs/final_chapter5/corrected_final_dataset_b/VPUFT_Scenario5_Dataset_B_Method_B_Corrected_Final.html": "095000c6f5afc7e4f5e8f09894efc1ca0c385e01e10597c4dd4c627dab497755",
+    "docs/final_chapter5/corrected_final_dataset_b/VPUFT_Chapter5_MethodB_Corrected_Final_AR.docx": "fe1b6509fb680f3f5b06091bf1b05f27052c1e60bba1c5a26ef855597172377e",
+    "docs/final_chapter5/corrected_final_dataset_b/VPUFT_Chapter5_MethodB_Corrected_Final_AR.pdf": "fc4ea2936b5c60eb72fba9506260e9f1b0e48722d3d0b9040dcfdc2f89e10fc8",
+    "docs/final_chapter5/corrected_final_dataset_b/SCENARIO5_METHOD_B_RECOMPUTED_METRICS.csv": "8be20c95d81eef5d8de06a491fc3ffe40a58a831c8490ed40ebc2b576fadd1bf",
+    "docs/final_chapter5/corrected_final_dataset_b/SCENARIO5_METHOD_B_PERFORMANCE_SUMMARY.csv": "ca6c594f41aeea74b98f315860e0a1f31ddfd9b209c11a77ad4ec4a4b2296ce3",
+    "docs/final_chapter5/corrected_final_dataset_b/FINAL_CHAPTER5_RECONCILIATION_AUDIT_AR.md": "aedb9ba4ec63b85990e7e68715fb4ca5ce4f4239cef674658b78a66b7ea91ad5",
+    "docs/final_chapter5/corrected_final_dataset_b/build_and_validate_method_b_chapter.py": "a252857618956f2a4e911f9c851000bc5af470f5bf71586814c98eb193ec4dfa",
+    "docs/final_chapter5/corrected_final_dataset_b/export_word.ps1": "e8f58ceaf68ab88a782b1f2bce39ed09307140a39acb0a6a91b771ad8722e4a0",
+    "docs/final_chapter5/corrected_final_dataset_b/validate_method_b_chapter.py": "d118656525956de55867c5ea41c5df28a6376c639c224a14afbaecef791b793b",
+    "docs/final_chapter5/corrected_final_dataset_b/test_method_b_chapter.py": "6ceef0da491e8c88ff45c51fd2d60a2fd5b04e6e5a8aff6cda0f95aa48453ed5",
+    "docs/final_scenario5_evidence_package/FINAL_THESIS_CLAIMS_AR.md": "2418dad684eebc6d3347b823a62c9ae2415cae3fda7fbed7d2414f8222324b0f",
+    "docs/final_chapter5/corrected_final_dataset_b/figures/01_state_aware_recall.png": "4600dd6171b000883c05f9f31bc75c29a6f1cbfe33ab7f5e8c4880eb6fac8b04",
+    "docs/final_chapter5/corrected_final_dataset_b/figures/02_p95_e2e_latency.png": "ee44ccddfef4bf385355bb760ed2fac58fc081da5fea3bd8b875913a8668e4a3",
+    "docs/final_chapter5/corrected_final_dataset_b/figures/03_messages_per_decision.png": "fbe9e343e6e5bb0b26d637e40ec7751ff52e11bb288fc6afac68a7186dc64fdc",
+    "docs/final_chapter5/corrected_final_dataset_b/figures/04_cpu_time.png": "69a13227a4e6d5f3c25353d2da02465bf5c872347e8d0a5470b4f6e0a14cf8fb"
+  },
+  "hash_scope_note": "Generated artifact hashes exclude this provenance manifest itself and SEMANTIC_VALIDATION_REPORT.json to avoid circular hashing; all frozen input hashes remain under source_sha256."
+}
